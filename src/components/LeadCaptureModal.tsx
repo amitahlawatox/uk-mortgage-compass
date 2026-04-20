@@ -70,14 +70,14 @@ export const LeadCaptureModal = ({ calculator, context }: Props) => {
       return;
     }
     setSubmitting(true);
-    const { error: dbError } = await supabase.from("leads").insert({
+    const { error: dbError } = await supabase.from("leads").insert([{
       name: parsed.data.name,
       email: parsed.data.email,
       calculator,
-      context: contextRef.current,
+      context: contextRef.current as never,
       source: typeof window !== "undefined" ? window.location.pathname : null,
       user_agent: typeof navigator !== "undefined" ? navigator.userAgent : null,
-    });
+    }]);
     setSubmitting(false);
     if (dbError) {
       setError("Couldn't save right now. Please try again.");
