@@ -12,6 +12,7 @@ import StampDutyPage from "./pages/calculators/StampDutyPage";
 import RepaymentPage from "./pages/calculators/RepaymentPage";
 import OverpaymentPage from "./pages/calculators/OverpaymentPage";
 import AffordabilityPage from "./pages/calculators/AffordabilityPage";
+import RegionalPage from "./pages/regional/RegionalPage";
 
 const queryClient = new QueryClient();
 
