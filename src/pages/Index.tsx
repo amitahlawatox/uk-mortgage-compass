@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart } from "lucide-react";
+import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
+import { cities } from "@/lib/uk/cities";
+import { formatGBP } from "@/lib/finance/decimal";
 
 const calculators = [
+  {
+    to: "/calculators/repayment",
+    title: "Repayment",
+    blurb: "Three quick steps to your exact monthly payment, total interest and balance over time.",
+    icon: LineChart,
+    accent: "dark" as const,
+  },
   {
     to: "/calculators/stamp-duty",
     title: "Stamp Duty",
@@ -24,13 +33,6 @@ const calculators = [
     blurb: "4.5× income multiplier with stress-test at +3%. Open Banking ready for Phase 2.",
     icon: Wallet,
     accent: "none" as const,
-  },
-  {
-    to: "/calculators/repayment",
-    title: "Repayment",
-    blurb: "Monthly cost, total interest, full amortisation schedule. Capital or interest-only.",
-    icon: LineChart,
-    accent: "dark" as const,
   },
 ];
 
@@ -69,10 +71,10 @@ const Index = () => (
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3 animate-fade-up">
           <Link
-            to="/calculators/stamp-duty"
+            to="/calculators/repayment"
             className="bg-primary text-primary-foreground px-6 py-3 rounded-xl text-sm font-semibold hover:ring-2 ring-accent ring-offset-2 ring-offset-background transition-all inline-flex items-center gap-2"
           >
-            Start with Stamp Duty <ArrowRight className="size-4" />
+            Calculate my mortgage <ArrowRight className="size-4" />
           </Link>
           <Link
             to="/calculators/affordability"
@@ -128,6 +130,44 @@ const Index = () => (
             </Link>
           );
         })}
+      </div>
+    </section>
+
+    <section className="px-4 pb-16">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-end justify-between mb-6">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-2">
+              UK city guides
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+              Local mortgage & stamp duty intel
+            </h2>
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {cities.map((c) => (
+            <Link
+              key={c.slug}
+              to={`/uk/${c.slug}`}
+              className="group p-5 rounded-2xl border border-border hover:border-foreground transition-all"
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <MapPin className="size-3.5 text-accent" />
+                <span className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground">
+                  {c.taxName}
+                </span>
+              </div>
+              <p className="text-lg font-semibold mb-1">{c.name}</p>
+              <p className="text-xs text-muted-foreground mb-3 tabular-nums">
+                Avg {formatGBP(c.avgPrice)}
+              </p>
+              <span className="inline-flex items-center gap-1 text-xs font-semibold group-hover:gap-2 transition-all">
+                Open guide <ArrowRight className="size-3" />
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
 
