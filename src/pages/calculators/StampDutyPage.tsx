@@ -27,7 +27,7 @@ const StampDutyPage = () => {
       title="UK Stamp Duty Calculator"
       intro="Calculate exact SDLT (England & NI), LBTT (Scotland) or LTT (Wales) for any UK property. Includes first-time buyer relief and additional-property surcharges. All amounts computed with 28-digit decimal precision."
       leadCalculator="stamp-duty"
-      leadContext={{ price, region, firstTimeBuyer: ftb, additionalProperty: additional, totalTax: result.totalTax, effectiveRate: result.effectiveRate }}
+      leadContext={{ price, region, firstTimeBuyer: ftb, additionalProperty: additional, total: result.total, effectiveRate: result.effectiveRate }}
     >
       <SEO
         title="Stamp Duty Calculator UK 2024 — SDLT, LBTT, LTT | Velocity"
