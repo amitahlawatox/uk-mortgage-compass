@@ -133,6 +133,44 @@ const Index = () => (
       </div>
     </section>
 
+    <section className="px-4 pb-16">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-end justify-between mb-6">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-2">
+              UK city guides
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+              Local mortgage & stamp duty intel
+            </h2>
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {cities.map((c) => (
+            <Link
+              key={c.slug}
+              to={`/uk/${c.slug}`}
+              className="group p-5 rounded-2xl border border-border hover:border-foreground transition-all"
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <MapPin className="size-3.5 text-accent" />
+                <span className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground">
+                  {c.taxName}
+                </span>
+              </div>
+              <p className="text-lg font-semibold mb-1">{c.name}</p>
+              <p className="text-xs text-muted-foreground mb-3 tabular-nums">
+                Avg {formatGBP(c.avgPrice)}
+              </p>
+              <span className="inline-flex items-center gap-1 text-xs font-semibold group-hover:gap-2 transition-all">
+                Open guide <ArrowRight className="size-3" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section className="px-4 pb-24">
       <div className="max-w-6xl mx-auto pt-12 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         <Stat label="Calculations / day" value="120k+" />
