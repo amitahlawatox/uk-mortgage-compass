@@ -11,25 +11,37 @@ import { formatGBP, formatPercent } from "@/lib/finance/decimal";
 const RegionalPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const city = slug ? getCity(slug) : undefined;
-  if (!city) return <Navigate to="/" replace />;
 
   const sdlt = useMemo(
-    () => calculateStampDuty({ price: city.avgPrice, region: city.region, firstTimeBuyer: false }),
+    () =>
+      city
+        ? calculateStampDuty({ price: city.avgPrice, region: city.region, firstTimeBuyer: false, additionalProperty: false })
+        : null,
     [city],
   );
   const sdltFtb = useMemo(
-    () => calculateStampDuty({ price: city.ftbPrice, region: city.region, firstTimeBuyer: true }),
+    () =>
+      city
+        ? calculateStampDuty({ price: city.ftbPrice, region: city.region, firstTimeBuyer: true, additionalProperty: false })
+        : null,
     [city],
   );
   const repay = useMemo(
     () =>
-      calculateRepayment({
-        principal: city.avgPrice * 0.85, // 15% deposit assumption
-        annualRate: 4.5,
-        termYears: 25,
-      }),
+      city
+        ? calculateRepayment({ principal: city.avgPrice * 0.85, annualRate: 4.5, termYears: 25 })
+        : null,
     [city],
   );
+  const ftbRepay = useMemo(
+    () =>
+      city
+        ? calculateRepayment({ principal: city.ftbPrice * 0.9, annualRate: 4.5, termYears: 30 })
+        : null,
+    [city],
+  );
+
+  if (!city || !sdlt || !sdltFtb || !repay || !ftbRepay) return <Navigate to="/" replace />;
 
   const otherCities = cities.filter((c) => c.slug !== city.slug);
 
@@ -119,10 +131,7 @@ const RegionalPage = () => {
                   { label: `${city.taxName} (FTB relief)`, value: formatGBP(sdltFtb.total), accent: true },
                   {
                     label: "Monthly payment",
-                    value: formatGBP(
-                      calculateRepayment({ principal: city.ftbPrice * 0.9, annualRate: 4.5, termYears: 30 }).monthlyPayment,
-                      { decimals: 2 },
-                    ),
+                    value: formatGBP(ftbRepay.monthlyPayment, { decimals: 2 }),
                     highlight: true,
                   },
                 ]}
