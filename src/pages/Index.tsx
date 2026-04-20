@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart } from "lucide-react";
+import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
+import { cities } from "@/lib/uk/cities";
+import { formatGBP } from "@/lib/finance/decimal";
 
 const calculators = [
+  {
+    to: "/calculators/repayment",
+    title: "Repayment",
+    blurb: "Three quick steps to your exact monthly payment, total interest and balance over time.",
+    icon: LineChart,
+    accent: "dark" as const,
+  },
   {
     to: "/calculators/stamp-duty",
     title: "Stamp Duty",
@@ -24,13 +33,6 @@ const calculators = [
     blurb: "4.5× income multiplier with stress-test at +3%. Open Banking ready for Phase 2.",
     icon: Wallet,
     accent: "none" as const,
-  },
-  {
-    to: "/calculators/repayment",
-    title: "Repayment",
-    blurb: "Monthly cost, total interest, full amortisation schedule. Capital or interest-only.",
-    icon: LineChart,
-    accent: "dark" as const,
   },
 ];
 
@@ -69,10 +71,10 @@ const Index = () => (
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3 animate-fade-up">
           <Link
-            to="/calculators/stamp-duty"
+            to="/calculators/repayment"
             className="bg-primary text-primary-foreground px-6 py-3 rounded-xl text-sm font-semibold hover:ring-2 ring-accent ring-offset-2 ring-offset-background transition-all inline-flex items-center gap-2"
           >
-            Start with Stamp Duty <ArrowRight className="size-4" />
+            Calculate my mortgage <ArrowRight className="size-4" />
           </Link>
           <Link
             to="/calculators/affordability"
