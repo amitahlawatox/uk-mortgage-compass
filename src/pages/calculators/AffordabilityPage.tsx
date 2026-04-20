@@ -32,6 +32,8 @@ const AffordabilityPage = () => {
       eyebrow="How much can you borrow?"
       title="Mortgage Affordability"
       intro="Estimates your maximum borrowing using the 4.5× income multiplier with a +3% stress test, and a 45%-of-disposable-income affordability cap. Open Banking-ready for automated income/expenditure analysis in Phase 2."
+      leadCalculator="affordability"
+      leadContext={{ income, partner, expenditure, deposit, rate, term, maxBorrowing: result.maxBorrowing, passesStressTest: result.passesStressTest }}
     >
       <SEO
         title="Mortgage Affordability Calculator UK | Velocity"

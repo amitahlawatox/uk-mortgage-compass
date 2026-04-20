@@ -1,16 +1,25 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
+import { LeadCaptureModal } from "@/components/LeadCaptureModal";
+import { track } from "@/lib/analytics";
 
 interface CalculatorShellProps {
   eyebrow: string;
   title: string;
   intro: string;
   children: ReactNode;
+  leadCalculator?: string;
+  leadContext?: Record<string, unknown>;
 }
 
-export const CalculatorShell = ({ eyebrow, title, intro, children }: CalculatorShellProps) => (
+export const CalculatorShell = ({ eyebrow, title, intro, children, leadCalculator, leadContext }: CalculatorShellProps) => {
+  useEffect(() => {
+    if (leadCalculator) track("calculator_viewed", { calculator: leadCalculator });
+  }, [leadCalculator]);
+
+  return (
   <SiteShell>
     <section className="px-4 pt-12 pb-6">
       <div className="max-w-5xl mx-auto">
@@ -32,5 +41,9 @@ export const CalculatorShell = ({ eyebrow, title, intro, children }: CalculatorS
     <section className="px-4 pb-12">
       <div className="max-w-5xl mx-auto">{children}</div>
     </section>
+    {leadCalculator && (
+      <LeadCaptureModal calculator={leadCalculator} context={leadContext ?? {}} />
+    )}
   </SiteShell>
-);
+  );
+};

@@ -31,6 +31,8 @@ const RepaymentPage = () => {
       eyebrow="Monthly cost"
       title="Mortgage Repayment Calculator"
       intro="Capital-and-interest or interest-only. Calculates the exact monthly payment plus total interest over the term, using the standard amortisation formula in 28-digit decimal precision."
+      leadCalculator="repayment"
+      leadContext={{ principal, rate, term, interestOnly: io, monthlyPayment: result.monthlyPayment, totalInterest: result.totalInterest }}
     >
       <SEO
         title="Mortgage Repayment Calculator UK | Velocity"
