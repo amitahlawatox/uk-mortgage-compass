@@ -60,6 +60,8 @@ const OverpaymentPage = () => {
       eyebrow="Pay off faster"
       title="Overpayment Visualiser"
       intro="Move the sliders. See exactly how a regular monthly overpayment or a one-off lump sum reshapes your mortgage — interest saved and years shaved off the term."
+      leadCalculator="overpayment"
+      leadContext={{ principal, rate, term, monthlyOver, lumpSum, lumpMonth, interestSaved, monthsSaved }}
     >
       <SEO
         title="Mortgage Overpayment Calculator UK | Velocity"
