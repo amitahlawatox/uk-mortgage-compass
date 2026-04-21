@@ -409,33 +409,51 @@ const BigSlider = ({
   prefix?: string;
   suffix?: string;
   decimals?: number;
-}) => (
-  <div>
-    <div className="flex items-baseline justify-between mb-3">
-      <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-        {label}
-      </label>
-      <span className="text-2xl font-bold tabular-nums tracking-tight">
-        {prefix}
-        {decimals > 0 ? value.toFixed(decimals) : value.toLocaleString("en-GB")}
-        {suffix}
-      </span>
+}) => {
+  const clamp = (v: number) => Math.min(max, Math.max(min, v));
+  return (
+    <div>
+      <div className="flex items-baseline justify-between mb-3 gap-3">
+        <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+          {label}
+        </label>
+        <div className="flex items-baseline gap-1 rounded-xl border border-border focus-within:border-accent focus-within:shadow-glow-cyan transition-all px-3 py-1.5 bg-background">
+          {prefix && <span className="text-base font-semibold text-muted-foreground">{prefix}</span>}
+          <input
+            type="number"
+            min={min}
+            max={max}
+            step={step}
+            value={decimals > 0 ? Number(value.toFixed(decimals)) : value}
+            onChange={(e) => {
+              const raw = e.target.value;
+              if (raw === "") return;
+              const n = Number(raw);
+              if (!Number.isFinite(n)) return;
+              onChange(n);
+            }}
+            onBlur={(e) => onChange(clamp(Number(e.target.value) || min))}
+            className="w-28 text-right bg-transparent text-2xl font-bold tabular-nums tracking-tight focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          />
+          {suffix && <span className="text-base font-semibold text-muted-foreground">{suffix}</span>}
+        </div>
+      </div>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={clamp(value)}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="w-full h-2 accent-foreground cursor-pointer"
+      />
+      <div className="flex justify-between text-[10px] text-muted-foreground mt-1 tabular-nums">
+        <span>{prefix}{min.toLocaleString("en-GB")}{suffix}</span>
+        <span>{prefix}{max.toLocaleString("en-GB")}{suffix}</span>
+      </div>
     </div>
-    <input
-      type="range"
-      min={min}
-      max={max}
-      step={step}
-      value={value}
-      onChange={(e) => onChange(Number(e.target.value))}
-      className="w-full h-2 accent-foreground cursor-pointer"
-    />
-    <div className="flex justify-between text-[10px] text-muted-foreground mt-1 tabular-nums">
-      <span>{prefix}{min.toLocaleString("en-GB")}{suffix}</span>
-      <span>{prefix}{max.toLocaleString("en-GB")}{suffix}</span>
-    </div>
-  </div>
-);
+  );
+};
 
 const SummaryRow = ({ label, value, done }: { label: string; value: string; done: boolean }) => (
   <div className="flex justify-between items-center py-1.5 border-b border-border last:border-0">
