@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
 import { calculateStampDuty, type Region } from "@/lib/finance/stampDuty";
 import { formatGBP, formatPercent } from "@/lib/finance/decimal";
+import { Loader2, MapPin, CheckCircle2 } from "lucide-react";
 
 const regions: { value: Region; label: string; tax: string }[] = [
   { value: "england", label: "England & N. Ireland", tax: "SDLT" },
@@ -10,11 +11,78 @@ const regions: { value: Region; label: string; tax: string }[] = [
   { value: "wales", label: "Wales", tax: "LTT" },
 ];
 
+// UK postcode validation (loose, official BS7666 simplified)
+const POSTCODE_RE = /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i;
+
+// Map a country name (from postcodes.io) to our Region
+function countryToRegion(country: string): Region | null {
+  const c = country.toLowerCase();
+  if (c.includes("scotland")) return "scotland";
+  if (c.includes("wales")) return "wales";
+  if (c.includes("england") || c.includes("northern ireland")) return "england";
+  return null;
+}
+
+type LookupState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "ok"; region: Region; place: string; country: string }
+  | { status: "error"; message: string };
+
 const StampDutyPage = () => {
   const [price, setPrice] = useState(450_000);
   const [region, setRegion] = useState<Region>("england");
   const [ftb, setFtb] = useState(false);
   const [additional, setAdditional] = useState(false);
+  const [postcode, setPostcode] = useState("");
+  const [lookup, setLookup] = useState<LookupState>({ status: "idle" });
+  const [regionAuto, setRegionAuto] = useState(false);
+
+  // Debounced postcode lookup
+  useEffect(() => {
+    const pc = postcode.trim();
+    if (!pc) {
+      setLookup({ status: "idle" });
+      return;
+    }
+    if (!POSTCODE_RE.test(pc)) {
+      setLookup({ status: "error", message: "Enter a valid UK postcode (e.g. SW1A 1AA)" });
+      return;
+    }
+    setLookup({ status: "loading" });
+    const ctrl = new AbortController();
+    const t = window.setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `https://api.postcodes.io/postcodes/${encodeURIComponent(pc)}`,
+          { signal: ctrl.signal },
+        );
+        if (!res.ok) {
+          setLookup({ status: "error", message: "Postcode not found" });
+          return;
+        }
+        const data = await res.json();
+        const country: string = data?.result?.country ?? "";
+        const place: string =
+          data?.result?.admin_district || data?.result?.parish || data?.result?.region || "";
+        const r = countryToRegion(country);
+        if (!r) {
+          setLookup({ status: "error", message: "Could not determine region for this postcode" });
+          return;
+        }
+        setLookup({ status: "ok", region: r, place, country });
+        setRegion(r);
+        setRegionAuto(true);
+      } catch (err) {
+        if ((err as Error).name === "AbortError") return;
+        setLookup({ status: "error", message: "Lookup failed — set region manually" });
+      }
+    }, 450);
+    return () => {
+      ctrl.abort();
+      window.clearTimeout(t);
+    };
+  }, [postcode]);
 
   const result = useMemo(
     () => calculateStampDuty({ price, region, firstTimeBuyer: ftb, additionalProperty: additional }),
@@ -27,7 +95,7 @@ const StampDutyPage = () => {
       title="UK Stamp Duty Calculator"
       intro="Calculate exact SDLT (England & NI), LBTT (Scotland) or LTT (Wales) for any UK property. Includes first-time buyer relief and additional-property surcharges. All amounts computed with 28-digit decimal precision."
       leadCalculator="stamp-duty"
-      leadContext={{ price, region, firstTimeBuyer: ftb, additionalProperty: additional, total: result.total, effectiveRate: result.effectiveRate }}
+      leadContext={{ price, region, firstTimeBuyer: ftb, additionalProperty: additional, total: result.total, effectiveRate: result.effectiveRate, postcode: postcode || null }}
     >
       <SEO
         title="Stamp Duty Calculator UK 2024 — SDLT, LBTT, LTT | Velocity"
@@ -62,12 +130,51 @@ const StampDutyPage = () => {
               />
             </Field>
 
-            <Field label="Region">
+            <Field label="Postcode (optional)">
+              <div className="relative">
+                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  value={postcode}
+                  onChange={(e) => {
+                    setPostcode(e.target.value.toUpperCase());
+                    setRegionAuto(false);
+                  }}
+                  placeholder="e.g. SW1A 1AA"
+                  maxLength={10}
+                  autoComplete="postal-code"
+                  spellCheck={false}
+                  className="w-full pl-9 pr-10 py-3 rounded-xl bg-background border border-input focus:outline-none focus:ring-2 focus:ring-accent uppercase tracking-wide font-medium placeholder:normal-case placeholder:text-muted-foreground/60"
+                />
+                {lookup.status === "loading" && (
+                  <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground animate-spin" />
+                )}
+                {lookup.status === "ok" && (
+                  <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-success" />
+                )}
+              </div>
+              {lookup.status === "ok" && (
+                <p className="mt-2 text-xs text-muted-foreground">
+                  {lookup.place ? `${lookup.place}, ` : ""}{lookup.country} —{" "}
+                  <span className="text-foreground font-semibold">
+                    {regions.find((r) => r.value === lookup.region)?.tax} applies
+                  </span>
+                </p>
+              )}
+              {lookup.status === "error" && (
+                <p className="mt-2 text-xs text-destructive">{lookup.message}</p>
+              )}
+            </Field>
+
+            <Field label={regionAuto ? "Region (auto-detected from postcode)" : "Region"}>
               <div className="grid grid-cols-3 gap-1.5 p-1 bg-secondary rounded-xl">
                 {regions.map(r => (
                   <button
                     key={r.value}
-                    onClick={() => setRegion(r.value)}
+                    onClick={() => {
+                      setRegion(r.value);
+                      setRegionAuto(false);
+                    }}
                     className={`px-2 py-2 rounded-lg text-xs font-semibold transition ${
                       region === r.value
                         ? "bg-background shadow-soft"

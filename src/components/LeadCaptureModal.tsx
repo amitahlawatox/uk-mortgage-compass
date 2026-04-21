@@ -43,11 +43,12 @@ export const LeadCaptureModal = ({ calculator, context }: Props) => {
   contextRef.current = context;
 
   useEffect(() => {
+    // Lead capture modal disabled until ~300k MAU. Remove early return to re-enable.
+    return;
+    // eslint-disable-next-line no-unreachable
     const state = readState();
     if (state.submitted) return;
-    // 7-day cooldown after dismiss
     if (state.dismissedAt && Date.now() - state.dismissedAt < 7 * 24 * 60 * 60 * 1000) return;
-
     const t = window.setTimeout(() => {
       setOpen(true);
       track("lead_modal_shown", { calculator });
