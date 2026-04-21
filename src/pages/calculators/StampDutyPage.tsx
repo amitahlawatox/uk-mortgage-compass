@@ -130,12 +130,51 @@ const StampDutyPage = () => {
               />
             </Field>
 
-            <Field label="Region">
+            <Field label="Postcode (optional)">
+              <div className="relative">
+                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  value={postcode}
+                  onChange={(e) => {
+                    setPostcode(e.target.value.toUpperCase());
+                    setRegionAuto(false);
+                  }}
+                  placeholder="e.g. SW1A 1AA"
+                  maxLength={10}
+                  autoComplete="postal-code"
+                  spellCheck={false}
+                  className="w-full pl-9 pr-10 py-3 rounded-xl bg-background border border-input focus:outline-none focus:ring-2 focus:ring-accent uppercase tracking-wide font-medium placeholder:normal-case placeholder:text-muted-foreground/60"
+                />
+                {lookup.status === "loading" && (
+                  <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground animate-spin" />
+                )}
+                {lookup.status === "ok" && (
+                  <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-success" />
+                )}
+              </div>
+              {lookup.status === "ok" && (
+                <p className="mt-2 text-xs text-muted-foreground">
+                  {lookup.place ? `${lookup.place}, ` : ""}{lookup.country} —{" "}
+                  <span className="text-foreground font-semibold">
+                    {regions.find((r) => r.value === lookup.region)?.tax} applies
+                  </span>
+                </p>
+              )}
+              {lookup.status === "error" && (
+                <p className="mt-2 text-xs text-destructive">{lookup.message}</p>
+              )}
+            </Field>
+
+            <Field label={regionAuto ? "Region (auto-detected from postcode)" : "Region"}>
               <div className="grid grid-cols-3 gap-1.5 p-1 bg-secondary rounded-xl">
                 {regions.map(r => (
                   <button
                     key={r.value}
-                    onClick={() => setRegion(r.value)}
+                    onClick={() => {
+                      setRegion(r.value);
+                      setRegionAuto(false);
+                    }}
                     className={`px-2 py-2 rounded-lg text-xs font-semibold transition ${
                       region === r.value
                         ? "bg-background shadow-soft"
