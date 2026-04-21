@@ -98,7 +98,7 @@ const StampDutyPage = () => {
       leadContext={{ price, region, firstTimeBuyer: ftb, additionalProperty: additional, total: result.total, effectiveRate: result.effectiveRate, postcode: postcode || null }}
     >
       <SEO
-        title="Stamp Duty Calculator UK 2024 — SDLT, LBTT, LTT | Velocity"
+        title="Stamp Duty Calculator UK 2025 — SDLT, LBTT, LTT — RepayWise"
         description="Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown."
         path="/calculators/stamp-duty"
       />
