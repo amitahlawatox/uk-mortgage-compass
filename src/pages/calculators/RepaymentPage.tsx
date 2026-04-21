@@ -485,29 +485,47 @@ export const SliderField = ({
   prefix?: string;
   suffix?: string;
   decimals?: number;
-}) => (
-  <div>
-    <div className="flex justify-between items-baseline mb-2">
-      <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-        {label}
-      </label>
-      <span className="text-sm font-semibold tabular-nums">
-        {prefix}
-        {decimals > 0 ? value.toFixed(decimals) : value.toLocaleString("en-GB")}
-        {suffix}
-      </span>
+}) => {
+  const clamp = (v: number) => Math.min(max, Math.max(min, v));
+  return (
+    <div>
+      <div className="flex justify-between items-baseline mb-2 gap-2">
+        <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+          {label}
+        </label>
+        <div className="flex items-baseline gap-0.5 rounded-lg border border-border focus-within:border-accent transition-all px-2 py-0.5 bg-background">
+          {prefix && <span className="text-xs text-muted-foreground">{prefix}</span>}
+          <input
+            type="number"
+            min={min}
+            max={max}
+            step={step}
+            value={decimals > 0 ? Number(value.toFixed(decimals)) : value}
+            onChange={(e) => {
+              const raw = e.target.value;
+              if (raw === "") return;
+              const n = Number(raw);
+              if (!Number.isFinite(n)) return;
+              onChange(n);
+            }}
+            onBlur={(e) => onChange(clamp(Number(e.target.value) || min))}
+            className="w-24 text-right bg-transparent text-sm font-semibold tabular-nums focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          />
+          {suffix && <span className="text-xs text-muted-foreground">{suffix}</span>}
+        </div>
+      </div>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={clamp(value)}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="w-full accent-foreground"
+      />
     </div>
-    <input
-      type="range"
-      min={min}
-      max={max}
-      step={step}
-      value={value}
-      onChange={(e) => onChange(Number(e.target.value))}
-      className="w-full accent-foreground"
-    />
-  </div>
-);
+  );
+};
 
 export const BigStat = ({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) => (
   <div
