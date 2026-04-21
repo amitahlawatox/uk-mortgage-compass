@@ -5,13 +5,11 @@ export const Footer = () => (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid gap-12 md:grid-cols-12">
       <div className="md:col-span-5 space-y-4">
         <div className="flex items-center gap-2">
-          <div className="size-7 bg-primary rounded-md flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-xs">V</span>
-          </div>
-          <span className="text-base font-bold tracking-tighter">VELOCITY</span>
+          <img src="/favicon.png" alt="RepayWise logo" width={28} height={28} className="size-7 rounded-md" />
+          <span className="text-base font-bold tracking-tighter">RepayWise</span>
         </div>
         <p className="text-xs text-muted-foreground leading-relaxed max-w-prose">
-          Velocity is an information portal — not a lender, broker, or financial adviser.
+          RepayWise is an information portal — not a lender, broker, or financial adviser.
           Calculations are illustrative and follow current UK tax bands and standard amortisation
           formulas. They are not regulated advice under FSMA 2000.
         </p>
