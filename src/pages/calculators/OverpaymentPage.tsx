@@ -64,7 +64,7 @@ const OverpaymentPage = () => {
       leadContext={{ principal, rate, term, monthlyOver, lumpSum, lumpMonth, interestSaved, monthsSaved }}
     >
       <SEO
-        title="Mortgage Overpayment Calculator UK | Velocity"
+        title="Mortgage Overpayment Calculator UK — RepayWise"
         description="Visualise how monthly overpayments and lump sums cut your UK mortgage interest and shorten the term. Decimal-precision amortisation."
         path="/calculators/overpayment"
       />

@@ -48,7 +48,7 @@ export const Footer = () => (
     </div>
     <div className="border-t border-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-[11px] text-muted-foreground">
-        <span>© {new Date().getFullYear()} Velocity Mortgage Intelligence Ltd. England & Wales.</span>
+        <span>© {new Date().getFullYear()} RepayWise. England & Wales. repaywise.co.uk</span>
         <div className="flex gap-4">
           <a href="#privacy" className="hover:text-foreground">Privacy</a>
           <a href="#cookies" className="hover:text-foreground">Cookies</a>

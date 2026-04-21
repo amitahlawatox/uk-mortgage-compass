@@ -48,7 +48,7 @@ const RegionalPage = () => {
   return (
     <SiteShell>
       <SEO
-        title={`${city.name} Mortgage & Stamp Duty Guide 2024 | Velocity`}
+        title={`${city.name} Mortgage & Stamp Duty Guide 2025 — RepayWise`}
         description={`Average house prices, ${city.taxName} examples, and mortgage repayment estimates for ${city.name}. Updated UK Land Registry data with first-time buyer relief.`}
         path={`/uk/${city.slug}`}
         jsonLd={{

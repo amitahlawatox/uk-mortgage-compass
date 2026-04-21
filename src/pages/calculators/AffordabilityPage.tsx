@@ -36,7 +36,7 @@ const AffordabilityPage = () => {
       leadContext={{ income, partner, expenditure, deposit, rate, term, maxBorrowing: result.maxBorrowing, passesStressTest: result.passesStressTest }}
     >
       <SEO
-        title="Mortgage Affordability Calculator UK | Velocity"
+        title="Mortgage Affordability Calculator UK — RepayWise"
         description="Estimate UK maximum mortgage borrowing with 4.5x salary multiplier and FCA-aligned +3% stress test. Decimal-precision."
         path="/calculators/affordability"
       />

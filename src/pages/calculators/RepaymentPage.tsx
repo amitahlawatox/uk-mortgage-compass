@@ -63,7 +63,7 @@ const RepaymentPage = () => {
       leadContext={{ principal, rate, term, monthlyPayment: result.monthlyPayment, totalInterest: result.totalInterest }}
     >
       <SEO
-        title="Mortgage Calculator UK | Monthly Repayments | Velocity"
+        title="UK Mortgage Calculator | Monthly Repayments — RepayWise"
         description="Easy 3-step UK mortgage calculator. See your monthly payment, total interest and balance over time — built on decimal-precision math."
         path="/calculators/repayment"
       />
@@ -326,7 +326,7 @@ const RepaymentPage = () => {
               </div>
             </div>
             <div className="rounded-2xl bg-secondary p-4 text-xs text-muted-foreground leading-relaxed">
-              <span className="font-semibold text-foreground">Velocity tip:</span> A 1% rate rise on this
+              <span className="font-semibold text-foreground">RepayWise tip:</span> A 1% rate rise on this
               loan adds {formatGBP(stressed.monthlyPayment - result.monthlyPayment, { decimals: 0 })}/mo.
               Always stress-test your affordability.
             </div>

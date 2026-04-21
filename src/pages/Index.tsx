@@ -39,13 +39,14 @@ const calculators = [
 const Index = () => (
   <SiteShell>
     <SEO
-      title="Velocity — UK Mortgage Intelligence Platform"
-      description="Real-time UK mortgage calculators built on decimal-precision math: Stamp Duty (SDLT/LBTT/LTT), repayment, overpayment and affordability. Trust-first, FCA-aligned."
+      title="UK Mortgage Calculator | Stamp Duty, Repayment & Affordability — RepayWise"
+      description="Free UK mortgage calculators: monthly repayments, Stamp Duty (SDLT/LBTT/LTT), overpayment savings and affordability. Decimal-precision, FCA-aligned."
       path="/"
       jsonLd={{
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Velocity Mortgage Intelligence",
+        name: "RepayWise",
+        url: "https://www.repaywise.co.uk",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web",
         offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
