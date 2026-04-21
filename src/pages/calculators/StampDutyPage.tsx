@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
 import { calculateStampDuty, type Region } from "@/lib/finance/stampDuty";
 import { formatGBP, formatPercent } from "@/lib/finance/decimal";
+import { Loader2, MapPin, CheckCircle2 } from "lucide-react";
 
 const regions: { value: Region; label: string; tax: string }[] = [
   { value: "england", label: "England & N. Ireland", tax: "SDLT" },
@@ -10,11 +11,78 @@ const regions: { value: Region; label: string; tax: string }[] = [
   { value: "wales", label: "Wales", tax: "LTT" },
 ];
 
+// UK postcode validation (loose, official BS7666 simplified)
+const POSTCODE_RE = /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i;
+
+// Map a country name (from postcodes.io) to our Region
+function countryToRegion(country: string): Region | null {
+  const c = country.toLowerCase();
+  if (c.includes("scotland")) return "scotland";
+  if (c.includes("wales")) return "wales";
+  if (c.includes("england") || c.includes("northern ireland")) return "england";
+  return null;
+}
+
+type LookupState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "ok"; region: Region; place: string; country: string }
+  | { status: "error"; message: string };
+
 const StampDutyPage = () => {
   const [price, setPrice] = useState(450_000);
   const [region, setRegion] = useState<Region>("england");
   const [ftb, setFtb] = useState(false);
   const [additional, setAdditional] = useState(false);
+  const [postcode, setPostcode] = useState("");
+  const [lookup, setLookup] = useState<LookupState>({ status: "idle" });
+  const [regionAuto, setRegionAuto] = useState(false);
+
+  // Debounced postcode lookup
+  useEffect(() => {
+    const pc = postcode.trim();
+    if (!pc) {
+      setLookup({ status: "idle" });
+      return;
+    }
+    if (!POSTCODE_RE.test(pc)) {
+      setLookup({ status: "error", message: "Enter a valid UK postcode (e.g. SW1A 1AA)" });
+      return;
+    }
+    setLookup({ status: "loading" });
+    const ctrl = new AbortController();
+    const t = window.setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `https://api.postcodes.io/postcodes/${encodeURIComponent(pc)}`,
+          { signal: ctrl.signal },
+        );
+        if (!res.ok) {
+          setLookup({ status: "error", message: "Postcode not found" });
+          return;
+        }
+        const data = await res.json();
+        const country: string = data?.result?.country ?? "";
+        const place: string =
+          data?.result?.admin_district || data?.result?.parish || data?.result?.region || "";
+        const r = countryToRegion(country);
+        if (!r) {
+          setLookup({ status: "error", message: "Could not determine region for this postcode" });
+          return;
+        }
+        setLookup({ status: "ok", region: r, place, country });
+        setRegion(r);
+        setRegionAuto(true);
+      } catch (err) {
+        if ((err as Error).name === "AbortError") return;
+        setLookup({ status: "error", message: "Lookup failed — set region manually" });
+      }
+    }, 450);
+    return () => {
+      ctrl.abort();
+      window.clearTimeout(t);
+    };
+  }, [postcode]);
 
   const result = useMemo(
     () => calculateStampDuty({ price, region, firstTimeBuyer: ftb, additionalProperty: additional }),
