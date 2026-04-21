@@ -12,28 +12,34 @@ interface CacheEntry {
 let cache: CacheEntry | null = null;
 const TTL_MS = 6 * 60 * 60 * 1000; // 6h
 
-// BoE IADB CSV export — Bank Rate series (IUDBEDR is the official Bank Rate
-// history series). We request the last 30 days and pick the most recent row.
+// BoE IADB CSV export — Bank Rate series IUDBEDR. Pull last ~90 days and
+// pick the most recent observation. Endpoint requires following a 302.
 function buildBoeUrl(): string {
   const today = new Date();
-  const from = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+  const from = new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000);
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const fmt = (d: Date) =>
-    `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
+    `${String(d.getDate()).padStart(2, "0")}/${months[d.getMonth()]}/${d.getFullYear()}`;
   const params = new URLSearchParams({
+    "csv.x": "yes",
     Datefrom: fmt(from),
-    Dateto: fmt(today),
+    Dateto: "now",
     SeriesCodes: "IUDBEDR",
     CSVF: "TN",
     UsingCodes: "Y",
     VPD: "Y",
     VFD: "N",
   });
-  return `https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&${params.toString()}`;
+  return `https://www.bankofengland.co.uk/boeapps/iadb/fromshowcolumns.asp?${params.toString()}`;
 }
 
 async function fetchBoeRate(): Promise<CacheEntry> {
   const res = await fetch(buildBoeUrl(), {
-    headers: { Accept: "text/csv" },
+    redirect: "follow",
+    headers: {
+      Accept: "text/csv,*/*",
+      "User-Agent": "Mozilla/5.0 RepayWise/1.0 (+https://www.repaywise.co.uk)",
+    },
   });
   if (!res.ok) {
     throw new Error(`BoE fetch failed [${res.status}]`);
