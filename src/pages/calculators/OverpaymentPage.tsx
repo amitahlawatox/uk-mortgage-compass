@@ -64,19 +64,58 @@ const OverpaymentPage = () => {
       leadContext={{ principal, rate, term, monthlyOver, lumpSum, lumpMonth, interestSaved, monthsSaved }}
     >
       <SEO
-        title="Mortgage Overpayment Calculator UK — RepayWise"
-        description="Visualise how monthly overpayments and lump sums cut your UK mortgage interest and shorten the term. Decimal-precision amortisation."
+        title="Mortgage Overpayment Calculator 2026 | Save Years &amp; £000s — RepayWise"
+        description="See how overpaying your UK mortgage cuts years off your term and saves thousands in interest. Free, FCA-aligned, decimal-precision amortisation. No login needed."
         path="/calculators/overpayment"
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "HowTo",
-          name: "How to calculate mortgage overpayment savings in the UK",
-          description: "Step-by-step: enter your loan, rate, term, and a regular overpayment or lump sum to see exactly how much interest you save and how many years come off your mortgage.",
-          step: [
-            { "@type": "HowToStep", name: "Enter loan details", text: "Set your current loan balance, interest rate, and remaining term." },
-            { "@type": "HowToStep", name: "Add an overpayment", text: "Choose a monthly overpayment amount or a one-off lump sum and the month to apply it." },
-            { "@type": "HowToStep", name: "Read the savings", text: "RepayWise shows interest saved, months shaved off the term, and the new payoff date instantly." },
-          ],
+          "@graph": [
+            {
+              "@type": "WebApplication",
+              "name": "RepayWise Mortgage Overpayment Calculator",
+              "url": "https://www.repaywise.co.uk/calculators/overpayment",
+              "applicationCategory": "FinanceApplication",
+              "operatingSystem": "Any",
+              "description": "Free UK mortgage overpayment calculator. Compare baseline vs accelerated repayment. See interest saved, years cut, and month-by-month amortisation. FCA-aligned, no login required.",
+              "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+              "provider": {
+                "@type": "Organization",
+                "name": "RepayWise",
+                "url": "https://www.repaywise.co.uk",
+                "areaServed": "GB"
+              }
+            },
+            {
+              "@type": "HowTo",
+              "name": "How to calculate mortgage overpayment savings in the UK",
+              "description": "Step-by-step: enter your loan, rate, term, and a regular overpayment or lump sum to see exactly how much interest you save and how many years come off your mortgage.",
+              "step": [
+                { "@type": "HowToStep", "name": "Enter loan details", "text": "Set your current loan balance, interest rate, and remaining term." },
+                { "@type": "HowToStep", "name": "Add an overpayment", "text": "Choose a monthly overpayment amount or a one-off lump sum and the month to apply it." },
+                { "@type": "HowToStep", "name": "Read the savings", "text": "See your interest saved, months cut from your term, and the full amortisation chart." }
+              ]
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "How much can I save by overpaying my mortgage?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "The savings depend on your outstanding balance, interest rate, and overpayment amount. On a £250,000 mortgage at 4.5% with £200/month overpayment, you could save over £20,000 in interest and cut 4+ years from your term. Use the RepayWise calculator to see your exact figures." }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Is it better to overpay my mortgage or save in an ISA?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "It depends on your mortgage interest rate versus the savings rate available. If your mortgage rate exceeds the best ISA rate, overpaying usually wins mathematically. RepayWise helps you compare both scenarios." }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Are there penalties for overpaying a UK mortgage?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "Most UK lenders allow up to 10% of the outstanding balance per year as an overpayment without charge. Exceeding this may trigger an Early Repayment Charge (ERC). Always check your mortgage terms before overpaying." }
+                }
+              ]
+            }
+          ]
         }}
       />
 
