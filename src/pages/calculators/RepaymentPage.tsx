@@ -66,6 +66,15 @@ const RepaymentPage = () => {
         title="UK Mortgage Calculator | Monthly Repayments — RepayWise"
         description="Easy 3-step UK mortgage calculator. See your monthly payment, total interest and balance over time — built on decimal-precision math."
         path="/calculators/repayment"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "FinancialProduct",
+          name: "UK Mortgage Repayment Calculator",
+          description: "Free decimal-precision UK mortgage repayment calculator. Returns the monthly payment, total interest, and amortisation curve for any loan, rate and term.",
+          provider: { "@type": "Organization", name: "RepayWise", url: "https://www.repaywise.co.uk" },
+          feesAndCommissionsSpecification: "Free to use. No personal data required.",
+          areaServed: { "@type": "Country", name: "United Kingdom" },
+        }}
       />
 
       {/* Progress */}

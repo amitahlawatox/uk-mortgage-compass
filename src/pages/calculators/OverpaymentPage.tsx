@@ -67,6 +67,17 @@ const OverpaymentPage = () => {
         title="Mortgage Overpayment Calculator UK — RepayWise"
         description="Visualise how monthly overpayments and lump sums cut your UK mortgage interest and shorten the term. Decimal-precision amortisation."
         path="/calculators/overpayment"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: "How to calculate mortgage overpayment savings in the UK",
+          description: "Step-by-step: enter your loan, rate, term, and a regular overpayment or lump sum to see exactly how much interest you save and how many years come off your mortgage.",
+          step: [
+            { "@type": "HowToStep", name: "Enter loan details", text: "Set your current loan balance, interest rate, and remaining term." },
+            { "@type": "HowToStep", name: "Add an overpayment", text: "Choose a monthly overpayment amount or a one-off lump sum and the month to apply it." },
+            { "@type": "HowToStep", name: "Read the savings", text: "RepayWise shows interest saved, months shaved off the term, and the new payoff date instantly." },
+          ],
+        }}
       />
 
       <div className="grid lg:grid-cols-5 gap-6">
