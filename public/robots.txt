@@ -1,4 +1,6 @@
+# RepayWise — robots.txt
 User-agent: *
 Allow: /
-
+Disallow: /api/
+Disallow: /_next/
 Sitemap: https://www.repaywise.co.uk/sitemap.xml
