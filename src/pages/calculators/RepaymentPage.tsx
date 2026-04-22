@@ -225,7 +225,7 @@ const RepaymentPage = () => {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="glass-card rounded-2xl p-5">
                     <p className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-3">
-                      Where your payments go
+                      Principal vs interest
                     </p>
                     <div className="h-32 flex items-center">
                       <ResponsiveContainer>
@@ -248,15 +248,19 @@ const RepaymentPage = () => {
                       </ResponsiveContainer>
                     </div>
                     <div className="flex flex-col gap-2 mt-2">
-                      {breakdown.map((b) => (
-                        <div key={b.name} className="flex items-center justify-between text-xs">
-                          <span className="flex items-center gap-2">
-                            <span className="size-2 rounded-full" style={{ background: b.color }} />
-                            {b.name}
-                          </span>
-                          <span className="tabular-nums font-semibold">{formatGBP(b.value)}</span>
-                        </div>
-                      ))}
+                      {breakdown.map((b) => {
+                        const total = principal + result.totalInterest;
+                        const pct = total > 0 ? Math.round((b.value / total) * 100) : 0;
+                        return (
+                          <div key={b.name} className="flex items-center justify-between text-xs">
+                            <span className="flex items-center gap-2">
+                              <span className="size-2 rounded-full" style={{ background: b.color }} />
+                              {b.name} <span className="text-muted-foreground">({pct}%)</span>
+                            </span>
+                            <span className="tabular-nums font-semibold">{formatGBP(b.value)}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
