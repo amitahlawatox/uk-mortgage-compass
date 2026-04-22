@@ -13,6 +13,9 @@ import RepaymentPage from "./pages/calculators/RepaymentPage";
 import OverpaymentPage from "./pages/calculators/OverpaymentPage";
 import AffordabilityPage from "./pages/calculators/AffordabilityPage";
 import RegionalPage from "./pages/regional/RegionalPage";
+import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
+import TermsOfService from "./pages/legal/TermsOfService";
+import CookiePolicy from "./pages/legal/CookiePolicy";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +35,9 @@ const App = () => {
             <Route path="/calculators/overpayment" element={<OverpaymentPage />} />
             <Route path="/calculators/affordability" element={<AffordabilityPage />} />
             <Route path="/uk/:slug" element={<RegionalPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/cookie-policy" element={<CookiePolicy />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

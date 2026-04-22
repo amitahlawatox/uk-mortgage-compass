@@ -9,15 +9,15 @@ export const Footer = () => (
           <span className="text-base font-bold tracking-tighter">RepayWise</span>
         </div>
         <p className="text-xs text-muted-foreground leading-relaxed max-w-prose">
-          RepayWise is an information portal — not a lender, broker, or financial adviser.
-          Calculations are illustrative and follow current UK tax bands and standard amortisation
-          formulas. They are not regulated advice under FSMA 2000.
+          RepayWise provides financial information, not advice. We are not a lender, broker, or
+          FCA-authorised adviser. Calculations follow current UK tax bands and standard amortisation
+          formulas under the Financial Services and Markets Act 2000.
         </p>
-        <p className="text-xs text-muted-foreground leading-relaxed max-w-prose">
-          <strong className="text-foreground">Your home may be repossessed if you do not keep up
-          repayments on your mortgage.</strong> Always consult an FCA-authorised mortgage adviser
-          before making decisions.
-        </p>
+        <div className="rounded-lg border border-border/60 bg-background/40 p-3">
+          <p className="text-xs text-foreground leading-relaxed">
+            <strong className="font-semibold">Your home may be repossessed if you do not keep up repayments on your mortgage.</strong>
+          </p>
+        </div>
       </div>
 
       <div className="md:col-span-3">
@@ -48,9 +48,9 @@ export const Footer = () => (
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-[11px] text-muted-foreground">
         <span>© {new Date().getFullYear()} RepayWise. England & Wales. repaywise.co.uk</span>
         <div className="flex gap-4">
-          <a href="#privacy" className="hover:text-foreground">Privacy</a>
-          <a href="#cookies" className="hover:text-foreground">Cookies</a>
-          <a href="#terms" className="hover:text-foreground">Terms</a>
+          <Link to="/privacy-policy" className="hover:text-foreground">Privacy</Link>
+          <Link to="/cookie-policy" className="hover:text-foreground">Cookies</Link>
+          <Link to="/terms-of-service" className="hover:text-foreground">Terms</Link>
         </div>
       </div>
     </div>

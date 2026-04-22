@@ -67,6 +67,17 @@ const OverpaymentPage = () => {
         title="Mortgage Overpayment Calculator UK — RepayWise"
         description="Visualise how monthly overpayments and lump sums cut your UK mortgage interest and shorten the term. Decimal-precision amortisation."
         path="/calculators/overpayment"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: "How to calculate mortgage overpayment savings in the UK",
+          description: "Step-by-step: enter your loan, rate, term, and a regular overpayment or lump sum to see exactly how much interest you save and how many years come off your mortgage.",
+          step: [
+            { "@type": "HowToStep", name: "Enter loan details", text: "Set your current loan balance, interest rate, and remaining term." },
+            { "@type": "HowToStep", name: "Add an overpayment", text: "Choose a monthly overpayment amount or a one-off lump sum and the month to apply it." },
+            { "@type": "HowToStep", name: "Read the savings", text: "RepayWise shows interest saved, months shaved off the term, and the new payoff date instantly." },
+          ],
+        }}
       />
 
       <div className="grid lg:grid-cols-5 gap-6">
@@ -120,6 +131,42 @@ const OverpaymentPage = () => {
               </ResponsiveContainer>
             </div>
           </div>
+
+          {monthlyOver > 0 || lumpSum > 0 ? (
+            <div className="rounded-2xl bg-primary text-primary-foreground p-5 sm:p-6 shadow-glow-cyan">
+              <p className="text-[10px] uppercase tracking-widest font-semibold text-primary-foreground/60 mb-1">
+                Your overpayment breakdown
+              </p>
+              <p className="text-2xl sm:text-3xl font-bold tabular-nums tracking-tight">
+                You save {formatGBP(Math.max(0, interestSaved))} in interest
+              </p>
+              <div className="mt-4 grid sm:grid-cols-3 gap-4 text-xs">
+                <div>
+                  <p className="text-primary-foreground/60 uppercase tracking-widest font-semibold">Baseline interest</p>
+                  <p className="font-bold tabular-nums text-base mt-1">{formatGBP(baseline.totalInterest)}</p>
+                </div>
+                <div>
+                  <p className="text-primary-foreground/60 uppercase tracking-widest font-semibold">With overpayments</p>
+                  <p className="font-bold tabular-nums text-base mt-1">{formatGBP(accelerated.totalInterest)}</p>
+                </div>
+                <div>
+                  <p className="text-primary-foreground/60 uppercase tracking-widest font-semibold">Mortgage-free</p>
+                  <p className="font-bold tabular-nums text-base mt-1">
+                    {Math.floor(monthsSaved / 12)}y {monthsSaved % 12}m sooner
+                  </p>
+                </div>
+              </div>
+              <p className="mt-4 text-[11px] text-primary-foreground/60 leading-relaxed">
+                Based on your inputs, every £1 overpaid saves roughly{" "}
+                <strong className="text-primary-foreground">
+                  £{baseline.totalInterest > 0
+                    ? (interestSaved / Math.max(1, monthlyOver * accelerated.monthsTaken + lumpSum)).toFixed(2)
+                    : "0.00"}
+                </strong>{" "}
+                in future interest, assuming the rate stays at {rate.toFixed(2)}%.
+              </p>
+            </div>
+          ) : null}
         </div>
       </div>
     </CalculatorShell>
