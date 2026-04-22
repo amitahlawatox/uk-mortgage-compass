@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const items = [
   { to: "/calculators/stamp-duty", label: "Stamp Duty" },
@@ -25,12 +26,15 @@ export const Header = () => (
           </Link>
         ))}
       </nav>
-      <Link
-        to="/calculators/stamp-duty"
-        className="bg-primary text-primary-foreground px-4 py-2 rounded-xl text-sm font-semibold hover:ring-2 ring-accent ring-offset-2 ring-offset-background transition-all"
-      >
-        Get started
-      </Link>
+      <div className="flex items-center gap-2">
+        <ThemeToggle />
+        <Link
+          to="/calculators/stamp-duty"
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-xl text-sm font-semibold hover:ring-2 ring-accent ring-offset-2 ring-offset-background transition-all"
+        >
+          Get started
+        </Link>
+      </div>
     </div>
   </header>
 );
