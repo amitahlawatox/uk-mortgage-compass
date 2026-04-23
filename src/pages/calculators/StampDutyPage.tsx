@@ -259,7 +259,7 @@ const StampDutyPage = () => {
               { label: "Region", value: regions.find(r => r.value === region)?.label ?? region },
               { label: "Buyer status", value: ftb ? "First-time buyer" : additional ? "Additional property (2nd home / BTL)" : "Standard" },
               { label: `Total ${result.taxName}`, value: formatGBP(result.total) },
-              { label: "Effective rate", value: `${(result.effectiveRate * 100).toFixed(2)}%` },
+              { label: "Effective rate", value: `${result.effectiveRate.toFixed(2)}%` },
             ]}
           />
         </div>
