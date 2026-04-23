@@ -392,6 +392,8 @@ const RepaymentPage = () => {
               </p>
               <p className="text-xs text-muted-foreground mt-1">per month</p>
               <div className="mt-5 space-y-2 text-sm">
+                <SummaryRow label="Property" value={formatGBP(propertyPrice)} done={true} />
+                <SummaryRow label={`Deposit (${depositPct.toFixed(0)}%)`} value={formatGBP(deposit)} done={true} />
                 <SummaryRow label="Loan" value={formatGBP(principal)} done={step >= 1} />
                 <SummaryRow label="Term" value={`${term} years`} done={step >= 2} />
                 <SummaryRow label="Rate" value={`${rate.toFixed(2)}%`} done={step >= 3} />
