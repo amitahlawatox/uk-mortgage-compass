@@ -29,8 +29,8 @@ const calculators = [
   },
   {
     to: "/calculators/affordability",
-    title: "Affordability",
-    blurb: "4.5× income multiplier with stress-test at +3%. Open Banking ready for Phase 2.",
+    title: "Total Cost to Buy",
+    blurb: "Property + deposit + stamp duty + EMI + optional fees — see all the cash you really need.",
     icon: Wallet,
     accent: "none" as const,
   },
@@ -81,7 +81,7 @@ const Index = () => (
             to="/calculators/affordability"
             className="bg-secondary text-secondary-foreground px-6 py-3 rounded-xl text-sm font-semibold hover:bg-secondary/70 transition-all"
           >
-            Check affordability
+            Total cost to buy
           </Link>
         </div>
       </div>
