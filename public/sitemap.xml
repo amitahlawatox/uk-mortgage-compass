@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.repaywise.co.uk/</loc>
+    <loc>https://repaywise.co.uk/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.repaywise.co.uk/calculators/repayment</loc>
+    <loc>https://repaywise.co.uk/calculators/repayment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.repaywise.co.uk/calculators/stamp-duty</loc>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.repaywise.co.uk/calculators/overpayment</loc>
+    <loc>https://repaywise.co.uk/calculators/overpayment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.repaywise.co.uk/calculators/affordability</loc>
+    <loc>https://repaywise.co.uk/calculators/affordability</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.repaywise.co.uk/uk/london</loc>
+    <loc>https://repaywise.co.uk/uk/london</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.repaywise.co.uk/uk/manchester</loc>
+    <loc>https://repaywise.co.uk/uk/manchester</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.repaywise.co.uk/uk/edinburgh</loc>
+    <loc>https://repaywise.co.uk/uk/edinburgh</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.repaywise.co.uk/uk/cardiff</loc>
+    <loc>https://repaywise.co.uk/uk/cardiff</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

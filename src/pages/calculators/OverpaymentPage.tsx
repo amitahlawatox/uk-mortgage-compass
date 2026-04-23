@@ -73,7 +73,7 @@ const OverpaymentPage = () => {
             {
               "@type": "WebApplication",
               "name": "RepayWise Mortgage Overpayment Calculator",
-              "url": "https://www.repaywise.co.uk/calculators/overpayment",
+              "url": "https://repaywise.co.uk/calculators/overpayment",
               "applicationCategory": "FinanceApplication",
               "operatingSystem": "Any",
               "description": "Free UK mortgage overpayment calculator. Compare baseline vs accelerated repayment. See interest saved, years cut, and month-by-month amortisation. FCA-aligned, no login required.",
@@ -81,7 +81,7 @@ const OverpaymentPage = () => {
               "provider": {
                 "@type": "Organization",
                 "name": "RepayWise",
-                "url": "https://www.repaywise.co.uk",
+                "url": "https://repaywise.co.uk",
                 "areaServed": "GB"
               }
             },

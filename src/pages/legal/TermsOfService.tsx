@@ -13,7 +13,7 @@ const TermsOfService = () => (
       <p className="text-muted-foreground">Last updated: {new Date().toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" })}</p>
 
       <h2>1. About RepayWise</h2>
-      <p>RepayWise (<strong>www.repaywise.co.uk</strong>) is an information service. We are <strong>not</strong> a
+      <p>RepayWise (<strong>repaywise.co.uk</strong>) is an information service. We are <strong>not</strong> a
         lender, mortgage broker, or FCA-authorised financial adviser. Nothing on this site constitutes regulated
         financial advice within the meaning of the Financial Services and Markets Act 2000.</p>
 
