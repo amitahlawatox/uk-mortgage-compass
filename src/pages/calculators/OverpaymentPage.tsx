@@ -5,6 +5,7 @@ import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
 import { formatGBP } from "@/lib/finance/decimal";
 import { SliderField, BigStat } from "./RepaymentPage";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
+import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 
 const OverpaymentPage = () => {
   const [principal, setPrincipal] = useState(250_000);
@@ -236,6 +237,25 @@ const OverpaymentPage = () => {
               </p>
             </div>
           ) : null}
+
+          <ShareCalculation
+            title="Mortgage Overpayment Plan"
+            calculator="overpayment"
+            intro={`Loan ${formatGBP(principal)} · ${rate.toFixed(2)}% · ${term} years`}
+            summary={[
+              { label: "Loan amount", value: formatGBP(principal) },
+              { label: "Rate · Term", value: `${rate.toFixed(2)}% · ${term} years` },
+              { label: "Current EMI", value: formatGBP(baseEmi, { decimals: 2 }) },
+              { label: "Effective monthly outlay", value: formatGBP(effectiveMonthly, { decimals: 2 }) },
+              ...(monthlyOver > 0 ? [{ label: "Monthly overpayment", value: formatGBP(monthlyOver) }] : []),
+              ...(quarterlyOver > 0 ? [{ label: "Quarterly overpayment", value: formatGBP(quarterlyOver) }] : []),
+              ...(annualOver > 0 ? [{ label: "Annual overpayment", value: formatGBP(annualOver) }] : []),
+              ...(lumpSum > 0 ? [{ label: `Lump sum (month ${lumpMonth})`, value: formatGBP(lumpSum) }] : []),
+              { label: "Interest saved", value: formatGBP(Math.max(0, interestSaved)) },
+              { label: "Time saved", value: `${Math.floor(monthsSaved / 12)}y ${monthsSaved % 12}m` },
+              { label: "New term", value: `${Math.floor(accelerated.monthsTaken / 12)}y ${accelerated.monthsTaken % 12}m` },
+            ]}
+          />
         </div>
       </div>
     </CalculatorShell>

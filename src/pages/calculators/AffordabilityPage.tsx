@@ -8,6 +8,7 @@ import { formatGBP } from "@/lib/finance/decimal";
 import { SliderField, BigStat } from "./RepaymentPage";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { Home, Users, Building2, MapPin, CheckCircle2, AlertTriangle, Wallet, Receipt, Calculator, Info } from "lucide-react";
+import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 
 type BuyerStatus = "first-time" | "mover" | "additional";
 
@@ -395,6 +396,23 @@ const AffordabilityPage = () => {
               </p>
             </div>
           </div>
+
+          <ShareCalculation
+            title="Total Cost to Buy a Home"
+            calculator="total-cost"
+            intro={`Property ${formatGBP(propertyPrice)} · Deposit ${formatGBP(deposit)} (${depositPct.toFixed(1)}%) · ${REGION_OPTIONS.find(r => r.value === region)?.label} · ${BUYER_OPTIONS.find(b => b.value === buyer)?.label}`}
+            summary={[
+              { label: "Property price", value: formatGBP(propertyPrice) },
+              { label: `Deposit (${depositPct.toFixed(1)}%)`, value: formatGBP(deposit) },
+              { label: "Loan needed", value: `${formatGBP(loanAmount)} · ${ltv.toFixed(1)}% LTV` },
+              { label: `${stampDuty.taxName} payable`, value: formatGBP(stampDuty.total) },
+              ...(feesTotal > 0 ? [{ label: "Other fees", value: formatGBP(feesTotal) }] : []),
+              { label: "Total cash needed upfront", value: formatGBP(cashUpfront) },
+              { label: "Monthly EMI", value: formatGBP(repayment.monthlyPayment, { decimals: 2 }) },
+              { label: "Total interest over term", value: formatGBP(repayment.totalInterest) },
+              { label: `Rate · Term`, value: `${rate.toFixed(2)}% · ${term} years` },
+            ]}
+          />
         </div>
       </div>
     </CalculatorShell>
