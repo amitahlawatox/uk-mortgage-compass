@@ -11,8 +11,15 @@ const OverpaymentPage = () => {
   const [rate, setRate] = useState(4.5);
   const [term, setTerm] = useState(25);
   const [monthlyOver, setMonthlyOver] = useState(200);
+  const [quarterlyOver, setQuarterlyOver] = useState(0);
+  const [annualOver, setAnnualOver] = useState(0);
   const [lumpSum, setLumpSum] = useState(0);
   const [lumpMonth, setLumpMonth] = useState(12);
+
+  const baseEmi = useMemo(
+    () => calculateRepayment({ principal, annualRate: rate, termYears: term }).monthlyPayment,
+    [principal, rate, term],
+  );
 
   const baseline = useMemo(
     () => buildSchedule({ principal, annualRate: rate, termYears: term }),
@@ -26,14 +33,22 @@ const OverpaymentPage = () => {
         annualRate: rate,
         termYears: term,
         monthlyOverpayment: monthlyOver,
+        quarterlyOverpayment: quarterlyOver,
+        annualOverpayment: annualOver,
         lumpSum: lumpSum > 0 ? lumpSum : undefined,
         lumpSumMonth: lumpSum > 0 ? lumpMonth : undefined,
       }),
-    [principal, rate, term, monthlyOver, lumpSum, lumpMonth],
+    [principal, rate, term, monthlyOver, quarterlyOver, annualOver, lumpSum, lumpMonth],
   );
 
   const monthsSaved = baseline.monthsTaken - accelerated.monthsTaken;
   const interestSaved = baseline.totalInterest - accelerated.totalInterest;
+  const effectiveMonthly =
+    baseEmi +
+    monthlyOver +
+    quarterlyOver / 3 +
+    annualOver / 12 +
+    (lumpSum > 0 ? lumpSum / Math.max(1, accelerated.monthsTaken) : 0);
 
   const chart = useMemo(() => {
     const map = new Map<number, { year: number; baseline: number; accelerated: number }>();
