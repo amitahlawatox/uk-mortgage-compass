@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
-import { buildSchedule } from "@/lib/finance/repayment";
+import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
 import { formatGBP } from "@/lib/finance/decimal";
 import { SliderField, BigStat } from "./RepaymentPage";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
