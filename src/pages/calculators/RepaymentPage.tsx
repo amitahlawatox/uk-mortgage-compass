@@ -16,9 +16,17 @@ const presets = [
 
 const RepaymentPage = () => {
   const [step, setStep] = useState<Step>(0);
-  const [principal, setPrincipal] = useState(250_000);
+  const [propertyPrice, setPropertyPrice] = useState(312_500);
+  const [deposit, setDeposit] = useState(62_500);
+  const principal = Math.max(0, propertyPrice - deposit);
+  const depositPct = propertyPrice > 0 ? (deposit / propertyPrice) * 100 : 0;
+  const ltv = 100 - depositPct;
   const [term, setTerm] = useState(25);
   const [rate, setRate] = useState(4.5);
+
+  const setPrincipal = (newLoan: number) => {
+    setPropertyPrice(newLoan + deposit);
+  };
 
   const result = useMemo(
     () => calculateRepayment({ principal, annualRate: rate, termYears: term }),
