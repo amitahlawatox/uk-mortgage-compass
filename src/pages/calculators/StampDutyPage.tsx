@@ -4,6 +4,7 @@ import { SEO } from "@/components/SEO";
 import { calculateStampDuty, type Region } from "@/lib/finance/stampDuty";
 import { formatGBP, formatPercent } from "@/lib/finance/decimal";
 import { Loader2, MapPin, CheckCircle2 } from "lucide-react";
+import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 
 const regions: { value: Region; label: string; tax: string }[] = [
   { value: "england", label: "England & N. Ireland", tax: "SDLT" },
@@ -248,6 +249,19 @@ const StampDutyPage = () => {
               ))}
             </ul>
           )}
+
+          <ShareCalculation
+            title={`UK Stamp Duty (${result.taxName}) Calculation`}
+            calculator="stamp-duty"
+            intro={`${regions.find(r => r.value === region)?.label} · ${ftb ? "First-time buyer" : additional ? "Additional property" : "Standard purchase"}`}
+            summary={[
+              { label: "Property price", value: formatGBP(price) },
+              { label: "Region", value: regions.find(r => r.value === region)?.label ?? region },
+              { label: "Buyer status", value: ftb ? "First-time buyer" : additional ? "Additional property (2nd home / BTL)" : "Standard" },
+              { label: `Total ${result.taxName}`, value: formatGBP(result.total) },
+              { label: "Effective rate", value: `${result.effectiveRate.toFixed(2)}%` },
+            ]}
+          />
         </div>
       </div>
     </CalculatorShell>
