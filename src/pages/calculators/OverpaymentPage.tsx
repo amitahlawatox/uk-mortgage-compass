@@ -140,8 +140,11 @@ const OverpaymentPage = () => {
           <SliderField label="Interest rate" suffix="%" value={rate} min={0.5} max={12} step={0.05} decimals={2} onChange={setRate} />
           <SliderField label="Term (years)" value={term} min={5} max={40} step={1} onChange={setTerm} />
           <div className="h-px bg-border" />
+          <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Extra payments</p>
           <SliderField label="Monthly overpayment" prefix="£" value={monthlyOver} min={0} max={2000} step={25} onChange={setMonthlyOver} />
-          <SliderField label="Lump sum" prefix="£" value={lumpSum} min={0} max={100_000} step={500} onChange={setLumpSum} />
+          <SliderField label="Quarterly overpayment" prefix="£" value={quarterlyOver} min={0} max={6000} step={50} onChange={setQuarterlyOver} />
+          <SliderField label="Annual overpayment" prefix="£" value={annualOver} min={0} max={25_000} step={100} onChange={setAnnualOver} />
+          <SliderField label="One-off lump sum" prefix="£" value={lumpSum} min={0} max={100_000} step={500} onChange={setLumpSum} />
           {lumpSum > 0 && (
             <SliderField label="Apply lump sum at month" value={lumpMonth} min={1} max={term * 12} step={1} onChange={setLumpMonth} />
           )}
