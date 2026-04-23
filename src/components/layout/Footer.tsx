@@ -28,7 +28,7 @@ export const Footer = () => (
           <li><Link to="/calculators/stamp-duty" className="hover:text-accent">Stamp Duty (SDLT/LBTT/LTT)</Link></li>
           <li><Link to="/calculators/repayment" className="hover:text-accent">Mortgage Repayment</Link></li>
           <li><Link to="/calculators/overpayment" className="hover:text-accent">Overpayment Visualiser</Link></li>
-          <li><Link to="/calculators/affordability" className="hover:text-accent">Affordability</Link></li>
+          <li><Link to="/calculators/affordability" className="hover:text-accent">Total Cost to Buy</Link></li>
         </ul>
       </div>
 

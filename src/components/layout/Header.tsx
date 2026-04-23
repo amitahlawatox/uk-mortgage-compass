@@ -6,7 +6,7 @@ const items = [
   { to: "/calculators/stamp-duty", label: "Stamp Duty" },
   { to: "/calculators/repayment", label: "Repayment" },
   { to: "/calculators/overpayment", label: "Overpayment" },
-  { to: "/calculators/affordability", label: "Affordability" },
+  { to: "/calculators/affordability", label: "Total Cost to Buy" },
 ];
 
 export const Header = () => (
