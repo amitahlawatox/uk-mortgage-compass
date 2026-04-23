@@ -16,9 +16,18 @@ const presets = [
 
 const RepaymentPage = () => {
   const [step, setStep] = useState<Step>(0);
-  const [principal, setPrincipal] = useState(250_000);
+  const [propertyPrice, setPropertyPrice] = useState(312_500);
+  const [deposit, setDeposit] = useState(62_500);
+  const principal = Math.max(0, propertyPrice - deposit);
+  const depositPct = propertyPrice > 0 ? (deposit / propertyPrice) * 100 : 0;
+  const ltv = 100 - depositPct;
   const [term, setTerm] = useState(25);
   const [rate, setRate] = useState(4.5);
+
+  const setPrincipal = (newLoan: number) => {
+    setPropertyPrice(newLoan + deposit);
+  };
+  void setPrincipal;
 
   const result = useMemo(
     () => calculateRepayment({ principal, annualRate: rate, termYears: term }),
@@ -86,18 +95,20 @@ const RepaymentPage = () => {
           {step === 0 && (
             <StepPane
               eyebrow="Step 1 of 3"
-              question="How much would you like to borrow?"
-              hint="Pick a preset or set your own amount."
+              question="Property price & deposit"
+              hint="Set the property price and your deposit. We'll work out the loan you need."
             >
               <div className="grid sm:grid-cols-3 gap-3 mb-6">
                 {presets.map((p) => {
                   const Icon = p.icon;
-                  const active = principal === p.principal;
+                  const presetPrice = Math.round(p.principal / 0.8);
+                  const active = propertyPrice === presetPrice;
                   return (
                     <button
                       key={p.label}
                       onClick={() => {
-                        setPrincipal(p.principal);
+                        setPropertyPrice(presetPrice);
+                        setDeposit(presetPrice - p.principal);
                         setTerm(p.term);
                       }}
                       className={`text-left p-4 rounded-2xl border transition-all ${
@@ -110,22 +121,70 @@ const RepaymentPage = () => {
                       <p className="text-sm font-semibold">{p.label}</p>
                       <p className="text-xs text-muted-foreground mt-0.5">{p.blurb}</p>
                       <p className="text-base font-bold tabular-nums mt-2">
-                        {formatGBP(p.principal)}
+                        {formatGBP(presetPrice)}
                       </p>
                     </button>
                   );
                 })}
               </div>
 
-              <BigSlider
-                label="Loan amount"
-                prefix="£"
-                value={principal}
-                min={25_000}
-                max={2_000_000}
-                step={5_000}
-                onChange={setPrincipal}
-              />
+              <div className="space-y-5">
+                <BigSlider
+                  label="Property price"
+                  prefix="£"
+                  value={propertyPrice}
+                  min={50_000}
+                  max={2_500_000}
+                  step={5_000}
+                  onChange={(v) => {
+                    setPropertyPrice(v);
+                    if (deposit > v) setDeposit(Math.round(v * 0.1));
+                  }}
+                />
+                <BigSlider
+                  label={`Deposit (${depositPct.toFixed(1)}%)`}
+                  prefix="£"
+                  value={deposit}
+                  min={0}
+                  max={propertyPrice}
+                  step={1_000}
+                  onChange={(v) => setDeposit(Math.min(v, propertyPrice))}
+                />
+
+                <div className="grid sm:grid-cols-[1fr_auto] gap-4 items-center rounded-2xl border border-border p-4 bg-secondary/40">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground">
+                      Loan you need
+                    </p>
+                    <p className="text-3xl font-bold tabular-nums tracking-tight mt-1">
+                      {formatGBP(principal)}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1 tabular-nums">
+                      LTV {ltv.toFixed(1)}% · Deposit {depositPct.toFixed(1)}%
+                    </p>
+                  </div>
+                  <div className="h-24 w-24 mx-auto sm:mx-0">
+                    <ResponsiveContainer>
+                      <PieChart>
+                        <Pie
+                          data={[
+                            { name: "Deposit", value: deposit, color: "hsl(var(--accent-secondary))" },
+                            { name: "Loan", value: principal, color: "hsl(var(--accent))" },
+                          ]}
+                          dataKey="value"
+                          innerRadius={26}
+                          outerRadius={44}
+                          paddingAngle={2}
+                          stroke="none"
+                        >
+                          <Cell fill="hsl(var(--accent-secondary))" />
+                          <Cell fill="hsl(var(--accent))" />
+                        </Pie>
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
             </StepPane>
           )}
 
@@ -333,6 +392,8 @@ const RepaymentPage = () => {
               </p>
               <p className="text-xs text-muted-foreground mt-1">per month</p>
               <div className="mt-5 space-y-2 text-sm">
+                <SummaryRow label="Property" value={formatGBP(propertyPrice)} done={true} />
+                <SummaryRow label={`Deposit (${depositPct.toFixed(0)}%)`} value={formatGBP(deposit)} done={true} />
                 <SummaryRow label="Loan" value={formatGBP(principal)} done={step >= 1} />
                 <SummaryRow label="Term" value={`${term} years`} done={step >= 2} />
                 <SummaryRow label="Rate" value={`${rate.toFixed(2)}%`} done={step >= 3} />

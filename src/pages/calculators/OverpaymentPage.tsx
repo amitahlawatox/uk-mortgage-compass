@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
-import { buildSchedule } from "@/lib/finance/repayment";
+import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
 import { formatGBP } from "@/lib/finance/decimal";
 import { SliderField, BigStat } from "./RepaymentPage";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
@@ -11,8 +11,15 @@ const OverpaymentPage = () => {
   const [rate, setRate] = useState(4.5);
   const [term, setTerm] = useState(25);
   const [monthlyOver, setMonthlyOver] = useState(200);
+  const [quarterlyOver, setQuarterlyOver] = useState(0);
+  const [annualOver, setAnnualOver] = useState(0);
   const [lumpSum, setLumpSum] = useState(0);
   const [lumpMonth, setLumpMonth] = useState(12);
+
+  const baseEmi = useMemo(
+    () => calculateRepayment({ principal, annualRate: rate, termYears: term }).monthlyPayment,
+    [principal, rate, term],
+  );
 
   const baseline = useMemo(
     () => buildSchedule({ principal, annualRate: rate, termYears: term }),
@@ -26,14 +33,22 @@ const OverpaymentPage = () => {
         annualRate: rate,
         termYears: term,
         monthlyOverpayment: monthlyOver,
+        quarterlyOverpayment: quarterlyOver,
+        annualOverpayment: annualOver,
         lumpSum: lumpSum > 0 ? lumpSum : undefined,
         lumpSumMonth: lumpSum > 0 ? lumpMonth : undefined,
       }),
-    [principal, rate, term, monthlyOver, lumpSum, lumpMonth],
+    [principal, rate, term, monthlyOver, quarterlyOver, annualOver, lumpSum, lumpMonth],
   );
 
   const monthsSaved = baseline.monthsTaken - accelerated.monthsTaken;
   const interestSaved = baseline.totalInterest - accelerated.totalInterest;
+  const effectiveMonthly =
+    baseEmi +
+    monthlyOver +
+    quarterlyOver / 3 +
+    annualOver / 12 +
+    (lumpSum > 0 ? lumpSum / Math.max(1, accelerated.monthsTaken) : 0);
 
   const chart = useMemo(() => {
     const map = new Map<number, { year: number; baseline: number; accelerated: number }>();
@@ -125,14 +140,29 @@ const OverpaymentPage = () => {
           <SliderField label="Interest rate" suffix="%" value={rate} min={0.5} max={12} step={0.05} decimals={2} onChange={setRate} />
           <SliderField label="Term (years)" value={term} min={5} max={40} step={1} onChange={setTerm} />
           <div className="h-px bg-border" />
+          <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Extra payments</p>
           <SliderField label="Monthly overpayment" prefix="£" value={monthlyOver} min={0} max={2000} step={25} onChange={setMonthlyOver} />
-          <SliderField label="Lump sum" prefix="£" value={lumpSum} min={0} max={100_000} step={500} onChange={setLumpSum} />
+          <SliderField label="Quarterly overpayment" prefix="£" value={quarterlyOver} min={0} max={6000} step={50} onChange={setQuarterlyOver} />
+          <SliderField label="Annual overpayment" prefix="£" value={annualOver} min={0} max={25_000} step={100} onChange={setAnnualOver} />
+          <SliderField label="One-off lump sum" prefix="£" value={lumpSum} min={0} max={100_000} step={500} onChange={setLumpSum} />
           {lumpSum > 0 && (
             <SliderField label="Apply lump sum at month" value={lumpMonth} min={1} max={term * 12} step={1} onChange={setLumpMonth} />
           )}
         </div>
 
         <div className="lg:col-span-3 space-y-4">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="glass-card rounded-2xl p-5">
+              <p className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-2">Current EMI</p>
+              <p className="text-2xl sm:text-3xl font-bold tabular-nums tracking-tight">{formatGBP(baseEmi, { decimals: 2 })}</p>
+              <p className="text-[11px] text-muted-foreground mt-1">Contractual monthly payment</p>
+            </div>
+            <div className="rounded-2xl p-5 bg-primary text-primary-foreground shadow-glow-cyan">
+              <p className="text-[10px] uppercase tracking-widest font-semibold text-primary-foreground/60 mb-2">Effective monthly outlay</p>
+              <p className="text-2xl sm:text-3xl font-bold tabular-nums tracking-tight">{formatGBP(effectiveMonthly, { decimals: 2 })}</p>
+              <p className="text-[11px] text-primary-foreground/60 mt-1">EMI + averaged extra payments</p>
+            </div>
+          </div>
           <div className="grid sm:grid-cols-3 gap-4">
             <BigStat label="Interest saved" value={formatGBP(Math.max(0, interestSaved))} highlight />
             <BigStat label="Time saved" value={`${Math.floor(monthsSaved / 12)}y ${monthsSaved % 12}m`} />

@@ -73,6 +73,8 @@ export function calculateRepayment(input: RepaymentInput): RepaymentResult {
 export function buildSchedule(
   input: RepaymentInput & {
     monthlyOverpayment?: number;
+    quarterlyOverpayment?: number;
+    annualOverpayment?: number;
     lumpSum?: number;
     lumpSumMonth?: number; // 1-indexed
   },
@@ -81,22 +83,36 @@ export function buildSchedule(
   monthsTaken: number;
   totalInterest: number;
   totalPaid: number;
+  totalOverpaid: number;
 } {
   const r = monthlyRate(input.annualRate);
   const baseMonthly = D(calculateRepayment(input).monthlyPayment);
   const overpay = D(input.monthlyOverpayment ?? 0);
+  const quarterly = D(input.quarterlyOverpayment ?? 0);
+  const annual = D(input.annualOverpayment ?? 0);
   let balance = D(input.principal);
   const schedule: AmortRow[] = [];
   let totalInterest = D(0);
   let totalPaid = D(0);
+  let totalOverpaid = D(0);
   const maxMonths = input.termYears * 12;
 
   for (let m = 1; m <= maxMonths && balance.gt(0.005); m++) {
     const interest = balance.times(r);
     let principalPaid = baseMonthly.minus(interest).plus(overpay);
+    let extraThisMonth = overpay;
 
+    if (m % 3 === 0 && quarterly.gt(0)) {
+      principalPaid = principalPaid.plus(quarterly);
+      extraThisMonth = extraThisMonth.plus(quarterly);
+    }
+    if (m % 12 === 0 && annual.gt(0)) {
+      principalPaid = principalPaid.plus(annual);
+      extraThisMonth = extraThisMonth.plus(annual);
+    }
     if (input.lumpSum && input.lumpSumMonth === m) {
       principalPaid = principalPaid.plus(input.lumpSum);
+      extraThisMonth = extraThisMonth.plus(input.lumpSum);
     }
 
     if (principalPaid.gt(balance)) {
@@ -107,6 +123,7 @@ export function buildSchedule(
     balance = balance.minus(principalPaid);
     totalInterest = totalInterest.plus(interest);
     totalPaid = totalPaid.plus(payment);
+    totalOverpaid = totalOverpaid.plus(extraThisMonth);
 
     schedule.push({
       month: m,
@@ -122,5 +139,6 @@ export function buildSchedule(
     monthsTaken: schedule.length,
     totalInterest: totalInterest.toDecimalPlaces(2).toNumber(),
     totalPaid: totalPaid.toDecimalPlaces(2).toNumber(),
+    totalOverpaid: totalOverpaid.toDecimalPlaces(2).toNumber(),
   };
 }
