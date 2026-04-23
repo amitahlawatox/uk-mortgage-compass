@@ -151,6 +151,18 @@ const OverpaymentPage = () => {
         </div>
 
         <div className="lg:col-span-3 space-y-4">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="glass-card rounded-2xl p-5">
+              <p className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-2">Current EMI</p>
+              <p className="text-2xl sm:text-3xl font-bold tabular-nums tracking-tight">{formatGBP(baseEmi, { decimals: 2 })}</p>
+              <p className="text-[11px] text-muted-foreground mt-1">Contractual monthly payment</p>
+            </div>
+            <div className="rounded-2xl p-5 bg-primary text-primary-foreground shadow-glow-cyan">
+              <p className="text-[10px] uppercase tracking-widest font-semibold text-primary-foreground/60 mb-2">Effective monthly outlay</p>
+              <p className="text-2xl sm:text-3xl font-bold tabular-nums tracking-tight">{formatGBP(effectiveMonthly, { decimals: 2 })}</p>
+              <p className="text-[11px] text-primary-foreground/60 mt-1">EMI + averaged extra payments</p>
+            </div>
+          </div>
           <div className="grid sm:grid-cols-3 gap-4">
             <BigStat label="Interest saved" value={formatGBP(Math.max(0, interestSaved))} highlight />
             <BigStat label="Time saved" value={`${Math.floor(monthsSaved / 12)}y ${monthsSaved % 12}m`} />
