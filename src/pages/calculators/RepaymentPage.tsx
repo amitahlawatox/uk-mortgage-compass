@@ -5,6 +5,7 @@ import { calculateRepayment, buildSchedule } from "@/lib/finance/repayment";
 import { formatGBP } from "@/lib/finance/decimal";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Cell, Pie, PieChart } from "recharts";
 import { ArrowLeft, ArrowRight, Check, Sparkles, Home, TrendingUp, Crown } from "lucide-react";
+import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 
 type Step = 0 | 1 | 2 | 3;
 
@@ -349,6 +350,22 @@ const RepaymentPage = () => {
                     </div>
                   </div>
                 </div>
+
+                <ShareCalculation
+                  title="Mortgage Repayment Calculation"
+                  calculator="repayment"
+                  intro={`Property ${formatGBP(propertyPrice)} · Deposit ${formatGBP(deposit)} (${depositPct.toFixed(1)}%)`}
+                  summary={[
+                    { label: "Property price", value: formatGBP(propertyPrice) },
+                    { label: `Deposit (${depositPct.toFixed(1)}%)`, value: formatGBP(deposit) },
+                    { label: "Loan amount", value: formatGBP(principal) },
+                    { label: "Rate", value: `${rate.toFixed(2)}%` },
+                    { label: "Term", value: `${term} years` },
+                    { label: "Monthly payment", value: formatGBP(result.monthlyPayment, { decimals: 2 }) },
+                    { label: "Total interest", value: formatGBP(result.totalInterest) },
+                    { label: "Stressed EMI (+1%)", value: formatGBP(stressed.monthlyPayment, { decimals: 2 }) },
+                  ]}
+                />
               </div>
             </StepPane>
           )}
