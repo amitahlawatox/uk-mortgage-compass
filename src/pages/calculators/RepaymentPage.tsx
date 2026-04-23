@@ -27,6 +27,7 @@ const RepaymentPage = () => {
   const setPrincipal = (newLoan: number) => {
     setPropertyPrice(newLoan + deposit);
   };
+  void setPrincipal;
 
   const result = useMemo(
     () => calculateRepayment({ principal, annualRate: rate, termYears: term }),
