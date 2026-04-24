@@ -7,6 +7,7 @@ const items = [
   { to: "/calculators/repayment", label: "Repayment" },
   { to: "/calculators/overpayment", label: "Overpayment" },
   { to: "/calculators/affordability", label: "Total Cost to Buy" },
+  { to: "/calculators/max-borrowing", label: "Affordability" },
 ];
 
 export const Header = () => (

@@ -11,7 +11,7 @@ const calculators = [
     title: "Repayment",
     blurb: "Three quick steps to your exact monthly payment, total interest and balance over time.",
     icon: LineChart,
-    accent: "dark" as const,
+    accent: "none" as const,
   },
   {
     to: "/calculators/stamp-duty",
@@ -28,9 +28,9 @@ const calculators = [
     accent: "lime" as const,
   },
   {
-    to: "/calculators/affordability",
-    title: "Total Cost to Buy",
-    blurb: "Property + deposit + stamp duty + EMI + optional fees — see all the cash you really need.",
+    to: "/calculators/max-borrowing",
+    title: "Affordability",
+    blurb: "Lender-style 4.5× income multiplier with stress test — find out how much you can borrow.",
     icon: Wallet,
     accent: "none" as const,
   },
@@ -87,45 +87,64 @@ const Index = () => (
       </div>
     </section>
 
+    <section className="px-4 pb-10">
+      <div className="max-w-6xl mx-auto">
+        <Link
+          to="/calculators/affordability"
+          className="group block rounded-3xl bg-primary text-primary-foreground p-8 sm:p-10 shadow-glow-cyan hover:shadow-glow-lime transition-all border border-primary"
+        >
+          <div className="grid sm:grid-cols-[auto_1fr_auto] gap-6 sm:gap-8 items-center">
+            <div className="size-14 rounded-2xl bg-primary-foreground/10 flex items-center justify-center shrink-0">
+              <Wallet className="size-7 text-accent" />
+            </div>
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-2">
+                ★ Featured · All-in-one planner
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
+                Total Cost to Buy a Home
+              </h2>
+              <p className="text-sm sm:text-base text-primary-foreground/70 max-w-[60ch] leading-relaxed">
+                Property + deposit + stamp duty + monthly EMI + optional legal/survey/lender fees.
+                The full picture of cash you actually need before completion — in one calculator.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-5 py-3 rounded-xl text-sm font-semibold group-hover:gap-3 transition-all shrink-0">
+              Open planner <ArrowRight className="size-4" />
+            </span>
+          </div>
+        </Link>
+      </div>
+    </section>
+
     <section className="px-4 pb-16">
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {calculators.map(c => {
           const Icon = c.icon;
-          const cardCls =
-            c.accent === "dark"
-              ? "bg-primary text-primary-foreground border-primary"
-              : "glass-card hover:border-foreground";
           const glow =
             c.accent === "cyan"
               ? "hover:shadow-glow-cyan hover:border-accent"
               : c.accent === "lime"
                 ? "hover:shadow-glow-lime hover:border-accent-secondary"
-                : c.accent === "dark"
-                  ? "hover:shadow-glow-cyan"
-                  : "";
-          const iconBg =
-            c.accent === "dark" ? "bg-primary-foreground/10" : "bg-secondary";
+                : "";
           const iconColor =
             c.accent === "cyan"
               ? "text-accent"
               : c.accent === "lime"
                 ? "text-accent-secondary"
-                : c.accent === "dark"
-                  ? "text-accent"
-                  : "text-foreground";
-          const subColor = c.accent === "dark" ? "text-primary-foreground/60" : "text-muted-foreground";
+                : "text-foreground";
           return (
             <Link
               to={c.to}
               key={c.to}
-              className={`group p-6 rounded-3xl border transition-all duration-300 ${cardCls} ${glow}`}
+              className={`group p-6 rounded-3xl border glass-card hover:border-foreground transition-all duration-300 ${glow}`}
             >
-              <div className={`size-10 rounded-xl flex items-center justify-center mb-6 ${iconBg}`}>
+              <div className="size-10 rounded-xl flex items-center justify-center mb-6 bg-secondary">
                 <Icon className={`size-5 ${iconColor}`} />
               </div>
               <h3 className="text-lg font-semibold mb-2">{c.title}</h3>
-              <p className={`text-sm mb-6 leading-relaxed ${subColor}`}>{c.blurb}</p>
-              <span className={`inline-flex items-center gap-1 font-semibold text-sm ${c.accent === "dark" ? "text-accent" : "group-hover:gap-2 transition-all"}`}>
+              <p className="text-sm mb-6 leading-relaxed text-muted-foreground">{c.blurb}</p>
+              <span className="inline-flex items-center gap-1 font-semibold text-sm group-hover:gap-2 transition-all">
                 Open tool <ArrowRight className="size-4" />
               </span>
             </Link>
