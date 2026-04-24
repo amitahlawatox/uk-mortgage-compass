@@ -6,6 +6,34 @@ import { formatGBP, formatPercent } from "@/lib/finance/decimal";
 import { Loader2, MapPin, CheckCircle2 } from "lucide-react";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 
+const PriceInput = ({ value, onChange }: { value: number; onChange: (v: number) => void }) => {
+  const [draft, setDraft] = useState(String(value));
+  const [focused, setFocused] = useState(false);
+  useEffect(() => { if (!focused) setDraft(String(value)); }, [value, focused]);
+  return (
+    <input
+      type="text"
+      inputMode="numeric"
+      value={draft}
+      onFocus={() => setFocused(true)}
+      onChange={(e) => {
+        const raw = e.target.value;
+        setDraft(raw);
+        if (raw === "") { onChange(0); return; }
+        const n = Number(raw);
+        if (Number.isFinite(n) && n >= 0) onChange(n);
+      }}
+      onBlur={(e) => {
+        setFocused(false);
+        const n = Math.max(0, Number(e.target.value) || 0);
+        onChange(n);
+        setDraft(String(n));
+      }}
+      className="w-full pl-7 pr-3 py-3 rounded-xl bg-background border border-input focus:outline-none focus:ring-2 focus:ring-accent tabular-nums font-medium"
+    />
+  );
+};
+
 const regions: { value: Region; label: string; tax: string }[] = [
   { value: "england", label: "England & N. Ireland", tax: "SDLT" },
   { value: "scotland", label: "Scotland", tax: "LBTT" },
