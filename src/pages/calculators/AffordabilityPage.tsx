@@ -75,6 +75,7 @@ const AffordabilityPage = () => {
   // Property
   const [propertyPrice, setPropertyPrice] = useState(325_000);
   const [deposit, setDeposit] = useState(40_000);
+  const [depositMode, setDepositMode] = useState<"amount" | "percent">("amount");
   const [region, setRegion] = useState<Region>("england");
   const [buyer, setBuyer] = useState<BuyerStatus>("first-time");
 
@@ -170,7 +171,27 @@ const AffordabilityPage = () => {
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. Your property</p>
             </div>
             <SliderField label="Property price" prefix="£" value={propertyPrice} min={50_000} max={2_000_000} step={5_000} onChange={setPropertyPrice} />
-            <SliderField label={`Deposit (${depositPct.toFixed(1)}%)`} prefix="£" value={deposit} min={0} max={Math.max(propertyPrice, 50_000)} step={1_000} onChange={(v) => setDeposit(Math.min(v, propertyPrice))} />
+            <div>
+              <div className="flex items-center justify-end mb-1.5">
+                <div className="inline-flex rounded-md border border-border bg-background p-0.5 text-[9px] font-bold uppercase tracking-wider">
+                  <button
+                    type="button"
+                    onClick={() => setDepositMode("amount")}
+                    className={`px-2 py-0.5 rounded transition-colors ${depositMode === "amount" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                  >£</button>
+                  <button
+                    type="button"
+                    onClick={() => setDepositMode("percent")}
+                    className={`px-2 py-0.5 rounded transition-colors ${depositMode === "percent" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                  >%</button>
+                </div>
+              </div>
+              {depositMode === "amount" ? (
+                <SliderField label={`Deposit (${depositPct.toFixed(1)}%)`} prefix="£" value={deposit} min={0} max={Math.max(propertyPrice, 50_000)} step={1_000} onChange={(v) => setDeposit(Math.min(v, propertyPrice))} />
+              ) : (
+                <SliderField label={`Deposit (${formatGBP(deposit)})`} suffix="%" value={depositPct} min={0} max={100} step={0.5} decimals={1} onChange={(pct) => setDeposit(Math.round((pct / 100) * propertyPrice))} />
+              )}
+            </div>
             <div className="text-xs text-muted-foreground flex justify-between">
               <span>Loan needed</span>
               <span className="font-semibold text-foreground">{formatGBP(loanAmount)} · {ltv.toFixed(1)}% LTV</span>
