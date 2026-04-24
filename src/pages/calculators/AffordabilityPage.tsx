@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
 import { calculateStampDuty, type Region } from "@/lib/finance/stampDuty";
@@ -9,6 +9,35 @@ import { SliderField, BigStat } from "./RepaymentPage";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { Home, Users, Building2, MapPin, CheckCircle2, AlertTriangle, Wallet, Receipt, Calculator, Info } from "lucide-react";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
+
+const FeeInput = ({ value, onChange, disabled }: { value: number; onChange: (v: number) => void; disabled?: boolean }) => {
+  const [draft, setDraft] = useState(String(value));
+  const [focused, setFocused] = useState(false);
+  useEffect(() => { if (!focused) setDraft(String(value)); }, [value, focused]);
+  return (
+    <input
+      type="text"
+      inputMode="numeric"
+      value={draft}
+      disabled={disabled}
+      onFocus={() => setFocused(true)}
+      onChange={(e) => {
+        const raw = e.target.value;
+        setDraft(raw);
+        if (raw === "") { onChange(0); return; }
+        const n = Number(raw);
+        if (Number.isFinite(n) && n >= 0) onChange(n);
+      }}
+      onBlur={(e) => {
+        setFocused(false);
+        const n = Math.max(0, Number(e.target.value) || 0);
+        onChange(n);
+        setDraft(String(n));
+      }}
+      className="w-20 bg-background border border-border rounded-md px-2 py-1 text-xs text-right disabled:opacity-50"
+    />
+  );
+};
 
 type BuyerStatus = "first-time" | "mover" | "additional";
 
