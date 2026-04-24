@@ -34,6 +34,13 @@ const calculators = [
     icon: Wallet,
     accent: "none" as const,
   },
+  {
+    to: "/calculators/equity",
+    title: "Home Equity",
+    blurb: "How much of your home do you actually own? See your equity, the bank's claim and net cash if you sold today.",
+    icon: HomeIcon,
+    accent: "cyan" as const,
+  },
 ];
 
 const Index = () => (
