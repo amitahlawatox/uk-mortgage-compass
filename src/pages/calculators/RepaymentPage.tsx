@@ -502,6 +502,12 @@ const BigSlider = ({
   decimals?: number;
 }) => {
   const clamp = (v: number) => Math.min(max, Math.max(min, v));
+  const formatted = decimals > 0 ? value.toFixed(decimals) : String(value);
+  const [draft, setDraft] = useState(formatted);
+  const [focused, setFocused] = useState(false);
+  useEffect(() => {
+    if (!focused) setDraft(formatted);
+  }, [formatted, focused]);
   return (
     <div>
       <div className="flex items-baseline justify-between mb-3 gap-3">
@@ -511,20 +517,28 @@ const BigSlider = ({
         <div className="flex items-baseline gap-1 rounded-xl border border-border focus-within:border-accent focus-within:shadow-glow-cyan transition-all px-3 py-1.5 bg-background">
           {prefix && <span className="text-base font-semibold text-muted-foreground">{prefix}</span>}
           <input
-            type="number"
-            min={min}
-            max={max}
-            step={step}
-            value={decimals > 0 ? Number(value.toFixed(decimals)) : value}
+            type="text"
+            inputMode="decimal"
+            value={draft}
+            onFocus={() => setFocused(true)}
             onChange={(e) => {
               const raw = e.target.value;
-              if (raw === "") return;
+              setDraft(raw);
+              if (raw === "" || raw === "-" || raw === "." || raw === "-.") {
+                onChange(0);
+                return;
+              }
               const n = Number(raw);
-              if (!Number.isFinite(n)) return;
-              onChange(n);
+              if (Number.isFinite(n)) onChange(n);
             }}
-            onBlur={(e) => onChange(clamp(Number(e.target.value) || min))}
-            className="w-28 text-right bg-transparent text-2xl font-bold tabular-nums tracking-tight focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            onBlur={(e) => {
+              setFocused(false);
+              const n = Number(e.target.value);
+              const clamped = Number.isFinite(n) ? clamp(n) : min;
+              onChange(clamped);
+              setDraft(decimals > 0 ? clamped.toFixed(decimals) : String(clamped));
+            }}
+            className="w-28 text-right bg-transparent text-2xl font-bold tabular-nums tracking-tight focus:outline-none"
           />
           {suffix && <span className="text-base font-semibold text-muted-foreground">{suffix}</span>}
         </div>
@@ -578,6 +592,12 @@ export const SliderField = ({
   decimals?: number;
 }) => {
   const clamp = (v: number) => Math.min(max, Math.max(min, v));
+  const formatted = decimals > 0 ? value.toFixed(decimals) : String(value);
+  const [draft, setDraft] = useState(formatted);
+  const [focused, setFocused] = useState(false);
+  useEffect(() => {
+    if (!focused) setDraft(formatted);
+  }, [formatted, focused]);
   return (
     <div>
       <div className="flex justify-between items-baseline mb-2 gap-2">
@@ -587,20 +607,28 @@ export const SliderField = ({
         <div className="flex items-baseline gap-0.5 rounded-lg border border-border focus-within:border-accent transition-all px-2 py-0.5 bg-background">
           {prefix && <span className="text-xs text-muted-foreground">{prefix}</span>}
           <input
-            type="number"
-            min={min}
-            max={max}
-            step={step}
-            value={decimals > 0 ? Number(value.toFixed(decimals)) : value}
+            type="text"
+            inputMode="decimal"
+            value={draft}
+            onFocus={() => setFocused(true)}
             onChange={(e) => {
               const raw = e.target.value;
-              if (raw === "") return;
+              setDraft(raw);
+              if (raw === "" || raw === "-" || raw === "." || raw === "-.") {
+                onChange(0);
+                return;
+              }
               const n = Number(raw);
-              if (!Number.isFinite(n)) return;
-              onChange(n);
+              if (Number.isFinite(n)) onChange(n);
             }}
-            onBlur={(e) => onChange(clamp(Number(e.target.value) || min))}
-            className="w-24 text-right bg-transparent text-sm font-semibold tabular-nums focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            onBlur={(e) => {
+              setFocused(false);
+              const n = Number(e.target.value);
+              const clamped = Number.isFinite(n) ? clamp(n) : min;
+              onChange(clamped);
+              setDraft(decimals > 0 ? clamped.toFixed(decimals) : String(clamped));
+            }}
+            className="w-24 text-right bg-transparent text-sm font-semibold tabular-nums focus:outline-none"
           />
           {suffix && <span className="text-xs text-muted-foreground">{suffix}</span>}
         </div>
