@@ -30,6 +30,7 @@ export const Footer = () => (
           <li><Link to="/calculators/overpayment" className="hover:text-accent">Overpayment Visualiser</Link></li>
           <li><Link to="/calculators/affordability" className="hover:text-accent">Total Cost to Buy</Link></li>
           <li><Link to="/calculators/max-borrowing" className="hover:text-accent">Affordability — How much can I borrow?</Link></li>
+          <li><Link to="/calculators/equity" className="hover:text-accent">Home Equity Calculator</Link></li>
         </ul>
       </div>
 
