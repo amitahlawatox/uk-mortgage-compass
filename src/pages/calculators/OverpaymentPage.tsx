@@ -6,6 +6,7 @@ import { formatGBP } from "@/lib/finance/decimal";
 import { SliderField, BigStat } from "./RepaymentPage";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
+import { DepositField } from "@/components/calculators/DepositField";
 
 const OverpaymentPage = () => {
   const [propertyPrice, setPropertyPrice] = useState(312_500);
@@ -156,7 +157,7 @@ const OverpaymentPage = () => {
         <div className="lg:col-span-2 glass-card rounded-2xl p-6 space-y-5">
           <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Property & loan</p>
           <SliderField label="Property price" prefix="£" value={propertyPrice} min={50_000} max={2_500_000} step={5_000} onChange={handlePropertyChange} />
-          <SliderField label={`Deposit (${depositPct.toFixed(1)}%)`} prefix="£" value={deposit} min={0} max={propertyPrice} step={1_000} onChange={handleDepositChange} />
+          <DepositField value={deposit} onChange={handleDepositChange} referencePrice={propertyPrice} />
           <SliderField label="Loan amount (override)" prefix="£" value={principal} min={0} max={2_500_000} step={5_000} onChange={setPrincipal} />
           <p className="text-[10px] text-muted-foreground -mt-3">Auto-calculated from property − deposit. Edit to override.</p>
           <SliderField label="Interest rate" suffix="%" value={rate} min={0.5} max={12} step={0.05} decimals={2} onChange={setRate} />

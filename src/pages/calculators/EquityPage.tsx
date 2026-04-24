@@ -5,6 +5,7 @@ import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
 import { formatGBP } from "@/lib/finance/decimal";
 import { SliderField, BigStat } from "./RepaymentPage";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
+import { DepositField } from "@/components/calculators/DepositField";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { Home, Landmark, TrendingUp, PiggyBank, Info } from "lucide-react";
 
@@ -94,7 +95,7 @@ const EquityPage = () => {
             </div>
             <SliderField label="Purchase price (when bought)" prefix="£" value={purchasePrice} min={50_000} max={2_000_000} step={5_000} onChange={setPurchasePrice} />
             <SliderField label="Current market value" prefix="£" value={currentValue} min={50_000} max={3_000_000} step={5_000} onChange={setCurrentValue} />
-            <SliderField label="Deposit you put down" prefix="£" value={deposit} min={0} max={purchasePrice} step={1_000} onChange={(v) => setDeposit(Math.min(v, purchasePrice))} />
+            <DepositField value={deposit} onChange={(v) => setDeposit(Math.min(v, purchasePrice))} referencePrice={purchasePrice} label="Deposit you put down" />
           </div>
 
           <div className="glass-card rounded-2xl p-6 space-y-5">

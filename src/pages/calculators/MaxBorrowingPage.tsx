@@ -6,6 +6,7 @@ import { calculateAffordability } from "@/lib/finance/affordability";
 import { formatGBP } from "@/lib/finance/decimal";
 import { SliderField, BigStat } from "./RepaymentPage";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
+import { DepositField } from "@/components/calculators/DepositField";
 import { CheckCircle2, AlertTriangle, Users, Wallet, Calculator } from "lucide-react";
 
 const MaxBorrowingPage = () => {
@@ -62,7 +63,7 @@ const MaxBorrowingPage = () => {
               <Wallet className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">2. Your deposit</p>
             </div>
-            <SliderField label="Deposit available" prefix="£" value={deposit} min={0} max={500_000} step={1_000} onChange={setDeposit} />
+            <DepositField value={deposit} onChange={setDeposit} amountMax={500_000} label="Deposit available" />
           </div>
 
           <div className="glass-card rounded-2xl p-6 space-y-5">
