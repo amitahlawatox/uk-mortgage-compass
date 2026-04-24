@@ -252,12 +252,10 @@ const AffordabilityPage = () => {
                     </label>
                     <div className="flex items-center gap-1">
                       <span className="text-xs text-muted-foreground">£</span>
-                      <input
-                        type="number"
+                      <FeeInput
                         value={fees[key]}
                         disabled={!enabledFees[key]}
-                        onChange={(e) => setFees((s) => ({ ...s, [key]: Math.max(0, Number(e.target.value) || 0) }))}
-                        className="w-20 bg-background border border-border rounded-md px-2 py-1 text-xs text-right disabled:opacity-50"
+                        onChange={(v) => setFees((s) => ({ ...s, [key]: v }))}
                       />
                     </div>
                   </div>
