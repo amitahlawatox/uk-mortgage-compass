@@ -17,6 +17,7 @@ const EquityPage = () => {
   const [yearsOwned, setYearsOwned] = useState(5);
   const [lumpSum, setLumpSum] = useState(0);
   const [lumpMonth, setLumpMonth] = useState(12);
+  const [monthlyOver, setMonthlyOver] = useState(0);
   const [sellingCostsPct, setSellingCostsPct] = useState(2.5); // agent + legal typical 2-3%
 
   const originalLoan = Math.max(0, purchasePrice - deposit);
@@ -32,10 +33,11 @@ const EquityPage = () => {
       principal: originalLoan,
       annualRate: rate,
       termYears: term,
+      monthlyOverpayment: monthlyOver > 0 ? monthlyOver : undefined,
       lumpSum: lumpSum > 0 ? lumpSum : undefined,
       lumpSumMonth: lumpSum > 0 ? lumpMonth : undefined,
     }),
-    [originalLoan, rate, term, lumpSum, lumpMonth],
+    [originalLoan, rate, term, lumpSum, lumpMonth, monthlyOver],
   );
 
   const monthsElapsed = Math.min(yearsOwned * 12, schedule.schedule.length);
