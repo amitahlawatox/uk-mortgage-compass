@@ -8,6 +8,8 @@ import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } f
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 
 const OverpaymentPage = () => {
+  const [propertyPrice, setPropertyPrice] = useState(312_500);
+  const [deposit, setDeposit] = useState(62_500);
   const [principal, setPrincipal] = useState(250_000);
   const [rate, setRate] = useState(4.5);
   const [term, setTerm] = useState(25);
@@ -16,6 +18,21 @@ const OverpaymentPage = () => {
   const [annualOver, setAnnualOver] = useState(0);
   const [lumpSum, setLumpSum] = useState(0);
   const [lumpMonth, setLumpMonth] = useState(12);
+
+  // Auto-derive loan from property − deposit unless the user manually overrides it.
+  const handlePropertyChange = (v: number) => {
+    setPropertyPrice(v);
+    const newDeposit = Math.min(deposit, v);
+    if (newDeposit !== deposit) setDeposit(newDeposit);
+    setPrincipal(Math.max(0, v - newDeposit));
+  };
+  const handleDepositChange = (v: number) => {
+    const clamped = Math.min(v, propertyPrice);
+    setDeposit(clamped);
+    setPrincipal(Math.max(0, propertyPrice - clamped));
+  };
+
+  const depositPct = propertyPrice > 0 ? (deposit / propertyPrice) * 100 : 0;
 
   const baseEmi = useMemo(
     () => calculateRepayment({ principal, annualRate: rate, termYears: term }).monthlyPayment,
