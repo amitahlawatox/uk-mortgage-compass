@@ -208,6 +208,7 @@ const EquityPage = () => {
               { label: "Original loan", value: formatGBP(originalLoan) },
               { label: "Rate · Term", value: `${rate.toFixed(2)}% · ${term} years` },
               { label: "Years owned", value: `${yearsOwned}` },
+              ...(monthlyOver > 0 ? [{ label: "Monthly overpayment", value: formatGBP(monthlyOver) }] : []),
               ...(lumpSum > 0 ? [{ label: `Lump sum (month ${lumpMonth})`, value: formatGBP(lumpSum) }] : []),
               { label: "Outstanding mortgage", value: formatGBP(outstanding) },
               { label: "Your equity", value: `${formatGBP(yourEquity)} (${equityPct.toFixed(1)}%)` },
