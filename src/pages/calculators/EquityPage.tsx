@@ -5,6 +5,7 @@ import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
 import { formatGBP } from "@/lib/finance/decimal";
 import { SliderField, BigStat } from "./RepaymentPage";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
+import { DepositField } from "@/components/calculators/DepositField";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { Home, Landmark, TrendingUp, PiggyBank, Info } from "lucide-react";
 
