@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin } from "lucide-react";
+import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin, Home as HomeIcon } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { cities } from "@/lib/uk/cities";
