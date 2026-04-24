@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin } from "lucide-react";
+import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin, Home as HomeIcon } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { cities } from "@/lib/uk/cities";
@@ -33,6 +33,13 @@ const calculators = [
     blurb: "Lender-style 4.5× income multiplier with stress test — find out how much you can borrow.",
     icon: Wallet,
     accent: "none" as const,
+  },
+  {
+    to: "/calculators/equity",
+    title: "Home Equity",
+    blurb: "How much of your home do you actually own? See your equity, the bank's claim and net cash if you sold today.",
+    icon: HomeIcon,
+    accent: "cyan" as const,
   },
 ];
 
