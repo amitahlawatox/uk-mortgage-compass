@@ -17,6 +17,7 @@ const EquityPage = () => {
   const [yearsOwned, setYearsOwned] = useState(5);
   const [lumpSum, setLumpSum] = useState(0);
   const [lumpMonth, setLumpMonth] = useState(12);
+  const [monthlyOver, setMonthlyOver] = useState(0);
   const [sellingCostsPct, setSellingCostsPct] = useState(2.5); // agent + legal typical 2-3%
 
   const originalLoan = Math.max(0, purchasePrice - deposit);
@@ -32,10 +33,11 @@ const EquityPage = () => {
       principal: originalLoan,
       annualRate: rate,
       termYears: term,
+      monthlyOverpayment: monthlyOver > 0 ? monthlyOver : undefined,
       lumpSum: lumpSum > 0 ? lumpSum : undefined,
       lumpSumMonth: lumpSum > 0 ? lumpMonth : undefined,
     }),
-    [originalLoan, rate, term, lumpSum, lumpMonth],
+    [originalLoan, rate, term, lumpSum, lumpMonth, monthlyOver],
   );
 
   const monthsElapsed = Math.min(yearsOwned * 12, schedule.schedule.length);
@@ -110,6 +112,7 @@ const EquityPage = () => {
               <PiggyBank className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">3. Optional adjustments</p>
             </div>
+            <SliderField label="Monthly overpayment made" prefix="£" value={monthlyOver} min={0} max={2_000} step={25} onChange={setMonthlyOver} />
             <SliderField label="Lump-sum overpayment made" prefix="£" value={lumpSum} min={0} max={200_000} step={500} onChange={setLumpSum} />
             {lumpSum > 0 && (
               <SliderField label="Applied at month" value={lumpMonth} min={1} max={Math.max(1, yearsOwned * 12)} step={1} onChange={setLumpMonth} />
@@ -205,6 +208,7 @@ const EquityPage = () => {
               { label: "Original loan", value: formatGBP(originalLoan) },
               { label: "Rate · Term", value: `${rate.toFixed(2)}% · ${term} years` },
               { label: "Years owned", value: `${yearsOwned}` },
+              ...(monthlyOver > 0 ? [{ label: "Monthly overpayment", value: formatGBP(monthlyOver) }] : []),
               ...(lumpSum > 0 ? [{ label: `Lump sum (month ${lumpMonth})`, value: formatGBP(lumpSum) }] : []),
               { label: "Outstanding mortgage", value: formatGBP(outstanding) },
               { label: "Your equity", value: `${formatGBP(yourEquity)} (${equityPct.toFixed(1)}%)` },
