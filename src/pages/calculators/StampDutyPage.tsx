@@ -111,14 +111,7 @@ const StampDutyPage = () => {
             <Field label="Property price">
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">£</span>
-                <input
-                  type="number"
-                  min={0}
-                  step={1000}
-                  value={price}
-                  onChange={e => setPrice(Math.max(0, Number(e.target.value) || 0))}
-                  className="w-full pl-7 pr-3 py-3 rounded-xl bg-background border border-input focus:outline-none focus:ring-2 focus:ring-accent tabular-nums font-medium"
-                />
+                <PriceInput value={price} onChange={setPrice} />
               </div>
               <input
                 type="range"
