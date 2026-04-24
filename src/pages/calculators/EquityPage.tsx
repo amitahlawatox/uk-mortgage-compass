@@ -112,6 +112,7 @@ const EquityPage = () => {
               <PiggyBank className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">3. Optional adjustments</p>
             </div>
+            <SliderField label="Monthly overpayment made" prefix="£" value={monthlyOver} min={0} max={2_000} step={25} onChange={setMonthlyOver} />
             <SliderField label="Lump-sum overpayment made" prefix="£" value={lumpSum} min={0} max={200_000} step={500} onChange={setLumpSum} />
             {lumpSum > 0 && (
               <SliderField label="Applied at month" value={lumpMonth} min={1} max={Math.max(1, yearsOwned * 12)} step={1} onChange={setLumpMonth} />
