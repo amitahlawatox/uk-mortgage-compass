@@ -11,7 +11,7 @@ const calculators = [
     title: "Repayment",
     blurb: "Three quick steps to your exact monthly payment, total interest and balance over time.",
     icon: LineChart,
-    accent: "dark" as const,
+    accent: "none" as const,
   },
   {
     to: "/calculators/stamp-duty",
@@ -28,9 +28,9 @@ const calculators = [
     accent: "lime" as const,
   },
   {
-    to: "/calculators/affordability",
-    title: "Total Cost to Buy",
-    blurb: "Property + deposit + stamp duty + EMI + optional fees — see all the cash you really need.",
+    to: "/calculators/max-borrowing",
+    title: "Affordability",
+    blurb: "Lender-style 4.5× income multiplier with stress test — find out how much you can borrow.",
     icon: Wallet,
     accent: "none" as const,
   },
