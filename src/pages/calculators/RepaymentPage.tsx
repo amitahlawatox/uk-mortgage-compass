@@ -19,6 +19,7 @@ const RepaymentPage = () => {
   const [step, setStep] = useState<Step>(0);
   const [propertyPrice, setPropertyPrice] = useState(312_500);
   const [deposit, setDeposit] = useState(62_500);
+  const [depositMode, setDepositMode] = useState<"amount" | "percent">("amount");
   const principal = Math.max(0, propertyPrice - deposit);
   const depositPct = propertyPrice > 0 ? (deposit / propertyPrice) * 100 : 0;
   const ltv = 100 - depositPct;
@@ -142,15 +143,44 @@ const RepaymentPage = () => {
                     if (deposit > v) setDeposit(Math.round(v * 0.1));
                   }}
                 />
-                <BigSlider
-                  label={`Deposit (${depositPct.toFixed(1)}%)`}
-                  prefix="£"
-                  value={deposit}
-                  min={0}
-                  max={propertyPrice}
-                  step={1_000}
-                  onChange={(v) => setDeposit(Math.min(v, propertyPrice))}
-                />
+                <div>
+                  <div className="flex items-center justify-end mb-2">
+                    <div className="inline-flex rounded-lg border border-border bg-background p-0.5 text-[10px] font-bold uppercase tracking-wider">
+                      <button
+                        type="button"
+                        onClick={() => setDepositMode("amount")}
+                        className={`px-2.5 py-1 rounded-md transition-colors ${depositMode === "amount" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                      >£ Amount</button>
+                      <button
+                        type="button"
+                        onClick={() => setDepositMode("percent")}
+                        className={`px-2.5 py-1 rounded-md transition-colors ${depositMode === "percent" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                      >% Percent</button>
+                    </div>
+                  </div>
+                  {depositMode === "amount" ? (
+                    <BigSlider
+                      label={`Deposit (${depositPct.toFixed(1)}%)`}
+                      prefix="£"
+                      value={deposit}
+                      min={0}
+                      max={propertyPrice}
+                      step={1_000}
+                      onChange={(v) => setDeposit(Math.min(v, propertyPrice))}
+                    />
+                  ) : (
+                    <BigSlider
+                      label={`Deposit (${formatGBP(deposit)})`}
+                      suffix="%"
+                      value={depositPct}
+                      min={0}
+                      max={100}
+                      step={0.5}
+                      decimals={1}
+                      onChange={(pct) => setDeposit(Math.round((pct / 100) * propertyPrice))}
+                    />
+                  )}
+                </div>
 
                 <div className="grid sm:grid-cols-[1fr_auto] gap-4 items-center rounded-2xl border border-border p-4 bg-secondary/40">
                   <div>
