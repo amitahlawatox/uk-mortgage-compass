@@ -16,6 +16,7 @@ import OverpaymentPage from "./pages/calculators/OverpaymentPage";
 import AffordabilityPage from "./pages/calculators/AffordabilityPage";
 import MaxBorrowingPage from "./pages/calculators/MaxBorrowingPage";
 import EquityPage from "./pages/calculators/EquityPage";
+import BuyToLetPage from "./pages/calculators/BuyToLetPage";
 import RegionalPage from "./pages/regional/RegionalPage";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => {
               <Route path="/calculators/affordability" element={<AffordabilityPage />} />
               <Route path="/calculators/max-borrowing" element={<MaxBorrowingPage />} />
               <Route path="/calculators/equity" element={<EquityPage />} />
+              <Route path="/calculators/buy-to-let" element={<BuyToLetPage />} />
               <Route path="/uk/:slug" element={<RegionalPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

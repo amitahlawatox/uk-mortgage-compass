@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin, Home as HomeIcon } from "lucide-react";
+import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin, Home as HomeIcon, Building2 } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { cities } from "@/lib/uk/cities";
@@ -40,6 +40,13 @@ const calculators = [
     blurb: "How much of your home do you actually own? See your equity, the bank's claim and net cash if you sold today.",
     icon: HomeIcon,
     accent: "cyan" as const,
+  },
+  {
+    to: "/calculators/buy-to-let",
+    title: "Buy-to-Let",
+    blurb: "BTL purchase modeller: 25% deposit default, interest-only or repayment, stamp duty surcharge, rental yield and ICR.",
+    icon: Building2,
+    accent: "lime" as const,
   },
 ];
 

@@ -7,7 +7,6 @@ import { SliderField, BigStat } from "./RepaymentPage";
 import { DepositField } from "@/components/calculators/DepositField";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
-import { DepositField } from "@/components/calculators/DepositField";
 
 const OverpaymentPage = () => {
   const [propertyPrice, setPropertyPrice] = useState(312_500);
