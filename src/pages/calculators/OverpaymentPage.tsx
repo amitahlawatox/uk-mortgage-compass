@@ -8,6 +8,8 @@ import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } f
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 
 const OverpaymentPage = () => {
+  const [propertyPrice, setPropertyPrice] = useState(312_500);
+  const [deposit, setDeposit] = useState(62_500);
   const [principal, setPrincipal] = useState(250_000);
   const [rate, setRate] = useState(4.5);
   const [term, setTerm] = useState(25);
@@ -16,6 +18,21 @@ const OverpaymentPage = () => {
   const [annualOver, setAnnualOver] = useState(0);
   const [lumpSum, setLumpSum] = useState(0);
   const [lumpMonth, setLumpMonth] = useState(12);
+
+  // Auto-derive loan from property − deposit unless the user manually overrides it.
+  const handlePropertyChange = (v: number) => {
+    setPropertyPrice(v);
+    const newDeposit = Math.min(deposit, v);
+    if (newDeposit !== deposit) setDeposit(newDeposit);
+    setPrincipal(Math.max(0, v - newDeposit));
+  };
+  const handleDepositChange = (v: number) => {
+    const clamped = Math.min(v, propertyPrice);
+    setDeposit(clamped);
+    setPrincipal(Math.max(0, propertyPrice - clamped));
+  };
+
+  const depositPct = propertyPrice > 0 ? (deposit / propertyPrice) * 100 : 0;
 
   const baseEmi = useMemo(
     () => calculateRepayment({ principal, annualRate: rate, termYears: term }).monthlyPayment,
@@ -137,7 +154,11 @@ const OverpaymentPage = () => {
 
       <div className="grid lg:grid-cols-5 gap-6">
         <div className="lg:col-span-2 glass-card rounded-2xl p-6 space-y-5">
-          <SliderField label="Loan amount" prefix="£" value={principal} min={25_000} max={2_000_000} step={5_000} onChange={setPrincipal} />
+          <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Property & loan</p>
+          <SliderField label="Property price" prefix="£" value={propertyPrice} min={50_000} max={2_500_000} step={5_000} onChange={handlePropertyChange} />
+          <SliderField label={`Deposit (${depositPct.toFixed(1)}%)`} prefix="£" value={deposit} min={0} max={propertyPrice} step={1_000} onChange={handleDepositChange} />
+          <SliderField label="Loan amount (override)" prefix="£" value={principal} min={0} max={2_500_000} step={5_000} onChange={setPrincipal} />
+          <p className="text-[10px] text-muted-foreground -mt-3">Auto-calculated from property − deposit. Edit to override.</p>
           <SliderField label="Interest rate" suffix="%" value={rate} min={0.5} max={12} step={0.05} decimals={2} onChange={setRate} />
           <SliderField label="Term (years)" value={term} min={5} max={40} step={1} onChange={setTerm} />
           <div className="h-px bg-border" />
