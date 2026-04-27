@@ -44,6 +44,7 @@ const App = () => {
 
     const handleConsentChange = () => {
       syncAnalyticsConsent();
+      trackPageView();
     };
 
     window.addEventListener(ANALYTICS_CONSENT_EVENT, handleConsentChange as EventListener);
