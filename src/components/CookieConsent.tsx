@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ANALYTICS_CONSENT_EVENT } from "@/lib/analytics";
 
 const KEY = "velocity-cookie-consent";
 
@@ -11,6 +12,7 @@ export const CookieConsent = () => {
 
   const set = (value: "all" | "essential") => {
     localStorage.setItem(KEY, value);
+    window.dispatchEvent(new CustomEvent(ANALYTICS_CONSENT_EVENT, { detail: value }));
     setShow(false);
   };
 
@@ -21,7 +23,7 @@ export const CookieConsent = () => {
       <div className="glass-card rounded-2xl p-5 shadow-soft">
         <h3 className="font-semibold text-sm mb-2">Your privacy</h3>
         <p className="text-xs text-muted-foreground leading-relaxed mb-4">
-          We use essential cookies to run this site and optional analytics cookies (via PostHog) to
+          We use essential cookies to run this site and optional analytics cookies (via Google Analytics and PostHog) to
           improve our calculators. Read our cookie notice. UK GDPR applies.
         </p>
         <div className="flex gap-2">

@@ -1,8 +1,8 @@
 import { Suspense, lazy, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { initAnalytics } from "@/lib/analytics";
+import { ANALYTICS_CONSENT_EVENT, syncAnalyticsConsent, trackPageView } from "@/lib/analytics";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,8 +22,37 @@ const RegionalPage = lazy(() => import("./pages/regional/RegionalPage"));
 const queryClient = new QueryClient();
 const RouteFallback = () => <div className="min-h-screen bg-background" aria-hidden="true" />;
 
+const AnalyticsRouteTracker = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      trackPageView(`${location.pathname}${location.search}${location.hash}`);
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [location.hash, location.pathname, location.search]);
+
+  return null;
+};
+
 const App = () => {
-  useEffect(() => { initAnalytics(); }, []);
+  useEffect(() => {
+    syncAnalyticsConsent();
+
+    const handleConsentChange = () => {
+      syncAnalyticsConsent();
+    };
+
+    window.addEventListener(ANALYTICS_CONSENT_EVENT, handleConsentChange as EventListener);
+
+    return () => {
+      window.removeEventListener(ANALYTICS_CONSENT_EVENT, handleConsentChange as EventListener);
+    };
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
@@ -32,6 +61,7 @@ const App = () => {
             <Toaster />
             <Sonner />
             <BrowserRouter>
+              <AnalyticsRouteTracker />
               <Suspense fallback={<RouteFallback />}>
                 <Routes>
                   <Route path="/" element={<Index />} />

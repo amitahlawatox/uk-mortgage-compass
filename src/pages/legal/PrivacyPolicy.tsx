@@ -28,8 +28,8 @@ const PrivacyPolicy = () => (
       </ul>
 
       <h2>3. Lawful basis</h2>
-      <p>We rely on: (a) <em>consent</em> for non-essential cookies and marketing emails, (b) <em>legitimate interest</em>
-        for analytics and fraud prevention, and (c) <em>contract</em> where you request a service.</p>
+      <p>We rely on: (a) <em>consent</em> for non-essential cookies, analytics cookies, and marketing emails, (b) <em>legitimate interest</em>
+        for fraud prevention and service reliability, and (c) <em>contract</em> where you request a service.</p>
 
       <h2>4. Third-party advertising</h2>
       <p>
@@ -40,7 +40,8 @@ const PrivacyPolicy = () => (
       </p>
 
       <h2>5. Analytics</h2>
-      <p>We use PostHog and Vercel Analytics to understand aggregate usage. IP addresses are pseudonymised. We do
+      <p>We use Google Analytics 4 and PostHog to understand aggregate usage and improve the site. These analytics
+        tools are only loaded after you accept optional analytics cookies. IP addresses are pseudonymised. We do
         not sell or share personal data with data brokers.</p>
 
       <h2>6. Data retention</h2>
