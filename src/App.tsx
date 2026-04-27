@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+import { Analytics, type BeforeSendEvent } from "@vercel/analytics/react";
 import { initAnalytics } from "@/lib/analytics";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -20,6 +21,26 @@ import BuyToLetPage from "./pages/calculators/BuyToLetPage";
 import RegionalPage from "./pages/regional/RegionalPage";
 
 const queryClient = new QueryClient();
+const PRODUCTION_HOSTS = new Set(["repaywise.co.uk", "www.repaywise.co.uk"]);
+
+function filterAnalyticsEvent(event: BeforeSendEvent) {
+  try {
+    const url = new URL(event.url);
+
+    if (!PRODUCTION_HOSTS.has(url.hostname)) {
+      return null;
+    }
+
+    if (url.hostname === "www.repaywise.co.uk") {
+      url.hostname = "repaywise.co.uk";
+      return { ...event, url: url.toString() };
+    }
+  } catch {
+    return event;
+  }
+
+  return event;
+}
 
 const App = () => {
   useEffect(() => { initAnalytics(); }, []);
@@ -47,6 +68,7 @@ const App = () => {
             {/* FCA Regulatory Banner — required on all pages per FCA MCOB rules */}
             <FCABanner />
           </BrowserRouter>
+          <Analytics beforeSend={filterAnalyticsEvent} />
         </TooltipProvider>
         </ThemeProvider>
       </HelmetProvider>

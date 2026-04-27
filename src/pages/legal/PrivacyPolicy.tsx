@@ -14,7 +14,7 @@ const PrivacyPolicy = () => (
 
       <h2>1. Who we are</h2>
       <p>
-        RepayWise ("we", "us", "our") operates <strong>www.repaywise.co.uk</strong>, an information portal
+        RepayWise ("we", "us", "our") operates <strong>repaywise.co.uk</strong>, an information portal
         providing UK mortgage and stamp-duty calculators. We are the data controller for personal information
         you provide through this site, in the meaning of the UK GDPR and the Data Protection Act 2018.
       </p>

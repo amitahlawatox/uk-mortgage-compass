@@ -7,7 +7,7 @@ interface SEOProps {
   jsonLd?: object;
 }
 
-const SITE_URL = "https://www.repaywise.co.uk";
+const SITE_URL = "https://repaywise.co.uk";
 const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 export const SEO = ({ title, description, path = "/", jsonLd }: SEOProps) => {

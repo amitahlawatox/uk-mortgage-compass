@@ -60,7 +60,7 @@ const Index = () => (
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "RepayWise",
-        url: "https://www.repaywise.co.uk",
+        url: "https://repaywise.co.uk",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web",
         offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
