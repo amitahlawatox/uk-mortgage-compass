@@ -26,7 +26,7 @@ const buildText = (title: string, intro: string | undefined, summary: ShareLine[
 
 export const ShareCalculation = ({ title, calculator, summary, intro }: ShareCalculationProps) => {
   const [copied, setCopied] = useState(false);
-  const url = typeof window !== "undefined" ? window.location.href : "https://www.repaywise.co.uk";
+  const url = typeof window !== "undefined" ? window.location.href : "https://repaywise.co.uk";
   const text = buildText(title, intro, summary, url);
 
   const onWhatsApp = () => {

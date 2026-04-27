@@ -60,7 +60,7 @@ const Index = () => (
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "RepayWise",
-        url: "https://www.repaywise.co.uk",
+        url: "https://repaywise.co.uk",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web",
         offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
@@ -72,7 +72,7 @@ const Index = () => (
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary border border-border mb-6 animate-fade-up">
           <span className="size-1.5 rounded-full bg-accent-secondary animate-pulse" />
           <span className="text-[11px] font-bold tracking-wider uppercase">
-            Decimal-precision · Updated 2m ago
+            Free tools · No sign-up required
           </span>
         </div>
         <h1 className="text-5xl sm:text-7xl font-bold tracking-tight leading-[0.95] mb-6 animate-fade-up">
@@ -207,10 +207,10 @@ const Index = () => (
 
     <section className="px-4 pb-24">
       <div className="max-w-6xl mx-auto pt-12 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <Stat label="Calculations / day" value="120k+" />
-        <Stat label="UK regions covered" value="3" />
-        <Stat label="Decimal precision" value="28 dp" />
-        <Stat label="Lighthouse target" value="95+" />
+        <Stat label="Core calculators" value="6" />
+        <Stat label="UK tax systems" value="3" />
+        <Stat label="Math precision" value="28 dp" />
+        <Stat label="Sign-up" value="Not needed" />
       </div>
     </section>
   </SiteShell>

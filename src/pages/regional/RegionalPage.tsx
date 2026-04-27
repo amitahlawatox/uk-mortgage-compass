@@ -48,8 +48,8 @@ const RegionalPage = () => {
   return (
     <SiteShell>
       <SEO
-        title={`${city.name} Mortgage & Stamp Duty Guide 2025 — RepayWise`}
-        description={`Average house prices, ${city.taxName} examples, and mortgage repayment estimates for ${city.name}. Updated UK Land Registry data with first-time buyer relief.`}
+        title={`${city.name} Mortgage & Stamp Duty Guide — RepayWise`}
+        description={`Average house prices, ${city.taxName} examples, and mortgage repayment estimates for ${city.name}. Includes first-time buyer relief and regional tax rules.`}
         path={`/uk/${city.slug}`}
         jsonLd={{
           "@context": "https://schema.org",

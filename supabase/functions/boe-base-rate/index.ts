@@ -38,7 +38,7 @@ async function fetchBoeRate(): Promise<CacheEntry> {
     redirect: "follow",
     headers: {
       Accept: "text/csv,*/*",
-      "User-Agent": "Mozilla/5.0 RepayWise/1.0 (+https://www.repaywise.co.uk)",
+      "User-Agent": "Mozilla/5.0 RepayWise/1.0 (+https://repaywise.co.uk)",
     },
   });
   if (!res.ok) {

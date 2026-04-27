@@ -98,7 +98,7 @@ const OverpaymentPage = () => {
       leadContext={{ principal, rate, term, monthlyOver, lumpSum, lumpMonth, interestSaved, monthsSaved }}
     >
       <SEO
-        title="Mortgage Overpayment Calculator 2026 | Save Years &amp; £000s — RepayWise"
+        title="Mortgage Overpayment Calculator UK | Save Years &amp; £000s — RepayWise"
         description="See how overpaying your UK mortgage cuts years off your term and saves thousands in interest. Free, FCA-aligned, decimal-precision amortisation. No login needed."
         path="/calculators/overpayment"
         jsonLd={{
@@ -107,7 +107,7 @@ const OverpaymentPage = () => {
             {
               "@type": "WebApplication",
               "name": "RepayWise Mortgage Overpayment Calculator",
-              "url": "https://www.repaywise.co.uk/calculators/overpayment",
+              "url": "https://repaywise.co.uk/calculators/overpayment",
               "applicationCategory": "FinanceApplication",
               "operatingSystem": "Any",
               "description": "Free UK mortgage overpayment calculator. Compare baseline vs accelerated repayment. See interest saved, years cut, and month-by-month amortisation. FCA-aligned, no login required.",
@@ -115,7 +115,7 @@ const OverpaymentPage = () => {
               "provider": {
                 "@type": "Organization",
                 "name": "RepayWise",
-                "url": "https://www.repaywise.co.uk",
+                "url": "https://repaywise.co.uk",
                 "areaServed": "GB"
               }
             },
