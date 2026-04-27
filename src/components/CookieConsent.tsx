@@ -19,7 +19,7 @@ export const CookieConsent = () => {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-4 inset-x-4 z-50 sm:left-auto sm:right-4 sm:max-w-md animate-fade-up">
+    <div className="fixed bottom-32 inset-x-4 z-[60] sm:left-auto sm:right-4 sm:max-w-md sm:bottom-24 md:bottom-4 animate-fade-up">
       <div className="glass-card rounded-2xl p-5 shadow-soft">
         <h3 className="font-semibold text-sm mb-2">Your privacy</h3>
         <p className="text-xs text-muted-foreground leading-relaxed mb-4">
