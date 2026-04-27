@@ -29,26 +29,6 @@ async function loadPosthog() {
   return posthogClient;
 }
 
-function getGtagDisableKey() {
-  return `ga-disable-${GA_MEASUREMENT_ID}`;
-}
-
-function setGtagDisabled(disabled: boolean) {
-  if (!GA_MEASUREMENT_ID || typeof window === "undefined") return;
-  (window as Window & Record<string, unknown>)[getGtagDisableKey()] = disabled;
-}
-
-function ensureGtagScript() {
-  if (!GA_MEASUREMENT_ID || typeof document === "undefined") return;
-  if (document.querySelector(`script[data-google-tag-id="${GA_MEASUREMENT_ID}"]`)) return;
-
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  script.dataset.googleTagId = GA_MEASUREMENT_ID;
-  document.head.appendChild(script);
-}
-
 function initGtag() {
   if (!GA_MEASUREMENT_ID || typeof window === "undefined") return;
   if (!window.dataLayer) window.dataLayer = [];
@@ -57,14 +37,6 @@ function initGtag() {
       window.dataLayer.push(args);
     };
   }
-
-  ensureGtagScript();
-  setGtagDisabled(false);
-  window.gtag("js", new Date());
-  window.gtag("config", GA_MEASUREMENT_ID, {
-    anonymize_ip: true,
-    send_page_view: false,
-  });
   gtagInitialized = true;
 }
 
@@ -110,12 +82,22 @@ export function initAnalytics() {
 
 export function syncAnalyticsConsent() {
   if (typeof window === "undefined") return;
-  if (hasAnalyticsConsent()) {
-    initAnalytics();
-    return;
+  initGtag();
+
+  if (window.gtag) {
+    window.gtag("consent", "update", {
+      analytics_storage: hasAnalyticsConsent() ? "granted" : "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      functionality_storage: "granted",
+      security_storage: "granted",
+    });
   }
 
-  setGtagDisabled(true);
+  if (hasAnalyticsConsent()) {
+    initAnalytics();
+  }
 }
 
 export function trackPageView(path = "") {

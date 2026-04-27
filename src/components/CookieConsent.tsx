@@ -37,7 +37,7 @@ export const CookieConsent = () => {
             onClick={() => set("all")}
             className="flex-1 px-3 py-2 text-xs font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition"
           >
-            Accept all
+            Accept analytics
           </button>
         </div>
       </div>
