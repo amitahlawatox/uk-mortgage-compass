@@ -1,4 +1,3 @@
-import logoMark from "@/assets/logo-mark.png";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -11,7 +10,7 @@ interface LogoProps {
 
 /**
  * RepayWise logo: high-DPI mark + crisp HTML wordmark.
- * - Mark renders from a 512px source PNG (sharp on retina, mobile, dark mode).
+ * - Mark renders from the public 192px icon to keep header payloads light.
  * - Wordmark uses themed text token so it adapts to light/dark automatically.
  * - Wordmark hides on very small screens, mark stays visible.
  */
@@ -23,10 +22,10 @@ export const Logo = ({
 }: LogoProps) => (
   <span className={cn("flex items-center gap-2.5", className)}>
     <img
-      src={logoMark}
+      src="/icons/icon-192.png"
       alt="RepayWise logo"
-      width={512}
-      height={512}
+      width={192}
+      height={192}
       loading={priority ? "eager" : "lazy"}
       decoding="async"
       fetchPriority={priority ? "high" : "auto"}
