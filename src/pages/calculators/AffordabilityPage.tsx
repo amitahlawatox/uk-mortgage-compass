@@ -159,6 +159,47 @@ const AffordabilityPage = () => {
         title="Total Cost to Buy a House UK — Deposit, Stamp Duty & EMI Calculator"
         description="Plan the full cost of buying a UK home: deposit, SDLT/LBTT/LTT stamp duty, mortgage EMI and optional legal/survey fees in one calculator."
         path="/calculators/affordability"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "SoftwareApplication",
+              name: "RepayWise Total Cost to Buy Calculator",
+              url: "https://repaywise.co.uk/calculators/affordability",
+              applicationCategory: "FinanceApplication",
+              operatingSystem: "Any",
+              description: "Free UK home-buying cost planner covering deposit, stamp duty, mortgage payments, and optional buying fees in one calculator.",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
+              provider: {
+                "@type": "Organization",
+                name: "RepayWise",
+                url: "https://repaywise.co.uk",
+                areaServed: "GB",
+              },
+            },
+            {
+              "@type": "HowTo",
+              name: "How to estimate the full cost of buying a home in the UK",
+              step: [
+                {
+                  "@type": "HowToStep",
+                  name: "Enter the property price and deposit",
+                  text: "Set the asking price and your deposit to calculate the loan amount and loan-to-value ratio.",
+                },
+                {
+                  "@type": "HowToStep",
+                  name: "Choose your region and buyer status",
+                  text: "Select the correct stamp duty regime and whether you are a first-time buyer, home mover, or additional-property buyer.",
+                },
+                {
+                  "@type": "HowToStep",
+                  name: "Add mortgage and fee assumptions",
+                  text: "Model your mortgage payment, then include legal, survey, lender, broker, and moving fees to see the true cash needed upfront.",
+                },
+              ],
+            },
+          ],
+        }}
       />
 
       <div className="grid lg:grid-cols-5 gap-6">

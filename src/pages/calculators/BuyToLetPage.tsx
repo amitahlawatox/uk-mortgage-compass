@@ -61,6 +61,47 @@ const BuyToLetPage = () => {
         title="Buy-to-Let Mortgage Calculator UK — Yield, Stamp Duty & EMI"
         description="UK Buy-to-Let calculator. 25% deposit default, interest-only or repayment, stamp duty surcharge by region, rental yield, net cash flow and ICR."
         path="/calculators/buy-to-let"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "SoftwareApplication",
+              name: "RepayWise Buy-to-Let Mortgage Calculator",
+              url: "https://repaywise.co.uk/calculators/buy-to-let",
+              applicationCategory: "FinanceApplication",
+              operatingSystem: "Any",
+              description: "Free UK buy-to-let calculator covering deposit, stamp duty surcharge, mortgage payments, rental yield, cash flow, and lender ICR.",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
+              provider: {
+                "@type": "Organization",
+                name: "RepayWise",
+                url: "https://repaywise.co.uk",
+                areaServed: "GB",
+              },
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "How much deposit do I need for a buy-to-let mortgage?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Many UK buy-to-let mortgages start around a 25% deposit, although exact deposit requirements depend on the lender, rental income, and property type.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What is ICR on a buy-to-let mortgage?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "ICR means Interest Coverage Ratio. It compares the expected rent to the mortgage interest payment and is often used by lenders to decide whether a buy-to-let case is affordable.",
+                  },
+                },
+              ],
+            },
+          ],
+        }}
       />
 
       <div className="grid lg:grid-cols-5 gap-6">

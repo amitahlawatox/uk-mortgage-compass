@@ -3,6 +3,7 @@ import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
 import { calculateRepayment, buildSchedule } from "@/lib/finance/repayment";
 import { formatGBP } from "@/lib/finance/decimal";
+import { trackIntentClick } from "@/lib/analytics";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Cell, Pie, PieChart } from "recharts";
 import { ArrowLeft, ArrowRight, Check, Sparkles, Home, TrendingUp, Crown } from "lucide-react";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
@@ -411,7 +412,16 @@ const RepaymentPage = () => {
             </button>
             {step < 3 ? (
               <button
-                onClick={next}
+                onClick={() => {
+                  if (step === 2) {
+                    trackIntentClick("repayment_wizard", "/calculators/repayment", "See my payment", {
+                      principal,
+                      rate,
+                      term,
+                    });
+                  }
+                  next();
+                }}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:shadow-glow-cyan transition-all"
               >
                 {step === 2 ? "See my payment" : "Next"} <ArrowRight className="size-4" />

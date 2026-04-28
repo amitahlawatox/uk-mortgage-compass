@@ -137,6 +137,20 @@ export function track(event: string, properties?: Record<string, unknown>) {
   }
 }
 
+export function trackIntentClick(
+  source: string,
+  destination: string,
+  label?: string,
+  extra?: Record<string, unknown>,
+) {
+  track("intent_calculate_clicked", {
+    source,
+    destination,
+    label,
+    ...extra,
+  });
+}
+
 export function identify(distinctId: string, properties?: Record<string, unknown>) {
   if (typeof window === "undefined" || !hasAnalyticsConsent()) return;
   initAnalytics();

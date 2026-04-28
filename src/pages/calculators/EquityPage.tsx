@@ -83,6 +83,47 @@ const EquityPage = () => {
         title="Home Equity Calculator UK — Refinance, Sell or Remortgage"
         description="Calculate your current UK home equity. See outstanding mortgage, LTV, your equity, the bank's claim, and net proceeds if you sell."
         path="/calculators/equity"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "SoftwareApplication",
+              name: "RepayWise Home Equity Calculator",
+              url: "https://repaywise.co.uk/calculators/equity",
+              applicationCategory: "FinanceApplication",
+              operatingSystem: "Any",
+              description: "Free UK home equity calculator showing outstanding mortgage, current loan-to-value, your equity share, and net proceeds if you sell.",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
+              provider: {
+                "@type": "Organization",
+                name: "RepayWise",
+                url: "https://repaywise.co.uk",
+                areaServed: "GB",
+              },
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "How do I calculate home equity?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Home equity is the current market value of the property minus the outstanding mortgage balance. If you are selling, you should also subtract estate agent and legal costs to estimate net proceeds.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Why does my current LTV matter?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "A lower loan-to-value ratio usually unlocks better remortgage pricing because the lender is taking less risk relative to the property value.",
+                  },
+                },
+              ],
+            },
+          ],
+        }}
       />
 
       <div className="grid lg:grid-cols-5 gap-6">

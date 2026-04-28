@@ -105,7 +105,7 @@ const OverpaymentPage = () => {
           "@context": "https://schema.org",
           "@graph": [
             {
-              "@type": "WebApplication",
+              "@type": "SoftwareApplication",
               "name": "RepayWise Mortgage Overpayment Calculator",
               "url": "https://repaywise.co.uk/calculators/overpayment",
               "applicationCategory": "FinanceApplication",

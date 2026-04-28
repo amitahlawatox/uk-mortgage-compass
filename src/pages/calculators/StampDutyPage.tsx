@@ -130,6 +130,47 @@ const StampDutyPage = () => {
         title="Stamp Duty Calculator UK — SDLT, LBTT, LTT — RepayWise"
         description="Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown."
         path="/calculators/stamp-duty"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "SoftwareApplication",
+              name: "RepayWise Stamp Duty Calculator",
+              url: "https://repaywise.co.uk/calculators/stamp-duty",
+              applicationCategory: "FinanceApplication",
+              operatingSystem: "Any",
+              description: "Free UK stamp duty calculator covering SDLT, LBTT and LTT with first-time buyer relief and additional-property surcharges.",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
+              provider: {
+                "@type": "Organization",
+                name: "RepayWise",
+                url: "https://repaywise.co.uk",
+                areaServed: "GB",
+              },
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "How is UK stamp duty calculated?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Stamp duty is charged in bands. Each slice of the purchase price is taxed at the rate for that band, with different rules for England and Northern Ireland (SDLT), Scotland (LBTT), and Wales (LTT).",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Do first-time buyers still get stamp duty relief?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "First-time buyer relief depends on the UK nation and the purchase price. The RepayWise calculator applies the correct relief rules automatically for the chosen region.",
+                  },
+                },
+              ],
+            },
+          ],
+        }}
       />
 
       <div className="grid lg:grid-cols-5 gap-6">

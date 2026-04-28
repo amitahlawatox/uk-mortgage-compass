@@ -28,7 +28,6 @@ export const Logo = ({
       height={192}
       loading={priority ? "eager" : "lazy"}
       decoding="async"
-      fetchPriority={priority ? "high" : "auto"}
       className={cn(
         size,
         "rounded-xl ring-1 ring-border transition-all",

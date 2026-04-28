@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Share2, MessageCircle, Mail, FileDown, Link2, Check } from "lucide-react";
-import jsPDF from "jspdf";
 import { track } from "@/lib/analytics";
 
 export interface ShareLine {
@@ -52,8 +51,9 @@ export const ShareCalculation = ({ title, calculator, summary, intro }: ShareCal
     }
   };
 
-  const onPdf = () => {
+  const onPdf = async () => {
     track("share_calculation", { calculator, channel: "pdf" });
+    const { default: jsPDF } = await import("jspdf");
     const doc = new jsPDF({ unit: "pt", format: "a4" });
     const pageWidth = doc.internal.pageSize.getWidth();
     const margin = 48;

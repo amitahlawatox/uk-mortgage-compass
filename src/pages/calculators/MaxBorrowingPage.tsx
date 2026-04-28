@@ -43,7 +43,48 @@ const MaxBorrowingPage = () => {
       <SEO
         title="Mortgage Affordability Calculator UK — How Much Can I Borrow?"
         description="Find out how much you can borrow for a UK mortgage. Income multiplier, disposable income check and +3% stress test built in."
-        path="/calculators/affordability"
+        path="/calculators/max-borrowing"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "SoftwareApplication",
+              name: "RepayWise Mortgage Affordability Calculator",
+              url: "https://repaywise.co.uk/calculators/max-borrowing",
+              applicationCategory: "FinanceApplication",
+              operatingSystem: "Any",
+              description: "Free UK mortgage affordability calculator with income multiplier, monthly outgoings check, and +3% rate stress test.",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
+              provider: {
+                "@type": "Organization",
+                name: "RepayWise",
+                url: "https://repaywise.co.uk",
+                areaServed: "GB",
+              },
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "How much can I borrow for a mortgage in the UK?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Many lenders start around 4 to 4.5 times gross income, then reduce the loan if monthly outgoings are high or the stress-tested payment looks unaffordable.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Why do lenders use a stress test?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Lenders typically test affordability at a higher rate than the headline product rate to check whether the borrower could still afford payments if rates rise.",
+                  },
+                },
+              ],
+            },
+          ],
+        }}
       />
 
       <div className="grid lg:grid-cols-5 gap-6">
