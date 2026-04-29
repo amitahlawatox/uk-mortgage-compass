@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin, Home as HomeIcon, Building2 } from "lucide-react";
+import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin, Home as HomeIcon, Building2, Scale } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { cities } from "@/lib/uk/cities";
@@ -47,6 +47,13 @@ const calculators = [
     blurb: "BTL purchase modeller: 25% deposit default, interest-only or repayment, stamp duty surcharge, rental yield and ICR.",
     icon: Building2,
     accent: "lime" as const,
+  },
+  {
+    to: "/calculators/compare",
+    title: "Compare Mortgages",
+    blurb: "Put two offers head-to-head: house price, deposit, APR, term and product fees — see which plan is genuinely cheaper.",
+    icon: Scale,
+    accent: "cyan" as const,
   },
 ];
 
