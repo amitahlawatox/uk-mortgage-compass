@@ -209,11 +209,11 @@ const ComparePage = () => {
             />
             <DepositField
               label="Deposit"
-              amount={deposit}
+              value={deposit}
               referencePrice={housePrice}
-              onAmountChange={setDeposit}
-              minAmount={0}
-              maxAmount={housePrice}
+              onChange={setDeposit}
+              amountMin={0}
+              amountMax={housePrice}
             />
             <div className="rounded-xl bg-secondary p-3 flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Loan required</span>
