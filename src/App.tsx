@@ -17,6 +17,7 @@ const AffordabilityPage = lazy(() => import("./pages/calculators/AffordabilityPa
 const MaxBorrowingPage = lazy(() => import("./pages/calculators/MaxBorrowingPage"));
 const EquityPage = lazy(() => import("./pages/calculators/EquityPage"));
 const BuyToLetPage = lazy(() => import("./pages/calculators/BuyToLetPage"));
+const ComparePage = lazy(() => import("./pages/calculators/ComparePage"));
 const RegionalPage = lazy(() => import("./pages/regional/RegionalPage"));
 
 const queryClient = new QueryClient();
@@ -73,6 +74,7 @@ const App = () => {
                   <Route path="/calculators/max-borrowing" element={<MaxBorrowingPage />} />
                   <Route path="/calculators/equity" element={<EquityPage />} />
                   <Route path="/calculators/buy-to-let" element={<BuyToLetPage />} />
+                  <Route path="/calculators/compare" element={<ComparePage />} />
                   <Route path="/uk/:slug" element={<RegionalPage />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
