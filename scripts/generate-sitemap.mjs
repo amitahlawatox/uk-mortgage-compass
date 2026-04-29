@@ -56,7 +56,7 @@ function getChangefreq(urlPath) {
   if (urlPath.startsWith("/calculators/")) return "weekly";
   if (urlPath.startsWith("/guides/")) return "monthly";
   if (urlPath.startsWith("/uk/")) return "monthly";
-  return "quarterly";
+  return "yearly";
 }
 
 async function countWords(filePath) {
