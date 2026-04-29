@@ -214,7 +214,7 @@ const Index = () => (
 
     <section className="px-4 pb-24">
       <div className="max-w-6xl mx-auto pt-12 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <Stat label="Core calculators" value="6" />
+        <Stat label="Core calculators" value="7" />
         <Stat label="UK tax systems" value="3" />
         <Stat label="Math precision" value="28 dp" />
         <Stat label="Sign-up" value="Not needed" />
