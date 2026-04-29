@@ -1,4 +1,4 @@
-import { Head } from "vite-react-ssg";
+import { Helmet } from "react-helmet-async";
 
 interface SEOProps {
   title: string;
@@ -13,7 +13,7 @@ const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 export const SEO = ({ title, description, path = "/", jsonLd }: SEOProps) => {
   const url = `${SITE_URL}${path}`;
   return (
-    <Head>
+    <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
@@ -30,6 +30,6 @@ export const SEO = ({ title, description, path = "/", jsonLd }: SEOProps) => {
       {jsonLd && (
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       )}
-    </Head>
+    </Helmet>
   );
 };

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
-import { trackIntentClick } from "@/lib/analytics";
 
 const items = [
   { to: "/calculators/stamp-duty", label: "Stamp Duty" },
@@ -10,7 +9,6 @@ const items = [
   { to: "/calculators/affordability", label: "Total Cost to Buy" },
   { to: "/calculators/max-borrowing", label: "Affordability" },
   { to: "/calculators/equity", label: "Equity" },
-  { to: "/guides", label: "Guides" },
 ];
 
 export const Header = () => (
@@ -24,7 +22,6 @@ export const Header = () => (
           <Link
             key={i.to}
             to={i.to}
-            onClick={() => trackIntentClick("header_nav", i.to, i.label)}
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             {i.label}
@@ -35,7 +32,6 @@ export const Header = () => (
         <ThemeToggle />
         <Link
           to="/calculators/stamp-duty"
-          onClick={() => trackIntentClick("header_cta", "/calculators/stamp-duty", "Get started")}
           className="bg-primary text-primary-foreground px-4 py-2 rounded-xl text-sm font-semibold hover:ring-2 ring-accent ring-offset-2 ring-offset-background transition-all"
         >
           Get started

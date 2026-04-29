@@ -1,24 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
-import { Area, AreaChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { useMemo, useState } from "react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
-import { DepositField } from "@/components/calculators/DepositField";
-import { LenderContextCard } from "@/components/lenders/LenderContextCard";
 import { SEO } from "@/components/SEO";
-import { ShareCalculation } from "@/components/calculators/ShareCalculation";
-import { formatGBP } from "@/lib/finance/decimal";
 import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
-import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
-import { BigStat, SliderField } from "./RepaymentPage";
+import { formatGBP } from "@/lib/finance/decimal";
+import { SliderField, BigStat } from "./RepaymentPage";
+import { DepositField } from "@/components/calculators/DepositField";
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
+import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 
 const OverpaymentPage = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const lender = slug ? getLenderBySlug(slug) : undefined;
-
-  if (slug && !lender) {
-    return <Navigate to="/calculators/overpayment" replace />;
-  }
-
   const [propertyPrice, setPropertyPrice] = useState(312_500);
   const [deposit, setDeposit] = useState(62_500);
   const [principal, setPrincipal] = useState(250_000);
@@ -30,24 +20,20 @@ const OverpaymentPage = () => {
   const [lumpSum, setLumpSum] = useState(0);
   const [lumpMonth, setLumpMonth] = useState(12);
 
-  useEffect(() => {
-    if (lender) {
-      setRate(lender.estimatedSvr);
-    }
-  }, [lender]);
-
-  const handlePropertyChange = (value: number) => {
-    setPropertyPrice(value);
-    const newDeposit = Math.min(deposit, value);
+  // Auto-derive loan from property − deposit unless the user manually overrides it.
+  const handlePropertyChange = (v: number) => {
+    setPropertyPrice(v);
+    const newDeposit = Math.min(deposit, v);
     if (newDeposit !== deposit) setDeposit(newDeposit);
-    setPrincipal(Math.max(0, value - newDeposit));
+    setPrincipal(Math.max(0, v - newDeposit));
   };
-
-  const handleDepositChange = (value: number) => {
-    const clamped = Math.min(value, propertyPrice);
+  const handleDepositChange = (v: number) => {
+    const clamped = Math.min(v, propertyPrice);
     setDeposit(clamped);
     setPrincipal(Math.max(0, propertyPrice - clamped));
   };
+
+  const depositPct = propertyPrice > 0 ? (deposit / propertyPrice) * 100 : 0;
 
   const baseEmi = useMemo(
     () => calculateRepayment({ principal, annualRate: rate, termYears: term }).monthlyPayment,
@@ -86,150 +72,94 @@ const OverpaymentPage = () => {
   const chart = useMemo(() => {
     const map = new Map<number, { year: number; baseline: number; accelerated: number }>();
     const stride = 12;
-
-    baseline.schedule.forEach((row, index) => {
-      if ((index + 1) % stride === 0) {
-        const year = (index + 1) / 12;
-        map.set(year, { year, baseline: row.balance, accelerated: 0 });
+    baseline.schedule.forEach((r, i) => {
+      if ((i + 1) % stride === 0) {
+        const year = (i + 1) / 12;
+        map.set(year, { year, baseline: r.balance, accelerated: 0 });
       }
     });
-
-    accelerated.schedule.forEach((row, index) => {
-      if ((index + 1) % stride === 0) {
-        const year = (index + 1) / 12;
+    accelerated.schedule.forEach((r, i) => {
+      if ((i + 1) % stride === 0) {
+        const year = (i + 1) / 12;
         const existing = map.get(year);
-        if (existing) {
-          existing.accelerated = row.balance;
-        } else {
-          map.set(year, { year, baseline: 0, accelerated: row.balance });
-        }
+        if (existing) existing.accelerated = r.balance;
+        else map.set(year, { year, baseline: 0, accelerated: r.balance });
       }
     });
-
     return [...map.values()].sort((a, b) => a.year - b.year);
-  }, [accelerated, baseline]);
-
-  const title = lender
-    ? `Calculate Interest Savings for ${lender.name} Mortgages`
-    : "Overpayment Visualiser";
-  const intro = lender
-    ? `Model how regular overpayments or a one-off lump sum could reduce interest on a ${lender.name} mortgage. We preload the rate at an indicative ${lender.estimatedSvr.toFixed(2)}% SVR so you can pressure-test the fallback scenario before you decide whether to overpay, remortgage, or keep cash liquid.`
-    : "Move the sliders. See exactly how a regular monthly overpayment or a one-off lump sum reshapes your mortgage: interest saved and years shaved off the term.";
-  const pagePath = lender ? buildLenderPath("overpayment", lender.slug) : "/calculators/overpayment";
-  const seoTitle = lender
-    ? `${lender.name} Mortgage Overpayment Calculator 2026 | RepayWise`
-    : "Mortgage Overpayment Calculator UK | Save Years and Pounds | RepayWise";
-  const seoDescription = lender
-    ? `See how much interest and time you could save by overpaying a ${lender.name} mortgage. RepayWise models monthly and lump-sum overpayments against an indicative ${lender.estimatedSvr.toFixed(2)}% SVR.`
-    : "See how overpaying your UK mortgage cuts years off your term and saves thousands in interest. Free, FCA-aligned, decimal-precision amortisation. No login needed.";
+  }, [baseline, accelerated]);
 
   return (
     <CalculatorShell
       eyebrow="Pay off faster"
-      title={title}
-      intro={intro}
+      title="Overpayment Visualiser"
+      intro="Move the sliders. See exactly how a regular monthly overpayment or a one-off lump sum reshapes your mortgage — interest saved and years shaved off the term."
       leadCalculator="overpayment"
-      leadContext={{
-        principal,
-        rate,
-        term,
-        monthlyOver,
-        lumpSum,
-        lumpMonth,
-        interestSaved,
-        monthsSaved,
-        lender: lender?.slug,
-      }}
+      leadContext={{ principal, rate, term, monthlyOver, lumpSum, lumpMonth, interestSaved, monthsSaved }}
     >
       <SEO
-        title={seoTitle}
-        description={seoDescription}
-        path={pagePath}
+        title="Mortgage Overpayment Calculator UK | Save Years &amp; £000s — RepayWise"
+        description="See how overpaying your UK mortgage cuts years off your term and saves thousands in interest. Free, FCA-aligned, decimal-precision amortisation. No login needed."
+        path="/calculators/overpayment"
         jsonLd={{
           "@context": "https://schema.org",
           "@graph": [
             {
-              "@type": "SoftwareApplication",
-              name: lender ? `${lender.name} Mortgage Overpayment Calculator` : "RepayWise Mortgage Overpayment Calculator",
-              url: `https://repaywise.co.uk${pagePath}`,
-              applicationCategory: "FinanceApplication",
-              operatingSystem: "Any",
-              description: seoDescription,
-              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-              provider: {
+              "@type": "WebApplication",
+              "name": "RepayWise Mortgage Overpayment Calculator",
+              "url": "https://repaywise.co.uk/calculators/overpayment",
+              "applicationCategory": "FinanceApplication",
+              "operatingSystem": "Any",
+              "description": "Free UK mortgage overpayment calculator. Compare baseline vs accelerated repayment. See interest saved, years cut, and month-by-month amortisation. FCA-aligned, no login required.",
+              "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+              "provider": {
                 "@type": "Organization",
-                name: "RepayWise",
-                url: "https://repaywise.co.uk",
-                areaServed: "GB",
-              },
-              ...(lender ? { brand: { "@type": "Brand", name: lender.name } } : {}),
+                "name": "RepayWise",
+                "url": "https://repaywise.co.uk",
+                "areaServed": "GB"
+              }
             },
             {
               "@type": "HowTo",
-              name: lender
-                ? `How to calculate ${lender.name} mortgage overpayment savings`
-                : "How to calculate mortgage overpayment savings in the UK",
-              description: "Enter your balance, rate, term, and extra payment pattern to see how much interest and time you save.",
-              step: [
-                { "@type": "HowToStep", name: "Enter your loan details", text: "Set your current loan balance, interest rate, and remaining term." },
-                { "@type": "HowToStep", name: "Add regular or one-off overpayments", text: "Choose a monthly overpayment, a quarterly or annual overpayment, or a one-off lump sum." },
-                { "@type": "HowToStep", name: "Read the savings output", text: "Compare baseline versus accelerated repayment to see interest saved and term reduction." },
-              ],
+              "name": "How to calculate mortgage overpayment savings in the UK",
+              "description": "Step-by-step: enter your loan, rate, term, and a regular overpayment or lump sum to see exactly how much interest you save and how many years come off your mortgage.",
+              "step": [
+                { "@type": "HowToStep", "name": "Enter loan details", "text": "Set your current loan balance, interest rate, and remaining term." },
+                { "@type": "HowToStep", "name": "Add an overpayment", "text": "Choose a monthly overpayment amount or a one-off lump sum and the month to apply it." },
+                { "@type": "HowToStep", "name": "Read the savings", "text": "See your interest saved, months cut from your term, and the full amortisation chart." }
+              ]
             },
             {
               "@type": "FAQPage",
-              mainEntity: [
+              "mainEntity": [
                 {
                   "@type": "Question",
-                  name: "How much can I save by overpaying my mortgage?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "The savings depend on your outstanding balance, interest rate, and overpayment amount. Use the RepayWise calculator to model your own figures and see the exact interest and time saved.",
-                  },
+                  "name": "How much can I save by overpaying my mortgage?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "The savings depend on your outstanding balance, interest rate, and overpayment amount. On a £250,000 mortgage at 4.5% with £200/month overpayment, you could save over £20,000 in interest and cut 4+ years from your term. Use the RepayWise calculator to see your exact figures." }
                 },
                 {
                   "@type": "Question",
-                  name: "Is it better to overpay my mortgage or save in an ISA?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "It depends on your mortgage interest rate versus the savings rate available. If your mortgage rate exceeds the best ISA rate, overpaying usually wins mathematically. RepayWise helps you compare both scenarios.",
-                  },
+                  "name": "Is it better to overpay my mortgage or save in an ISA?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "It depends on your mortgage interest rate versus the savings rate available. If your mortgage rate exceeds the best ISA rate, overpaying usually wins mathematically. RepayWise helps you compare both scenarios." }
                 },
                 {
                   "@type": "Question",
-                  name: "Are there penalties for overpaying a UK mortgage?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Many UK lenders allow some overpayment without charge each year, but early repayment charges can apply if you exceed your product terms. Always check the lender's latest overpayment rules before acting.",
-                  },
-                },
-              ],
-            },
-          ],
+                  "name": "Are there penalties for overpaying a UK mortgage?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "Most UK lenders allow up to 10% of the outstanding balance per year as an overpayment without charge. Exceeding this may trigger an Early Repayment Charge (ERC). Always check your mortgage terms before overpaying." }
+                }
+              ]
+            }
+          ]
         }}
       />
 
-      {lender ? (
-        <LenderContextCard
-          lender={lender}
-          title={`${lender.name} overpayment planning`}
-          body={`This version of the calculator starts from an indicative ${lender.estimatedSvr.toFixed(2)}% standard variable rate for ${lender.name}. Use it to test what happens if you stay on the lender's fallback rate, then compare the interest saved from overpaying against the value of remortgaging or keeping cash liquid.`}
-          links={[
-            { to: buildLenderGuidePath(lender.slug), label: `${lender.name} lender guide` },
-            { to: buildLenderPath("repayment", lender.slug), label: `${lender.name} repayment view` },
-            { to: buildLenderPath("max-borrowing", lender.slug), label: `${lender.name} borrowing view` },
-          ]}
-          className="mb-6"
-        />
-      ) : null}
-
       <div className="grid lg:grid-cols-5 gap-6">
         <div className="lg:col-span-2 glass-card rounded-2xl p-6 space-y-5">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Property and loan</p>
+          <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Property & loan</p>
           <SliderField label="Property price" prefix="£" value={propertyPrice} min={50_000} max={2_500_000} step={5_000} onChange={handlePropertyChange} />
           <DepositField value={deposit} onChange={handleDepositChange} referencePrice={propertyPrice} />
           <SliderField label="Loan amount (override)" prefix="£" value={principal} min={0} max={2_500_000} step={5_000} onChange={setPrincipal} />
-          <p className="text-[10px] text-muted-foreground -mt-3">Auto-calculated from property minus deposit. Edit to override.</p>
+          <p className="text-[10px] text-muted-foreground -mt-3">Auto-calculated from property − deposit. Edit to override.</p>
           <SliderField label="Interest rate" suffix="%" value={rate} min={0.5} max={12} step={0.05} decimals={2} onChange={setRate} />
           <SliderField label="Term (years)" value={term} min={5} max={40} step={1} onChange={setTerm} />
           <div className="h-px bg-border" />
@@ -253,10 +183,9 @@ const OverpaymentPage = () => {
             <div className="rounded-2xl p-5 bg-primary text-primary-foreground shadow-glow-cyan">
               <p className="text-[10px] uppercase tracking-widest font-semibold text-primary-foreground/60 mb-2">Effective monthly outlay</p>
               <p className="text-2xl sm:text-3xl font-bold tabular-nums tracking-tight">{formatGBP(effectiveMonthly, { decimals: 2 })}</p>
-              <p className="text-[11px] text-primary-foreground/60 mt-1">EMI plus averaged extra payments</p>
+              <p className="text-[11px] text-primary-foreground/60 mt-1">EMI + averaged extra payments</p>
             </div>
           </div>
-
           <div className="grid sm:grid-cols-3 gap-4">
             <BigStat label="Interest saved" value={formatGBP(Math.max(0, interestSaved))} highlight />
             <BigStat label="Time saved" value={`${Math.floor(monthsSaved / 12)}y ${monthsSaved % 12}m`} />
@@ -281,13 +210,13 @@ const OverpaymentPage = () => {
                     </linearGradient>
                   </defs>
                   <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                  <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`} />
+                  <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} tickFormatter={v => `£${(v / 1000).toFixed(0)}k`} />
                   <Tooltip
                     contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
-                    formatter={(value: number, name) => [formatGBP(value), name === "baseline" ? "Baseline" : "With overpayments"]}
-                    labelFormatter={(year) => `Year ${year}`}
+                    formatter={(v: number, name) => [formatGBP(v), name === "baseline" ? "Baseline" : "With overpayments"]}
+                    labelFormatter={(y) => `Year ${y}`}
                   />
-                  <Legend wrapperStyle={{ fontSize: 11 }} formatter={(value) => (value === "baseline" ? "Baseline" : "With overpayments")} />
+                  <Legend wrapperStyle={{ fontSize: 11 }} formatter={(v) => v === "baseline" ? "Baseline" : "With overpayments"} />
                   <Area type="monotone" dataKey="baseline" stroke="hsl(var(--muted-foreground))" strokeWidth={1.5} fill="url(#baseGrad)" />
                   <Area type="monotone" dataKey="accelerated" stroke="hsl(var(--accent-secondary))" strokeWidth={2.5} fill="url(#accelGrad)" />
                 </AreaChart>
@@ -322,8 +251,7 @@ const OverpaymentPage = () => {
               <p className="mt-4 text-[11px] text-primary-foreground/60 leading-relaxed">
                 Based on your inputs, every £1 overpaid saves roughly{" "}
                 <strong className="text-primary-foreground">
-                  £
-                  {baseline.totalInterest > 0
+                  £{baseline.totalInterest > 0
                     ? (interestSaved / Math.max(1, monthlyOver * accelerated.monthsTaken + lumpSum)).toFixed(2)
                     : "0.00"}
                 </strong>{" "}

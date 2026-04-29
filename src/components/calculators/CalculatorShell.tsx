@@ -4,7 +4,6 @@ import { ArrowLeft } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { track } from "@/lib/analytics";
-import { AdComponent } from "@/components/AdComponent";
 
 interface CalculatorShellProps {
   eyebrow: string;
@@ -23,8 +22,7 @@ export const CalculatorShell = ({ eyebrow, title, intro, children, leadCalculato
   return (
   <SiteShell>
     <section className="px-4 pt-12 pb-6">
-      <div className="max-w-5xl mx-auto grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
-        <div>
+      <div className="max-w-5xl mx-auto">
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-foreground mb-6"
@@ -38,15 +36,10 @@ export const CalculatorShell = ({ eyebrow, title, intro, children, leadCalculato
           {title}
         </h1>
         <p className="text-base sm:text-lg text-muted-foreground max-w-[60ch]">{intro}</p>
-        </div>
-        <AdComponent slot="sidebar" className="hidden lg:block" />
       </div>
     </section>
     <section className="px-4 pb-12">
-      <div className="max-w-5xl mx-auto">
-        {children}
-        <AdComponent slot="inline" className="mt-6" />
-      </div>
+      <div className="max-w-5xl mx-auto">{children}</div>
     </section>
     {leadCalculator && (
       <LeadCaptureModal calculator={leadCalculator} context={leadContext ?? {}} />

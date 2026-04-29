@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin, Home as HomeIcon, Building2 } from "lucide-react";
+import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin, Home as HomeIcon, Building2, Scale } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { cities } from "@/lib/uk/cities";
 import { formatGBP } from "@/lib/finance/decimal";
-import { trackIntentClick } from "@/lib/analytics";
 
 const calculators = [
   {
@@ -49,6 +48,13 @@ const calculators = [
     icon: Building2,
     accent: "lime" as const,
   },
+  {
+    to: "/calculators/compare",
+    title: "Compare Mortgages",
+    blurb: "Put two offers head-to-head: house price, deposit, APR, term and product fees — see which plan is genuinely cheaper.",
+    icon: Scale,
+    accent: "cyan" as const,
+  },
 ];
 
 const Index = () => (
@@ -88,14 +94,12 @@ const Index = () => (
         <div className="mt-8 flex flex-wrap justify-center gap-3 animate-fade-up">
           <Link
             to="/calculators/repayment"
-            onClick={() => trackIntentClick("homepage_hero", "/calculators/repayment", "Calculate my mortgage")}
             className="bg-primary text-primary-foreground px-6 py-3 rounded-xl text-sm font-semibold hover:ring-2 ring-accent ring-offset-2 ring-offset-background transition-all inline-flex items-center gap-2"
           >
             Calculate my mortgage <ArrowRight className="size-4" />
           </Link>
           <Link
             to="/calculators/affordability"
-            onClick={() => trackIntentClick("homepage_hero", "/calculators/affordability", "Total cost to buy")}
             className="bg-secondary text-secondary-foreground px-6 py-3 rounded-xl text-sm font-semibold hover:bg-secondary/70 transition-all"
           >
             Total cost to buy
@@ -108,7 +112,6 @@ const Index = () => (
       <div className="max-w-6xl mx-auto">
         <Link
           to="/calculators/affordability"
-          onClick={() => trackIntentClick("homepage_featured", "/calculators/affordability", "Open planner")}
           className="group block rounded-3xl bg-primary text-primary-foreground p-8 sm:p-10 shadow-glow-cyan hover:shadow-glow-lime transition-all border border-primary"
         >
           <div className="grid sm:grid-cols-[auto_1fr_auto] gap-6 sm:gap-8 items-center">
@@ -155,7 +158,6 @@ const Index = () => (
             <Link
               to={c.to}
               key={c.to}
-              onClick={() => trackIntentClick("homepage_calculator_grid", c.to, c.title)}
               className={`group p-6 rounded-3xl border glass-card hover:border-foreground transition-all duration-300 ${glow}`}
             >
               <div className="size-10 rounded-xl flex items-center justify-center mb-6 bg-secondary">
@@ -189,7 +191,6 @@ const Index = () => (
             <Link
               key={c.slug}
               to={`/uk/${c.slug}`}
-              onClick={() => trackIntentClick("homepage_city_guides", `/uk/${c.slug}`, c.name)}
               className="group p-5 rounded-2xl border border-border hover:border-foreground transition-all"
             >
               <div className="flex items-center gap-2 mb-3">
@@ -213,7 +214,7 @@ const Index = () => (
 
     <section className="px-4 pb-24">
       <div className="max-w-6xl mx-auto pt-12 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <Stat label="Core calculators" value="6" />
+        <Stat label="Core calculators" value="7" />
         <Stat label="UK tax systems" value="3" />
         <Stat label="Math precision" value="28 dp" />
         <Stat label="Sign-up" value="Not needed" />

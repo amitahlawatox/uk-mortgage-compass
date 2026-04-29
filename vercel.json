@@ -4,7 +4,16 @@
   "installCommand": "npm install",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/calculators/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/uk/:path*",
+      "destination": "/index.html"
+    }
+  ],
   "git": {
     "deploymentEnabled": true
   }

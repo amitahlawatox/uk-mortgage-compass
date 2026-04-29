@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { trackIntentClick } from "@/lib/analytics";
 
 export const Footer = () => (
   <footer className="mt-24 border-t border-border bg-card-muted">
@@ -26,13 +25,12 @@ export const Footer = () => (
           Calculators
         </p>
         <ul className="space-y-2 text-sm">
-          <li><Link to="/calculators/stamp-duty" onClick={() => trackIntentClick("footer_calculators", "/calculators/stamp-duty", "Stamp Duty")} className="hover:text-accent">Stamp Duty (SDLT/LBTT/LTT)</Link></li>
-          <li><Link to="/calculators/repayment" onClick={() => trackIntentClick("footer_calculators", "/calculators/repayment", "Mortgage Repayment")} className="hover:text-accent">Mortgage Repayment</Link></li>
-          <li><Link to="/calculators/overpayment" onClick={() => trackIntentClick("footer_calculators", "/calculators/overpayment", "Overpayment Visualiser")} className="hover:text-accent">Overpayment Visualiser</Link></li>
-          <li><Link to="/calculators/affordability" onClick={() => trackIntentClick("footer_calculators", "/calculators/affordability", "Total Cost to Buy")} className="hover:text-accent">Total Cost to Buy</Link></li>
-          <li><Link to="/calculators/max-borrowing" onClick={() => trackIntentClick("footer_calculators", "/calculators/max-borrowing", "Affordability")} className="hover:text-accent">Affordability - How much can I borrow?</Link></li>
-          <li><Link to="/calculators/equity" onClick={() => trackIntentClick("footer_calculators", "/calculators/equity", "Home Equity Calculator")} className="hover:text-accent">Home Equity Calculator</Link></li>
-          <li><Link to="/guides" onClick={() => trackIntentClick("footer_calculators", "/guides", "Guides")} className="hover:text-accent">Guides</Link></li>
+          <li><Link to="/calculators/stamp-duty" className="hover:text-accent">Stamp Duty (SDLT/LBTT/LTT)</Link></li>
+          <li><Link to="/calculators/repayment" className="hover:text-accent">Mortgage Repayment</Link></li>
+          <li><Link to="/calculators/overpayment" className="hover:text-accent">Overpayment Visualiser</Link></li>
+          <li><Link to="/calculators/affordability" className="hover:text-accent">Total Cost to Buy</Link></li>
+          <li><Link to="/calculators/max-borrowing" className="hover:text-accent">Affordability — How much can I borrow?</Link></li>
+          <li><Link to="/calculators/equity" className="hover:text-accent">Home Equity Calculator</Link></li>
         </ul>
       </div>
 
@@ -50,7 +48,7 @@ export const Footer = () => (
     </div>
     <div className="border-t border-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-[11px] text-muted-foreground">
-        <span>&copy; {new Date().getFullYear()} RepayWise. England & Wales. repaywise.co.uk</span>
+        <span>© {new Date().getFullYear()} RepayWise. England & Wales. repaywise.co.uk</span>
         <div className="flex gap-4">
           <Link to="/privacy-policy" className="hover:text-foreground">Privacy</Link>
           <Link to="/cookie-policy" className="hover:text-foreground">Cookies</Link>

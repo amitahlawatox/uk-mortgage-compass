@@ -1,30 +1,32 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Outlet, useLocation } from "react-router-dom";
-import type { RouteRecord } from "vite-react-ssg";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { ANALYTICS_CONSENT_EVENT, syncAnalyticsConsent, trackPageView } from "@/lib/analytics";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { FCABanner } from "@/components/FCABanner";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { cities } from "@/lib/uk/cities";
-import { lenders } from "@/lib/uk/lenders";
+const Index = lazy(() => import("./pages/Index.tsx"));
+const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+const StampDutyPage = lazy(() => import("./pages/calculators/StampDutyPage"));
+const RepaymentPage = lazy(() => import("./pages/calculators/RepaymentPage"));
+const OverpaymentPage = lazy(() => import("./pages/calculators/OverpaymentPage"));
+const AffordabilityPage = lazy(() => import("./pages/calculators/AffordabilityPage"));
+const MaxBorrowingPage = lazy(() => import("./pages/calculators/MaxBorrowingPage"));
+const EquityPage = lazy(() => import("./pages/calculators/EquityPage"));
+const BuyToLetPage = lazy(() => import("./pages/calculators/BuyToLetPage"));
+const ComparePage = lazy(() => import("./pages/calculators/ComparePage"));
+const RegionalPage = lazy(() => import("./pages/regional/RegionalPage"));
 
+const queryClient = new QueryClient();
 const RouteFallback = () => <div className="min-h-screen bg-background" aria-hidden="true" />;
-
-const page = <T extends { default: React.ComponentType }>(importer: () => Promise<T>) =>
-  async () => {
-    const module = await importer();
-    return { Component: module.default };
-  };
 
 const AnalyticsRouteTracker = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (typeof window === "undefined") return undefined;
-
     const timer = window.setTimeout(() => {
       trackPageView(`${location.pathname}${location.search}${location.hash}`);
     }, 0);
@@ -37,12 +39,8 @@ const AnalyticsRouteTracker = () => {
   return null;
 };
 
-const AppLayout = () => {
-  const [queryClient] = useState(() => new QueryClient());
-
+const App = () => {
   useEffect(() => {
-    if (typeof window === "undefined") return undefined;
-
     syncAnalyticsConsent();
 
     const handleConsentChange = () => {
@@ -59,107 +57,37 @@ const AppLayout = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <AnalyticsRouteTracker />
-          <Suspense fallback={<RouteFallback />}>
-            <Outlet />
-          </Suspense>
-          {/* FCA regulatory warning rendered in the initial HTML */}
-          <FCABanner />
-        </TooltipProvider>
-      </ThemeProvider>
+      <HelmetProvider>
+        <ThemeProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <AnalyticsRouteTracker />
+              <Suspense fallback={<RouteFallback />}>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/calculators/stamp-duty" element={<StampDutyPage />} />
+                  <Route path="/calculators/repayment" element={<RepaymentPage />} />
+                  <Route path="/calculators/overpayment" element={<OverpaymentPage />} />
+                  <Route path="/calculators/affordability" element={<AffordabilityPage />} />
+                  <Route path="/calculators/max-borrowing" element={<MaxBorrowingPage />} />
+                  <Route path="/calculators/equity" element={<EquityPage />} />
+                  <Route path="/calculators/buy-to-let" element={<BuyToLetPage />} />
+                  <Route path="/calculators/compare" element={<ComparePage />} />
+                  <Route path="/uk/:slug" element={<RegionalPage />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+              {/* FCA Regulatory Banner — required on all pages per FCA MCOB rules */}
+              <FCABanner />
+            </BrowserRouter>
+          </TooltipProvider>
+        </ThemeProvider>
+      </HelmetProvider>
     </QueryClientProvider>
   );
 };
 
-export const routes: RouteRecord[] = [
-  {
-    path: "/",
-    element: <AppLayout />,
-    entry: "src/App.tsx",
-    children: [
-      {
-        index: true,
-        lazy: page(() => import("./pages/Index.tsx")),
-      },
-      {
-        path: "calculators/stamp-duty",
-        lazy: page(() => import("./pages/calculators/StampDutyPage")),
-      },
-      {
-        path: "calculators/repayment",
-        lazy: page(() => import("./pages/calculators/RepaymentPage")),
-      },
-      {
-        path: "calculators/repayment/:slug",
-        lazy: page(() => import("./pages/calculators/RepaymentPage")),
-        getStaticPaths: () => lenders.map((lender) => `calculators/repayment/${lender.slug}`),
-      },
-      {
-        path: "calculators/overpayment",
-        lazy: page(() => import("./pages/calculators/OverpaymentPage")),
-      },
-      {
-        path: "calculators/overpayment/:slug",
-        lazy: page(() => import("./pages/calculators/OverpaymentPage")),
-        getStaticPaths: () => lenders.map((lender) => `calculators/overpayment/${lender.slug}`),
-      },
-      {
-        path: "calculators/affordability",
-        lazy: page(() => import("./pages/calculators/AffordabilityPage")),
-      },
-      {
-        path: "calculators/max-borrowing",
-        lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
-      },
-      {
-        path: "calculators/max-borrowing/:slug",
-        lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
-        getStaticPaths: () => lenders.map((lender) => `calculators/max-borrowing/${lender.slug}`),
-      },
-      {
-        path: "calculators/equity",
-        lazy: page(() => import("./pages/calculators/EquityPage")),
-      },
-      {
-        path: "calculators/buy-to-let",
-        lazy: page(() => import("./pages/calculators/BuyToLetPage")),
-      },
-      {
-        path: "guides",
-        lazy: page(() => import("./pages/GuidesPage")),
-      },
-      {
-        path: "guides/lenders/:slug",
-        lazy: page(() => import("./pages/guides/LenderGuidePage")),
-        getStaticPaths: () => lenders.map((lender) => `guides/lenders/${lender.slug}`),
-      },
-      {
-        path: "privacy-policy",
-        lazy: page(() => import("./pages/legal/PrivacyPolicy")),
-      },
-      {
-        path: "cookie-policy",
-        lazy: page(() => import("./pages/legal/CookiePolicy")),
-      },
-      {
-        path: "terms-of-service",
-        lazy: page(() => import("./pages/legal/TermsOfService")),
-      },
-      {
-        path: "uk/:slug",
-        lazy: page(() => import("./pages/regional/RegionalPage")),
-        getStaticPaths: () => cities.map((city) => `uk/${city.slug}`),
-      },
-      {
-        path: "*",
-        lazy: page(() => import("./pages/NotFound.tsx")),
-      },
-    ],
-  },
-];
-
-export default routes;
+export default App;
