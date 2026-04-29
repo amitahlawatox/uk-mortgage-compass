@@ -9,6 +9,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { FCABanner } from "@/components/FCABanner";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { cities } from "@/lib/uk/cities";
+import { lenders } from "@/lib/uk/lenders";
 
 const RouteFallback = () => <div className="min-h-screen bg-background" aria-hidden="true" />;
 
@@ -93,8 +94,18 @@ export const routes: RouteRecord[] = [
         lazy: page(() => import("./pages/calculators/RepaymentPage")),
       },
       {
+        path: "calculators/repayment/:slug",
+        lazy: page(() => import("./pages/calculators/RepaymentPage")),
+        getStaticPaths: () => lenders.map((lender) => `calculators/repayment/${lender.slug}`),
+      },
+      {
         path: "calculators/overpayment",
         lazy: page(() => import("./pages/calculators/OverpaymentPage")),
+      },
+      {
+        path: "calculators/overpayment/:slug",
+        lazy: page(() => import("./pages/calculators/OverpaymentPage")),
+        getStaticPaths: () => lenders.map((lender) => `calculators/overpayment/${lender.slug}`),
       },
       {
         path: "calculators/affordability",
@@ -103,6 +114,11 @@ export const routes: RouteRecord[] = [
       {
         path: "calculators/max-borrowing",
         lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
+      },
+      {
+        path: "calculators/max-borrowing/:slug",
+        lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
+        getStaticPaths: () => lenders.map((lender) => `calculators/max-borrowing/${lender.slug}`),
       },
       {
         path: "calculators/equity",
@@ -115,6 +131,11 @@ export const routes: RouteRecord[] = [
       {
         path: "guides",
         lazy: page(() => import("./pages/GuidesPage")),
+      },
+      {
+        path: "guides/lenders/:slug",
+        lazy: page(() => import("./pages/guides/LenderGuidePage")),
+        getStaticPaths: () => lenders.map((lender) => `guides/lenders/${lender.slug}`),
       },
       {
         path: "privacy-policy",

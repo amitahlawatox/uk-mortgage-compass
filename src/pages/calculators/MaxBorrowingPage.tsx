@@ -1,15 +1,24 @@
-import { useMemo } from "react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
+import { AlertTriangle, Calculator, CheckCircle2, Users, Wallet } from "lucide-react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
+import { DepositField } from "@/components/calculators/DepositField";
+import { LenderContextCard } from "@/components/lenders/LenderContextCard";
 import { SEO } from "@/components/SEO";
+import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 import { calculateAffordability } from "@/lib/finance/affordability";
 import { formatGBP } from "@/lib/finance/decimal";
-import { SliderField, BigStat } from "./RepaymentPage";
-import { ShareCalculation } from "@/components/calculators/ShareCalculation";
-import { DepositField } from "@/components/calculators/DepositField";
-import { CheckCircle2, AlertTriangle, Users, Wallet, Calculator } from "lucide-react";
+import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
+import { BigStat, SliderField } from "./RepaymentPage";
 
 const MaxBorrowingPage = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const lender = slug ? getLenderBySlug(slug) : undefined;
+
+  if (slug && !lender) {
+    return <Navigate to="/calculators/max-borrowing" replace />;
+  }
+
   const [income, setIncome] = useState(55_000);
   const [partner, setPartner] = useState(0);
   const [expenditure, setExpenditure] = useState(400);
@@ -17,43 +26,63 @@ const MaxBorrowingPage = () => {
   const [rate, setRate] = useState(4.75);
   const [term, setTerm] = useState(30);
 
+  useEffect(() => {
+    if (lender) {
+      setRate(lender.estimatedSvr);
+    }
+  }, [lender]);
+
   const result = useMemo(
-    () => calculateAffordability({
-      grossAnnualIncome: income,
-      partnerIncome: partner,
-      monthlyExpenditure: expenditure,
-      deposit,
-      productRate: rate,
-      termYears: term,
-    }),
-    [income, partner, expenditure, deposit, rate, term],
+    () =>
+      calculateAffordability({
+        grossAnnualIncome: income,
+        partnerIncome: partner,
+        monthlyExpenditure: expenditure,
+        deposit,
+        productRate: rate,
+        termYears: term,
+      }),
+    [deposit, expenditure, income, partner, rate, term],
   );
 
   const totalIncome = income + partner;
   const lti = totalIncome > 0 ? result.maxBorrowing / totalIncome : 0;
+  const title = lender
+    ? `How much could ${lender.name} lend you?`
+    : "UK Mortgage Affordability";
+  const intro = lender
+    ? `Sense-check how much you could borrow with ${lender.name}. We model a lender-style income multiple, disposable-income check, and stress test, while using the lender's indicative ${lender.estimatedSvr.toFixed(2)}% SVR and ${lender.maxLtv}% maximum LTV band as planning anchors.`
+    : "Lender-style 4.5x income multiplier plus a disposable-income check and a +3% interest rate stress test. See your maximum borrowing and the property price you can target.";
+  const pagePath = lender ? buildLenderPath("max-borrowing", lender.slug) : "/calculators/max-borrowing";
+  const seoTitle = lender
+    ? `${lender.name} Mortgage Affordability Calculator 2026 | RepayWise`
+    : "Mortgage Affordability Calculator UK | How Much Can I Borrow?";
+  const seoDescription = lender
+    ? `Estimate how much ${lender.name} could lend using a lender-style borrowing model with an indicative ${lender.estimatedSvr.toFixed(2)}% SVR and ${lender.maxLtv}% maximum LTV context.`
+    : "Find out how much you can borrow for a UK mortgage. Income multiplier, disposable income check and +3% stress test built in.";
 
   return (
     <CalculatorShell
       eyebrow="How much can I borrow?"
-      title="UK Mortgage Affordability"
-      intro="Lender-style 4.5× income multiplier plus a disposable-income check and a +3% interest rate stress test. See your maximum borrowing and the property price you can target."
+      title={title}
+      intro={intro}
       leadCalculator="affordability"
-      leadContext={{ income, partner, expenditure, deposit, rate, term, maxBorrowing: result.maxBorrowing }}
+      leadContext={{ income, partner, expenditure, deposit, rate, term, maxBorrowing: result.maxBorrowing, lender: lender?.slug }}
     >
       <SEO
-        title="Mortgage Affordability Calculator UK — How Much Can I Borrow?"
-        description="Find out how much you can borrow for a UK mortgage. Income multiplier, disposable income check and +3% stress test built in."
-        path="/calculators/max-borrowing"
+        title={seoTitle}
+        description={seoDescription}
+        path={pagePath}
         jsonLd={{
           "@context": "https://schema.org",
           "@graph": [
             {
               "@type": "SoftwareApplication",
-              name: "RepayWise Mortgage Affordability Calculator",
-              url: "https://repaywise.co.uk/calculators/max-borrowing",
+              name: lender ? `${lender.name} Mortgage Affordability Calculator` : "RepayWise Mortgage Affordability Calculator",
+              url: `https://repaywise.co.uk${pagePath}`,
               applicationCategory: "FinanceApplication",
               operatingSystem: "Any",
-              description: "Free UK mortgage affordability calculator with income multiplier, monthly outgoings check, and +3% rate stress test.",
+              description: seoDescription,
               offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
               provider: {
                 "@type": "Organization",
@@ -61,6 +90,7 @@ const MaxBorrowingPage = () => {
                 url: "https://repaywise.co.uk",
                 areaServed: "GB",
               },
+              ...(lender ? { brand: { "@type": "Brand", name: lender.name } } : {}),
             },
             {
               "@type": "FAQPage",
@@ -87,6 +117,20 @@ const MaxBorrowingPage = () => {
         }}
       />
 
+      {lender ? (
+        <LenderContextCard
+          lender={lender}
+          title={`${lender.name} borrowing signals`}
+          body={`This page uses ${lender.name}'s indicative ${lender.estimatedSvr.toFixed(2)}% standard variable rate and ${lender.maxLtv}% maximum LTV band as planning anchors. It is not a product quote, but it gives you a better borrowing conversation starter than a generic national average.`}
+          links={[
+            { to: buildLenderGuidePath(lender.slug), label: `${lender.name} lender guide` },
+            { to: buildLenderPath("repayment", lender.slug), label: `${lender.name} repayment view` },
+            { to: buildLenderPath("overpayment", lender.slug), label: `${lender.name} overpayment view` },
+          ]}
+          className="mb-6"
+        />
+      ) : null}
+
       <div className="grid lg:grid-cols-5 gap-6">
         <div className="lg:col-span-2 space-y-4">
           <div className="glass-card rounded-2xl p-6 space-y-5">
@@ -105,6 +149,11 @@ const MaxBorrowingPage = () => {
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">2. Your deposit</p>
             </div>
             <DepositField value={deposit} onChange={setDeposit} amountMax={500_000} label="Deposit available" />
+            {lender ? (
+              <p className="text-[11px] text-muted-foreground">
+                Planning note: {lender.name} is currently modelled against a maximum LTV of {lender.maxLtv}%.
+              </p>
+            ) : null}
           </div>
 
           <div className="glass-card rounded-2xl p-6 space-y-5">
@@ -122,7 +171,7 @@ const MaxBorrowingPage = () => {
             <p className="text-xs font-bold uppercase tracking-widest text-accent mb-2">Maximum you could borrow</p>
             <p className="text-4xl sm:text-5xl font-bold tracking-tight tabular-nums">{formatGBP(result.maxBorrowing)}</p>
             <p className="text-xs text-muted-foreground mt-2">
-              Property price you can target: <span className="font-semibold text-foreground">{formatGBP(result.maxPropertyValue)}</span> · Loan-to-income {lti.toFixed(2)}×
+              Property price you can target: <span className="font-semibold text-foreground">{formatGBP(result.maxPropertyValue)}</span> · Loan-to-income {lti.toFixed(2)}x
             </p>
           </div>
 
@@ -139,10 +188,10 @@ const MaxBorrowingPage = () => {
             )}
             <div className="text-xs">
               <p className="font-semibold text-sm">
-                {result.passesStressTest ? "Passes typical lender stress test" : "Fails +3% stress test — reduce loan or increase income"}
+                {result.passesStressTest ? "Passes typical lender stress test" : "Fails +3% stress test - reduce loan or increase income"}
               </p>
               <ul className="text-muted-foreground mt-1 space-y-0.5">
-                {result.notes.map((n, i) => <li key={i}>• {n}</li>)}
+                {result.notes.map((note, index) => <li key={index}>- {note}</li>)}
               </ul>
             </div>
           </div>
@@ -159,8 +208,8 @@ const MaxBorrowingPage = () => {
               { label: "Maximum borrowing", value: formatGBP(result.maxBorrowing) },
               { label: "Max property price", value: formatGBP(result.maxPropertyValue) },
               { label: "Monthly EMI", value: formatGBP(result.monthlyPayment, { decimals: 2 }) },
-              { label: `Stressed EMI (+3%)`, value: formatGBP(result.monthlyPaymentStressed, { decimals: 2 }) },
-              { label: "Loan-to-income", value: `${lti.toFixed(2)}×` },
+              { label: "Stressed EMI (+3%)", value: formatGBP(result.monthlyPaymentStressed, { decimals: 2 }) },
+              { label: "Loan-to-income", value: `${lti.toFixed(2)}x` },
             ]}
           />
         </div>

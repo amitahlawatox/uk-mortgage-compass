@@ -3,6 +3,7 @@ import { ArrowRight, BookOpen, Calculator, Home, TrendingDown } from "lucide-rea
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { trackIntentClick } from "@/lib/analytics";
+import { buildLenderGuidePath, lenders } from "@/lib/uk/lenders";
 
 const guides = [
   {
@@ -100,6 +101,45 @@ const GuidesPage = () => (
             </article>
           );
         })}
+      </div>
+    </section>
+
+    <section className="px-4 pb-16">
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-6">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-2">
+            Programmatic lender guides
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+            Lender-specific pages built for high-intent search
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-[62ch] leading-relaxed">
+            These pages turn broad mortgage demand into specific planning journeys. Each lender guide connects
+            into repayment, overpayment, and borrowing calculators with lender-context SEO built in.
+          </p>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {lenders.slice(0, 12).map((lender) => (
+            <Link
+              key={lender.slug}
+              to={buildLenderGuidePath(lender.slug)}
+              onClick={() => trackIntentClick("guides_lender_grid", buildLenderGuidePath(lender.slug), lender.name)}
+              className="rounded-2xl border glass-card p-5 hover:border-foreground transition-colors"
+            >
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-2">
+                {lender.category}
+              </p>
+              <h3 className="text-lg font-semibold tracking-tight">{lender.name}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                Indicative SVR {lender.estimatedSvr.toFixed(2)}% · Max LTV {lender.maxLtv}% · Trust {lender.trustRating.toFixed(1)}/5
+              </p>
+              <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold">
+                Open lender guide <ArrowRight className="size-4" />
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
 

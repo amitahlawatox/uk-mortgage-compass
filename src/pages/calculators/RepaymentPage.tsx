@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
+import { Area, AreaChart, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { ArrowLeft, ArrowRight, Check, Crown, Home, Sparkles, TrendingUp } from "lucide-react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
+import { LenderContextCard } from "@/components/lenders/LenderContextCard";
 import { SEO } from "@/components/SEO";
-import { calculateRepayment, buildSchedule } from "@/lib/finance/repayment";
-import { formatGBP } from "@/lib/finance/decimal";
-import { trackIntentClick } from "@/lib/analytics";
-import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Cell, Pie, PieChart } from "recharts";
-import { ArrowLeft, ArrowRight, Check, Sparkles, Home, TrendingUp, Crown } from "lucide-react";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
+import { trackIntentClick } from "@/lib/analytics";
+import { formatGBP } from "@/lib/finance/decimal";
+import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
+import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 
 type Step = 0 | 1 | 2 | 3;
 
@@ -17,6 +20,13 @@ const presets = [
 ];
 
 const RepaymentPage = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const lender = slug ? getLenderBySlug(slug) : undefined;
+
+  if (slug && !lender) {
+    return <Navigate to="/calculators/repayment" replace />;
+  }
+
   const [step, setStep] = useState<Step>(0);
   const [propertyPrice, setPropertyPrice] = useState(312_500);
   const [deposit, setDeposit] = useState(62_500);
@@ -27,10 +37,11 @@ const RepaymentPage = () => {
   const [term, setTerm] = useState(25);
   const [rate, setRate] = useState(4.5);
 
-  const setPrincipal = (newLoan: number) => {
-    setPropertyPrice(newLoan + deposit);
-  };
-  void setPrincipal;
+  useEffect(() => {
+    if (lender) {
+      setRate(lender.estimatedSvr);
+    }
+  }, [lender]);
 
   const result = useMemo(
     () => calculateRepayment({ principal, annualRate: rate, termYears: term }),
@@ -46,9 +57,9 @@ const RepaymentPage = () => {
     if (step < 3) return [];
     const { schedule } = buildSchedule({ principal, annualRate: rate, termYears: term });
     return schedule
-      .filter((_, i) => (i + 1) % 12 === 0)
-      .map((r) => ({ year: r.month / 12, balance: r.balance }));
-  }, [principal, rate, term, step]);
+      .filter((_, index) => (index + 1) % 12 === 0)
+      .map((row) => ({ year: row.month / 12, balance: row.balance }));
+  }, [principal, rate, step, term]);
 
   const breakdown = useMemo(
     () => [
@@ -58,61 +69,94 @@ const RepaymentPage = () => {
     [principal, result.totalInterest],
   );
 
-  const next = () => setStep((s) => (Math.min(3, s + 1) as Step));
-  const back = () => setStep((s) => (Math.max(0, s - 1) as Step));
+  const next = () => setStep((current) => Math.min(3, current + 1) as Step);
+  const back = () => setStep((current) => Math.max(0, current - 1) as Step);
 
-  // Auto-advance after preset choice
   useEffect(() => {
     if (step !== 0) return;
   }, [step]);
 
+  const title = lender
+    ? `Calculate monthly payments for ${lender.name} mortgages`
+    : "Mortgage Repayment Calculator";
+  const intro = lender
+    ? `Run the repayment math for a ${lender.name} mortgage using an indicative ${lender.estimatedSvr.toFixed(2)}% standard variable rate. This is useful for stress-testing product transfer decisions and understanding what the fallback rate could mean for your monthly payment.`
+    : "Three quick questions, one clear answer. We calculate your monthly payment using the standard amortisation formula in 28-digit decimal precision.";
+  const pagePath = lender ? buildLenderPath("repayment", lender.slug) : "/calculators/repayment";
+  const seoTitle = lender
+    ? `${lender.name} Mortgage Repayment Calculator 2026 | RepayWise`
+    : "UK Mortgage Calculator | Monthly Repayments | RepayWise";
+  const seoDescription = lender
+    ? `Estimate monthly payments for a ${lender.name} mortgage using an indicative ${lender.estimatedSvr.toFixed(2)}% SVR, total interest, and the full balance curve.`
+    : "Easy 3-step UK mortgage calculator. See your monthly payment, total interest, and balance over time built on decimal-precision math.";
+
   return (
     <CalculatorShell
       eyebrow="Your monthly mortgage"
-      title="Mortgage Repayment Calculator"
-      intro="Three quick questions, one clear answer. We'll calculate your exact monthly payment using the standard amortisation formula in 28-digit decimal precision."
+      title={title}
+      intro={intro}
       leadCalculator="repayment"
-      leadContext={{ principal, rate, term, monthlyPayment: result.monthlyPayment, totalInterest: result.totalInterest }}
+      leadContext={{
+        principal,
+        rate,
+        term,
+        monthlyPayment: result.monthlyPayment,
+        totalInterest: result.totalInterest,
+        lender: lender?.slug,
+      }}
     >
       <SEO
-        title="UK Mortgage Calculator | Monthly Repayments — RepayWise"
-        description="Easy 3-step UK mortgage calculator. See your monthly payment, total interest and balance over time — built on decimal-precision math."
-        path="/calculators/repayment"
+        title={seoTitle}
+        description={seoDescription}
+        path={pagePath}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "FinancialProduct",
-          name: "UK Mortgage Repayment Calculator",
-          description: "Free decimal-precision UK mortgage repayment calculator. Returns the monthly payment, total interest, and amortisation curve for any loan, rate and term.",
+          name: lender ? `${lender.name} Mortgage Repayment Calculator` : "UK Mortgage Repayment Calculator",
+          description: seoDescription,
           provider: { "@type": "Organization", name: "RepayWise", url: "https://repaywise.co.uk" },
           feesAndCommissionsSpecification: "Free to use. No personal data required.",
           areaServed: { "@type": "Country", name: "United Kingdom" },
+          ...(lender ? { brand: { "@type": "Brand", name: lender.name } } : {}),
         }}
       />
 
-      {/* Progress */}
+      {lender ? (
+        <LenderContextCard
+          lender={lender}
+          title={`${lender.name} repayment planning`}
+          body={`We start this page with an indicative ${lender.estimatedSvr.toFixed(2)}% standard variable rate for ${lender.name}. That gives you a realistic stress-test range for monthly payments if you miss a refinance window or roll onto the lender's fallback pricing.`}
+          links={[
+            { to: buildLenderGuidePath(lender.slug), label: `${lender.name} lender guide` },
+            { to: buildLenderPath("overpayment", lender.slug), label: `${lender.name} overpayment view` },
+            { to: buildLenderPath("max-borrowing", lender.slug), label: `${lender.name} borrowing view` },
+          ]}
+          className="mb-6"
+        />
+      ) : null}
+
       <Stepper step={step} />
 
       <div className="grid lg:grid-cols-5 gap-6 mt-8">
-        {/* Wizard panel */}
         <div className="lg:col-span-3 glass-card rounded-3xl p-6 sm:p-8 min-h-[460px] flex flex-col">
           {step === 0 && (
             <StepPane
               eyebrow="Step 1 of 3"
-              question="Property price & deposit"
-              hint="Set the property price and your deposit. We'll work out the loan you need."
+              question="Property price and deposit"
+              hint="Set the property price and your deposit. We will work out the loan you need."
             >
               <div className="grid sm:grid-cols-3 gap-3 mb-6">
-                {presets.map((p) => {
-                  const Icon = p.icon;
-                  const presetPrice = Math.round(p.principal / 0.8);
+                {presets.map((preset) => {
+                  const Icon = preset.icon;
+                  const presetPrice = Math.round(preset.principal / 0.8);
                   const active = propertyPrice === presetPrice;
                   return (
                     <button
-                      key={p.label}
+                      key={preset.label}
                       onClick={() => {
                         setPropertyPrice(presetPrice);
-                        setDeposit(presetPrice - p.principal);
-                        setTerm(p.term);
+                        setDeposit(presetPrice - preset.principal);
+                        setTerm(preset.term);
                       }}
                       className={`text-left p-4 rounded-2xl border transition-all ${
                         active
@@ -121,11 +165,9 @@ const RepaymentPage = () => {
                       }`}
                     >
                       <Icon className={`size-4 mb-3 ${active ? "text-accent" : "text-muted-foreground"}`} />
-                      <p className="text-sm font-semibold">{p.label}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{p.blurb}</p>
-                      <p className="text-base font-bold tabular-nums mt-2">
-                        {formatGBP(presetPrice)}
-                      </p>
+                      <p className="text-sm font-semibold">{preset.label}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{preset.blurb}</p>
+                      <p className="text-base font-bold tabular-nums mt-2">{formatGBP(presetPrice)}</p>
                     </button>
                   );
                 })}
@@ -139,11 +181,12 @@ const RepaymentPage = () => {
                   min={50_000}
                   max={2_500_000}
                   step={5_000}
-                  onChange={(v) => {
-                    setPropertyPrice(v);
-                    if (deposit > v) setDeposit(Math.round(v * 0.1));
+                  onChange={(value) => {
+                    setPropertyPrice(value);
+                    if (deposit > value) setDeposit(Math.round(value * 0.1));
                   }}
                 />
+
                 <div>
                   <div className="flex items-center justify-end mb-2">
                     <div className="inline-flex rounded-lg border border-border bg-background p-0.5 text-[10px] font-bold uppercase tracking-wider">
@@ -151,14 +194,19 @@ const RepaymentPage = () => {
                         type="button"
                         onClick={() => setDepositMode("amount")}
                         className={`px-2.5 py-1 rounded-md transition-colors ${depositMode === "amount" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"}`}
-                      >£ Amount</button>
+                      >
+                        £ Amount
+                      </button>
                       <button
                         type="button"
                         onClick={() => setDepositMode("percent")}
                         className={`px-2.5 py-1 rounded-md transition-colors ${depositMode === "percent" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"}`}
-                      >% Percent</button>
+                      >
+                        % Percent
+                      </button>
                     </div>
                   </div>
+
                   {depositMode === "amount" ? (
                     <BigSlider
                       label={`Deposit (${depositPct.toFixed(1)}%)`}
@@ -167,7 +215,7 @@ const RepaymentPage = () => {
                       min={0}
                       max={propertyPrice}
                       step={1_000}
-                      onChange={(v) => setDeposit(Math.min(v, propertyPrice))}
+                      onChange={(value) => setDeposit(Math.min(value, propertyPrice))}
                     />
                   ) : (
                     <BigSlider
@@ -188,9 +236,7 @@ const RepaymentPage = () => {
                     <p className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground">
                       Loan you need
                     </p>
-                    <p className="text-3xl font-bold tabular-nums tracking-tight mt-1">
-                      {formatGBP(principal)}
-                    </p>
+                    <p className="text-3xl font-bold tabular-nums tracking-tight mt-1">{formatGBP(principal)}</p>
                     <p className="text-xs text-muted-foreground mt-1 tabular-nums">
                       LTV {ltv.toFixed(1)}% · Deposit {depositPct.toFixed(1)}%
                     </p>
@@ -227,17 +273,17 @@ const RepaymentPage = () => {
               hint="A longer term means smaller monthly payments but more interest over time."
             >
               <div className="grid grid-cols-4 gap-2 mb-6">
-                {[15, 20, 25, 30, 35, 40].map((y) => (
+                {[15, 20, 25, 30, 35, 40].map((years) => (
                   <button
-                    key={y}
-                    onClick={() => setTerm(y)}
+                    key={years}
+                    onClick={() => setTerm(years)}
                     className={`py-3 rounded-xl border text-sm font-semibold transition-all ${
-                      term === y
+                      term === years
                         ? "border-accent bg-secondary shadow-glow-cyan"
                         : "border-border hover:border-foreground"
                     }`}
                   >
-                    {y}y
+                    {years}y
                   </button>
                 ))}
               </div>
@@ -257,20 +303,20 @@ const RepaymentPage = () => {
             <StepPane
               eyebrow="Step 3 of 3"
               question="What interest rate do you expect?"
-              hint="Live UK 5-year fixed sits around 4.5%. We'll show you what a 1% rise would mean."
+              hint="Live UK 5-year fixed sits around 4.5%. We also show you what a 1% rise would mean."
             >
               <div className="grid grid-cols-4 gap-2 mb-6">
-                {[3.5, 4.0, 4.5, 5.0, 5.5, 6.0].map((r) => (
+                {[3.5, 4.0, 4.5, 5.0, 5.5, 6.0].map((currentRate) => (
                   <button
-                    key={r}
-                    onClick={() => setRate(r)}
+                    key={currentRate}
+                    onClick={() => setRate(currentRate)}
                     className={`py-3 rounded-xl border text-sm font-semibold tabular-nums transition-all ${
-                      Math.abs(rate - r) < 0.01
+                      Math.abs(rate - currentRate) < 0.01
                         ? "border-accent bg-secondary shadow-glow-cyan"
                         : "border-border hover:border-foreground"
                     }`}
                   >
-                    {r.toFixed(1)}%
+                    {currentRate.toFixed(1)}%
                   </button>
                 ))}
               </div>
@@ -288,7 +334,7 @@ const RepaymentPage = () => {
           )}
 
           {step === 3 && (
-            <StepPane eyebrow="Your numbers" question="Here's what it costs">
+            <StepPane eyebrow="Your numbers" question="Here is what it costs">
               <div className="space-y-4">
                 <div className="rounded-2xl bg-primary text-primary-foreground p-6 shadow-glow-cyan">
                   <p className="text-[10px] uppercase tracking-widest font-semibold text-primary-foreground/60">
@@ -322,8 +368,8 @@ const RepaymentPage = () => {
                       <ResponsiveContainer>
                         <PieChart>
                           <Pie data={breakdown} dataKey="value" innerRadius={32} outerRadius={56} paddingAngle={2}>
-                            {breakdown.map((b) => (
-                              <Cell key={b.name} fill={b.color} />
+                            {breakdown.map((slice) => (
+                              <Cell key={slice.name} fill={slice.color} />
                             ))}
                           </Pie>
                           <Tooltip
@@ -333,22 +379,22 @@ const RepaymentPage = () => {
                               borderRadius: 12,
                               fontSize: 12,
                             }}
-                            formatter={(v: number) => formatGBP(v)}
+                            formatter={(value: number) => formatGBP(value)}
                           />
                         </PieChart>
                       </ResponsiveContainer>
                     </div>
                     <div className="flex flex-col gap-2 mt-2">
-                      {breakdown.map((b) => {
+                      {breakdown.map((slice) => {
                         const total = principal + result.totalInterest;
-                        const pct = total > 0 ? Math.round((b.value / total) * 100) : 0;
+                        const pct = total > 0 ? Math.round((slice.value / total) * 100) : 0;
                         return (
-                          <div key={b.name} className="flex items-center justify-between text-xs">
+                          <div key={slice.name} className="flex items-center justify-between text-xs">
                             <span className="flex items-center gap-2">
-                              <span className="size-2 rounded-full" style={{ background: b.color }} />
-                              {b.name} <span className="text-muted-foreground">({pct}%)</span>
+                              <span className="size-2 rounded-full" style={{ background: slice.color }} />
+                              {slice.name} <span className="text-muted-foreground">({pct}%)</span>
                             </span>
-                            <span className="tabular-nums font-semibold">{formatGBP(b.value)}</span>
+                            <span className="tabular-nums font-semibold">{formatGBP(slice.value)}</span>
                           </div>
                         );
                       })}
@@ -369,11 +415,11 @@ const RepaymentPage = () => {
                             </linearGradient>
                           </defs>
                           <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
-                          <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `£${(v / 1000).toFixed(0)}k`} />
+                          <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`} />
                           <Tooltip
                             contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
-                            formatter={(v: number) => [formatGBP(v), "Balance"]}
-                            labelFormatter={(y) => `Year ${y}`}
+                            formatter={(value: number) => [formatGBP(value), "Balance"]}
+                            labelFormatter={(year) => `Year ${year}`}
                           />
                           <Area type="monotone" dataKey="balance" stroke="hsl(var(--accent))" strokeWidth={2} fill="url(#balGrad2)" />
                         </AreaChart>
@@ -401,7 +447,6 @@ const RepaymentPage = () => {
             </StepPane>
           )}
 
-          {/* Nav */}
           <div className="flex items-center justify-between mt-auto pt-6">
             <button
               onClick={back}
@@ -414,10 +459,11 @@ const RepaymentPage = () => {
               <button
                 onClick={() => {
                   if (step === 2) {
-                    trackIntentClick("repayment_wizard", "/calculators/repayment", "See my payment", {
+                    trackIntentClick("repayment_wizard", pagePath, "See my payment", {
                       principal,
                       rate,
                       term,
+                      lender: lender?.slug,
                     });
                   }
                   next();
@@ -437,7 +483,6 @@ const RepaymentPage = () => {
           </div>
         </div>
 
-        {/* Sticky live preview */}
         <aside className="lg:col-span-2">
           <div className="lg:sticky lg:top-24 space-y-3">
             <div className="glass-card rounded-3xl p-6">
@@ -449,8 +494,8 @@ const RepaymentPage = () => {
               </p>
               <p className="text-xs text-muted-foreground mt-1">per month</p>
               <div className="mt-5 space-y-2 text-sm">
-                <SummaryRow label="Property" value={formatGBP(propertyPrice)} done={true} />
-                <SummaryRow label={`Deposit (${depositPct.toFixed(0)}%)`} value={formatGBP(deposit)} done={true} />
+                <SummaryRow label="Property" value={formatGBP(propertyPrice)} done />
+                <SummaryRow label={`Deposit (${depositPct.toFixed(0)}%)`} value={formatGBP(deposit)} done />
                 <SummaryRow label="Loan" value={formatGBP(principal)} done={step >= 1} />
                 <SummaryRow label="Term" value={`${term} years`} done={step >= 2} />
                 <SummaryRow label="Rate" value={`${rate.toFixed(2)}%`} done={step >= 3} />
@@ -472,11 +517,11 @@ const Stepper = ({ step }: { step: Step }) => {
   const labels = ["Amount", "Term", "Rate", "Result"];
   return (
     <div className="flex items-center gap-2 sm:gap-3">
-      {labels.map((l, i) => {
-        const active = i === step;
-        const done = i < step;
+      {labels.map((label, index) => {
+        const active = index === step;
+        const done = index < step;
         return (
-          <div key={l} className="flex items-center gap-2 sm:gap-3 flex-1 last:flex-none">
+          <div key={label} className="flex items-center gap-2 sm:gap-3 flex-1 last:flex-none">
             <div
               className={`size-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all ${
                 done
@@ -486,14 +531,12 @@ const Stepper = ({ step }: { step: Step }) => {
                     : "bg-secondary text-muted-foreground"
               }`}
             >
-              {done ? <Check className="size-4" /> : i + 1}
+              {done ? <Check className="size-4" /> : index + 1}
             </div>
             <span className={`text-xs font-semibold hidden sm:inline ${active ? "text-foreground" : "text-muted-foreground"}`}>
-              {l}
+              {label}
             </span>
-            {i < labels.length - 1 && (
-              <div className="flex-1 h-px bg-border min-w-4" />
-            )}
+            {index < labels.length - 1 && <div className="flex-1 h-px bg-border min-w-4" />}
           </div>
         );
       })}
@@ -515,7 +558,7 @@ const StepPane = ({
   <div className="animate-fade-in">
     <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-2">{eyebrow}</p>
     <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2 leading-tight">{question}</h2>
-    {hint && <p className="text-sm text-muted-foreground mb-6 max-w-[50ch]">{hint}</p>}
+    {hint ? <p className="text-sm text-muted-foreground mb-6 max-w-[50ch]">{hint}</p> : null}
     {children}
   </div>
 );
@@ -536,18 +579,20 @@ const BigSlider = ({
   min: number;
   max: number;
   step: number;
-  onChange: (v: number) => void;
+  onChange: (value: number) => void;
   prefix?: string;
   suffix?: string;
   decimals?: number;
 }) => {
-  const clamp = (v: number) => Math.min(max, Math.max(min, v));
+  const clamp = (current: number) => Math.min(max, Math.max(min, current));
   const formatted = decimals > 0 ? value.toFixed(decimals) : String(value);
   const [draft, setDraft] = useState(formatted);
   const [focused, setFocused] = useState(false);
+
   useEffect(() => {
     if (!focused) setDraft(formatted);
-  }, [formatted, focused]);
+  }, [focused, formatted]);
+
   return (
     <div>
       <div className="flex items-baseline justify-between mb-3 gap-3">
@@ -555,32 +600,32 @@ const BigSlider = ({
           {label}
         </label>
         <div className="flex items-baseline gap-1 rounded-xl border border-border focus-within:border-accent focus-within:shadow-glow-cyan transition-all px-3 py-1.5 bg-background">
-          {prefix && <span className="text-base font-semibold text-muted-foreground">{prefix}</span>}
+          {prefix ? <span className="text-base font-semibold text-muted-foreground">{prefix}</span> : null}
           <input
             type="text"
             inputMode="decimal"
             value={draft}
             onFocus={() => setFocused(true)}
-            onChange={(e) => {
-              const raw = e.target.value;
+            onChange={(event) => {
+              const raw = event.target.value;
               setDraft(raw);
               if (raw === "" || raw === "-" || raw === "." || raw === "-.") {
                 onChange(0);
                 return;
               }
-              const n = Number(raw);
-              if (Number.isFinite(n)) onChange(n);
+              const nextValue = Number(raw);
+              if (Number.isFinite(nextValue)) onChange(nextValue);
             }}
-            onBlur={(e) => {
+            onBlur={(event) => {
               setFocused(false);
-              const n = Number(e.target.value);
-              const clamped = Number.isFinite(n) ? clamp(n) : min;
+              const nextValue = Number(event.target.value);
+              const clamped = Number.isFinite(nextValue) ? clamp(nextValue) : min;
               onChange(clamped);
               setDraft(decimals > 0 ? clamped.toFixed(decimals) : String(clamped));
             }}
             className="w-28 text-right bg-transparent text-2xl font-bold tabular-nums tracking-tight focus:outline-none"
           />
-          {suffix && <span className="text-base font-semibold text-muted-foreground">{suffix}</span>}
+          {suffix ? <span className="text-base font-semibold text-muted-foreground">{suffix}</span> : null}
         </div>
       </div>
       <input
@@ -589,7 +634,7 @@ const BigSlider = ({
         max={max}
         step={step}
         value={clamp(value)}
-        onChange={(e) => onChange(Number(e.target.value))}
+        onChange={(event) => onChange(Number(event.target.value))}
         className="w-full h-2 accent-foreground cursor-pointer"
       />
       <div className="flex justify-between text-[10px] text-muted-foreground mt-1 tabular-nums">
@@ -609,7 +654,6 @@ const SummaryRow = ({ label, value, done }: { label: string; value: string; done
   </div>
 );
 
-// Re-exports kept for OverpaymentPage and AffordabilityPage that import from here
 export const SliderField = ({
   label,
   value,
@@ -626,18 +670,20 @@ export const SliderField = ({
   min: number;
   max: number;
   step: number;
-  onChange: (v: number) => void;
+  onChange: (value: number) => void;
   prefix?: string;
   suffix?: string;
   decimals?: number;
 }) => {
-  const clamp = (v: number) => Math.min(max, Math.max(min, v));
+  const clamp = (current: number) => Math.min(max, Math.max(min, current));
   const formatted = decimals > 0 ? value.toFixed(decimals) : String(value);
   const [draft, setDraft] = useState(formatted);
   const [focused, setFocused] = useState(false);
+
   useEffect(() => {
     if (!focused) setDraft(formatted);
-  }, [formatted, focused]);
+  }, [focused, formatted]);
+
   return (
     <div>
       <div className="flex justify-between items-baseline mb-2 gap-2">
@@ -645,32 +691,32 @@ export const SliderField = ({
           {label}
         </label>
         <div className="flex items-baseline gap-0.5 rounded-lg border border-border focus-within:border-accent transition-all px-2 py-0.5 bg-background">
-          {prefix && <span className="text-xs text-muted-foreground">{prefix}</span>}
+          {prefix ? <span className="text-xs text-muted-foreground">{prefix}</span> : null}
           <input
             type="text"
             inputMode="decimal"
             value={draft}
             onFocus={() => setFocused(true)}
-            onChange={(e) => {
-              const raw = e.target.value;
+            onChange={(event) => {
+              const raw = event.target.value;
               setDraft(raw);
               if (raw === "" || raw === "-" || raw === "." || raw === "-.") {
                 onChange(0);
                 return;
               }
-              const n = Number(raw);
-              if (Number.isFinite(n)) onChange(n);
+              const nextValue = Number(raw);
+              if (Number.isFinite(nextValue)) onChange(nextValue);
             }}
-            onBlur={(e) => {
+            onBlur={(event) => {
               setFocused(false);
-              const n = Number(e.target.value);
-              const clamped = Number.isFinite(n) ? clamp(n) : min;
+              const nextValue = Number(event.target.value);
+              const clamped = Number.isFinite(nextValue) ? clamp(nextValue) : min;
               onChange(clamped);
               setDraft(decimals > 0 ? clamped.toFixed(decimals) : String(clamped));
             }}
             className="w-24 text-right bg-transparent text-sm font-semibold tabular-nums focus:outline-none"
           />
-          {suffix && <span className="text-xs text-muted-foreground">{suffix}</span>}
+          {suffix ? <span className="text-xs text-muted-foreground">{suffix}</span> : null}
         </div>
       </div>
       <input
@@ -679,7 +725,7 @@ export const SliderField = ({
         max={max}
         step={step}
         value={clamp(value)}
-        onChange={(e) => onChange(Number(e.target.value))}
+        onChange={(event) => onChange(Number(event.target.value))}
         className="w-full accent-foreground"
       />
     </div>
@@ -687,11 +733,7 @@ export const SliderField = ({
 };
 
 export const BigStat = ({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) => (
-  <div
-    className={`rounded-2xl p-5 ${
-      highlight ? "bg-primary text-primary-foreground shadow-glow-cyan" : "glass-card"
-    }`}
-  >
+  <div className={`rounded-2xl p-5 ${highlight ? "bg-primary text-primary-foreground shadow-glow-cyan" : "glass-card"}`}>
     <p className={`text-[10px] uppercase tracking-widest font-semibold mb-2 ${highlight ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
       {label}
     </p>
