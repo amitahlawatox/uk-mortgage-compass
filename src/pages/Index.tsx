@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin, Home as HomeIcon, Building2 } from "lucide-react";
+import { ArrowRight, Calculator, TrendingDown, Wallet, LineChart, MapPin, Home as HomeIcon, Building2, Scale } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { cities } from "@/lib/uk/cities";
@@ -48,6 +48,13 @@ const calculators = [
     blurb: "BTL purchase modeller: 25% deposit default, interest-only or repayment, stamp duty surcharge, rental yield and ICR.",
     icon: Building2,
     accent: "lime" as const,
+  },
+  {
+    to: "/calculators/compare",
+    title: "Compare Mortgages",
+    blurb: "Put two offers head-to-head: house price, deposit, APR, term and product fees — see which plan is genuinely cheaper.",
+    icon: Scale,
+    accent: "cyan" as const,
   },
 ];
 
@@ -213,7 +220,7 @@ const Index = () => (
 
     <section className="px-4 pb-24">
       <div className="max-w-6xl mx-auto pt-12 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <Stat label="Core calculators" value="6" />
+        <Stat label="Core calculators" value="7" />
         <Stat label="UK tax systems" value="3" />
         <Stat label="Math precision" value="28 dp" />
         <Stat label="Sign-up" value="Not needed" />
