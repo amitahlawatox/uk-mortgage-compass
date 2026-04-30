@@ -10,7 +10,7 @@ const TermsOfService = () => (
     />
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16 prose prose-invert prose-sm sm:prose-base">
       <h1>Terms of Service</h1>
-      <p className="text-muted-foreground">Last updated: {new Date().toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" })}</p>
+      <p className="text-muted-foreground">Last updated: 30 April 2026</p>
 
       <h2>1. About RepayWise</h2>
       <p>RepayWise (<strong>repaywise.co.uk</strong>) is an information service. We are <strong>not</strong> a

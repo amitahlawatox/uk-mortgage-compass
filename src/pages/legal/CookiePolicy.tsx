@@ -10,7 +10,7 @@ const CookiePolicy = () => (
     />
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16 prose prose-invert prose-sm sm:prose-base">
       <h1>Cookie Policy</h1>
-      <p className="text-muted-foreground">Last updated: {new Date().toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" })}</p>
+      <p className="text-muted-foreground">Last updated: 30 April 2026</p>
 
       <h2>What are cookies?</h2>
       <p>Cookies are small text files stored by your browser. We use them, plus similar technologies (localStorage,

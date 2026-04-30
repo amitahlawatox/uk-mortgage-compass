@@ -3,7 +3,7 @@ export const ANALYTICS_CONSENT_EVENT = "repaywise:cookie-consent-changed";
 
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY as string | undefined;
 const POSTHOG_HOST = (import.meta.env.VITE_POSTHOG_HOST as string | undefined) ?? "https://eu.i.posthog.com";
-const GA_MEASUREMENT_ID = (import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined) ?? "G-VDQ6LCCGMC";
+const GA_MEASUREMENT_ID = (import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined) ?? "G-082C2XNJDW";
 
 type PosthogModule = typeof import("posthog-js");
 type PosthogClient = PosthogModule["default"];
