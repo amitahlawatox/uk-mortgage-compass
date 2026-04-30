@@ -7,6 +7,16 @@ import { buildLenderGuidePath, lenders } from "@/lib/uk/lenders";
 
 const guides = [
   {
+    slug: "help-to-buy-repayment",
+    title: "Help to Buy Equity Loan Repayment Calculator",
+    summary:
+      "Calculate what you owe on your Help to Buy equity loan, including the escalating annual fees from year 6 and the repayment amount based on your home's current market value.",
+    keyword: "help to buy repayment calculator",
+    to: "/guides/help-to-buy-repayment",
+    cta: "Open calculator",
+    icon: Home,
+  },
+  {
     slug: "svr-cliff-strategy-2026",
     title: "The 2026 SVR Cliff Strategy",
     summary:

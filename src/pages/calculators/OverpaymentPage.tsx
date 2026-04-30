@@ -10,6 +10,9 @@ import { formatGBP } from "@/lib/finance/decimal";
 import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 import { BigStat, SliderField } from "./RepaymentPage";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
+import { LastUpdated } from "@/components/calculators/LastUpdated";
 
 const OverpaymentPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -209,6 +212,14 @@ const OverpaymentPage = () => {
         }}
       />
 
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Calculators", href: "/" },
+          { name: lender ? `${lender.name} Overpayment Calculator` : "Overpayment Visualiser", href: pagePath },
+        ]}
+      />
+
       {lender ? (
         <LenderContextCard
           lender={lender}
@@ -352,6 +363,9 @@ const OverpaymentPage = () => {
           />
         </div>
       </div>
+
+      <LastUpdated date="30 April 2026" />
+      <RelatedCalculators currentPath={pagePath} />
     </CalculatorShell>
   );
 };

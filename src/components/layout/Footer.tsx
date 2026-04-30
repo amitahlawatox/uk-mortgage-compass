@@ -32,6 +32,7 @@ export const Footer = () => (
           <li><Link to="/calculators/affordability" onClick={() => trackIntentClick("footer_calculators", "/calculators/affordability", "Total Cost to Buy")} className="hover:text-accent">Total Cost to Buy</Link></li>
           <li><Link to="/calculators/max-borrowing" onClick={() => trackIntentClick("footer_calculators", "/calculators/max-borrowing", "Affordability")} className="hover:text-accent">Affordability - How much can I borrow?</Link></li>
           <li><Link to="/calculators/equity" onClick={() => trackIntentClick("footer_calculators", "/calculators/equity", "Home Equity Calculator")} className="hover:text-accent">Home Equity Calculator</Link></li>
+          <li><Link to="/guides/help-to-buy-repayment" onClick={() => trackIntentClick("footer_calculators", "/guides/help-to-buy-repayment", "Help to Buy")} className="hover:text-accent">Help to Buy Repayment</Link></li>
           <li><Link to="/guides" onClick={() => trackIntentClick("footer_calculators", "/guides", "Guides")} className="hover:text-accent">Guides</Link></li>
         </ul>
       </div>

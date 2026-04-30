@@ -8,6 +8,9 @@ import { SliderField, BigStat } from "./RepaymentPage";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 import { DepositField } from "@/components/calculators/DepositField";
 import { Building2, Landmark, Receipt, TrendingUp, Info } from "lucide-react";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
+import { LastUpdated } from "@/components/calculators/LastUpdated";
 
 type RepayType = "repayment" | "interest-only";
 
@@ -102,6 +105,14 @@ const BuyToLetPage = () => {
             },
           ],
         }}
+      />
+
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Calculators", href: "/" },
+          { name: "Buy-to-Let Calculator", href: "/calculators/buy-to-let" },
+        ]}
       />
 
       <div className="grid lg:grid-cols-5 gap-6">
@@ -263,6 +274,9 @@ const BuyToLetPage = () => {
           />
         </div>
       </div>
+
+      <LastUpdated date="30 April 2026" />
+      <RelatedCalculators currentPath="/calculators/buy-to-let" />
     </CalculatorShell>
   );
 };

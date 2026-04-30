@@ -8,6 +8,9 @@ import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 import { DepositField } from "@/components/calculators/DepositField";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { Home, Landmark, TrendingUp, PiggyBank, Info } from "lucide-react";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
+import { LastUpdated } from "@/components/calculators/LastUpdated";
 
 const EquityPage = () => {
   const [purchasePrice, setPurchasePrice] = useState(300_000);
@@ -124,6 +127,14 @@ const EquityPage = () => {
             },
           ],
         }}
+      />
+
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Calculators", href: "/" },
+          { name: "Home Equity Calculator", href: "/calculators/equity" },
+        ]}
       />
 
       <div className="grid lg:grid-cols-5 gap-6">
@@ -261,6 +272,9 @@ const EquityPage = () => {
           />
         </div>
       </div>
+
+      <LastUpdated date="30 April 2026" />
+      <RelatedCalculators currentPath="/calculators/equity" />
     </CalculatorShell>
   );
 };
