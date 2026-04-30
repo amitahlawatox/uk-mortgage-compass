@@ -109,15 +109,52 @@ const RepaymentPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
-        jsonLd={{
+        jsonLd={lender ? {
           "@context": "https://schema.org",
           "@type": "FinancialProduct",
-          name: lender ? `${lender.name} Mortgage Repayment Calculator` : "UK Mortgage Repayment Calculator",
+          name: `${lender.name} Mortgage Repayment Calculator`,
           description: seoDescription,
           provider: { "@type": "Organization", name: "RepayWise", url: "https://repaywise.co.uk" },
           feesAndCommissionsSpecification: "Free to use. No personal data required.",
           areaServed: { "@type": "Country", name: "United Kingdom" },
-          ...(lender ? { brand: { "@type": "Brand", name: lender.name } } : {}),
+          brand: { "@type": "Brand", name: lender.name },
+        } : {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "FinancialProduct",
+              name: "UK Mortgage Repayment Calculator",
+              description: seoDescription,
+              provider: { "@type": "Organization", name: "RepayWise", url: "https://repaywise.co.uk" },
+              feesAndCommissionsSpecification: "Free to use. No personal data required.",
+              areaServed: { "@type": "Country", name: "United Kingdom" },
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "How is a UK mortgage repayment calculated?",
+                  acceptedAnswer: { "@type": "Answer", text: "UK mortgage repayments are calculated using the standard amortisation formula. The monthly payment equals P × r × (1+r)^n / ((1+r)^n − 1), where P is the loan amount, r is the monthly interest rate, and n is the total number of monthly payments." },
+                },
+                {
+                  "@type": "Question",
+                  name: "What is a good mortgage interest rate in the UK in 2026?",
+                  acceptedAnswer: { "@type": "Answer", text: "In 2026, competitive fixed-rate mortgages in the UK typically range from 3.5% to 5.5% depending on the loan-to-value ratio, term length, and lender. Standard variable rates (SVR) tend to be higher, often between 6.5% and 8.5%." },
+                },
+                {
+                  "@type": "Question",
+                  name: "How much deposit do I need for a UK mortgage?",
+                  acceptedAnswer: { "@type": "Answer", text: "Most UK lenders require a minimum 5% deposit, though 10-20% deposits unlock better interest rates. Some specialist schemes may accept smaller deposits, but a larger deposit generally means lower monthly payments and better product availability." },
+                },
+                {
+                  "@type": "Question",
+                  name: "Can I overpay my UK mortgage?",
+                  acceptedAnswer: { "@type": "Answer", text: "Most UK mortgages allow overpayments of up to 10% of the outstanding balance per year without early repayment charges. Overpaying reduces the total interest paid and can shorten your mortgage term significantly." },
+                },
+              ],
+            },
+          ],
         }}
       />
 

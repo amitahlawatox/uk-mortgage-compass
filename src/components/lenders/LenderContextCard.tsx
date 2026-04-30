@@ -28,6 +28,10 @@ export const LenderContextCard = ({
     <h2 className="text-xl sm:text-2xl font-bold tracking-tight">{title}</h2>
     <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-[68ch]">{body}</p>
 
+    {lender.description && (
+      <p className="mt-3 text-sm text-muted-foreground/80 leading-relaxed max-w-[68ch]">{lender.description}</p>
+    )}
+
     <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
       <Stat icon={Landmark} label="Category" value={lender.category} />
       <Stat icon={Percent} label="Indicative SVR" value={`${lender.estimatedSvr.toFixed(2)}%`} />

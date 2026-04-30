@@ -142,6 +142,14 @@ export const routes: RouteRecord[] = [
         getStaticPaths: () => lenders.map((lender) => `guides/lenders/${lender.slug}`),
       },
       {
+        path: "about",
+        lazy: page(() => import("./pages/AboutPage")),
+      },
+      {
+        path: "contact",
+        lazy: page(() => import("./pages/ContactPage")),
+      },
+      {
         path: "privacy-policy",
         lazy: page(() => import("./pages/legal/PrivacyPolicy")),
       },

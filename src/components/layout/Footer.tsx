@@ -52,6 +52,8 @@ export const Footer = () => (
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-[11px] text-muted-foreground">
         <span>&copy; {new Date().getFullYear()} RepayWise. England & Wales. repaywise.co.uk</span>
         <div className="flex gap-4">
+          <Link to="/about" className="hover:text-foreground">About</Link>
+          <Link to="/contact" className="hover:text-foreground">Contact</Link>
           <Link to="/privacy-policy" className="hover:text-foreground">Privacy</Link>
           <Link to="/cookie-policy" className="hover:text-foreground">Cookies</Link>
           <Link to="/terms-of-service" className="hover:text-foreground">Terms</Link>
