@@ -6,6 +6,9 @@ import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 import { SEO } from "@/components/SEO";
 import { calculateRepayment } from "@/lib/finance/repayment";
 import { formatGBP } from "@/lib/finance/decimal";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
+import { LastUpdated } from "@/components/calculators/LastUpdated";
 
 interface PlanInputs {
   deposit: number;
@@ -405,6 +408,17 @@ const ComparePage = () => {
         description="Compare two UK mortgage offers side by side. Enter house price, deposit, APR, term and product fee — see monthly payment, total interest and lifetime cost."
         path="/calculators/compare"
       />
+
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Calculators", href: "/" },
+          { name: "Compare Mortgages", href: "/calculators/compare" },
+        ]}
+      />
+
+      <LastUpdated date="30 April 2026" />
+      <RelatedCalculators currentPath="/calculators/compare" />
     </CalculatorShell>
   );
 };

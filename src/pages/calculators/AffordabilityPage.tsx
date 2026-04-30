@@ -9,6 +9,9 @@ import { SliderField, BigStat } from "./RepaymentPage";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { Home, Users, Building2, MapPin, CheckCircle2, AlertTriangle, Wallet, Receipt, Calculator, Info } from "lucide-react";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
+import { LastUpdated } from "@/components/calculators/LastUpdated";
 
 const FeeInput = ({ value, onChange, disabled }: { value: number; onChange: (v: number) => void; disabled?: boolean }) => {
   const [draft, setDraft] = useState(String(value));
@@ -200,6 +203,14 @@ const AffordabilityPage = () => {
             },
           ],
         }}
+      />
+
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Calculators", href: "/" },
+          { name: "Total Cost to Buy", href: "/calculators/affordability" },
+        ]}
       />
 
       <div className="grid lg:grid-cols-5 gap-6">
@@ -504,6 +515,9 @@ const AffordabilityPage = () => {
           />
         </div>
       </div>
+
+      <LastUpdated date="30 April 2026" />
+      <RelatedCalculators currentPath="/calculators/affordability" />
     </CalculatorShell>
   );
 };

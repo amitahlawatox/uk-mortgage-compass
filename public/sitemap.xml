@@ -6,6 +6,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/about</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/affordability</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -796,6 +801,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/contact</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/cookie-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -804,6 +814,11 @@
     <loc>https://repaywise.co.uk/guides</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/guides/help-to-buy-repayment</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://repaywise.co.uk/guides/lenders/accord</loc>

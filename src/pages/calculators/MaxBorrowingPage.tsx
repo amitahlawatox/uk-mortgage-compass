@@ -10,6 +10,9 @@ import { calculateAffordability } from "@/lib/finance/affordability";
 import { formatGBP } from "@/lib/finance/decimal";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 import { BigStat, SliderField } from "./RepaymentPage";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
+import { LastUpdated } from "@/components/calculators/LastUpdated";
 
 const MaxBorrowingPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -117,6 +120,14 @@ const MaxBorrowingPage = () => {
         }}
       />
 
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Calculators", href: "/" },
+          { name: lender ? `${lender.name} Affordability Calculator` : "Mortgage Affordability Calculator", href: pagePath },
+        ]}
+      />
+
       {lender ? (
         <LenderContextCard
           lender={lender}
@@ -214,6 +225,9 @@ const MaxBorrowingPage = () => {
           />
         </div>
       </div>
+
+      <LastUpdated date="30 April 2026" />
+      <RelatedCalculators currentPath={pagePath} />
     </CalculatorShell>
   );
 };

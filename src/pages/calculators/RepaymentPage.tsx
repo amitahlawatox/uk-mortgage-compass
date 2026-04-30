@@ -10,6 +10,9 @@ import { trackIntentClick } from "@/lib/analytics";
 import { formatGBP } from "@/lib/finance/decimal";
 import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
+import { LastUpdated } from "@/components/calculators/LastUpdated";
 
 type Step = 0 | 1 | 2 | 3;
 
@@ -156,6 +159,14 @@ const RepaymentPage = () => {
             },
           ],
         }}
+      />
+
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Calculators", href: "/" },
+          { name: lender ? `${lender.name} Mortgage Repayment` : "Mortgage Repayment Calculator", href: pagePath },
+        ]}
       />
 
       {lender ? (
@@ -546,6 +557,9 @@ const RepaymentPage = () => {
           </div>
         </aside>
       </div>
+
+      <LastUpdated date="30 April 2026" />
+      <RelatedCalculators currentPath={pagePath} />
     </CalculatorShell>
   );
 };

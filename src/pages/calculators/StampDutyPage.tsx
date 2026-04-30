@@ -5,6 +5,9 @@ import { calculateStampDuty, type Region } from "@/lib/finance/stampDuty";
 import { formatGBP, formatPercent } from "@/lib/finance/decimal";
 import { Loader2, MapPin, CheckCircle2 } from "lucide-react";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
+import { LastUpdated } from "@/components/calculators/LastUpdated";
 
 const PriceInput = ({ value, onChange }: { value: number; onChange: (v: number) => void }) => {
   const [draft, setDraft] = useState(String(value));
@@ -173,6 +176,14 @@ const StampDutyPage = () => {
         }}
       />
 
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Calculators", href: "/" },
+          { name: "Stamp Duty Calculator", href: "/calculators/stamp-duty" },
+        ]}
+      />
+
       <div className="grid lg:grid-cols-5 gap-6">
         {/* Inputs */}
         <div className="lg:col-span-2 space-y-5">
@@ -326,6 +337,9 @@ const StampDutyPage = () => {
           />
         </div>
       </div>
+
+      <LastUpdated date="30 April 2026" />
+      <RelatedCalculators currentPath="/calculators/stamp-duty" />
     </CalculatorShell>
   );
 };
