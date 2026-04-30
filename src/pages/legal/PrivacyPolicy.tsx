@@ -10,7 +10,7 @@ const PrivacyPolicy = () => (
     />
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16 prose prose-invert prose-sm sm:prose-base">
       <h1>Privacy Policy</h1>
-      <p className="text-muted-foreground">Last updated: {new Date().toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" })}</p>
+      <p className="text-muted-foreground">Last updated: 30 April 2026</p>
 
       <h2>1. Who we are</h2>
       <p>
