@@ -42,11 +42,18 @@ const TermsOfService = () => (
       <p>The site may display advertisements via Google AdSense and link to third-party services. We are not
         responsible for the content or practices of third parties.</p>
 
-      <h2>8. Governing law</h2>
+      <h2>8. Paid services and subscriptions</h2>
+      <p>
+        RepayWise does not currently offer paid consumer subscriptions. If we introduce paid or auto-renewing
+        services in future, we will provide the required pre-contract information, reminder notices, and a simple
+        cancellation route in line with applicable UK consumer law.
+      </p>
+
+      <h2>9. Governing law</h2>
       <p>These terms are governed by the laws of England and Wales. Disputes are subject to the exclusive jurisdiction
         of the courts of England and Wales.</p>
 
-      <h2>9. Contact</h2>
+      <h2>10. Contact</h2>
       <p>Questions about these terms: <a href="mailto:hello@repaywise.co.uk">hello@repaywise.co.uk</a>.</p>
     </article>
   </SiteShell>

@@ -25,23 +25,31 @@ const CookiePolicy = () => (
           <tr>
             <td>Strictly necessary</td>
             <td>Site function, consent state</td>
-            <td><code>rw_consent</code></td>
+            <td><code>velocity-cookie-consent</code> (stored in localStorage)</td>
             <td>12 months</td>
           </tr>
           <tr>
             <td>Analytics</td>
             <td>Aggregate usage, page performance</td>
-            <td>PostHog, Vercel Analytics</td>
+            <td>Google Analytics 4, PostHog</td>
             <td>up to 14 months</td>
           </tr>
           <tr>
             <td>Advertising</td>
-            <td>Personalised ads via Google AdSense</td>
-            <td><code>__gads</code>, <code>__gpi</code>, <code>NID</code></td>
+            <td>Advertising or personalisation cookies, if we enable ads in future</td>
+            <td><code>__gads</code>, <code>__gpi</code>, <code>NID</code> (examples only)</td>
             <td>up to 13 months</td>
           </tr>
         </tbody>
       </table>
+
+      <h2>How consent works on RepayWise today</h2>
+      <p>
+        RepayWise currently asks you to choose between <strong>Essential only</strong> and{" "}
+        <strong>Accept analytics</strong>. Analytics tools are only loaded after you opt in.
+        If we introduce advertising cookies or personalised ads in future, we will update this
+        policy and request any additional consent required under PECR and the UK GDPR.
+      </p>
 
       <h2>Managing cookies</h2>
       <p>You can withdraw consent at any time by clearing site data or by visiting:</p>

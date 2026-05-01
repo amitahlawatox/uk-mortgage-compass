@@ -33,9 +33,10 @@ const PrivacyPolicy = () => (
 
       <h2>4. Third-party advertising</h2>
       <p>
-        Once approved, this site uses <strong>Google AdSense</strong> to serve advertisements. Google and its
-        partners may use cookies to personalise ads based on your visits to this and other sites. You can opt out
-        of personalised advertising via <a href="https://www.google.com/settings/ads" rel="noopener noreferrer" target="_blank">Google Ads Settings</a>
+        We may introduce <strong>Google AdSense</strong> or similar advertising services in future. If we do,
+        we will update this policy and request any non-essential advertising consent required under PECR and the
+        UK GDPR. You can manage ad personalisation, where available, via{" "}
+        <a href="https://www.google.com/settings/ads" rel="noopener noreferrer" target="_blank">Google Ads Settings</a>
         or <a href="https://www.youronlinechoices.com" rel="noopener noreferrer" target="_blank">YourOnlineChoices.com</a>.
       </p>
 
@@ -44,19 +45,26 @@ const PrivacyPolicy = () => (
         tools are only loaded after you accept optional analytics cookies. IP addresses are pseudonymised. We do
         not sell or share personal data with data brokers.</p>
 
-      <h2>6. Data retention</h2>
+      <h2>6. Marketing communications</h2>
+      <p>
+        We do not currently operate a general consumer newsletter. If we introduce email lists, lead nurturing,
+        or direct marketing in future, we will collect any consent required by law and honour unsubscribe and
+        objection rights.
+      </p>
+
+      <h2>7. Data retention</h2>
       <p>Lead-form submissions are retained for 24 months unless you request earlier deletion. Anonymous analytics
         is retained for 14 months.</p>
 
-      <h2>7. Your rights</h2>
+      <h2>8. Your rights</h2>
       <p>Under the UK GDPR you have the right to access, rectify, erase, restrict, or object to processing of your
         personal data, and the right to data portability. Contact <a href="mailto:privacy@repaywise.co.uk">privacy@repaywise.co.uk</a>.
         You may also complain to the <a href="https://ico.org.uk" rel="noopener noreferrer" target="_blank">Information Commissioner's Office</a>.</p>
 
-      <h2>8. Security</h2>
+      <h2>9. Security</h2>
       <p>Data in transit is protected with TLS 1.3. Lead data at rest is encrypted with AES-256 on managed infrastructure.</p>
 
-      <h2>9. Changes</h2>
+      <h2>10. Changes</h2>
       <p>We may update this policy from time to time. Material changes will be notified on the homepage.</p>
     </article>
   </SiteShell>
