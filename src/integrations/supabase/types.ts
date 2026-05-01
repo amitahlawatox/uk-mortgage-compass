@@ -17,31 +17,43 @@ export type Database = {
       leads: {
         Row: {
           calculator: string
+          consent_version: string
+          consented_at: string
           context: Json | null
           created_at: string
           email: string
           id: string
+          marketing_consent: boolean
           name: string
+          privacy_consent: boolean
           source: string | null
           user_agent: string | null
         }
         Insert: {
           calculator: string
+          consent_version?: string
+          consented_at?: string
           context?: Json | null
           created_at?: string
           email: string
           id?: string
+          marketing_consent?: boolean
           name: string
+          privacy_consent?: boolean
           source?: string | null
           user_agent?: string | null
         }
         Update: {
           calculator?: string
+          consent_version?: string
+          consented_at?: string
           context?: Json | null
           created_at?: string
           email?: string
           id?: string
+          marketing_consent?: boolean
           name?: string
+          privacy_consent?: boolean
           source?: string | null
           user_agent?: string | null
         }
