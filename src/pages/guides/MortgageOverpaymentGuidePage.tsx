@@ -438,7 +438,7 @@ const MortgageOverpaymentGuidePage = () => (
           </Link>
         </section>
 
-        <RelatedCalculators current="overpayment" />
+        <RelatedCalculators currentPath="/guides/mortgage-overpayment-guide" />
       </div>
     </article>
   </SiteShell>
