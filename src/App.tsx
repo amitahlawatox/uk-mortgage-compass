@@ -141,6 +141,10 @@ export const routes: RouteRecord[] = [
         lazy: page(() => import("./pages/guides/HelpToBuyRepaymentPage")),
       },
       {
+        path: "guides/mortgage-overpayment-guide",
+        lazy: page(() => import("./pages/guides/MortgageOverpaymentGuidePage")),
+      },
+      {
         path: "guides/lenders/:slug",
         lazy: page(() => import("./pages/guides/LenderGuidePage")),
         getStaticPaths: () => lenders.map((lender) => `guides/lenders/${lender.slug}`),
