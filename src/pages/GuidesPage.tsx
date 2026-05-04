@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Calculator, Home, TrendingDown } from "lucide-react";
+import { ArrowRight, BookOpen, Calculator, Home, PoundSterling, TrendingDown } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { trackIntentClick } from "@/lib/analytics";
@@ -15,6 +15,16 @@ const guides = [
     to: "/guides/help-to-buy-repayment",
     cta: "Open calculator",
     icon: Home,
+  },
+  {
+    slug: "mortgage-overpayment-guide",
+    title: "Mortgage Overpayment Guide UK 2026",
+    summary:
+      "Everything you need to know about overpaying your UK mortgage — how it works, how much you can save, lender rules on penalties, and when saving elsewhere makes more sense.",
+    keyword: "mortgage overpayment guide",
+    to: "/guides/mortgage-overpayment-guide",
+    cta: "Read guide",
+    icon: PoundSterling,
   },
   {
     slug: "svr-cliff-strategy-2026",
