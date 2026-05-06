@@ -117,6 +117,26 @@ export const routes: RouteRecord[] = [
       },
       {
         path: "calculators/max-borrowing/:slug",
+        },
+        {
+          path: "calculators/stamp-duty/:slug",
+          lazy: page(() => import("./pages/calculators/StampDutyPage")),
+          getStaticPaths: () => lenders.map((l) => `calculators/stamp-duty/${l.slug}`),
+        },
+        {
+          path: "calculators/affordability/:slug",
+          lazy: page(() => import("./pages/calculators/AffordabilityPage")),
+          getStaticPaths: () => lenders.map((l) => `calculators/affordability/${l.slug}`),
+        },
+        {
+          path: "calculators/equity/:slug",
+          lazy: page(() => import("./pages/calculators/EquityPage")),
+          getStaticPaths: () => lenders.map((l) => `calculators/equity/${l.slug}`),
+        },
+        {
+          path: "calculators/buy-to-let/:slug",
+          lazy: page(() => import("./pages/calculators/BuyToLetPage")),
+          getStaticPaths: () => lenders.map((l) => `calculators/buy-to-let/${l.slug}`),
         lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
         getStaticPaths: () => lenders.map((lender) => `calculators/max-borrowing/${lender.slug}`),
       },
