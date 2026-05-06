@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
+import { LenderTrustBadge, CityTrustBadge } from "@/components/LenderTrustBadge";
 import { calculateStampDuty, type Region } from "@/lib/finance/stampDuty";
 import { calculateRepayment } from "@/lib/finance/repayment";
 import { calculateAffordability } from "@/lib/finance/affordability";
@@ -154,13 +155,13 @@ const AffordabilityPage = () => {
   return (
     <CalculatorShell
       eyebrow="Total Cost to Buy"
-      title="Buying a home ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ full cost planner"
+      title="Buying a home ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ full cost planner"
       intro="One unified view: property price, deposit, stamp duty by region, EMI, plus the optional upfront fees most buyers forget. See exactly how much cash you need before completion."
       leadCalculator="total-cost"
       leadContext={{ propertyPrice, deposit, region, buyer, loanAmount, stampDuty: stampDuty.total, cashUpfront, monthly: repayment.monthlyPayment }}
     >
       <SEO
-        title="Total Cost to Buy a House UK ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Deposit, Stamp Duty & EMI Calculator"
+        title="Total Cost to Buy a House UK ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Deposit, Stamp Duty & EMI Calculator"
         description="Plan the full cost of buying a UK home: deposit, SDLT/LBTT/LTT stamp duty, mortgage EMI and optional legal/survey fees in one calculator."
         path="/calculators/affordability"
         jsonLd={{
@@ -214,17 +215,19 @@ const AffordabilityPage = () => {
           { name: "Total Cost to Buy", href: "/calculators/affordability" },
         ]}
       />
-
+      {lender && <LenderTrustBadge lenderName={lender.name} />}
+      {city && <CityTrustBadge cityName={city.name} />}
+      
       <div className="grid lg:grid-cols-5 gap-6">
         {/* ---------------- Inputs ---------------- */}
         <div className="lg:col-span-2 space-y-4">
-          {/* Step 1 ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Property */}
+          {/* Step 1 ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Property */}
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <div className="flex items-center gap-2">
               <Home className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. Your property</p>
             </div>
-            <SliderField label="Property price" prefix="ÃÂÃÂÃÂÃÂ£" value={propertyPrice} min={50_000} max={2_000_000} step={5_000} onChange={setPropertyPrice} />
+            <SliderField label="Property price" prefix="ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£" value={propertyPrice} min={50_000} max={2_000_000} step={5_000} onChange={setPropertyPrice} />
             <div>
               <div className="flex items-center justify-end mb-1.5">
                 <div className="inline-flex rounded-md border border-border bg-background p-0.5 text-[9px] font-bold uppercase tracking-wider">
@@ -232,7 +235,7 @@ const AffordabilityPage = () => {
                     type="button"
                     onClick={() => setDepositMode("amount")}
                     className={`px-2 py-0.5 rounded transition-colors ${depositMode === "amount" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"}`}
-                  >ÃÂÃÂÃÂÃÂ£</button>
+                  >ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£</button>
                   <button
                     type="button"
                     onClick={() => setDepositMode("percent")}
@@ -241,18 +244,18 @@ const AffordabilityPage = () => {
                 </div>
               </div>
               {depositMode === "amount" ? (
-                <SliderField label={`Deposit (${depositPct.toFixed(1)}%)`} prefix="ÃÂÃÂÃÂÃÂ£" value={deposit} min={0} max={Math.max(propertyPrice, 50_000)} step={1_000} onChange={(v) => setDeposit(Math.min(v, propertyPrice))} />
+                <SliderField label={`Deposit (${depositPct.toFixed(1)}%)`} prefix="ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£" value={deposit} min={0} max={Math.max(propertyPrice, 50_000)} step={1_000} onChange={(v) => setDeposit(Math.min(v, propertyPrice))} />
               ) : (
                 <SliderField label={`Deposit (${formatGBP(deposit)})`} suffix="%" value={depositPct} min={0} max={100} step={0.5} decimals={1} onChange={(pct) => setDeposit(Math.round((pct / 100) * propertyPrice))} />
               )}
             </div>
             <div className="text-xs text-muted-foreground flex justify-between">
               <span>Loan needed</span>
-              <span className="font-semibold text-foreground">{formatGBP(loanAmount)} ÃÂÃÂÃÂÃÂ· {ltv.toFixed(1)}% LTV</span>
+              <span className="font-semibold text-foreground">{formatGBP(loanAmount)} ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· {ltv.toFixed(1)}% LTV</span>
             </div>
           </div>
 
-          {/* Step 2 ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Buyer status & region */}
+          {/* Step 2 ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Buyer status & region */}
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <div className="flex items-center gap-2">
               <MapPin className="size-4 text-accent" />
@@ -277,7 +280,7 @@ const AffordabilityPage = () => {
             </div>
 
             <div>
-              <p className="text-xs font-semibold mb-2">Are you aÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¦</p>
+              <p className="text-xs font-semibold mb-2">Are you aÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¦</p>
               <div className="space-y-2">
                 {BUYER_OPTIONS.map(({ value, label, icon: Icon, desc }) => (
                   <button
@@ -297,7 +300,7 @@ const AffordabilityPage = () => {
             </div>
           </div>
 
-          {/* Step 3 ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Mortgage */}
+          {/* Step 3 ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Mortgage */}
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <div className="flex items-center gap-2">
               <Calculator className="size-4 text-accent" />
@@ -307,18 +310,18 @@ const AffordabilityPage = () => {
             <SliderField label="Term (years)" value={term} min={5} max={40} step={1} onChange={setTerm} />
           </div>
 
-          {/* Step 4 ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Income (for sanity check) */}
+          {/* Step 4 ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Income (for sanity check) */}
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <div className="flex items-center gap-2">
               <Users className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">4. Your income (optional)</p>
             </div>
-            <SliderField label="Your gross income" prefix="ÃÂÃÂÃÂÃÂ£" value={income} min={15_000} max={300_000} step={1_000} onChange={setIncome} />
-            <SliderField label="Partner income" prefix="ÃÂÃÂÃÂÃÂ£" value={partner} min={0} max={300_000} step={1_000} onChange={setPartner} />
-            <SliderField label="Monthly committed outgoings" prefix="ÃÂÃÂÃÂÃÂ£" value={expenditure} min={0} max={5_000} step={50} onChange={setExpenditure} />
+            <SliderField label="Your gross income" prefix="ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£" value={income} min={15_000} max={300_000} step={1_000} onChange={setIncome} />
+            <SliderField label="Partner income" prefix="ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£" value={partner} min={0} max={300_000} step={1_000} onChange={setPartner} />
+            <SliderField label="Monthly committed outgoings" prefix="ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£" value={expenditure} min={0} max={5_000} step={50} onChange={setExpenditure} />
           </div>
 
-          {/* Step 5 ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Optional extra fees */}
+          {/* Step 5 ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Optional extra fees */}
           <div className="glass-card rounded-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -337,7 +340,7 @@ const AffordabilityPage = () => {
             {!includeFees ? (
               <div className="text-xs text-muted-foreground flex gap-2 items-start">
                 <Info className="size-3.5 mt-0.5 shrink-0" />
-                <p>Most buyers also pay legal (~ÃÂÃÂÃÂÃÂ£1,500), survey (~ÃÂÃÂÃÂÃÂ£500) and a lender fee (~ÃÂÃÂÃÂÃÂ£1,000). Toggle on to include them in your cash-needed total.</p>
+                <p>Most buyers also pay legal (~ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£1,500), survey (~ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£500) and a lender fee (~ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£1,000). Toggle on to include them in your cash-needed total.</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -355,7 +358,7 @@ const AffordabilityPage = () => {
                       <p className="text-[10px] text-muted-foreground">{FEE_META[key].hint}</p>
                     </label>
                     <div className="flex items-center gap-1">
-                      <span className="text-xs text-muted-foreground">ÃÂÃÂÃÂÃÂ£</span>
+                      <span className="text-xs text-muted-foreground">ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£</span>
                       <FeeInput
                         value={fees[key]}
                         disabled={!enabledFees[key]}
@@ -492,8 +495,8 @@ const AffordabilityPage = () => {
                     : "Fails +3% stress test"}
               </p>
               <p className="text-muted-foreground mt-1">
-                Loan-to-income {(loanAmount / Math.max(1, income + partner)).toFixed(2)}ÃÂÃÂÃÂÃÂ ÃÂÃÂÃÂÃÂ·
-                Stressed EMI {formatGBP(affordability.monthlyPaymentStressed, { decimals: 2 })} at {(rate + 3).toFixed(2)}% ÃÂÃÂÃÂÃÂ·
+                Loan-to-income {(loanAmount / Math.max(1, income + partner)).toFixed(2)}ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ·
+                Stressed EMI {formatGBP(affordability.monthlyPaymentStressed, { decimals: 2 })} at {(rate + 3).toFixed(2)}% ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ·
                 Max borrowing {formatGBP(affordability.maxBorrowing)}
               </p>
             </div>
@@ -502,17 +505,17 @@ const AffordabilityPage = () => {
           <ShareCalculation
             title="Total Cost to Buy a Home"
             calculator="total-cost"
-            intro={`Property ${formatGBP(propertyPrice)} ÃÂÃÂÃÂÃÂ· Deposit ${formatGBP(deposit)} (${depositPct.toFixed(1)}%) ÃÂÃÂÃÂÃÂ· ${REGION_OPTIONS.find(r => r.value === region)?.label} ÃÂÃÂÃÂÃÂ· ${BUYER_OPTIONS.find(b => b.value === buyer)?.label}`}
+            intro={`Property ${formatGBP(propertyPrice)} ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· Deposit ${formatGBP(deposit)} (${depositPct.toFixed(1)}%) ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· ${REGION_OPTIONS.find(r => r.value === region)?.label} ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· ${BUYER_OPTIONS.find(b => b.value === buyer)?.label}`}
             summary={[
               { label: "Property price", value: formatGBP(propertyPrice) },
               { label: `Deposit (${depositPct.toFixed(1)}%)`, value: formatGBP(deposit) },
-              { label: "Loan needed", value: `${formatGBP(loanAmount)} ÃÂÃÂÃÂÃÂ· ${ltv.toFixed(1)}% LTV` },
+              { label: "Loan needed", value: `${formatGBP(loanAmount)} ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· ${ltv.toFixed(1)}% LTV` },
               { label: `${stampDuty.taxName} payable`, value: formatGBP(stampDuty.total) },
               ...(feesTotal > 0 ? [{ label: "Other fees", value: formatGBP(feesTotal) }] : []),
               { label: "Total cash needed upfront", value: formatGBP(cashUpfront) },
               { label: "Monthly EMI", value: formatGBP(repayment.monthlyPayment, { decimals: 2 }) },
               { label: "Total interest over term", value: formatGBP(repayment.totalInterest) },
-              { label: `Rate ÃÂÃÂÃÂÃÂ· Term`, value: `${rate.toFixed(2)}% ÃÂÃÂÃÂÃÂ· ${term} years` },
+              { label: `Rate ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· Term`, value: `${rate.toFixed(2)}% ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· ${term} years` },
             ]}
           />
         </div>
