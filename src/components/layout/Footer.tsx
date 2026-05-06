@@ -63,5 +63,37 @@ export const Footer = () => (
       </div>
     </div>
     <div className="h-1 w-full bg-gradient-velocity-dark" />
-  </footer>
+  
+        {/* Legal compliance section — mandatory */}
+        <div className="border-t border-border/40 mt-8 pt-6 space-y-4 text-xs text-muted-foreground">
+          {/* FCA mandatory warning */}
+          <p className="font-medium text-foreground/70">
+            ⚠️ Your home may be repossessed if you do not keep up repayments on your mortgage.
+          </p>
+          {/* Independence notice — anti-phishing */}
+          <p>
+            <strong>RepayWise is an independent financial calculation tool.</strong> We are not affiliated with,
+            endorsed by, or acting on behalf of any bank, building society, or mortgage lender named on this website.
+            We will never ask for your bank login, account details, passwords, or personal financial credentials.
+            All lender names are used for descriptive identification purposes only.
+          </p>
+          {/* FCA disclaimer */}
+          <p>
+            RepayWise provides mathematical modelling and information for educational purposes only.
+            It does not constitute regulated financial advice under the Financial Services and Markets Act 2000.
+            Calculations are estimates and may not reflect exact lender terms, fees, or conditions.
+            Always consult a qualified, FCA-regulated mortgage adviser before making financial decisions.
+          </p>
+          {/* Privacy / no data collection */}
+          <p>
+            <strong>Privacy:</strong> RepayWise does not collect, store, or transmit any personal data.
+            No cookies are used for tracking. No email addresses, financial details, or usage data are
+            retained. All calculations are performed locally in your browser.
+          </p>
+          <p className="text-muted-foreground/60">
+            © {new Date().getFullYear()} RepayWise. All rights reserved. RepayWise is not regulated by
+            the Financial Conduct Authority (FCA). Registered in England and Wales.
+          </p>
+        </div>
+    </footer>
 );
