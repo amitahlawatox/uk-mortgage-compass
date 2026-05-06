@@ -139,7 +139,7 @@ const RepaymentPage = () => {
                 {
                   "@type": "Question",
                   name: "How is a UK mortgage repayment calculated?",
-                  acceptedAnswer: { "@type": "Answer", text: "UK mortgage repayments are calculated using the standard amortisation formula. The monthly payment equals P ÃÂ r ÃÂ (1+r)^n / ((1+r)^n Ã¢ÂÂ 1), where P is the loan amount, r is the monthly interest rate, and n is the total number of monthly payments." },
+                  acceptedAnswer: { "@type": "Answer", text: "UK mortgage repayments are calculated using the standard amortisation formula. The monthly payment equals P ÃÂÃÂ r ÃÂÃÂ (1+r)^n / ((1+r)^n ÃÂ¢ÃÂÃÂ 1), where P is the loan amount, r is the monthly interest rate, and n is the total number of monthly payments." },
                 },
                 {
                   "@type": "Question",
@@ -227,7 +227,7 @@ const RepaymentPage = () => {
               <div className="space-y-5">
                 <BigSlider
                   label="Property price"
-                  prefix="ÃÂ£"
+                  prefix="ÃÂÃÂ£"
                   value={propertyPrice}
                   min={50_000}
                   max={2_500_000}
@@ -246,7 +246,7 @@ const RepaymentPage = () => {
                         onClick={() => setDepositMode("amount")}
                         className={`px-2.5 py-1 rounded-md transition-colors ${depositMode === "amount" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"}`}
                       >
-                        ÃÂ£ Amount
+                        ÃÂÃÂ£ Amount
                       </button>
                       <button
                         type="button"
@@ -261,7 +261,7 @@ const RepaymentPage = () => {
                   {depositMode === "amount" ? (
                     <BigSlider
                       label={`Deposit (${depositPct.toFixed(1)}%)`}
-                      prefix="ÃÂ£"
+                      prefix="ÃÂÃÂ£"
                       value={deposit}
                       min={0}
                       max={propertyPrice}
@@ -289,7 +289,7 @@ const RepaymentPage = () => {
                     </p>
                     <p className="text-3xl font-bold tabular-nums tracking-tight mt-1">{formatGBP(principal)}</p>
                     <p className="text-xs text-muted-foreground mt-1 tabular-nums">
-                      LTV {ltv.toFixed(1)}% ÃÂ· Deposit {depositPct.toFixed(1)}%
+                      LTV {ltv.toFixed(1)}% ÃÂÃÂ· Deposit {depositPct.toFixed(1)}%
                     </p>
                   </div>
                   <div className="h-24 w-24 mx-auto sm:mx-0">
@@ -396,13 +396,13 @@ const RepaymentPage = () => {
                   </p>
                   <div className="mt-4 pt-4 border-t border-primary-foreground/10 flex flex-wrap gap-x-8 gap-y-2 text-xs">
                     <span className="text-primary-foreground/60">
-                      If rates rise +1% Ã¢ÂÂ{" "}
+                      If rates rise +1% ÃÂ¢ÃÂÃÂ{" "}
                       <span className="text-primary-foreground font-semibold">
                         {formatGBP(stressed.monthlyPayment, { decimals: 2 })}/mo
                       </span>
                     </span>
                     <span className="text-primary-foreground/60">
-                      Total interest Ã¢ÂÂ{" "}
+                      Total interest ÃÂ¢ÃÂÃÂ{" "}
                       <span className="text-primary-foreground font-semibold">
                         {formatGBP(result.totalInterest)}
                       </span>
@@ -466,7 +466,7 @@ const RepaymentPage = () => {
                             </linearGradient>
                           </defs>
                           <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
-                          <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(value) => `ÃÂ£${(value / 1000).toFixed(0)}k`} />
+                          <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(value) => `ÃÂÃÂ£${(value / 1000).toFixed(0)}k`} />
                           <Tooltip
                             contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
                             formatter={(value: number) => [formatGBP(value), "Balance"]}
@@ -482,7 +482,7 @@ const RepaymentPage = () => {
                 <ShareCalculation
                   title="Mortgage Repayment Calculation"
                   calculator="repayment"
-                  intro={`Property ${formatGBP(propertyPrice)} ÃÂ· Deposit ${formatGBP(deposit)} (${depositPct.toFixed(1)}%)`}
+                  intro={`Property ${formatGBP(propertyPrice)} ÃÂÃÂ· Deposit ${formatGBP(deposit)} (${depositPct.toFixed(1)}%)`}
                   summary={[
                     { label: "Property price", value: formatGBP(propertyPrice) },
                     { label: `Deposit (${depositPct.toFixed(1)}%)`, value: formatGBP(deposit) },
