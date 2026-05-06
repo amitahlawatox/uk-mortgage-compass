@@ -10,6 +10,7 @@ import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 import { calculateAffordability } from "@/lib/finance/affordability";
 import { formatGBP } from "@/lib/finance/decimal";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
+import { getCityBySlug } from "@/lib/uk/cities";
 import { BigStat, SliderField } from "./RepaymentPage";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
@@ -18,6 +19,7 @@ import { LastUpdated } from "@/components/calculators/LastUpdated";
 const MaxBorrowingPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const lender = slug ? getLenderBySlug(slug) : undefined;
+  const city = slug && !lender ? getCityBySlug(slug) : undefined;
 
   if (slug && !lender) {
     return <Navigate to="/calculators/max-borrowing" replace />;
@@ -58,7 +60,7 @@ const MaxBorrowingPage = () => {
     ? `Sense-check how much you could borrow with ${lender.name}. We model a lender-style income multiple, disposable-income check, and stress test, while using the lender's indicative ${lender.estimatedSvr.toFixed(2)}% SVR and ${lender.maxLtv}% maximum LTV band as planning anchors.`
     : "Lender-style 4.5x income multiplier plus a disposable-income check and a +3% interest rate stress test. See your maximum borrowing and the property price you can target.";
   const pagePath = lender ? buildLenderPath("max-borrowing", lender.slug) : "/calculators/max-borrowing";
-  const seoTitle = lender
+  const seoTitle = city ? `${city.name} Maximum Borrowing Calculator | RepayWise` : lender
     ? `${lender.name} Mortgage Affordability Calculator 2026 | RepayWise`
     : "Mortgage Affordability Calculator UK | How Much Can I Borrow?";
   const seoDescription = lender
@@ -152,9 +154,9 @@ const MaxBorrowingPage = () => {
               <Users className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. Your income</p>
             </div>
-            <SliderField label="Your gross annual income" prefix="ÃÂ£" value={income} min={15_000} max={300_000} step={1_000} onChange={setIncome} />
-            <SliderField label="Partner annual income" prefix="ÃÂ£" value={partner} min={0} max={300_000} step={1_000} onChange={setPartner} />
-            <SliderField label="Monthly committed outgoings" prefix="ÃÂ£" value={expenditure} min={0} max={5_000} step={50} onChange={setExpenditure} />
+            <SliderField label="Your gross annual income" prefix="ÃÂÃÂ£" value={income} min={15_000} max={300_000} step={1_000} onChange={setIncome} />
+            <SliderField label="Partner annual income" prefix="ÃÂÃÂ£" value={partner} min={0} max={300_000} step={1_000} onChange={setPartner} />
+            <SliderField label="Monthly committed outgoings" prefix="ÃÂÃÂ£" value={expenditure} min={0} max={5_000} step={50} onChange={setExpenditure} />
           </div>
 
           <div className="glass-card rounded-2xl p-6 space-y-5">
@@ -185,7 +187,7 @@ const MaxBorrowingPage = () => {
             <p className="text-xs font-bold uppercase tracking-widest text-accent mb-2">Maximum you could borrow</p>
             <p className="text-4xl sm:text-5xl font-bold tracking-tight tabular-nums">{formatGBP(result.maxBorrowing)}</p>
             <p className="text-xs text-muted-foreground mt-2">
-              Property price you can target: <span className="font-semibold text-foreground">{formatGBP(result.maxPropertyValue)}</span> ÃÂ· Loan-to-income {lti.toFixed(2)}x
+              Property price you can target: <span className="font-semibold text-foreground">{formatGBP(result.maxPropertyValue)}</span> ÃÂÃÂ· Loan-to-income {lti.toFixed(2)}x
             </p>
           </div>
 
@@ -213,12 +215,12 @@ const MaxBorrowingPage = () => {
           <ShareCalculation
             title="UK Mortgage Affordability"
             calculator="affordability"
-            intro={`Income ${formatGBP(totalIncome)} ÃÂ· Deposit ${formatGBP(deposit)} ÃÂ· Rate ${rate.toFixed(2)}%`}
+            intro={`Income ${formatGBP(totalIncome)} ÃÂÃÂ· Deposit ${formatGBP(deposit)} ÃÂÃÂ· Rate ${rate.toFixed(2)}%`}
             summary={[
               { label: "Combined income", value: formatGBP(totalIncome) },
               { label: "Monthly outgoings", value: formatGBP(expenditure) },
               { label: "Deposit", value: formatGBP(deposit) },
-              { label: "Rate ÃÂ· Term", value: `${rate.toFixed(2)}% ÃÂ· ${term} years` },
+              { label: "Rate ÃÂÃÂ· Term", value: `${rate.toFixed(2)}% ÃÂÃÂ· ${term} years` },
               { label: "Maximum borrowing", value: formatGBP(result.maxBorrowing) },
               { label: "Max property price", value: formatGBP(result.maxPropertyValue) },
               { label: "Monthly EMI", value: formatGBP(result.monthlyPayment, { decimals: 2 }) },
