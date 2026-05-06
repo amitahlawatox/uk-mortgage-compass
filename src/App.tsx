@@ -10,7 +10,6 @@ import { FCABanner } from "@/components/FCABanner";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { cities } from "@/lib/uk/cities";
 import { lenders } from "@/lib/uk/lenders";
-import { allCitySlugs } from "@/lib/uk/cities";
 
 const RouteFallback = () => <div className="min-h-screen bg-background" aria-hidden="true" />;
 
@@ -97,7 +96,7 @@ export const routes: RouteRecord[] = [
       {
         path: "calculators/repayment/:slug",
         lazy: page(() => import("./pages/calculators/RepaymentPage")),
-        getStaticPaths: () => lenders.map((lender) => `calculators/repayment/${lender.slug}`),
+        getStaticPaths: () => [...lenders.map((l) => `calculators/repayment/${l.slug}`), ...cities.map((c) => `calculators/repayment/${c.slug}`)],
       },
       {
         path: "calculators/overpayment",
@@ -106,7 +105,7 @@ export const routes: RouteRecord[] = [
       {
         path: "calculators/overpayment/:slug",
         lazy: page(() => import("./pages/calculators/OverpaymentPage")),
-        getStaticPaths: () => lenders.map((lender) => `calculators/overpayment/${lender.slug}`),
+        getStaticPaths: () => [...lenders.map((l) => `calculators/overpayment/${l.slug}`), ...cities.map((c) => `calculators/overpayment/${c.slug}`)],
       },
       {
         path: "calculators/affordability",
@@ -124,7 +123,7 @@ export const routes: RouteRecord[] = [
           lazy: page(() => import("./pages/calculators/StampDutyPage")),
           getStaticPaths: () => [
           ...lenders.map((l) => `calculators/stamp-duty/${l.slug}`),
-          ...allCitySlugs.map((s) => `calculators/stamp-duty/${s}`),
+          ...cities.map((c) => `calculators/stamp-duty/${c.slug}`),
         ],
         },
         {
@@ -132,7 +131,7 @@ export const routes: RouteRecord[] = [
           lazy: page(() => import("./pages/calculators/AffordabilityPage")),
           getStaticPaths: () => [
           ...lenders.map((l) => `calculators/affordability/${l.slug}`),
-          ...allCitySlugs.map((s) => `calculators/affordability/${s}`),
+          ...cities.map((c) => `calculators/affordability/${c.slug}`),
         ],
         },
         {
@@ -140,7 +139,7 @@ export const routes: RouteRecord[] = [
           lazy: page(() => import("./pages/calculators/EquityPage")),
           getStaticPaths: () => [
           ...lenders.map((l) => `calculators/equity/${l.slug}`),
-          ...allCitySlugs.map((s) => `calculators/equity/${s}`),
+          ...cities.map((c) => `calculators/equity/${c.slug}`),
         ],
         },
         {
@@ -148,10 +147,10 @@ export const routes: RouteRecord[] = [
           lazy: page(() => import("./pages/calculators/BuyToLetPage")),
           getStaticPaths: () => [
           ...lenders.map((l) => `calculators/buy-to-let/${l.slug}`),
-          ...allCitySlugs.map((s) => `calculators/buy-to-let/${s}`),
+          ...cities.map((c) => `calculators/buy-to-let/${c.slug}`),
         ],
         lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
-        getStaticPaths: () => lenders.map((lender) => `calculators/max-borrowing/${lender.slug}`),
+        getStaticPaths: () => [...lenders.map((l) => `calculators/max-borrowing/${l.slug}`), ...cities.map((c) => `calculators/max-borrowing/${c.slug}`)],
       },
       {
         path: "calculators/equity",
