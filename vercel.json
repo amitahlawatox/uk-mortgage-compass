@@ -10,6 +10,72 @@
   },
   "redirects": [
     {
+      "source": "/mortgage-calculator",
+      "destination": "/calculators/repayment",
+      "permanent": true
+    },
+    {
+      "source": "/mortgage-calculator/:slug",
+      "destination": "/calculators/repayment/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/repayment-calculator",
+      "destination": "/calculators/repayment",
+      "permanent": true
+    },
+    {
+      "source": "/stamp-duty-calculator",
+      "destination": "/calculators/stamp-duty",
+      "permanent": true
+    },
+    {
+      "source": "/affordability-calculator",
+      "destination": "/calculators/affordability",
+      "permanent": true
+    },
+    {
+      "source": "/overpayment-calculator",
+      "destination": "/calculators/overpayment",
+      "permanent": true
+    },
+    {
+      "source": "/max-borrowing",
+      "destination": "/calculators/max-borrowing",
+      "permanent": true
+    },
+    {
+      "source": "/calculators",
+      "destination": "/calculators/repayment",
+      "permanent": false
+    },
+    {
+      "source": "/guide/:slug",
+      "destination": "/guides/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/guides/overpayment",
+      "destination": "/guides/mortgage-overpayment-guide",
+      "permanent": true
+    },
+    {
+      "source": "/guides/help-to-buy",
+      "destination": "/guides/help-to-buy-repayment",
+      "permanent": true
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.repaywise.co.uk"
+        }
+      ],
+      "destination": "https://repaywise.co.uk/robots.txt",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
