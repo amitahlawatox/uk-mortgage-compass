@@ -1,73 +1,67 @@
-import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 
-const PrivacyPolicy = () => (
-  <SiteShell>
-    <SEO
-      title="Privacy Policy | RepayWise"
-      description="How RepayWise collects, uses, and protects your data, including cookies, analytics, and third-party advertising under UK GDPR."
-      path="/privacy-policy"
-    />
-    <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16 prose prose-invert prose-sm sm:prose-base">
-      <h1>Privacy Policy</h1>
-      <p className="text-muted-foreground">Last updated: 30 April 2026</p>
+export default function PrivacyPolicy() {
+  return (
+    <>
+      <SEO
+        title="Privacy Policy | RepayWise"
+        description="RepayWise does not collect, store or share any personal data. All mortgage calculations run locally in your browser. No cookies, no tracking, no data retention."
+        path="privacy-policy"
+      />
+      <div className="max-w-3xl mx-auto px-4 py-12 prose dark:prose-invert">
+        <h1>Privacy Policy</h1>
+        <p className="text-muted-foreground text-sm">Last updated: May 2026</p>
 
-      <h2>1. Who we are</h2>
-      <p>
-        RepayWise ("we", "us", "our") operates <strong>repaywise.co.uk</strong>, an information portal
-        providing UK mortgage and stamp-duty calculators. We are the data controller for personal information
-        you provide through this site, in the meaning of the UK GDPR and the Data Protection Act 2018.
-      </p>
+        <h2>Our commitment: zero data collection</h2>
+        <p>
+          RepayWise is designed to be a privacy-first tool. <strong>We do not collect, store,
+          process, or transmit any personal data.</strong> All mortgage calculations are performed
+          entirely within your browser — no data is sent to our servers.
+        </p>
 
-      <h2>2. What we collect</h2>
-      <ul>
-        <li><strong>Calculator inputs</strong> (loan amount, rate, term, postcode) — processed in your browser, not stored on our servers unless you submit a lead form.</li>
-        <li><strong>Lead form data</strong> (name, email, optional context) — only when you voluntarily submit it.</li>
-        <li><strong>Technical data</strong> — IP address (truncated), user-agent, pages visited, session duration.</li>
-        <li><strong>Cookies</strong> — see our <a href="/cookie-policy">Cookie Policy</a> for the full list.</li>
-      </ul>
+        <h2>What we do NOT collect</h2>
+        <ul>
+          <li>Email addresses or contact information</li>
+          <li>Financial data you enter into calculators</li>
+          <li>IP addresses or device identifiers</li>
+          <li>Browsing history or behavioural analytics</li>
+          <li>Cookies for tracking or advertising purposes</li>
+          <li>Location data</li>
+        </ul>
 
-      <h2>3. Lawful basis</h2>
-      <p>We rely on: (a) <em>consent</em> for non-essential cookies, analytics cookies, and marketing emails, (b) <em>legitimate interest</em>
-        for fraud prevention and service reliability, and (c) <em>contract</em> where you request a service.</p>
+        <h2>Cookies</h2>
+        <p>
+          RepayWise does not use tracking cookies, advertising cookies, or analytics cookies.
+          We may use a single session cookie to remember your preferred colour scheme (light/dark
+          mode). This cookie does not identify you personally and is not shared with any third party.
+        </p>
 
-      <h2>4. Third-party advertising</h2>
-      <p>
-        We may introduce <strong>Google AdSense</strong> or similar advertising services in future. If we do,
-        we will update this policy and request any non-essential advertising consent required under PECR and the
-        UK GDPR. You can manage ad personalisation, where available, via{" "}
-        <a href="https://www.google.com/settings/ads" rel="noopener noreferrer" target="_blank">Google Ads Settings</a>
-        or <a href="https://www.youronlinechoices.com" rel="noopener noreferrer" target="_blank">YourOnlineChoices.com</a>.
-      </p>
+        <h2>Third-party services</h2>
+        <p>
+          RepayWise does not embed third-party advertising scripts, social media tracking pixels,
+          or analytics services such as Google Analytics. No data is shared with advertisers
+          or data brokers.
+        </p>
 
-      <h2>5. Analytics</h2>
-      <p>We use Google Analytics 4 and PostHog to understand aggregate usage and improve the site. These analytics
-        tools are only loaded after you accept optional analytics cookies. IP addresses are pseudonymised. We do
-        not sell or share personal data with data brokers.</p>
+        <h2>Independence notice</h2>
+        <p>
+          RepayWise is an independent financial calculation tool. We are not affiliated with,
+          endorsed by, or acting on behalf of any bank, building society, or mortgage lender.
+          Lender names are used for descriptive identification purposes only.
+        </p>
 
-      <h2>6. Marketing communications</h2>
-      <p>
-        We do not currently operate a general consumer newsletter. If we introduce email lists, lead nurturing,
-        or direct marketing in future, we will collect any consent required by law and honour unsubscribe and
-        objection rights.
-      </p>
+        <h2>Contact</h2>
+        <p>
+          If you have any questions about this privacy policy, please contact us at{" "}
+          <a href="mailto:hello@repaywise.co.uk">hello@repaywise.co.uk</a>.
+        </p>
 
-      <h2>7. Data retention</h2>
-      <p>Lead-form submissions are retained for 24 months unless you request earlier deletion. Anonymous analytics
-        is retained for 14 months.</p>
-
-      <h2>8. Your rights</h2>
-      <p>Under the UK GDPR you have the right to access, rectify, erase, restrict, or object to processing of your
-        personal data, and the right to data portability. Contact <a href="mailto:privacy@repaywise.co.uk">privacy@repaywise.co.uk</a>.
-        You may also complain to the <a href="https://ico.org.uk" rel="noopener noreferrer" target="_blank">Information Commissioner's Office</a>.</p>
-
-      <h2>9. Security</h2>
-      <p>Data in transit is protected with TLS 1.3. Lead data at rest is encrypted with AES-256 on managed infrastructure.</p>
-
-      <h2>10. Changes</h2>
-      <p>We may update this policy from time to time. Material changes will be notified on the homepage.</p>
-    </article>
-  </SiteShell>
-);
-
-export default PrivacyPolicy;
+        <h2>Changes to this policy</h2>
+        <p>
+          We may update this policy from time to time. The date at the top of this page
+          reflects the most recent revision.
+        </p>
+      </div>
+    </>
+  );
+}
