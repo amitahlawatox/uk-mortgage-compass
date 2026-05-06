@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { getCityBySlug } from "@/lib/uk/cities";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
@@ -65,11 +64,11 @@ const EquityPage = () => {
 
   const ltvNow = currentValue > 0 ? (outstanding / currentValue) * 100 : 0;
   const refinanceBand =
-    ltvNow <= 60 ? "60% LTV ÃÂ¢ÃÂÃÂ best rates"
-    : ltvNow <= 75 ? "75% LTV ÃÂ¢ÃÂÃÂ competitive rates"
-    : ltvNow <= 85 ? "85% LTV ÃÂ¢ÃÂÃÂ standard rates"
-    : ltvNow <= 90 ? "90% LTV ÃÂ¢ÃÂÃÂ limited choice"
-    : "Above 95% LTV ÃÂ¢ÃÂÃÂ very few products";
+    ltvNow <= 60 ? "60% LTV ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ best rates"
+    : ltvNow <= 75 ? "75% LTV ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ competitive rates"
+    : ltvNow <= 85 ? "85% LTV ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ standard rates"
+    : ltvNow <= 90 ? "90% LTV ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ limited choice"
+    : "Above 95% LTV ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ very few products";
 
   const equitySplit = useMemo(() => [
     { name: "Your equity", value: yourEquity, color: "hsl(var(--accent-secondary))" },
@@ -85,7 +84,7 @@ const EquityPage = () => {
       leadContext={{ purchasePrice, currentValue, deposit, term, rate, yearsOwned, outstanding, yourEquity }}
     >
       <SEO
-        title="Home Equity Calculator UK ÃÂ¢ÃÂÃÂ Refinance, Sell or Remortgage"
+        title="Home Equity Calculator UK ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Refinance, Sell or Remortgage"
         description="Calculate your current UK home equity. See outstanding mortgage, LTV, your equity, the bank's claim, and net proceeds if you sell."
         path="/calculators/equity"
         jsonLd={{
@@ -148,8 +147,8 @@ const EquityPage = () => {
               <Home className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. Property values</p>
             </div>
-            <SliderField label="Purchase price (when bought)" prefix="ÃÂÃÂ£" value={purchasePrice} min={50_000} max={2_000_000} step={5_000} onChange={setPurchasePrice} />
-            <SliderField label="Current market value" prefix="ÃÂÃÂ£" value={currentValue} min={50_000} max={3_000_000} step={5_000} onChange={setCurrentValue} />
+            <SliderField label="Purchase price (when bought)" prefix="ÃÂÃÂÃÂÃÂ£" value={purchasePrice} min={50_000} max={2_000_000} step={5_000} onChange={setPurchasePrice} />
+            <SliderField label="Current market value" prefix="ÃÂÃÂÃÂÃÂ£" value={currentValue} min={50_000} max={3_000_000} step={5_000} onChange={setCurrentValue} />
             <DepositField value={deposit} onChange={(v) => setDeposit(Math.min(v, purchasePrice))} referencePrice={purchasePrice} label="Deposit you put down" />
           </div>
 
@@ -168,8 +167,8 @@ const EquityPage = () => {
               <PiggyBank className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">3. Optional adjustments</p>
             </div>
-            <SliderField label="Monthly overpayment made" prefix="ÃÂÃÂ£" value={monthlyOver} min={0} max={2_000} step={25} onChange={setMonthlyOver} />
-            <SliderField label="Lump-sum overpayment made" prefix="ÃÂÃÂ£" value={lumpSum} min={0} max={200_000} step={500} onChange={setLumpSum} />
+            <SliderField label="Monthly overpayment made" prefix="ÃÂÃÂÃÂÃÂ£" value={monthlyOver} min={0} max={2_000} step={25} onChange={setMonthlyOver} />
+            <SliderField label="Lump-sum overpayment made" prefix="ÃÂÃÂÃÂÃÂ£" value={lumpSum} min={0} max={200_000} step={500} onChange={setLumpSum} />
             {lumpSum > 0 && (
               <SliderField label="Applied at month" value={lumpMonth} min={1} max={Math.max(1, yearsOwned * 12)} step={1} onChange={setLumpMonth} />
             )}
@@ -186,7 +185,7 @@ const EquityPage = () => {
             </div>
             <p className="text-4xl sm:text-5xl font-bold tracking-tight tabular-nums">{formatGBP(yourEquity)}</p>
             <p className="text-xs text-muted-foreground mt-2">
-              {equityPct.toFixed(1)}% of current value ÃÂÃÂ· Current LTV {ltvNow.toFixed(1)}%
+              {equityPct.toFixed(1)}% of current value ÃÂÃÂÃÂÃÂ· Current LTV {ltvNow.toFixed(1)}%
             </p>
           </div>
 
@@ -221,8 +220,8 @@ const EquityPage = () => {
               <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">If you sold today</p>
               <div className="space-y-1.5 text-sm">
                 <Row label="Sale price" value={formatGBP(currentValue)} />
-                <Row label="Pay off mortgage" value={`ÃÂ¢ÃÂÃÂ ${formatGBP(outstanding)}`} />
-                <Row label={`Selling costs (${sellingCostsPct.toFixed(1)}%)`} value={`ÃÂ¢ÃÂÃÂ ${formatGBP(sellingCosts)}`} />
+                <Row label="Pay off mortgage" value={`ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ${formatGBP(outstanding)}`} />
+                <Row label={`Selling costs (${sellingCostsPct.toFixed(1)}%)`} value={`ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ${formatGBP(sellingCosts)}`} />
                 <div className="h-px bg-border my-2" />
                 <Row label="Net cash to you" value={formatGBP(netIfSold)} bold />
               </div>
@@ -256,13 +255,13 @@ const EquityPage = () => {
           <ShareCalculation
             title="UK Home Equity Snapshot"
             calculator="equity"
-            intro={`Bought ${formatGBP(purchasePrice)} ÃÂÃÂ· Now worth ${formatGBP(currentValue)} ÃÂÃÂ· ${yearsOwned}y owned`}
+            intro={`Bought ${formatGBP(purchasePrice)} ÃÂÃÂÃÂÃÂ· Now worth ${formatGBP(currentValue)} ÃÂÃÂÃÂÃÂ· ${yearsOwned}y owned`}
             summary={[
               { label: "Purchase price", value: formatGBP(purchasePrice) },
               { label: "Current value", value: formatGBP(currentValue) },
               { label: "Original deposit", value: formatGBP(deposit) },
               { label: "Original loan", value: formatGBP(originalLoan) },
-              { label: "Rate ÃÂÃÂ· Term", value: `${rate.toFixed(2)}% ÃÂÃÂ· ${term} years` },
+              { label: "Rate ÃÂÃÂÃÂÃÂ· Term", value: `${rate.toFixed(2)}% ÃÂÃÂÃÂÃÂ· ${term} years` },
               { label: "Years owned", value: `${yearsOwned}` },
               ...(monthlyOver > 0 ? [{ label: "Monthly overpayment", value: formatGBP(monthlyOver) }] : []),
               ...(lumpSum > 0 ? [{ label: `Lump sum (month ${lumpMonth})`, value: formatGBP(lumpSum) }] : []),
