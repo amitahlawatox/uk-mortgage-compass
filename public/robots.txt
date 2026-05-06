@@ -1,5 +1,15 @@
-# RepayWise — robots.txt
+# RepayWise - robots.txt
+# Category: Finance/Economy, Real Estate, Financial Calculators
+# This site provides independent UK mortgage calculation tools.
+# It is NOT affiliated with any bank, lender, or financial institution.
+
 User-agent: *
 Allow: /
 Disallow: /api/
+
+# Sitemap
 Sitemap: https://repaywise.co.uk/sitemap.xml
+
+# Cloudflare Radar recategorization requested: Finance & Economy, Real Estate
+# Domain registered: April 2026
+# Content: Independent UK mortgage calculators — no user data collection
