@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
 import { calculateRepayment } from "@/lib/finance/repayment";
@@ -37,7 +38,7 @@ const BuyToLetPage = () => {
     [loan, rate, term, repayType],
   );
 
-  // BTL is an "additional property" â surcharge applies
+  // BTL is an "additional property" Ã¢ÂÂ surcharge applies
   const stamp = useMemo(
     () => calculateStampDuty({ price: housePrice, region, firstTimeBuyer: false, additionalProperty: true }),
     [housePrice, region],
@@ -48,7 +49,7 @@ const BuyToLetPage = () => {
   const netAnnual = netMonthly * 12;
   const cashInvested = deposit + stamp.total;
   const cashOnCash = cashInvested > 0 ? (netAnnual / cashInvested) * 100 : 0;
-  // ICR = rent / interest portion (lender stress test, usually â¥125% @ stressed rate)
+  // ICR = rent / interest portion (lender stress test, usually Ã¢ÂÂ¥125% @ stressed rate)
   const monthlyInterest = (loan * (rate / 100)) / 12;
   const icr = monthlyInterest > 0 ? (monthlyRent / monthlyInterest) * 100 : 0;
 
@@ -61,7 +62,7 @@ const BuyToLetPage = () => {
       leadContext={{ housePrice, deposit, loan, rate, term, region, emi, stampDuty: stamp.total }}
     >
       <SEO
-        title="Buy-to-Let Mortgage Calculator UK â Yield, Stamp Duty & EMI"
+        title="Buy-to-Let Mortgage Calculator UK Ã¢ÂÂ Yield, Stamp Duty & EMI"
         description="UK Buy-to-Let calculator. 25% deposit default, interest-only or repayment, stamp duty surcharge by region, rental yield, net cash flow and ICR."
         path="/calculators/buy-to-let"
         jsonLd={{
@@ -124,7 +125,7 @@ const BuyToLetPage = () => {
               <Building2 className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. Property & deposit</p>
             </div>
-            <SliderField label="House price" prefix="Â£" value={housePrice} min={50_000} max={2_000_000} step={5_000} onChange={(v) => {
+            <SliderField label="House price" prefix="ÃÂ£" value={housePrice} min={50_000} max={2_000_000} step={5_000} onChange={(v) => {
               setHousePrice(v);
               // keep deposit at ~current % of new price if user hasn't customised drastically
               const currentPct = housePrice > 0 ? deposit / housePrice : 0.25;
@@ -138,7 +139,7 @@ const BuyToLetPage = () => {
             />
             <div className="flex items-center justify-between text-xs">
               <span className="text-muted-foreground">Loan amount</span>
-              <span className="font-semibold tabular-nums">{formatGBP(loan)} Â· LTV {ltv.toFixed(1)}%</span>
+              <span className="font-semibold tabular-nums">{formatGBP(loan)} ÃÂ· LTV {ltv.toFixed(1)}%</span>
             </div>
           </div>
 
@@ -199,8 +200,8 @@ const BuyToLetPage = () => {
               <TrendingUp className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">4. Rental income & costs</p>
             </div>
-            <SliderField label="Expected monthly rent" prefix="Â£" value={monthlyRent} min={200} max={10_000} step={50} onChange={setMonthlyRent} />
-            <SliderField label="Monthly costs (mgmt, insurance, maintenance)" prefix="Â£" value={monthlyCosts} min={0} max={2_000} step={10} onChange={setMonthlyCosts} />
+            <SliderField label="Expected monthly rent" prefix="ÃÂ£" value={monthlyRent} min={200} max={10_000} step={50} onChange={setMonthlyRent} />
+            <SliderField label="Monthly costs (mgmt, insurance, maintenance)" prefix="ÃÂ£" value={monthlyCosts} min={0} max={2_000} step={10} onChange={setMonthlyCosts} />
           </div>
         </div>
 
@@ -210,7 +211,7 @@ const BuyToLetPage = () => {
             <p className="text-xs font-bold uppercase tracking-widest text-accent-secondary mb-2">Monthly mortgage payment</p>
             <p className="text-4xl sm:text-5xl font-bold tracking-tight tabular-nums">{formatGBP(emi, { decimals: 2 })}</p>
             <p className="text-xs text-muted-foreground mt-2">
-              {repayType === "interest-only" ? "Interest only" : "Capital + interest"} Â· {term}y Â· {rate.toFixed(2)}% APR Â· LTV {ltv.toFixed(1)}%
+              {repayType === "interest-only" ? "Interest only" : "Capital + interest"} ÃÂ· {term}y ÃÂ· {rate.toFixed(2)}% APR ÃÂ· LTV {ltv.toFixed(1)}%
             </p>
           </div>
 
@@ -234,7 +235,7 @@ const BuyToLetPage = () => {
               <Row label="Monthly interest" value={formatGBP(monthlyInterest, { decimals: 2 })} />
               <Row label="ICR coverage" value={`${icr.toFixed(0)}%`} bold />
               <p className={`text-[11px] mt-1 ${icr >= 125 ? "text-accent-secondary" : "text-destructive"}`}>
-                {icr >= 125 ? "Meets typical 125% lender ICR threshold." : "Below typical 125% lender ICR â may not pass."}
+                {icr >= 125 ? "Meets typical 125% lender ICR threshold." : "Below typical 125% lender ICR Ã¢ÂÂ may not pass."}
               </p>
             </div>
           </div>
@@ -242,8 +243,8 @@ const BuyToLetPage = () => {
           <div className="glass-card rounded-2xl p-5 space-y-2 text-sm">
             <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-2">Annual returns</p>
             <Row label="Annual rent" value={formatGBP(monthlyRent * 12)} />
-            <Row label="Annual mortgage" value={`â ${formatGBP(emi * 12)}`} />
-            <Row label="Annual costs" value={`â ${formatGBP(monthlyCosts * 12)}`} />
+            <Row label="Annual mortgage" value={`Ã¢ÂÂ ${formatGBP(emi * 12)}`} />
+            <Row label="Annual costs" value={`Ã¢ÂÂ ${formatGBP(monthlyCosts * 12)}`} />
             <div className="h-px bg-border my-1" />
             <Row label="Net annual profit" value={formatGBP(netAnnual)} bold />
             <Row label="Cash-on-cash return" value={`${cashOnCash.toFixed(2)}%`} bold />
@@ -256,12 +257,12 @@ const BuyToLetPage = () => {
           <ShareCalculation
             title="UK Buy-to-Let Snapshot"
             calculator="repayment"
-            intro={`${formatGBP(housePrice)} BTL Â· ${formatGBP(deposit)} deposit Â· ${region}`}
+            intro={`${formatGBP(housePrice)} BTL ÃÂ· ${formatGBP(deposit)} deposit ÃÂ· ${region}`}
             summary={[
               { label: "House price", value: formatGBP(housePrice) },
               { label: "Deposit", value: `${formatGBP(deposit)} (${(housePrice ? (deposit / housePrice) * 100 : 0).toFixed(1)}%)` },
               { label: "Loan", value: `${formatGBP(loan)} (LTV ${ltv.toFixed(1)}%)` },
-              { label: "Rate Â· Term", value: `${rate.toFixed(2)}% Â· ${term} years` },
+              { label: "Rate ÃÂ· Term", value: `${rate.toFixed(2)}% ÃÂ· ${term} years` },
               { label: "Repayment type", value: repayType === "interest-only" ? "Interest only" : "Repayment" },
               { label: "Monthly payment", value: formatGBP(emi, { decimals: 2 }) },
               { label: `Stamp duty (${stamp.taxName})`, value: formatGBP(stamp.total) },
