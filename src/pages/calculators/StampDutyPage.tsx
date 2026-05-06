@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { getCityBySlug } from "@/lib/uk/cities";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
@@ -109,7 +108,7 @@ const StampDutyPage = () => {
         setRegionAuto(true);
       } catch (err) {
         if ((err as Error).name === "AbortError") return;
-        setLookup({ status: "error", message: "Lookup failed ÃÂ¢ÃÂÃÂ set region manually" });
+        setLookup({ status: "error", message: "Lookup failed ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ set region manually" });
       }
     }, 450);
     return () => {
@@ -132,7 +131,7 @@ const StampDutyPage = () => {
       leadContext={{ price, region, firstTimeBuyer: ftb, additionalProperty: additional, total: result.total, effectiveRate: result.effectiveRate, postcode: postcode || null }}
     >
       <SEO
-        title="Stamp Duty Calculator UK ÃÂ¢ÃÂÃÂ SDLT, LBTT, LTT ÃÂ¢ÃÂÃÂ RepayWise"
+        title="Stamp Duty Calculator UK ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ SDLT, LBTT, LTT ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ RepayWise"
         description="Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown."
         path="/calculators/stamp-duty"
         jsonLd={{
@@ -193,7 +192,7 @@ const StampDutyPage = () => {
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <Field label="Property price">
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">ÃÂÃÂ£</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">ÃÂÃÂÃÂÃÂ£</span>
                 <PriceInput value={price} onChange={setPrice} />
               </div>
               <input
@@ -232,7 +231,7 @@ const StampDutyPage = () => {
               </div>
               {lookup.status === "ok" && (
                 <p className="mt-2 text-xs text-muted-foreground">
-                  {lookup.place ? `${lookup.place}, ` : ""}{lookup.country} ÃÂ¢ÃÂÃÂ{" "}
+                  {lookup.place ? `${lookup.place}, ` : ""}{lookup.country} ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ{" "}
                   <span className="text-foreground font-semibold">
                     {regions.find((r) => r.value === lookup.region)?.tax} applies
                   </span>
@@ -321,7 +320,7 @@ const StampDutyPage = () => {
           {result.notes.length > 0 && (
             <ul className="text-xs text-muted-foreground space-y-1 px-1">
               {result.notes.map((n, i) => (
-                <li key={i}>ÃÂ¢ÃÂÃÂ¢ {n}</li>
+                <li key={i}>ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¢ {n}</li>
               ))}
             </ul>
           )}
@@ -329,7 +328,7 @@ const StampDutyPage = () => {
           <ShareCalculation
             title={`UK Stamp Duty (${result.taxName}) Calculation`}
             calculator="stamp-duty"
-            intro={`${regions.find(r => r.value === region)?.label} ÃÂÃÂ· ${ftb ? "First-time buyer" : additional ? "Additional property" : "Standard purchase"}`}
+            intro={`${regions.find(r => r.value === region)?.label} ÃÂÃÂÃÂÃÂ· ${ftb ? "First-time buyer" : additional ? "Additional property" : "Standard purchase"}`}
             summary={[
               { label: "Property price", value: formatGBP(price) },
               { label: "Region", value: regions.find(r => r.value === region)?.label ?? region },
