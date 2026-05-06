@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Velocity — UK Mortgage Intelligence design system.
-   All colors HSL. Tokens only — never hardcode in components. */
+/* Velocity â UK Mortgage Intelligence design system.
+   All colors HSL. Tokens only â never hardcode in components. */
 
 @layer base {
   :root {
@@ -110,5 +110,104 @@
   }
   .ticker-mask {
     mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  }
+}
+
+
+/* ─── Mobile & iOS fixes ──────────────────────────────────────────────── */
+
+/* Prevent iOS Safari from shrinking the page on scroll */
+html {
+  height: -webkit-fill-available;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  /* Prevent elastic overscroll bounce causing layout jank */
+  overscroll-behavior-y: none;
+}
+
+/* Prevent horizontal overflow on small screens */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Better touch targets for all interactive elements */
+button, a, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fix inputs on iOS — prevent zoom on focus (font-size must be >= 16px) */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+  font-size: 16px !important;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* Fix iOS input inner shadow */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Range slider — larger touch targets on mobile */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: pan-x;
+  height: 6px;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Prevent text selection flash on tap */
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Safe area padding for iPhone notch / home bar */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Smooth scrolling everywhere */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fix calculator cards from overflowing on narrow screens */
+.calculator-card,
+[class*="calculator"] {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 640px) {
+  /* Prevent sticky elements from causing layout shift on iOS */
+  .sticky, [class*="sticky"] {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+  
+  /* Better spacing on mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
