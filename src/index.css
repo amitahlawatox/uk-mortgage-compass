@@ -211,3 +211,30 @@ html {
     padding-right: 1rem;
   }
 }
+
+
+/* ─── Performance ──────────────────────────────────────────────── */
+
+/* Reduce layout recalculation on off-screen sections */
+.calculator-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Smooth font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Prevent layout shift from images */
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Reduce repaints on animated elements */
+.animate-spin, .transition-all, [class*="transition"] {
+  will-change: transform;
+}
