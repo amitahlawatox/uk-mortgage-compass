@@ -22,8 +22,8 @@ export const CalculatorShell = ({ eyebrow, title, intro, children, leadCalculato
 
   return (
   <SiteShell>
-    <section className="px-4 pt-12 pb-6">
-      <div className="max-w-5xl mx-auto grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+    <section className="px-4 pt-8 sm:pt-12 pb-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
+      <div className="max-w-5xl mx-auto grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start w-full overflow-x-hidden">
         <div>
         <Link
           to="/"
@@ -34,7 +34,7 @@ export const CalculatorShell = ({ eyebrow, title, intro, children, leadCalculato
         <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-3">
           {eyebrow}
         </p>
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight mb-4">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-4">
           {title}
         </h1>
         <p className="text-base sm:text-lg text-muted-foreground max-w-[60ch]">{intro}</p>
