@@ -10,6 +10,7 @@ import { FCABanner } from "@/components/FCABanner";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { cities } from "@/lib/uk/cities";
 import { lenders } from "@/lib/uk/lenders";
+import { allCitySlugs } from "@/lib/uk/cities";
 
 const RouteFallback = () => <div className="min-h-screen bg-background" aria-hidden="true" />;
 
@@ -121,22 +122,34 @@ export const routes: RouteRecord[] = [
         {
           path: "calculators/stamp-duty/:slug",
           lazy: page(() => import("./pages/calculators/StampDutyPage")),
-          getStaticPaths: () => lenders.map((l) => `calculators/stamp-duty/${l.slug}`),
+          getStaticPaths: () => [
+          ...lenders.map((l) => `calculators/stamp-duty/${l.slug}`),
+          ...allCitySlugs.map((s) => `calculators/stamp-duty/${s}`),
+        ],
         },
         {
           path: "calculators/affordability/:slug",
           lazy: page(() => import("./pages/calculators/AffordabilityPage")),
-          getStaticPaths: () => lenders.map((l) => `calculators/affordability/${l.slug}`),
+          getStaticPaths: () => [
+          ...lenders.map((l) => `calculators/affordability/${l.slug}`),
+          ...allCitySlugs.map((s) => `calculators/affordability/${s}`),
+        ],
         },
         {
           path: "calculators/equity/:slug",
           lazy: page(() => import("./pages/calculators/EquityPage")),
-          getStaticPaths: () => lenders.map((l) => `calculators/equity/${l.slug}`),
+          getStaticPaths: () => [
+          ...lenders.map((l) => `calculators/equity/${l.slug}`),
+          ...allCitySlugs.map((s) => `calculators/equity/${s}`),
+        ],
         },
         {
           path: "calculators/buy-to-let/:slug",
           lazy: page(() => import("./pages/calculators/BuyToLetPage")),
-          getStaticPaths: () => lenders.map((l) => `calculators/buy-to-let/${l.slug}`),
+          getStaticPaths: () => [
+          ...lenders.map((l) => `calculators/buy-to-let/${l.slug}`),
+          ...allCitySlugs.map((s) => `calculators/buy-to-let/${s}`),
+        ],
         lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
         getStaticPaths: () => lenders.map((lender) => `calculators/max-borrowing/${lender.slug}`),
       },
