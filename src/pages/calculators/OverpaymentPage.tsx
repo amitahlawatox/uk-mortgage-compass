@@ -243,9 +243,9 @@ const OverpaymentPage = () => {
       <div className="grid lg:grid-cols-5 gap-6">
         <div className="lg:col-span-2 glass-card rounded-2xl p-6 space-y-5">
           <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Property and loan</p>
-          <SliderField label="Property price" prefix="ÃÂÃÂÃÂÃÂ£" value={propertyPrice} min={50_000} max={2_500_000} step={5_000} onChange={handlePropertyChange} />
+          <SliderField label="Property price" prefix="ÃÃÃÃ£" value={propertyPrice} min={50_000} max={2_500_000} step={5_000} onChange={handlePropertyChange} />
           <DepositField value={deposit} onChange={handleDepositChange} referencePrice={propertyPrice} />
-          <SliderField label="Loan amount (override)" prefix="ÃÂÃÂÃÂÃÂ£" value={principal} min={0} max={2_500_000} step={5_000} onChange={setPrincipal} />
+          <SliderField label="Loan amount (override)" prefix="ÃÃÃÃ£" value={principal} min={0} max={2_500_000} step={5_000} onChange={setPrincipal} />
           <p className="text-[10px] text-muted-foreground -mt-3">Auto-calculated from property minus deposit. Edit to override.</p>
           <SliderField label="Interest rate" suffix="%" value={rate} min={0.5} max={12} step={0.05} decimals={2} onChange={setRate} />
           <SliderField label="Term (years)" value={term} min={5} max={40} step={1} onChange={setTerm} />
@@ -254,10 +254,10 @@ const OverpaymentPage = () => {
       
           <div className="h-px bg-border" />
           <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Extra payments</p>
-          <SliderField label="Monthly overpayment" prefix="ÃÂÃÂÃÂÃÂ£" value={monthlyOver} min={0} max={2000} step={25} onChange={setMonthlyOver} />
-          <SliderField label="Quarterly overpayment" prefix="ÃÂÃÂÃÂÃÂ£" value={quarterlyOver} min={0} max={6000} step={50} onChange={setQuarterlyOver} />
-          <SliderField label="Annual overpayment" prefix="ÃÂÃÂÃÂÃÂ£" value={annualOver} min={0} max={25_000} step={100} onChange={setAnnualOver} />
-          <SliderField label="One-off lump sum" prefix="ÃÂÃÂÃÂÃÂ£" value={lumpSum} min={0} max={100_000} step={500} onChange={setLumpSum} />
+          <SliderField label="Monthly overpayment" prefix="ÃÃÃÃ£" value={monthlyOver} min={0} max={2000} step={25} onChange={setMonthlyOver} />
+          <SliderField label="Quarterly overpayment" prefix="ÃÃÃÃ£" value={quarterlyOver} min={0} max={6000} step={50} onChange={setQuarterlyOver} />
+          <SliderField label="Annual overpayment" prefix="ÃÃÃÃ£" value={annualOver} min={0} max={25_000} step={100} onChange={setAnnualOver} />
+          <SliderField label="One-off lump sum" prefix="ÃÃÃÃ£" value={lumpSum} min={0} max={100_000} step={500} onChange={setLumpSum} />
           {lumpSum > 0 && (
             <SliderField label="Apply lump sum at month" value={lumpMonth} min={1} max={term * 12} step={1} onChange={setLumpMonth} />
           )}
@@ -301,7 +301,7 @@ const OverpaymentPage = () => {
                     </linearGradient>
                   </defs>
                   <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                  <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(value) => `ÃÂÃÂÃÂÃÂ£${(value / 1000).toFixed(0)}k`} />
+                  <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(value) => `ÃÃÃÃ£${(value / 1000).toFixed(0)}k`} />
                   <Tooltip
                     contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
                     formatter={(value: number, name) => [formatGBP(value), name === "baseline" ? "Baseline" : "With overpayments"]}
@@ -340,9 +340,9 @@ const OverpaymentPage = () => {
                 </div>
               </div>
               <p className="mt-4 text-[11px] text-primary-foreground/60 leading-relaxed">
-                Based on your inputs, every ÃÂÃÂÃÂÃÂ£1 overpaid saves roughly{" "}
+                Based on your inputs, every ÃÃÃÃ£1 overpaid saves roughly{" "}
                 <strong className="text-primary-foreground">
-                  ÃÂÃÂÃÂÃÂ£
+                  ÃÃÃÃ£
                   {baseline.totalInterest > 0
                     ? (interestSaved / Math.max(1, monthlyOver * accelerated.monthsTaken + lumpSum)).toFixed(2)
                     : "0.00"}
@@ -355,10 +355,10 @@ const OverpaymentPage = () => {
           <ShareCalculation
             title="Mortgage Overpayment Plan"
             calculator="overpayment"
-            intro={`Loan ${formatGBP(principal)} ÃÂÃÂÃÂÃÂ· ${rate.toFixed(2)}% ÃÂÃÂÃÂÃÂ· ${term} years`}
+            intro={`Loan ${formatGBP(principal)} ÃÃÃÃ· ${rate.toFixed(2)}% ÃÃÃÃ· ${term} years`}
             summary={[
               { label: "Loan amount", value: formatGBP(principal) },
-              { label: "Rate ÃÂÃÂÃÂÃÂ· Term", value: `${rate.toFixed(2)}% ÃÂÃÂÃÂÃÂ· ${term} years` },
+              { label: "Rate ÃÃÃÃ· Term", value: `${rate.toFixed(2)}% ÃÃÃÃ· ${term} years` },
               { label: "Current EMI", value: formatGBP(baseEmi, { decimals: 2 }) },
               { label: "Effective monthly outlay", value: formatGBP(effectiveMonthly, { decimals: 2 }) },
               ...(monthlyOver > 0 ? [{ label: "Monthly overpayment", value: formatGBP(monthlyOver) }] : []),
