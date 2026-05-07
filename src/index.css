@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Velocity â UK Mortgage Intelligence design system.
-   All colors HSL. Tokens only â never hardcode in components. */
+/* Velocity — UK Mortgage Intelligence design system.
+   All colors HSL. Tokens only — never hardcode in components. */
 
 @layer base {
   :root {
