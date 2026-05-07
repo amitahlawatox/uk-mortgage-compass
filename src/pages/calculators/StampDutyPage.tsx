@@ -108,7 +108,7 @@ const StampDutyPage = () => {
         setRegionAuto(true);
       } catch (err) {
         if ((err as Error).name === "AbortError") return;
-        setLookup({ status: "error", message: "Lookup failed ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ set region manually" });
+        setLookup({ status: "error", message: "Lookup failed — set region manually" });
       }
     }, 450);
     return () => {
@@ -131,7 +131,7 @@ const StampDutyPage = () => {
       leadContext={{ price, region, firstTimeBuyer: ftb, additionalProperty: additional, total: result.total, effectiveRate: result.effectiveRate, postcode: postcode || null }}
     >
       <SEO
-        title="Stamp Duty Calculator UK ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ SDLT, LBTT, LTT ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ RepayWise"
+        title="Stamp Duty Calculator UK — SDLT, LBTT, LTT — RepayWise"
         description="Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown."
         path="/calculators/stamp-duty"
         jsonLd={{
@@ -231,7 +231,7 @@ const StampDutyPage = () => {
               </div>
               {lookup.status === "ok" && (
                 <p className="mt-2 text-xs text-muted-foreground">
-                  {lookup.place ? `${lookup.place}, ` : ""}{lookup.country} ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ{" "}
+                  {lookup.place ? `${lookup.place}, ` : ""}{lookup.country},{" "}
                   <span className="text-foreground font-semibold">
                     {regions.find((r) => r.value === lookup.region)?.tax} applies
                   </span>
@@ -320,7 +320,7 @@ const StampDutyPage = () => {
           {result.notes.length > 0 && (
             <ul className="text-xs text-muted-foreground space-y-1 px-1">
               {result.notes.map((n, i) => (
-                <li key={i}>ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ¢ {n}</li>
+                <li key={i}>{n}</li>
               ))}
             </ul>
           )}

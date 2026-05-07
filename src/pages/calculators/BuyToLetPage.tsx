@@ -38,7 +38,7 @@ const BuyToLetPage = () => {
     [loan, rate, term, repayType],
   );
 
-  // BTL is an "additional property" ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ surcharge applies
+  // BTL is an "additional property" — surcharge applies
   const stamp = useMemo(
     () => calculateStampDuty({ price: housePrice, region, firstTimeBuyer: false, additionalProperty: true }),
     [housePrice, region],
@@ -49,7 +49,7 @@ const BuyToLetPage = () => {
   const netAnnual = netMonthly * 12;
   const cashInvested = deposit + stamp.total;
   const cashOnCash = cashInvested > 0 ? (netAnnual / cashInvested) * 100 : 0;
-  // ICR = rent / interest portion (lender stress test, usually ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ¥125% @ stressed rate)
+  // ICR = rent / interest portion (lender stress test, usually ≥125% @ stressed rate)
   const monthlyInterest = (loan * (rate / 100)) / 12;
   const icr = monthlyInterest > 0 ? (monthlyRent / monthlyInterest) * 100 : 0;
 
@@ -62,7 +62,7 @@ const BuyToLetPage = () => {
       leadContext={{ housePrice, deposit, loan, rate, term, region, emi, stampDuty: stamp.total }}
     >
       <SEO
-        title="Buy-to-Let Mortgage Calculator UK ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ Yield, Stamp Duty & EMI"
+        title="Buy-to-Let Mortgage Calculator UK — Yield, Stamp Duty & EMI"
         description="UK Buy-to-Let calculator. 25% deposit default, interest-only or repayment, stamp duty surcharge by region, rental yield, net cash flow and ICR."
         path="/calculators/buy-to-let"
         jsonLd={{
@@ -235,7 +235,7 @@ const BuyToLetPage = () => {
               <Row label="Monthly interest" value={formatGBP(monthlyInterest, { decimals: 2 })} />
               <Row label="ICR coverage" value={`${icr.toFixed(0)}%`} bold />
               <p className={`text-[11px] mt-1 ${icr >= 125 ? "text-accent-secondary" : "text-destructive"}`}>
-                {icr >= 125 ? "Meets typical 125% lender ICR threshold." : "Below typical 125% lender ICR ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ may not pass."}
+                {icr >= 125 ? "Meets typical 125% lender ICR threshold." : "Below typical 125% lender ICR — may not pass."}
               </p>
             </div>
           </div>
@@ -243,8 +243,8 @@ const BuyToLetPage = () => {
           <div className="glass-card rounded-2xl p-5 space-y-2 text-sm">
             <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-2">Annual returns</p>
             <Row label="Annual rent" value={formatGBP(monthlyRent * 12)} />
-            <Row label="Annual mortgage" value={`ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ ${formatGBP(emi * 12)}`} />
-            <Row label="Annual costs" value={`ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ ${formatGBP(monthlyCosts * 12)}`} />
+            <Row label="Annual mortgage" value={`−${formatGBP(emi * 12)}`} />
+            <Row label="Annual costs" value={`−${formatGBP(monthlyCosts * 12)}`} />
             <div className="h-px bg-border my-1" />
             <Row label="Net annual profit" value={formatGBP(netAnnual)} bold />
             <Row label="Cash-on-cash return" value={`${cashOnCash.toFixed(2)}%`} bold />

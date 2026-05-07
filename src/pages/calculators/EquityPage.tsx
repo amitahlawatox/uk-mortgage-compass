@@ -64,11 +64,11 @@ const EquityPage = () => {
 
   const ltvNow = currentValue > 0 ? (outstanding / currentValue) * 100 : 0;
   const refinanceBand =
-    ltvNow <= 60 ? "60% LTV ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ best rates"
-    : ltvNow <= 75 ? "75% LTV ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ competitive rates"
-    : ltvNow <= 85 ? "85% LTV ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ standard rates"
-    : ltvNow <= 90 ? "90% LTV ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ limited choice"
-    : "Above 95% LTV ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ very few products";
+    ltvNow <= 60 ? "60% LTV — best rates"
+    : ltvNow <= 75 ? "75% LTV — competitive rates"
+    : ltvNow <= 85 ? "85% LTV — standard rates"
+    : ltvNow <= 90 ? "90% LTV — limited choice"
+    : "Above 95% LTV — very few products";
 
   const equitySplit = useMemo(() => [
     { name: "Your equity", value: yourEquity, color: "hsl(var(--accent-secondary))" },
@@ -84,7 +84,7 @@ const EquityPage = () => {
       leadContext={{ purchasePrice, currentValue, deposit, term, rate, yearsOwned, outstanding, yourEquity }}
     >
       <SEO
-        title="Home Equity Calculator UK ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ Refinance, Sell or Remortgage"
+        title="Home Equity Calculator UK — Refinance, Sell or Remortgage"
         description="Calculate your current UK home equity. See outstanding mortgage, LTV, your equity, the bank's claim, and net proceeds if you sell."
         path="/calculators/equity"
         jsonLd={{
@@ -220,8 +220,8 @@ const EquityPage = () => {
               <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">If you sold today</p>
               <div className="space-y-1.5 text-sm">
                 <Row label="Sale price" value={formatGBP(currentValue)} />
-                <Row label="Pay off mortgage" value={`ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ ${formatGBP(outstanding)}`} />
-                <Row label={`Selling costs (${sellingCostsPct.toFixed(1)}%)`} value={`ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ ${formatGBP(sellingCosts)}`} />
+                <Row label="Pay off mortgage" value={`−${formatGBP(outstanding)}`} />
+                <Row label={`Selling costs (${sellingCostsPct.toFixed(1)}%)`} value={`−${formatGBP(sellingCosts)}`} />
                 <div className="h-px bg-border my-2" />
                 <Row label="Net cash to you" value={formatGBP(netIfSold)} bold />
               </div>

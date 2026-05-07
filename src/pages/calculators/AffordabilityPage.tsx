@@ -154,13 +154,13 @@ const AffordabilityPage = () => {
   return (
     <CalculatorShell
       eyebrow="Total Cost to Buy"
-      title="Buying a home ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ full cost planner"
+      title="Buying a home — full cost planner"
       intro="One unified view: property price, deposit, stamp duty by region, EMI, plus the optional upfront fees most buyers forget. See exactly how much cash you need before completion."
       leadCalculator="total-cost"
       leadContext={{ propertyPrice, deposit, region, buyer, loanAmount, stampDuty: stampDuty.total, cashUpfront, monthly: repayment.monthlyPayment }}
     >
       <SEO
-        title="Total Cost to Buy a House UK ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ Deposit, Stamp Duty & EMI Calculator"
+        title="Total Cost to Buy a House UK — Deposit, Stamp Duty & EMI Calculator"
         description="Plan the full cost of buying a UK home: deposit, SDLT/LBTT/LTT stamp duty, mortgage EMI and optional legal/survey fees in one calculator."
         path="/calculators/affordability"
         jsonLd={{
@@ -218,7 +218,7 @@ const AffordabilityPage = () => {
       <div className="grid lg:grid-cols-5 gap-6">
         {/* ---------------- Inputs ---------------- */}
         <div className="lg:col-span-2 space-y-4">
-          {/* Step 1 ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ Property */}
+          {/* Step 1 — Property */}
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <div className="flex items-center gap-2">
               <Home className="size-4 text-accent" />
@@ -252,7 +252,7 @@ const AffordabilityPage = () => {
             </div>
           </div>
 
-          {/* Step 2 ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ Buyer status & region */}
+          {/* Step 2 — Buyer status & region */}
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <div className="flex items-center gap-2">
               <MapPin className="size-4 text-accent" />
@@ -277,7 +277,7 @@ const AffordabilityPage = () => {
             </div>
 
             <div>
-              <p className="text-xs font-semibold mb-2">Are you aÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ¦</p>
+              <p className="text-xs font-semibold mb-2">Are you a:</p>
               <div className="space-y-2">
                 {BUYER_OPTIONS.map(({ value, label, icon: Icon, desc }) => (
                   <button
@@ -297,7 +297,7 @@ const AffordabilityPage = () => {
             </div>
           </div>
 
-          {/* Step 3 ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ Mortgage */}
+          {/* Step 3 — Mortgage */}
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <div className="flex items-center gap-2">
               <Calculator className="size-4 text-accent" />
@@ -307,7 +307,7 @@ const AffordabilityPage = () => {
             <SliderField label="Term (years)" value={term} min={5} max={40} step={1} onChange={setTerm} />
           </div>
 
-          {/* Step 4 ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ Income (for sanity check) */}
+          {/* Step 4 — Income (for sanity check) */}
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <div className="flex items-center gap-2">
               <Users className="size-4 text-accent" />
@@ -318,7 +318,7 @@ const AffordabilityPage = () => {
             <SliderField label="Monthly committed outgoings" prefix="£" value={expenditure} min={0} max={5_000} step={50} onChange={setExpenditure} />
           </div>
 
-          {/* Step 5 ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ Optional extra fees */}
+          {/* Step 5 — Optional extra fees */}
           <div className="glass-card rounded-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -492,7 +492,7 @@ const AffordabilityPage = () => {
                     : "Fails +3% stress test"}
               </p>
               <p className="text-muted-foreground mt-1">
-                Loan-to-income {(loanAmount / Math.max(1, income + partner)).toFixed(2)}ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ ·
+                Loan-to-income {(loanAmount / Math.max(1, income + partner)).toFixed(2)} ·
                 Stressed EMI {formatGBP(affordability.monthlyPaymentStressed, { decimals: 2 })} at {(rate + 3).toFixed(2)}% ·
                 Max borrowing {formatGBP(affordability.maxBorrowing)}
               </p>
