@@ -147,8 +147,8 @@ const EquityPage = () => {
               <Home className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. Property values</p>
             </div>
-            <SliderField label="Purchase price (when bought)" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={purchasePrice} min={50_000} max={2_000_000} step={5_000} onChange={setPurchasePrice} />
-            <SliderField label="Current market value" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={currentValue} min={50_000} max={3_000_000} step={5_000} onChange={setCurrentValue} />
+            <SliderField label="Purchase price (when bought)" prefix="£" value={purchasePrice} min={50_000} max={2_000_000} step={5_000} onChange={setPurchasePrice} />
+            <SliderField label="Current market value" prefix="£" value={currentValue} min={50_000} max={3_000_000} step={5_000} onChange={setCurrentValue} />
             <DepositField value={deposit} onChange={(v) => setDeposit(Math.min(v, purchasePrice))} referencePrice={purchasePrice} label="Deposit you put down" />
           </div>
 
@@ -167,8 +167,8 @@ const EquityPage = () => {
               <PiggyBank className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">3. Optional adjustments</p>
             </div>
-            <SliderField label="Monthly overpayment made" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={monthlyOver} min={0} max={2_000} step={25} onChange={setMonthlyOver} />
-            <SliderField label="Lump-sum overpayment made" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={lumpSum} min={0} max={200_000} step={500} onChange={setLumpSum} />
+            <SliderField label="Monthly overpayment made" prefix="£" value={monthlyOver} min={0} max={2_000} step={25} onChange={setMonthlyOver} />
+            <SliderField label="Lump-sum overpayment made" prefix="£" value={lumpSum} min={0} max={200_000} step={500} onChange={setLumpSum} />
             {lumpSum > 0 && (
               <SliderField label="Applied at month" value={lumpMonth} min={1} max={Math.max(1, yearsOwned * 12)} step={1} onChange={setLumpMonth} />
             )}
@@ -185,7 +185,7 @@ const EquityPage = () => {
             </div>
             <p className="text-4xl sm:text-5xl font-bold tracking-tight tabular-nums">{formatGBP(yourEquity)}</p>
             <p className="text-xs text-muted-foreground mt-2">
-              {equityPct.toFixed(1)}% of current value ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· Current LTV {ltvNow.toFixed(1)}%
+              {equityPct.toFixed(1)}% of current value · Current LTV {ltvNow.toFixed(1)}%
             </p>
           </div>
 
@@ -255,13 +255,13 @@ const EquityPage = () => {
           <ShareCalculation
             title="UK Home Equity Snapshot"
             calculator="equity"
-            intro={`Bought ${formatGBP(purchasePrice)} ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· Now worth ${formatGBP(currentValue)} ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· ${yearsOwned}y owned`}
+            intro={`Bought ${formatGBP(purchasePrice)} · Now worth ${formatGBP(currentValue)} · ${yearsOwned}y owned`}
             summary={[
               { label: "Purchase price", value: formatGBP(purchasePrice) },
               { label: "Current value", value: formatGBP(currentValue) },
               { label: "Original deposit", value: formatGBP(deposit) },
               { label: "Original loan", value: formatGBP(originalLoan) },
-              { label: "Rate ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· Term", value: `${rate.toFixed(2)}% ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· ${term} years` },
+              { label: "Rate · Term", value: `${rate.toFixed(2)}% · ${term} years` },
               { label: "Years owned", value: `${yearsOwned}` },
               ...(monthlyOver > 0 ? [{ label: "Monthly overpayment", value: formatGBP(monthlyOver) }] : []),
               ...(lumpSum > 0 ? [{ label: `Lump sum (month ${lumpMonth})`, value: formatGBP(lumpSum) }] : []),

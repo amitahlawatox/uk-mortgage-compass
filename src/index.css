@@ -119,7 +119,7 @@
 /* Prevent iOS Safari from shrinking the page on scroll */
 html {
   height: -webkit-fill-available;
-  overflow-x: hidden;
+  /* NOTE: do NOT put overflow:hidden on html — breaks mouse wheel scroll */
 }
 
 body {
@@ -127,14 +127,13 @@ body {
   min-height: -webkit-fill-available;
   min-height: 100dvh;
   overflow-x: hidden;
-  /* Prevent elastic overscroll bounce causing layout jank */
-  overscroll-behavior-y: none;
+  /* 'contain' prevents iOS rubber-band bounce but keeps normal scroll working */
+  overscroll-behavior-y: contain;
 }
 
 /* Prevent horizontal overflow on small screens */
-* {
+*, *::before, *::after {
   box-sizing: border-box;
-  max-width: 100%;
 }
 
 /* Better touch targets for all interactive elements */

@@ -192,7 +192,7 @@ const StampDutyPage = () => {
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <Field label="Property price">
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">£</span>
                 <PriceInput value={price} onChange={setPrice} />
               </div>
               <input
@@ -328,7 +328,7 @@ const StampDutyPage = () => {
           <ShareCalculation
             title={`UK Stamp Duty (${result.taxName}) Calculation`}
             calculator="stamp-duty"
-            intro={`${regions.find(r => r.value === region)?.label} ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· ${ftb ? "First-time buyer" : additional ? "Additional property" : "Standard purchase"}`}
+            intro={`${regions.find(r => r.value === region)?.label} · ${ftb ? "First-time buyer" : additional ? "Additional property" : "Standard purchase"}`}
             summary={[
               { label: "Property price", value: formatGBP(price) },
               { label: "Region", value: regions.find(r => r.value === region)?.label ?? region },

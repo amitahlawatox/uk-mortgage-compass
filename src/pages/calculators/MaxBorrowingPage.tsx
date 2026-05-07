@@ -158,9 +158,9 @@ const MaxBorrowingPage = () => {
               <Users className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. Your income</p>
             </div>
-            <SliderField label="Your gross annual income" prefix="ÃÃÃÃÃÃÃÃ£" value={income} min={15_000} max={300_000} step={1_000} onChange={setIncome} />
-            <SliderField label="Partner annual income" prefix="ÃÃÃÃÃÃÃÃ£" value={partner} min={0} max={300_000} step={1_000} onChange={setPartner} />
-            <SliderField label="Monthly committed outgoings" prefix="ÃÃÃÃÃÃÃÃ£" value={expenditure} min={0} max={5_000} step={50} onChange={setExpenditure} />
+            <SliderField label="Your gross annual income" prefix="£" value={income} min={15_000} max={300_000} step={1_000} onChange={setIncome} />
+            <SliderField label="Partner annual income" prefix="£" value={partner} min={0} max={300_000} step={1_000} onChange={setPartner} />
+            <SliderField label="Monthly committed outgoings" prefix="£" value={expenditure} min={0} max={5_000} step={50} onChange={setExpenditure} />
           </div>
 
           <div className="glass-card rounded-2xl p-6 space-y-5">
@@ -191,7 +191,7 @@ const MaxBorrowingPage = () => {
             <p className="text-xs font-bold uppercase tracking-widest text-accent mb-2">Maximum you could borrow</p>
             <p className="text-4xl sm:text-5xl font-bold tracking-tight tabular-nums">{formatGBP(result.maxBorrowing)}</p>
             <p className="text-xs text-muted-foreground mt-2">
-              Property price you can target: <span className="font-semibold text-foreground">{formatGBP(result.maxPropertyValue)}</span> ÃÃÃÃÃÃÃÃ· Loan-to-income {lti.toFixed(2)}x
+              Property price you can target: <span className="font-semibold text-foreground">{formatGBP(result.maxPropertyValue)}</span> · Loan-to-income {lti.toFixed(2)}x
             </p>
           </div>
 
@@ -219,12 +219,12 @@ const MaxBorrowingPage = () => {
           <ShareCalculation
             title="UK Mortgage Affordability"
             calculator="affordability"
-            intro={`Income ${formatGBP(totalIncome)} ÃÃÃÃÃÃÃÃ· Deposit ${formatGBP(deposit)} ÃÃÃÃÃÃÃÃ· Rate ${rate.toFixed(2)}%`}
+            intro={`Income ${formatGBP(totalIncome)} · Deposit ${formatGBP(deposit)} · Rate ${rate.toFixed(2)}%`}
             summary={[
               { label: "Combined income", value: formatGBP(totalIncome) },
               { label: "Monthly outgoings", value: formatGBP(expenditure) },
               { label: "Deposit", value: formatGBP(deposit) },
-              { label: "Rate ÃÃÃÃÃÃÃÃ· Term", value: `${rate.toFixed(2)}% ÃÃÃÃÃÃÃÃ· ${term} years` },
+              { label: "Rate · Term", value: `${rate.toFixed(2)}% · ${term} years` },
               { label: "Maximum borrowing", value: formatGBP(result.maxBorrowing) },
               { label: "Max property price", value: formatGBP(result.maxPropertyValue) },
               { label: "Monthly EMI", value: formatGBP(result.monthlyPayment, { decimals: 2 }) },

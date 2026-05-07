@@ -224,7 +224,7 @@ const AffordabilityPage = () => {
               <Home className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. Your property</p>
             </div>
-            <SliderField label="Property price" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={propertyPrice} min={50_000} max={2_000_000} step={5_000} onChange={setPropertyPrice} />
+            <SliderField label="Property price" prefix="£" value={propertyPrice} min={50_000} max={2_000_000} step={5_000} onChange={setPropertyPrice} />
             <div>
               <div className="flex items-center justify-end mb-1.5">
                 <div className="inline-flex rounded-md border border-border bg-background p-0.5 text-[9px] font-bold uppercase tracking-wider">
@@ -232,7 +232,7 @@ const AffordabilityPage = () => {
                     type="button"
                     onClick={() => setDepositMode("amount")}
                     className={`px-2 py-0.5 rounded transition-colors ${depositMode === "amount" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"}`}
-                  >ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£</button>
+                  >£</button>
                   <button
                     type="button"
                     onClick={() => setDepositMode("percent")}
@@ -241,14 +241,14 @@ const AffordabilityPage = () => {
                 </div>
               </div>
               {depositMode === "amount" ? (
-                <SliderField label={`Deposit (${depositPct.toFixed(1)}%)`} prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={deposit} min={0} max={Math.max(propertyPrice, 50_000)} step={1_000} onChange={(v) => setDeposit(Math.min(v, propertyPrice))} />
+                <SliderField label={`Deposit (${depositPct.toFixed(1)}%)`} prefix="£" value={deposit} min={0} max={Math.max(propertyPrice, 50_000)} step={1_000} onChange={(v) => setDeposit(Math.min(v, propertyPrice))} />
               ) : (
                 <SliderField label={`Deposit (${formatGBP(deposit)})`} suffix="%" value={depositPct} min={0} max={100} step={0.5} decimals={1} onChange={(pct) => setDeposit(Math.round((pct / 100) * propertyPrice))} />
               )}
             </div>
             <div className="text-xs text-muted-foreground flex justify-between">
               <span>Loan needed</span>
-              <span className="font-semibold text-foreground">{formatGBP(loanAmount)} ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· {ltv.toFixed(1)}% LTV</span>
+              <span className="font-semibold text-foreground">{formatGBP(loanAmount)} · {ltv.toFixed(1)}% LTV</span>
             </div>
           </div>
 
@@ -313,9 +313,9 @@ const AffordabilityPage = () => {
               <Users className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">4. Your income (optional)</p>
             </div>
-            <SliderField label="Your gross income" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={income} min={15_000} max={300_000} step={1_000} onChange={setIncome} />
-            <SliderField label="Partner income" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={partner} min={0} max={300_000} step={1_000} onChange={setPartner} />
-            <SliderField label="Monthly committed outgoings" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={expenditure} min={0} max={5_000} step={50} onChange={setExpenditure} />
+            <SliderField label="Your gross income" prefix="£" value={income} min={15_000} max={300_000} step={1_000} onChange={setIncome} />
+            <SliderField label="Partner income" prefix="£" value={partner} min={0} max={300_000} step={1_000} onChange={setPartner} />
+            <SliderField label="Monthly committed outgoings" prefix="£" value={expenditure} min={0} max={5_000} step={50} onChange={setExpenditure} />
           </div>
 
           {/* Step 5 ÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ Optional extra fees */}
@@ -337,7 +337,7 @@ const AffordabilityPage = () => {
             {!includeFees ? (
               <div className="text-xs text-muted-foreground flex gap-2 items-start">
                 <Info className="size-3.5 mt-0.5 shrink-0" />
-                <p>Most buyers also pay legal (~ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£1,500), survey (~ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£500) and a lender fee (~ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£1,000). Toggle on to include them in your cash-needed total.</p>
+                <p>Most buyers also pay legal (~£1,500), survey (~£500) and a lender fee (~£1,000). Toggle on to include them in your cash-needed total.</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -355,7 +355,7 @@ const AffordabilityPage = () => {
                       <p className="text-[10px] text-muted-foreground">{FEE_META[key].hint}</p>
                     </label>
                     <div className="flex items-center gap-1">
-                      <span className="text-xs text-muted-foreground">ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£</span>
+                      <span className="text-xs text-muted-foreground">£</span>
                       <FeeInput
                         value={fees[key]}
                         disabled={!enabledFees[key]}
@@ -492,8 +492,8 @@ const AffordabilityPage = () => {
                     : "Fails +3% stress test"}
               </p>
               <p className="text-muted-foreground mt-1">
-                Loan-to-income {(loanAmount / Math.max(1, income + partner)).toFixed(2)}ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ·
-                Stressed EMI {formatGBP(affordability.monthlyPaymentStressed, { decimals: 2 })} at {(rate + 3).toFixed(2)}% ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ·
+                Loan-to-income {(loanAmount / Math.max(1, income + partner)).toFixed(2)}ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ ·
+                Stressed EMI {formatGBP(affordability.monthlyPaymentStressed, { decimals: 2 })} at {(rate + 3).toFixed(2)}% ·
                 Max borrowing {formatGBP(affordability.maxBorrowing)}
               </p>
             </div>
@@ -502,17 +502,17 @@ const AffordabilityPage = () => {
           <ShareCalculation
             title="Total Cost to Buy a Home"
             calculator="total-cost"
-            intro={`Property ${formatGBP(propertyPrice)} ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· Deposit ${formatGBP(deposit)} (${depositPct.toFixed(1)}%) ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· ${REGION_OPTIONS.find(r => r.value === region)?.label} ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· ${BUYER_OPTIONS.find(b => b.value === buyer)?.label}`}
+            intro={`Property ${formatGBP(propertyPrice)} · Deposit ${formatGBP(deposit)} (${depositPct.toFixed(1)}%) · ${REGION_OPTIONS.find(r => r.value === region)?.label} · ${BUYER_OPTIONS.find(b => b.value === buyer)?.label}`}
             summary={[
               { label: "Property price", value: formatGBP(propertyPrice) },
               { label: `Deposit (${depositPct.toFixed(1)}%)`, value: formatGBP(deposit) },
-              { label: "Loan needed", value: `${formatGBP(loanAmount)} ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· ${ltv.toFixed(1)}% LTV` },
+              { label: "Loan needed", value: `${formatGBP(loanAmount)} · ${ltv.toFixed(1)}% LTV` },
               { label: `${stampDuty.taxName} payable`, value: formatGBP(stampDuty.total) },
               ...(feesTotal > 0 ? [{ label: "Other fees", value: formatGBP(feesTotal) }] : []),
               { label: "Total cash needed upfront", value: formatGBP(cashUpfront) },
               { label: "Monthly EMI", value: formatGBP(repayment.monthlyPayment, { decimals: 2 }) },
               { label: "Total interest over term", value: formatGBP(repayment.totalInterest) },
-              { label: `Rate ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· Term`, value: `${rate.toFixed(2)}% ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· ${term} years` },
+              { label: `Rate · Term`, value: `${rate.toFixed(2)}% · ${term} years` },
             ]}
           />
         </div>

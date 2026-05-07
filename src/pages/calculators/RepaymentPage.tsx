@@ -29,7 +29,7 @@ const RepaymentPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const lender = slug ? getLenderBySlug(slug) : undefined;
   const city = slug && !lender ? getCityBySlug(slug) : undefined;
-  // If slug provided but neither lender nor city found Ã¢ÃÃ 404
+  // If slug provided but neither lender nor city found — 404
 
   if (slug && !lender && !city) {
     return <Navigate to="/calculators/repayment" replace />;
@@ -92,10 +92,10 @@ const RepaymentPage = () => {
     : "Three quick questions, one clear answer. We calculate your monthly payment using the standard amortisation formula in 28-digit decimal precision.";
   const pagePath = city ? `calculators/repayment/${city.slug}` : lender ? `calculators/repayment/${lender.slug}` : "calculators/repayment";
   const seoTitle = city
-    ? `${city.name} Mortgage Calculator Ã¢ÃÃ Monthly Repayments | RepayWise`
+    ? `${city.name} Mortgage Calculator – Monthly Repayments | RepayWise`
     : lender
-    ? `${lender.name} Mortgage Calculator Ã¢ÃÃ Free UK Tool | RepayWise`
-    : "Mortgage Repayment Calculator Ã¢ÃÃ Free UK Tool | RepayWise";
+    ? `${lender.name} Mortgage Calculator – Free UK Tool | RepayWise`
+    : "Mortgage Repayment Calculator – Free UK Tool | RepayWise";
   const seoDescription = city
     ? `Free mortgage repayment calculator for ${city.name}. ${city.description} See monthly payments, total cost and overpayment savings.`
     : lender
@@ -147,7 +147,7 @@ const RepaymentPage = () => {
                 {
                   "@type": "Question",
                   name: "How is a UK mortgage repayment calculated?",
-                  acceptedAnswer: { "@type": "Answer", text: "UK mortgage repayments are calculated using the standard amortisation formula. The monthly payment equals P ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ r ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ (1+r)^n / ((1+r)^n ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ 1), where P is the loan amount, r is the monthly interest rate, and n is the total number of monthly payments." },
+                  acceptedAnswer: { "@type": "Answer", text: "UK mortgage repayments are calculated using the standard amortisation formula. The monthly payment M = P × r × (1+r)ⁿ / ((1+r)ⁿ − 1), where P is the loan amount, r is the monthly interest rate (annual rate ÷ 12), and n is the total number of monthly payments (term in years × 12)." },
                 },
                 {
                   "@type": "Question",
@@ -237,7 +237,7 @@ const RepaymentPage = () => {
               <div className="space-y-5">
                 <BigSlider
                   label="Property price"
-                  prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£"
+                  prefix="£"
                   value={propertyPrice}
                   min={50_000}
                   max={2_500_000}
@@ -256,7 +256,7 @@ const RepaymentPage = () => {
                         onClick={() => setDepositMode("amount")}
                         className={`px-2.5 py-1 rounded-md transition-colors ${depositMode === "amount" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"}`}
                       >
-                        ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£ Amount
+                        £ Amount
                       </button>
                       <button
                         type="button"
@@ -271,7 +271,7 @@ const RepaymentPage = () => {
                   {depositMode === "amount" ? (
                     <BigSlider
                       label={`Deposit (${depositPct.toFixed(1)}%)`}
-                      prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£"
+                      prefix="£"
                       value={deposit}
                       min={0}
                       max={propertyPrice}
@@ -299,7 +299,7 @@ const RepaymentPage = () => {
                     </p>
                     <p className="text-3xl font-bold tabular-nums tracking-tight mt-1">{formatGBP(principal)}</p>
                     <p className="text-xs text-muted-foreground mt-1 tabular-nums">
-                      LTV {ltv.toFixed(1)}% ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· Deposit {depositPct.toFixed(1)}%
+                      LTV {ltv.toFixed(1)}% · Deposit {depositPct.toFixed(1)}%
                     </p>
                   </div>
                   <div className="h-24 w-24 mx-auto sm:mx-0">
@@ -406,13 +406,13 @@ const RepaymentPage = () => {
                   </p>
                   <div className="mt-4 pt-4 border-t border-primary-foreground/10 flex flex-wrap gap-x-8 gap-y-2 text-xs">
                     <span className="text-primary-foreground/60">
-                      If rates rise +1% ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ{" "}
+                      If rates rise +1% →{" "}
                       <span className="text-primary-foreground font-semibold">
                         {formatGBP(stressed.monthlyPayment, { decimals: 2 })}/mo
                       </span>
                     </span>
                     <span className="text-primary-foreground/60">
-                      Total interest ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ¢ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ{" "}
+                      Total interest →{" "}
                       <span className="text-primary-foreground font-semibold">
                         {formatGBP(result.totalInterest)}
                       </span>
@@ -476,7 +476,7 @@ const RepaymentPage = () => {
                             </linearGradient>
                           </defs>
                           <XAxis dataKey="year" tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
-                          <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(value) => `ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£${(value / 1000).toFixed(0)}k`} />
+                          <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`} />
                           <Tooltip
                             contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 12, fontSize: 12 }}
                             formatter={(value: number) => [formatGBP(value), "Balance"]}
@@ -492,7 +492,7 @@ const RepaymentPage = () => {
                 <ShareCalculation
                   title="Mortgage Repayment Calculation"
                   calculator="repayment"
-                  intro={`Property ${formatGBP(propertyPrice)} ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· Deposit ${formatGBP(deposit)} (${depositPct.toFixed(1)}%)`}
+                  intro={`Property ${formatGBP(propertyPrice)} · Deposit ${formatGBP(deposit)} (${depositPct.toFixed(1)}%)`}
                   summary={[
                     { label: "Property price", value: formatGBP(propertyPrice) },
                     { label: `Deposit (${depositPct.toFixed(1)}%)`, value: formatGBP(deposit) },

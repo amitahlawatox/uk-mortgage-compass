@@ -125,7 +125,7 @@ const BuyToLetPage = () => {
               <Building2 className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. Property & deposit</p>
             </div>
-            <SliderField label="House price" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={housePrice} min={50_000} max={2_000_000} step={5_000} onChange={(v) => {
+            <SliderField label="House price" prefix="£" value={housePrice} min={50_000} max={2_000_000} step={5_000} onChange={(v) => {
               setHousePrice(v);
               // keep deposit at ~current % of new price if user hasn't customised drastically
               const currentPct = housePrice > 0 ? deposit / housePrice : 0.25;
@@ -139,7 +139,7 @@ const BuyToLetPage = () => {
             />
             <div className="flex items-center justify-between text-xs">
               <span className="text-muted-foreground">Loan amount</span>
-              <span className="font-semibold tabular-nums">{formatGBP(loan)} ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· LTV {ltv.toFixed(1)}%</span>
+              <span className="font-semibold tabular-nums">{formatGBP(loan)} · LTV {ltv.toFixed(1)}%</span>
             </div>
           </div>
 
@@ -200,8 +200,8 @@ const BuyToLetPage = () => {
               <TrendingUp className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">4. Rental income & costs</p>
             </div>
-            <SliderField label="Expected monthly rent" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={monthlyRent} min={200} max={10_000} step={50} onChange={setMonthlyRent} />
-            <SliderField label="Monthly costs (mgmt, insurance, maintenance)" prefix="ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ£" value={monthlyCosts} min={0} max={2_000} step={10} onChange={setMonthlyCosts} />
+            <SliderField label="Expected monthly rent" prefix="£" value={monthlyRent} min={200} max={10_000} step={50} onChange={setMonthlyRent} />
+            <SliderField label="Monthly costs (mgmt, insurance, maintenance)" prefix="£" value={monthlyCosts} min={0} max={2_000} step={10} onChange={setMonthlyCosts} />
           </div>
         </div>
 
@@ -211,7 +211,7 @@ const BuyToLetPage = () => {
             <p className="text-xs font-bold uppercase tracking-widest text-accent-secondary mb-2">Monthly mortgage payment</p>
             <p className="text-4xl sm:text-5xl font-bold tracking-tight tabular-nums">{formatGBP(emi, { decimals: 2 })}</p>
             <p className="text-xs text-muted-foreground mt-2">
-              {repayType === "interest-only" ? "Interest only" : "Capital + interest"} ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· {term}y ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· {rate.toFixed(2)}% APR ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· LTV {ltv.toFixed(1)}%
+              {repayType === "interest-only" ? "Interest only" : "Capital + interest"} · {term}y · {rate.toFixed(2)}% APR · LTV {ltv.toFixed(1)}%
             </p>
           </div>
 
@@ -257,12 +257,12 @@ const BuyToLetPage = () => {
           <ShareCalculation
             title="UK Buy-to-Let Snapshot"
             calculator="repayment"
-            intro={`${formatGBP(housePrice)} BTL ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· ${formatGBP(deposit)} deposit ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· ${region}`}
+            intro={`${formatGBP(housePrice)} BTL · ${formatGBP(deposit)} deposit · ${region}`}
             summary={[
               { label: "House price", value: formatGBP(housePrice) },
               { label: "Deposit", value: `${formatGBP(deposit)} (${(housePrice ? (deposit / housePrice) * 100 : 0).toFixed(1)}%)` },
               { label: "Loan", value: `${formatGBP(loan)} (LTV ${ltv.toFixed(1)}%)` },
-              { label: "Rate ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· Term", value: `${rate.toFixed(2)}% ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃ· ${term} years` },
+              { label: "Rate · Term", value: `${rate.toFixed(2)}% · ${term} years` },
               { label: "Repayment type", value: repayType === "interest-only" ? "Interest only" : "Repayment" },
               { label: "Monthly payment", value: formatGBP(emi, { decimals: 2 }) },
               { label: `Stamp duty (${stamp.taxName})`, value: formatGBP(stamp.total) },
