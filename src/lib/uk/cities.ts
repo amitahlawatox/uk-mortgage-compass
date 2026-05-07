@@ -56,3 +56,10 @@ export function getCityBySlug(slug: string): CityData | undefined {
 }
 
 export const allCitySlugs: string[] = cities.map((c) => c.slug);
+
+
+export function getCity(slug: string): CityData | undefined {
+  return cities.find((c) => c.slug === slug);
+}
+
+export { getCityBySlug };
