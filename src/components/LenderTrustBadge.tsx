@@ -17,7 +17,6 @@ const LENDER_WEBSITES: Record<string, string> = {
   "virgin-money": "https://uk.virginmoney.com/mortgages/",
   "tsb": "https://www.tsb.co.uk/mortgages/",
   "coventry": "https://www.coventrybuildingsociety.co.uk/customer/mortgage.html",
-  "nationwide": "https://www.nationwide.co.uk/mortgages/",
   "yorkshire": "https://www.ybs.co.uk/mortgages/",
   "skipton": "https://www.skipton.co.uk/mortgages/",
   "accord": "https://www.accordmortgages.com/",
