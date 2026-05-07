@@ -51,7 +51,6 @@ export const cities: CityData[] = [
   { name: "Northampton", slug: "northampton", region: "East Midlands", avgHousePrice: 241000, avgDeposit: 24100, monthlySearches: 400, description: "Northampton is a growing town in the East Midlands averaging £241,000." },
 ];
 
-export function getCityBySlug(slug: string): CityData | undefined {
   return cities.find((c) => c.slug === slug);
 }
 
