@@ -81,9 +81,10 @@ const SURCHARGE: Record<Region, number> = {
 
 function computeBands(
   price: Decimal,
-  bands: StampDutyBand[],
+  bands: StampDutyBand[] | undefined | null,
   surcharge: Decimal,
 ): { rows: StampDutyBreakdownRow[]; total: Decimal } {
+  if (!bands || !Array.isArray(bands)) return { rows: [], total: new Decimal(0) };
   let lower = D(0);
   let total = D(0);
   const rows: StampDutyBreakdownRow[] = [];

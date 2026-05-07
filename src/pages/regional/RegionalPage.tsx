@@ -12,20 +12,18 @@ const RegionalPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const city = slug ? getCityBySlug(slug) : undefined;
 
-  const sdlt = useMemo(
-    () =>
-      city
-        ? calculateStampDuty({ price: city.avgPrice, region: city.region, firstTimeBuyer: false, additionalProperty: false })
-        : null,
-    [city],
-  );
-  const sdltFtb = useMemo(
-    () =>
-      city
-        ? calculateStampDuty({ price: city.ftbPrice, region: city.region, firstTimeBuyer: true, additionalProperty: false })
-        : null,
-    [city],
-  );
+  const sdlt = useMemo(() => {
+    if (!city) return null;
+    try {
+      return calculateStampDuty({ price: city.avgPrice, region: city.sdltRegion, firstTimeBuyer: false, additionalProperty: false });
+    } catch { return null; }
+  }, [city]);
+  const sdltFtb = useMemo(() => {
+    if (!city) return null;
+    try {
+      return calculateStampDuty({ price: city.ftbPrice, region: city.sdltRegion, firstTimeBuyer: true, additionalProperty: false });
+    } catch { return null; }
+  }, [city]);
   const repay = useMemo(
     () =>
       city
