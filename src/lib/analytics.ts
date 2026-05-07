@@ -1,17 +1,15 @@
 // RepayWise analytics.ts — privacy-first no-op stubs
 // All tracking disabled. No user data collected or transmitted.
 
-export const ANALYTICS_CONSENT_EVENT = "analytics-consent";
+export var ANALYTICS_CONSENT_EVENT = "analytics-consent";
 
-export function syncAnalyticsConsent(_granted: boolean): void {}
-export function trackPageView(_path?: string): void {}
-export function trackEvent(_name: string, _params?: Record<string, unknown>): void {}
-export function trackIntentClick(_label: string, _url?: string): void {}
-export function trackCalculatorUse(_type: string, _params?: Record<string, unknown>): void {}
-export function trackShare(_method: string, _page?: string): void {}
-export function trackLenderView(_lenderSlug: string): void {}
-export function trackCityView(_citySlug: string): void {}
-export function initAnalytics(): void {}
-
-// CalculatorShell imports this directly
-export function track(_event: string, _params?: Record<string, unknown>): void {}
+export function syncAnalyticsConsent(_granted) {}
+export function trackPageView(_path) {}
+export function trackEvent(_name, _params) {}
+export function trackIntentClick(_label, _url) {}
+export function trackCalculatorUse(_type, _params) {}
+export function trackShare(_method, _page) {}
+export function trackLenderView(_slug) {}
+export function trackCityView(_slug) {}
+export function initAnalytics() {}
+export function track(_event, _params) {}
