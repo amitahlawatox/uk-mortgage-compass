@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 interface FAQItem { question: string; answer: string; }
-interface LenderMeta { name: string; maxLtv?: number; estimatedSvr?: string; description?: string; trustRating?: number; }
+interface LenderMeta { name: string; maxLtv?: number; estimatedSvr?: number | string; description?: string; trustRating?: number; }
 
 interface SEOProps {
   title: string;
