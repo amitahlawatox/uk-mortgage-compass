@@ -6,7 +6,7 @@
 import Decimal from "decimal.js";
 import { D } from "./decimal";
 
-export type Region = "england" | "scotland" | "wales";
+export type Region = "england" | "scotland" | "wales" | "northern_ireland";
 
 export interface StampDutyInput {
   price: number;          // GBP
@@ -75,6 +75,7 @@ const SURCHARGE: Record<Region, number> = {
   england: 0.05,    // SDLT higher rate (Oct 2024 increase)
   scotland: 0.08,   // LBTT ADS (Dec 2024)
   wales: 0.05,      // LTT higher residential
+  northern_ireland: 0.05, // SDLT applies in NI same as England
 };
 
 // --------------------------------------------------------------------------
@@ -128,6 +129,7 @@ export function calculateStampDuty(input: StampDutyInput): StampDutyResult {
 
   switch (input.region) {
     case "england":
+    case "northern_ireland":
       taxName = "SDLT";
       if (input.firstTimeBuyer && !input.additionalProperty && price.lte(625_000)) {
         bands = SDLT_FTB;
