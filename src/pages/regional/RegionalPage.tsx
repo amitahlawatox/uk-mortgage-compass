@@ -3,14 +3,14 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowRight, Calculator, Home, MapPin, TrendingUp, Wallet } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
-import { cities, getCity } from "@/lib/uk/cities";
+import { cities, getCityBySlug } from "@/lib/uk/cities";
 import { calculateStampDuty } from "@/lib/finance/stampDuty";
 import { calculateRepayment } from "@/lib/finance/repayment";
 import { formatGBP, formatPercent } from "@/lib/finance/decimal";
 
 const RegionalPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const city = slug ? getCity(slug) : undefined;
+  const city = slug ? getCityBySlug(slug) : undefined;
 
   const sdlt = useMemo(
     () =>
