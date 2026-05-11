@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
@@ -9,6 +10,10 @@ import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
+import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
+import { getCityBySlug } from "@/lib/uk/cities";
+import { LenderContextCard } from "@/components/lenders/LenderContextCard";
+import { Head } from "vite-react-ssg";
 
 const PriceInput = ({ value, onChange }: { value: number; onChange: (v: number) => void }) => {
   const [draft, setDraft] = useState(String(value));
@@ -63,6 +68,14 @@ type LookupState =
   | { status: "error"; message: string };
 
 const StampDutyPage = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const lender = slug ? getLenderBySlug(slug) : undefined;
+  const city = slug && !lender ? getCityBySlug(slug) : undefined;
+
+  if (slug && !lender && !city) {
+    return <Navigate to="/calculators/stamp-duty" replace />;
+  }
+
   const [price, setPrice] = useState(450_000);
   const [region, setRegion] = useState<Region>("england");
   const [ftb, setFtb] = useState(false);
@@ -122,6 +135,11 @@ const StampDutyPage = () => {
     [price, region, ftb, additional],
   );
 
+  const pagePath = city ? `calculators/stamp-duty/${city.slug}` : lender ? `calculators/stamp-duty/${lender.slug}` : "calculators/stamp-duty";
+  const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
+  const seoTitle = lender ? `${lender.name} Stamp Duty Calculator — SDLT, LBTT, LTT | RepayWise` : city ? `${city.name} Stamp Duty Calculator | RepayWise` : "Stamp Duty Calculator UK — SDLT, LBTT, LTT — RepayWise";
+  const seoDescription = lender ? `Free ${lender.name} stamp duty calculator. Calculate SDLT, LBTT or LTT for your property purchase with ${lender.name}. First-time buyer relief and surcharges included.` : city ? `Free stamp duty calculator for ${city.name}. ${city.description} Calculate SDLT, LBTT or LTT with first-time buyer relief and surcharges.` : "Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown.";
+
   return (
     <CalculatorShell
       eyebrow="Property purchase tax"
@@ -130,51 +148,17 @@ const StampDutyPage = () => {
       leadCalculator="stamp-duty"
       leadContext={{ price, region, firstTimeBuyer: ftb, additionalProperty: additional, total: result.total, effectiveRate: result.effectiveRate, postcode: postcode || null }}
     >
+      <Head>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+      </Head>
       <SEO
-        title="Stamp Duty Calculator UK — SDLT, LBTT, LTT — RepayWise"
-        description="Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown."
-        path="/calculators/stamp-duty"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "SoftwareApplication",
-              name: "RepayWise Stamp Duty Calculator",
-              url: "https://repaywise.co.uk/calculators/stamp-duty",
-              applicationCategory: "FinanceApplication",
-              operatingSystem: "Any",
-              description: "Free UK stamp duty calculator covering SDLT, LBTT and LTT with first-time buyer relief and additional-property surcharges.",
-              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-              provider: {
-                "@type": "Organization",
-                name: "RepayWise",
-                url: "https://repaywise.co.uk",
-                areaServed: "GB",
-              },
-            },
-            {
-              "@type": "FAQPage",
-              mainEntity: [
-                {
-                  "@type": "Question",
-                  name: "How is UK stamp duty calculated?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Stamp duty is charged in bands. Each slice of the purchase price is taxed at the rate for that band, with different rules for England and Northern Ireland (SDLT), Scotland (LBTT), and Wales (LTT).",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Do first-time buyers still get stamp duty relief?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "First-time buyer relief depends on the UK nation and the purchase price. The RepayWise calculator applies the correct relief rules automatically for the chosen region.",
-                  },
-                },
-              ],
-            },
-          ],
-        }}
+        title={seoTitle}
+        description={seoDescription}
+        path={pagePath}
+        lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Stamp Duty Calculator"
       />
 
@@ -183,8 +167,18 @@ const StampDutyPage = () => {
           { name: "Home", href: "/" },
           { name: "Calculators", href: "/" },
           { name: "Stamp Duty Calculator", href: "/calculators/stamp-duty" },
+          ...(lender ? [{ name: lender.name, href: buildLenderPath("stamp-duty", lender.slug) }] : []),
+          ...(city ? [{ name: city.name, href: `/calculators/stamp-duty/${city.slug}` }] : []),
         ]}
       />
+
+      {lender && (
+        <LenderContextCard
+          lender={lender}
+          calculatorType="stamp-duty"
+          contextDescription={`Use this calculator to estimate stamp duty on a property purchase with a ${lender.name} mortgage. The stamp duty amount is the same regardless of lender, but knowing the full cost helps you plan your ${lender.name} mortgage budget.`}
+        />
+      )}
       
       <div className="grid lg:grid-cols-5 gap-6">
         {/* Inputs */}

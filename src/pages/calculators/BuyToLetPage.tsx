@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
@@ -12,10 +13,22 @@ import { Building2, Landmark, Receipt, TrendingUp, Info } from "lucide-react";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
+import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
+import { getCityBySlug } from "@/lib/uk/cities";
+import { LenderContextCard } from "@/components/lenders/LenderContextCard";
+import { Head } from "vite-react-ssg";
 
 type RepayType = "repayment" | "interest-only";
 
 const BuyToLetPage = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const lender = slug ? getLenderBySlug(slug) : undefined;
+  const city = slug && !lender ? getCityBySlug(slug) : undefined;
+
+  if (slug && !lender && !city) {
+    return <Navigate to="/calculators/buy-to-let" replace />;
+  }
+
   const [housePrice, setHousePrice] = useState(250_000);
   const [deposit, setDeposit] = useState(62_500); // 25% default
   const [rate, setRate] = useState(5.5);
@@ -53,6 +66,11 @@ const BuyToLetPage = () => {
   const monthlyInterest = (loan * (rate / 100)) / 12;
   const icr = monthlyInterest > 0 ? (monthlyRent / monthlyInterest) * 100 : 0;
 
+  const pagePath = city ? `calculators/buy-to-let/${city.slug}` : lender ? `calculators/buy-to-let/${lender.slug}` : "calculators/buy-to-let";
+  const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
+  const seoTitle = lender ? `${lender.name} Buy-to-Let Mortgage Calculator | RepayWise` : city ? `${city.name} Buy-to-Let Calculator | RepayWise` : "Buy-to-Let Mortgage Calculator UK — Yield, Stamp Duty & EMI";
+  const seoDescription = lender ? `Free ${lender.name} buy-to-let mortgage calculator. Model BTL deposit, stamp duty surcharge, rental yield, cash flow, and ICR stress test for ${lender.name} mortgages.` : city ? `Free buy-to-let mortgage calculator for ${city.name}. ${city.description} Model BTL deposit, stamp duty surcharge, rental yield, cash flow, and ICR stress test.` : "UK Buy-to-Let calculator. 25% deposit default, interest-only or repayment, stamp duty surcharge by region, rental yield, net cash flow and ICR.";
+
   return (
     <CalculatorShell
       eyebrow="Buy-to-Let"
@@ -61,51 +79,17 @@ const BuyToLetPage = () => {
       leadCalculator="repayment"
       leadContext={{ housePrice, deposit, loan, rate, term, region, emi, stampDuty: stamp.total }}
     >
+      <Head>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+      </Head>
       <SEO
-        title="Buy-to-Let Mortgage Calculator UK — Yield, Stamp Duty & EMI"
-        description="UK Buy-to-Let calculator. 25% deposit default, interest-only or repayment, stamp duty surcharge by region, rental yield, net cash flow and ICR."
-        path="/calculators/buy-to-let"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "SoftwareApplication",
-              name: "RepayWise Buy-to-Let Mortgage Calculator",
-              url: "https://repaywise.co.uk/calculators/buy-to-let",
-              applicationCategory: "FinanceApplication",
-              operatingSystem: "Any",
-              description: "Free UK buy-to-let calculator covering deposit, stamp duty surcharge, mortgage payments, rental yield, cash flow, and lender ICR.",
-              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-              provider: {
-                "@type": "Organization",
-                name: "RepayWise",
-                url: "https://repaywise.co.uk",
-                areaServed: "GB",
-              },
-            },
-            {
-              "@type": "FAQPage",
-              mainEntity: [
-                {
-                  "@type": "Question",
-                  name: "How much deposit do I need for a buy-to-let mortgage?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Many UK buy-to-let mortgages start around a 25% deposit, although exact deposit requirements depend on the lender, rental income, and property type.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "What is ICR on a buy-to-let mortgage?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "ICR means Interest Coverage Ratio. It compares the expected rent to the mortgage interest payment and is often used by lenders to decide whether a buy-to-let case is affordable.",
-                  },
-                },
-              ],
-            },
-          ],
-        }}
+        title={seoTitle}
+        description={seoDescription}
+        path={pagePath}
+        lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Buy-to-Let Mortgage Calculator"
       />
 
@@ -114,8 +98,18 @@ const BuyToLetPage = () => {
           { name: "Home", href: "/" },
           { name: "Calculators", href: "/" },
           { name: "Buy-to-Let Calculator", href: "/calculators/buy-to-let" },
+          ...(lender ? [{ name: lender.name, href: buildLenderPath("buy-to-let", lender.slug) }] : []),
+          ...(city ? [{ name: city.name, href: `/calculators/buy-to-let/${city.slug}` }] : []),
         ]}
       />
+
+      {lender && (
+        <LenderContextCard
+          lender={lender}
+          calculatorType="buy-to-let"
+          contextDescription={`Model a buy-to-let purchase with a ${lender.name} mortgage. ${lender.name} BTL products typically require a minimum ${100 - lender.maxLtv}% deposit. Use the indicative ${lender.estimatedSvr.toFixed(2)}% SVR to stress-test cash flow scenarios.`}
+        />
+      )}
       
       <div className="grid lg:grid-cols-5 gap-6">
         {/* Inputs */}

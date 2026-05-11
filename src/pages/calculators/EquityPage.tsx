@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
@@ -12,8 +13,20 @@ import { Home, Landmark, TrendingUp, PiggyBank, Info } from "lucide-react";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
+import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
+import { getCityBySlug } from "@/lib/uk/cities";
+import { LenderContextCard } from "@/components/lenders/LenderContextCard";
+import { Head } from "vite-react-ssg";
 
 const EquityPage = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const lender = slug ? getLenderBySlug(slug) : undefined;
+  const city = slug && !lender ? getCityBySlug(slug) : undefined;
+
+  if (slug && !lender && !city) {
+    return <Navigate to="/calculators/equity" replace />;
+  }
+
   const [purchasePrice, setPurchasePrice] = useState(300_000);
   const [currentValue, setCurrentValue] = useState(360_000);
   const [deposit, setDeposit] = useState(60_000);
@@ -75,6 +88,11 @@ const EquityPage = () => {
     { name: "Bank's claim", value: banksEquity, color: "hsl(var(--accent))" },
   ], [yourEquity, banksEquity]);
 
+  const pagePath = city ? `calculators/equity/${city.slug}` : lender ? `calculators/equity/${lender.slug}` : "calculators/equity";
+  const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
+  const seoTitle = lender ? `${lender.name} Home Equity Calculator | RepayWise` : city ? `${city.name} Home Equity Calculator | RepayWise` : "Home Equity Calculator UK — Refinance, Sell or Remortgage";
+  const seoDescription = lender ? `Free ${lender.name} home equity calculator. See your outstanding mortgage balance, current LTV, and equity share. Plan a remortgage or sale with ${lender.name}.` : city ? `Free home equity calculator for ${city.name}. ${city.description} See your outstanding mortgage balance, current LTV, and equity share.` : "Calculate your current UK home equity. See outstanding mortgage, LTV, your equity, the bank's claim, and net proceeds if you sell.";
+
   return (
     <CalculatorShell
       eyebrow="Home equity"
@@ -83,51 +101,17 @@ const EquityPage = () => {
       leadCalculator="equity"
       leadContext={{ purchasePrice, currentValue, deposit, term, rate, yearsOwned, outstanding, yourEquity }}
     >
+      <Head>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+      </Head>
       <SEO
-        title="Home Equity Calculator UK — Refinance, Sell or Remortgage"
-        description="Calculate your current UK home equity. See outstanding mortgage, LTV, your equity, the bank's claim, and net proceeds if you sell."
-        path="/calculators/equity"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "SoftwareApplication",
-              name: "RepayWise Home Equity Calculator",
-              url: "https://repaywise.co.uk/calculators/equity",
-              applicationCategory: "FinanceApplication",
-              operatingSystem: "Any",
-              description: "Free UK home equity calculator showing outstanding mortgage, current loan-to-value, your equity share, and net proceeds if you sell.",
-              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-              provider: {
-                "@type": "Organization",
-                name: "RepayWise",
-                url: "https://repaywise.co.uk",
-                areaServed: "GB",
-              },
-            },
-            {
-              "@type": "FAQPage",
-              mainEntity: [
-                {
-                  "@type": "Question",
-                  name: "How do I calculate home equity?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Home equity is the current market value of the property minus the outstanding mortgage balance. If you are selling, you should also subtract estate agent and legal costs to estimate net proceeds.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Why does my current LTV matter?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "A lower loan-to-value ratio usually unlocks better remortgage pricing because the lender is taking less risk relative to the property value.",
-                  },
-                },
-              ],
-            },
-          ],
-        }}
+        title={seoTitle}
+        description={seoDescription}
+        path={pagePath}
+        lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Home Equity Calculator"
       />
 
@@ -136,8 +120,18 @@ const EquityPage = () => {
           { name: "Home", href: "/" },
           { name: "Calculators", href: "/" },
           { name: "Home Equity Calculator", href: "/calculators/equity" },
+          ...(lender ? [{ name: lender.name, href: buildLenderPath("equity", lender.slug) }] : []),
+          ...(city ? [{ name: city.name, href: `/calculators/equity/${city.slug}` }] : []),
         ]}
       />
+
+      {lender && (
+        <LenderContextCard
+          lender={lender}
+          calculatorType="equity"
+          contextDescription={`Use this calculator to estimate your home equity with a ${lender.name} mortgage. See your outstanding balance, current LTV, and what ${lender.name} remortgage options your equity might unlock.`}
+        />
+      )}
       
       <div className="grid lg:grid-cols-5 gap-6">
         {/* Inputs */}

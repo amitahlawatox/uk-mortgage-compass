@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
@@ -13,6 +14,10 @@ import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
+import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
+import { getCityBySlug } from "@/lib/uk/cities";
+import { LenderContextCard } from "@/components/lenders/LenderContextCard";
+import { Head } from "vite-react-ssg";
 
 const FeeInput = ({ value, onChange, disabled }: { value: number; onChange: (v: number) => void; disabled?: boolean }) => {
   const [draft, setDraft] = useState(String(value));
@@ -76,6 +81,14 @@ const FEE_META: Record<FeeKey, { label: string; hint: string }> = {
 };
 
 const AffordabilityPage = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const lender = slug ? getLenderBySlug(slug) : undefined;
+  const city = slug && !lender ? getCityBySlug(slug) : undefined;
+
+  if (slug && !lender && !city) {
+    return <Navigate to="/calculators/affordability" replace />;
+  }
+
   // Property
   const [propertyPrice, setPropertyPrice] = useState(325_000);
   const [deposit, setDeposit] = useState(40_000);
@@ -151,6 +164,11 @@ const AffordabilityPage = () => {
     { name: "Loan", value: loanAmount, color: "hsl(var(--accent-secondary))" },
   ], [deposit, loanAmount]);
 
+  const pagePath = city ? `calculators/affordability/${city.slug}` : lender ? `calculators/affordability/${lender.slug}` : "calculators/affordability";
+  const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
+  const seoTitle = lender ? `${lender.name} Mortgage Affordability Calculator | RepayWise` : city ? `${city.name} Mortgage Affordability Calculator | RepayWise` : "Total Cost to Buy a House UK — Deposit, Stamp Duty & EMI Calculator";
+  const seoDescription = lender ? `Free ${lender.name} mortgage affordability calculator. Plan the full cost of buying a UK home with a ${lender.name} mortgage including deposit, stamp duty, and monthly repayments.` : city ? `Free mortgage affordability calculator for ${city.name}. ${city.description} Plan deposit, stamp duty, mortgage EMI and optional fees in one calculator.` : "Plan the full cost of buying a UK home: deposit, SDLT/LBTT/LTT stamp duty, mortgage EMI and optional legal/survey fees in one calculator.";
+
   return (
     <CalculatorShell
       eyebrow="Total Cost to Buy"
@@ -159,51 +177,17 @@ const AffordabilityPage = () => {
       leadCalculator="total-cost"
       leadContext={{ propertyPrice, deposit, region, buyer, loanAmount, stampDuty: stampDuty.total, cashUpfront, monthly: repayment.monthlyPayment }}
     >
+      <Head>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+      </Head>
       <SEO
-        title="Total Cost to Buy a House UK — Deposit, Stamp Duty & EMI Calculator"
-        description="Plan the full cost of buying a UK home: deposit, SDLT/LBTT/LTT stamp duty, mortgage EMI and optional legal/survey fees in one calculator."
-        path="/calculators/affordability"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "SoftwareApplication",
-              name: "RepayWise Total Cost to Buy Calculator",
-              url: "https://repaywise.co.uk/calculators/affordability",
-              applicationCategory: "FinanceApplication",
-              operatingSystem: "Any",
-              description: "Free UK home-buying cost planner covering deposit, stamp duty, mortgage payments, and optional buying fees in one calculator.",
-              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-              provider: {
-                "@type": "Organization",
-                name: "RepayWise",
-                url: "https://repaywise.co.uk",
-                areaServed: "GB",
-              },
-            },
-            {
-              "@type": "HowTo",
-              name: "How to estimate the full cost of buying a home in the UK",
-              step: [
-                {
-                  "@type": "HowToStep",
-                  name: "Enter the property price and deposit",
-                  text: "Set the asking price and your deposit to calculate the loan amount and loan-to-value ratio.",
-                },
-                {
-                  "@type": "HowToStep",
-                  name: "Choose your region and buyer status",
-                  text: "Select the correct stamp duty regime and whether you are a first-time buyer, home mover, or additional-property buyer.",
-                },
-                {
-                  "@type": "HowToStep",
-                  name: "Add mortgage and fee assumptions",
-                  text: "Model your mortgage payment, then include legal, survey, lender, broker, and moving fees to see the true cash needed upfront.",
-                },
-              ],
-            },
-          ],
-        }}
+        title={seoTitle}
+        description={seoDescription}
+        path={pagePath}
+        lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Mortgage Affordability Calculator"
       />
 
@@ -212,8 +196,18 @@ const AffordabilityPage = () => {
           { name: "Home", href: "/" },
           { name: "Calculators", href: "/" },
           { name: "Total Cost to Buy", href: "/calculators/affordability" },
+          ...(lender ? [{ name: lender.name, href: buildLenderPath("affordability", lender.slug) }] : []),
+          ...(city ? [{ name: city.name, href: `/calculators/affordability/${city.slug}` }] : []),
         ]}
       />
+
+      {lender && (
+        <LenderContextCard
+          lender={lender}
+          calculatorType="affordability"
+          contextDescription={`Use this calculator to plan the total cost of buying with a ${lender.name} mortgage. See how deposit size, stamp duty, and ${lender.name}'s indicative ${lender.estimatedSvr.toFixed(2)}% SVR affect your total outlay.`}
+        />
+      )}
       
       <div className="grid lg:grid-cols-5 gap-6">
         {/* ---------------- Inputs ---------------- */}
