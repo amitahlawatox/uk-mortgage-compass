@@ -167,7 +167,7 @@ const AffordabilityPage = () => {
   const pagePath = city ? `calculators/affordability/${city.slug}` : lender ? `calculators/affordability/${lender.slug}` : "calculators/affordability";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = lender ? `${lender.name} Mortgage Affordability Calculator | RepayWise` : city ? `${city.name} Mortgage Affordability Calculator | RepayWise` : "Total Cost to Buy a House UK — Deposit, Stamp Duty & EMI Calculator";
-  const seoDescription = lender ? `Free ${lender.name} mortgage affordability calculator. Plan the full cost of buying a UK home with a ${lender.name} mortgage including deposit, stamp duty, and monthly repayments.` : "Plan the full cost of buying a UK home: deposit, SDLT/LBTT/LTT stamp duty, mortgage EMI and optional legal/survey fees in one calculator.";
+  const seoDescription = lender ? `Free ${lender.name} mortgage affordability calculator. Plan the full cost of buying a UK home with a ${lender.name} mortgage including deposit, stamp duty, and monthly repayments.` : city ? `Free mortgage affordability calculator for ${city.name}. ${city.description} Plan deposit, stamp duty, mortgage EMI and optional fees in one calculator.` : "Plan the full cost of buying a UK home: deposit, SDLT/LBTT/LTT stamp duty, mortgage EMI and optional legal/survey fees in one calculator.";
 
   return (
     <CalculatorShell

@@ -69,7 +69,7 @@ const BuyToLetPage = () => {
   const pagePath = city ? `calculators/buy-to-let/${city.slug}` : lender ? `calculators/buy-to-let/${lender.slug}` : "calculators/buy-to-let";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = lender ? `${lender.name} Buy-to-Let Mortgage Calculator | RepayWise` : city ? `${city.name} Buy-to-Let Calculator | RepayWise` : "Buy-to-Let Mortgage Calculator UK — Yield, Stamp Duty & EMI";
-  const seoDescription = lender ? `Free ${lender.name} buy-to-let mortgage calculator. Model BTL deposit, stamp duty surcharge, rental yield, cash flow, and ICR stress test for ${lender.name} mortgages.` : "UK Buy-to-Let calculator. 25% deposit default, interest-only or repayment, stamp duty surcharge by region, rental yield, net cash flow and ICR.";
+  const seoDescription = lender ? `Free ${lender.name} buy-to-let mortgage calculator. Model BTL deposit, stamp duty surcharge, rental yield, cash flow, and ICR stress test for ${lender.name} mortgages.` : city ? `Free buy-to-let mortgage calculator for ${city.name}. ${city.description} Model BTL deposit, stamp duty surcharge, rental yield, cash flow, and ICR stress test.` : "UK Buy-to-Let calculator. 25% deposit default, interest-only or repayment, stamp duty surcharge by region, rental yield, net cash flow and ICR.";
 
   return (
     <CalculatorShell

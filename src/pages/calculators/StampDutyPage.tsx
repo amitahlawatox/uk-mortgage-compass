@@ -138,7 +138,7 @@ const StampDutyPage = () => {
   const pagePath = city ? `calculators/stamp-duty/${city.slug}` : lender ? `calculators/stamp-duty/${lender.slug}` : "calculators/stamp-duty";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = lender ? `${lender.name} Stamp Duty Calculator — SDLT, LBTT, LTT | RepayWise` : city ? `${city.name} Stamp Duty Calculator | RepayWise` : "Stamp Duty Calculator UK — SDLT, LBTT, LTT — RepayWise";
-  const seoDescription = lender ? `Free ${lender.name} stamp duty calculator. Calculate SDLT, LBTT or LTT for your property purchase with ${lender.name}. First-time buyer relief and surcharges included.` : "Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown.";
+  const seoDescription = lender ? `Free ${lender.name} stamp duty calculator. Calculate SDLT, LBTT or LTT for your property purchase with ${lender.name}. First-time buyer relief and surcharges included.` : city ? `Free stamp duty calculator for ${city.name}. ${city.description} Calculate SDLT, LBTT or LTT with first-time buyer relief and surcharges.` : "Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown.";
 
   return (
     <CalculatorShell

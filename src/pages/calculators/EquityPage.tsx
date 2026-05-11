@@ -91,7 +91,7 @@ const EquityPage = () => {
   const pagePath = city ? `calculators/equity/${city.slug}` : lender ? `calculators/equity/${lender.slug}` : "calculators/equity";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = lender ? `${lender.name} Home Equity Calculator | RepayWise` : city ? `${city.name} Home Equity Calculator | RepayWise` : "Home Equity Calculator UK — Refinance, Sell or Remortgage";
-  const seoDescription = lender ? `Free ${lender.name} home equity calculator. See your outstanding mortgage balance, current LTV, and equity share. Plan a remortgage or sale with ${lender.name}.` : "Calculate your current UK home equity. See outstanding mortgage, LTV, your equity, the bank's claim, and net proceeds if you sell.";
+  const seoDescription = lender ? `Free ${lender.name} home equity calculator. See your outstanding mortgage balance, current LTV, and equity share. Plan a remortgage or sale with ${lender.name}.` : city ? `Free home equity calculator for ${city.name}. ${city.description} See your outstanding mortgage balance, current LTV, and equity share.` : "Calculate your current UK home equity. See outstanding mortgage, LTV, your equity, the bank's claim, and net proceeds if you sell.";
 
   return (
     <CalculatorShell
