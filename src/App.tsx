@@ -117,8 +117,13 @@ export const routes: RouteRecord[] = [
       },
       {
         path: "calculators/max-borrowing/:slug",
-        },
-        {
+        lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
+        getStaticPaths: () => [
+          ...lenders.map((l) => `calculators/max-borrowing/${l.slug}`),
+          ...cities.map((c) => `calculators/max-borrowing/${c.slug}`),
+        ],
+      },
+      {
           path: "calculators/stamp-duty/:slug",
           lazy: page(() => import("./pages/calculators/StampDutyPage")),
           getStaticPaths: () => [
