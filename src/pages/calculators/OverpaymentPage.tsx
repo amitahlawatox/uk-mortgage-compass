@@ -12,6 +12,7 @@ import { formatGBP } from "@/lib/finance/decimal";
 import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
+import { Head } from "vite-react-ssg";
 import { BigStat, SliderField } from "./RepaymentPage";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
@@ -22,7 +23,7 @@ const OverpaymentPage = () => {
   const lender = slug ? getLenderBySlug(slug) : undefined;
   const city = slug && !lender ? getCityBySlug(slug) : undefined;
 
-  if (slug && !lender) {
+  if (slug && !lender && !city) {
     return <Navigate to="/calculators/overpayment" replace />;
   }
 
@@ -122,11 +123,14 @@ const OverpaymentPage = () => {
   const intro = lender
     ? `Model how regular overpayments or a one-off lump sum could reduce interest on a ${lender.name} mortgage. We preload the rate at an indicative ${lender.estimatedSvr.toFixed(2)}% SVR so you can pressure-test the fallback scenario before you decide whether to overpay, remortgage, or keep cash liquid.`
     : "Move the sliders. See exactly how a regular monthly overpayment or a one-off lump sum reshapes your mortgage: interest saved and years shaved off the term.";
-  const pagePath = lender ? buildLenderPath("overpayment", lender.slug) : "/calculators/overpayment";
+  const pagePath = city ? `calculators/overpayment/${city.slug}` : lender ? `calculators/overpayment/${lender.slug}` : "calculators/overpayment";
+  const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = city ? `${city.name} Overpayment Calculator | RepayWise` : lender
     ? `${lender.name} Mortgage Overpayment Calculator 2026 | RepayWise`
     : "Mortgage Overpayment Calculator UK | Save Years and Pounds | RepayWise";
-  const seoDescription = lender
+  const seoDescription = city
+    ? `Free mortgage overpayment calculator for ${city.name}. ${city.description} See how overpaying saves years and thousands in interest.`
+    : lender
     ? `See how much interest and time you could save by overpaying a ${lender.name} mortgage. RepayWise models monthly and lump-sum overpayments against an indicative ${lender.estimatedSvr.toFixed(2)}% SVR.`
     : "See how overpaying your UK mortgage cuts years off your term and saves thousands in interest. Free, FCA-aligned, decimal-precision amortisation. No login needed.";
 
@@ -148,6 +152,12 @@ const OverpaymentPage = () => {
         lender: lender?.slug,
       }}
     >
+      <Head>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+      </Head>
       <SEO
         title={seoTitle}
         description={seoDescription}
@@ -158,7 +168,7 @@ const OverpaymentPage = () => {
             {
               "@type": "SoftwareApplication",
               name: lender ? `${lender.name} Mortgage Overpayment Calculator` : "RepayWise Mortgage Overpayment Calculator",
-              url: `https://repaywise.co.uk${pagePath}`,
+              url: `https://repaywise.co.uk/${pagePath}`,
               applicationCategory: "FinanceApplication",
               operatingSystem: "Any",
               description: seoDescription,
@@ -222,7 +232,7 @@ const OverpaymentPage = () => {
         items={[
           { name: "Home", href: "/" },
           { name: "Calculators", href: "/" },
-          { name: lender ? `${lender.name} Overpayment Calculator` : "Overpayment Visualiser", href: pagePath },
+          { name: city ? `${city.name} Overpayment Calculator` : lender ? `${lender.name} Overpayment Calculator` : "Overpayment Visualiser", href: pagePath },
         ]}
       />
 

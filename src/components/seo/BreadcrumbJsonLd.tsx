@@ -19,7 +19,7 @@ export const BreadcrumbJsonLd = ({ items }: BreadcrumbJsonLdProps) => {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${SITE_URL}${item.href}`,
+      item: `${SITE_URL}${item.href.startsWith('/') ? '' : '/'}${item.href}`,
     })),
   };
 
