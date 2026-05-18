@@ -12,6 +12,7 @@ import { calculateAffordability } from "@/lib/finance/affordability";
 import { formatGBP } from "@/lib/finance/decimal";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
+import { Head } from "vite-react-ssg";
 import { BigStat, SliderField } from "./RepaymentPage";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
@@ -22,7 +23,7 @@ const MaxBorrowingPage = () => {
   const lender = slug ? getLenderBySlug(slug) : undefined;
   const city = slug && !lender ? getCityBySlug(slug) : undefined;
 
-  if (slug && !lender) {
+  if (slug && !lender && !city) {
     return <Navigate to="/calculators/max-borrowing" replace />;
   }
 
@@ -60,11 +61,14 @@ const MaxBorrowingPage = () => {
   const intro = lender
     ? `Sense-check how much you could borrow with ${lender.name}. We model a lender-style income multiple, disposable-income check, and stress test, while using the lender's indicative ${lender.estimatedSvr.toFixed(2)}% SVR and ${lender.maxLtv}% maximum LTV band as planning anchors.`
     : "Lender-style 4.5x income multiplier plus a disposable-income check and a +3% interest rate stress test. See your maximum borrowing and the property price you can target.";
-  const pagePath = lender ? buildLenderPath("max-borrowing", lender.slug) : "/calculators/max-borrowing";
+  const pagePath = city ? `calculators/max-borrowing/${city.slug}` : lender ? `calculators/max-borrowing/${lender.slug}` : "calculators/max-borrowing";
+  const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = city ? `${city.name} Maximum Borrowing Calculator | RepayWise` : lender
     ? `${lender.name} Mortgage Affordability Calculator 2026 | RepayWise`
     : "Mortgage Affordability Calculator UK | How Much Can I Borrow?";
-  const seoDescription = lender
+  const seoDescription = city
+    ? `Free mortgage affordability calculator for ${city.name}. ${city.description} Find out how much you could borrow based on income and deposit.`
+    : lender
     ? `Estimate how much ${lender.name} could lend using a lender-style borrowing model with an indicative ${lender.estimatedSvr.toFixed(2)}% SVR and ${lender.maxLtv}% maximum LTV context.`
     : "Find out how much you can borrow for a UK mortgage. Income multiplier, disposable income check and +3% stress test built in.";
 
@@ -76,6 +80,12 @@ const MaxBorrowingPage = () => {
       leadCalculator="affordability"
       leadContext={{ income, partner, expenditure, deposit, rate, term, maxBorrowing: result.maxBorrowing, lender: lender?.slug }}
     >
+      <Head>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+      </Head>
       <SEO
         title={seoTitle}
         description={seoDescription}
@@ -86,7 +96,7 @@ const MaxBorrowingPage = () => {
             {
               "@type": "SoftwareApplication",
               name: lender ? `${lender.name} Mortgage Affordability Calculator` : "RepayWise Mortgage Affordability Calculator",
-              url: `https://repaywise.co.uk${pagePath}`,
+              url: `https://repaywise.co.uk/${pagePath}`,
               applicationCategory: "FinanceApplication",
               operatingSystem: "Any",
               description: seoDescription,
@@ -133,7 +143,7 @@ const MaxBorrowingPage = () => {
         items={[
           { name: "Home", href: "/" },
           { name: "Calculators", href: "/" },
-          { name: lender ? `${lender.name} Affordability Calculator` : "Mortgage Affordability Calculator", href: pagePath },
+          { name: city ? `${city.name} Affordability Calculator` : lender ? `${lender.name} Affordability Calculator` : "Mortgage Affordability Calculator", href: pagePath },
         ]}
       />
 
