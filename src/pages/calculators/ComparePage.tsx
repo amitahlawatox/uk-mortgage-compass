@@ -184,11 +184,21 @@ interface PlanResult {
   totalInterest: number;
   totalCost: number;
   totalPaid: number;
+  productInterest: number;
+  productPrincipal: number;
+  productBalance: number;
+  productPaid: number;
+  productCost: number;
   effectiveLoan: number;
   baseLoan: number;
 }
 
-const computePlan = (plan: PlanInputs, housePrice: number): PlanResult => {
+type ProductYears = 1 | 2 | 5;
+
+const sumRows = (rows: { interest: number; principal: number; payment: number }[], key: "interest" | "principal" | "payment") =>
+  rows.reduce((total, row) => total + row[key], 0);
+
+const computePlan = (plan: PlanInputs, housePrice: number, productYears: ProductYears): PlanResult => {
   const baseLoan = Math.max(0, housePrice - plan.deposit);
   const principal = plan.addFeeToLoan ? baseLoan + plan.productFee : baseLoan;
   const r = calculateRepayment({
@@ -198,11 +208,28 @@ const computePlan = (plan: PlanInputs, housePrice: number): PlanResult => {
     interestOnly: plan.interestOnly,
   });
   const upfrontFee = plan.addFeeToLoan ? 0 : plan.productFee;
+  const productMonths = Math.min(productYears * 12, plan.termYears * 12);
+  const { schedule } = buildSchedule({
+    principal,
+    annualRate: plan.apr,
+    termYears: plan.termYears,
+    interestOnly: plan.interestOnly,
+  });
+  const productRows = schedule.slice(0, productMonths);
+  const productInterest = sumRows(productRows, "interest");
+  const productPrincipal = sumRows(productRows, "principal");
+  const productPaid = sumRows(productRows, "payment") + upfrontFee;
+  const productBalance = productRows.at(-1)?.balance ?? principal;
   return {
     monthly: r.monthlyPayment,
     totalInterest: r.totalInterest,
     totalCost: r.totalInterest + plan.productFee,
     totalPaid: r.totalPaid + upfrontFee,
+    productInterest,
+    productPrincipal,
+    productBalance,
+    productPaid,
+    productCost: productInterest + plan.productFee,
     effectiveLoan: principal,
     baseLoan,
   };
@@ -212,6 +239,7 @@ const ComparePage = () => {
   const [housePrice, setHousePrice] = useState(350_000);
   const [sameDeposit, setSameDeposit] = useState(true);
   const [sharedDeposit, setSharedDeposit] = useState(35_000);
+  const [productYears, setProductYears] = useState<ProductYears>(2);
   const [planA, setPlanA] = useState<PlanInputs>(defaultPlanA);
   const [planB, setPlanB] = useState<PlanInputs>(defaultPlanB);
 
@@ -219,10 +247,10 @@ const ComparePage = () => {
   const effectiveA: PlanInputs = sameDeposit ? { ...planA, deposit: sharedDeposit } : planA;
   const effectiveB: PlanInputs = sameDeposit ? { ...planB, deposit: sharedDeposit } : planB;
 
-  const a = useMemo(() => computePlan(effectiveA, housePrice), [effectiveA, housePrice]);
-  const b = useMemo(() => computePlan(effectiveB, housePrice), [effectiveB, housePrice]);
+  const a = useMemo(() => computePlan(effectiveA, housePrice, productYears), [effectiveA, housePrice, productYears]);
+  const b = useMemo(() => computePlan(effectiveB, housePrice, productYears), [effectiveB, housePrice, productYears]);
 
-  const totalCostDiff = a.totalCost - b.totalCost;
+  const totalCostDiff = a.productCost - b.productCost;
   const monthlyDiff = a.monthly - b.monthly;
   const winner: "A" | "B" | "tie" =
     Math.abs(totalCostDiff) < 1 ? "tie" : totalCostDiff < 0 ? "A" : "B";
