@@ -1,10 +1,10 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { GitCompare, Trophy } from "lucide-react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { DepositField } from "@/components/calculators/DepositField";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 import { SEO } from "@/components/SEO";
-import { calculateRepayment } from "@/lib/finance/repayment";
+import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
 import { formatGBP } from "@/lib/finance/decimal";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
@@ -53,36 +53,57 @@ const NumberField = ({
   prefix?: string;
   suffix?: string;
   min?: number;
-}) => (
-  <label className="block">
-    <span className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-      {label}
-    </span>
-    <div className="relative">
-      {prefix && (
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-          {prefix}
-        </span>
-      )}
-      <input
-        type="number"
-        inputMode="decimal"
-        value={Number.isFinite(value) ? value : 0}
-        min={min}
-        step={step}
-        onChange={(e) => onChange(Number(e.target.value) || 0)}
-        className={`w-full bg-secondary border border-border rounded-xl py-2.5 ${
-          prefix ? "pl-7" : "pl-3"
-        } ${suffix ? "pr-10" : "pr-3"} text-sm font-semibold tabular-nums focus:outline-none focus:border-accent`}
-      />
-      {suffix && (
-        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-          {suffix}
-        </span>
-      )}
-    </div>
-  </label>
-);
+}) => {
+  const [draft, setDraft] = useState(Number.isFinite(value) ? String(value) : "");
+  const [focused, setFocused] = useState(false);
+
+  useEffect(() => {
+    if (!focused) setDraft(Number.isFinite(value) ? String(value) : "");
+  }, [focused, value]);
+
+  return (
+    <label className="block">
+      <span className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+        {label}
+      </span>
+      <div className="relative">
+        {prefix && (
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+            {prefix}
+          </span>
+        )}
+        <input
+          type="text"
+          inputMode="decimal"
+          value={draft}
+          onFocus={() => setFocused(true)}
+          onChange={(e) => {
+            const raw = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+            setDraft(raw);
+            if (raw === "" || raw === ".") return;
+            const next = Number(raw);
+            if (Number.isFinite(next)) onChange(Math.max(min, next));
+          }}
+          onBlur={() => {
+            setFocused(false);
+            const next = Number(draft);
+            const clamped = Number.isFinite(next) ? Math.max(min, next) : min;
+            onChange(clamped);
+            setDraft(String(clamped));
+          }}
+          className={`w-full bg-secondary border border-border rounded-xl py-2.5 ${
+            prefix ? "pl-7" : "pl-3"
+          } ${suffix ? "pr-10" : "pr-3"} text-sm font-semibold tabular-nums focus:outline-none focus:border-accent`}
+        />
+        {suffix && (
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+            {suffix}
+          </span>
+        )}
+      </div>
+    </label>
+  );
+};
 
 const PlanForm = ({
   label,
@@ -163,11 +184,21 @@ interface PlanResult {
   totalInterest: number;
   totalCost: number;
   totalPaid: number;
+  productInterest: number;
+  productPrincipal: number;
+  productBalance: number;
+  productPaid: number;
+  productCost: number;
   effectiveLoan: number;
   baseLoan: number;
 }
 
-const computePlan = (plan: PlanInputs, housePrice: number): PlanResult => {
+type ProductYears = 1 | 2 | 5;
+
+const sumRows = (rows: { interest: number; principal: number; payment: number }[], key: "interest" | "principal" | "payment") =>
+  rows.reduce((total, row) => total + row[key], 0);
+
+const computePlan = (plan: PlanInputs, housePrice: number, productYears: ProductYears): PlanResult => {
   const baseLoan = Math.max(0, housePrice - plan.deposit);
   const principal = plan.addFeeToLoan ? baseLoan + plan.productFee : baseLoan;
   const r = calculateRepayment({
@@ -177,11 +208,28 @@ const computePlan = (plan: PlanInputs, housePrice: number): PlanResult => {
     interestOnly: plan.interestOnly,
   });
   const upfrontFee = plan.addFeeToLoan ? 0 : plan.productFee;
+  const productMonths = Math.min(productYears * 12, plan.termYears * 12);
+  const { schedule } = buildSchedule({
+    principal,
+    annualRate: plan.apr,
+    termYears: plan.termYears,
+    interestOnly: plan.interestOnly,
+  });
+  const productRows = schedule.slice(0, productMonths);
+  const productInterest = sumRows(productRows, "interest");
+  const productPrincipal = sumRows(productRows, "principal");
+  const productPaid = sumRows(productRows, "payment") + upfrontFee;
+  const productBalance = productRows.at(-1)?.balance ?? principal;
   return {
     monthly: r.monthlyPayment,
     totalInterest: r.totalInterest,
     totalCost: r.totalInterest + plan.productFee,
     totalPaid: r.totalPaid + upfrontFee,
+    productInterest,
+    productPrincipal,
+    productBalance,
+    productPaid,
+    productCost: productInterest + plan.productFee,
     effectiveLoan: principal,
     baseLoan,
   };
@@ -191,6 +239,7 @@ const ComparePage = () => {
   const [housePrice, setHousePrice] = useState(350_000);
   const [sameDeposit, setSameDeposit] = useState(true);
   const [sharedDeposit, setSharedDeposit] = useState(35_000);
+  const [productYears, setProductYears] = useState<ProductYears>(2);
   const [planA, setPlanA] = useState<PlanInputs>(defaultPlanA);
   const [planB, setPlanB] = useState<PlanInputs>(defaultPlanB);
 
@@ -198,10 +247,10 @@ const ComparePage = () => {
   const effectiveA: PlanInputs = sameDeposit ? { ...planA, deposit: sharedDeposit } : planA;
   const effectiveB: PlanInputs = sameDeposit ? { ...planB, deposit: sharedDeposit } : planB;
 
-  const a = useMemo(() => computePlan(effectiveA, housePrice), [effectiveA, housePrice]);
-  const b = useMemo(() => computePlan(effectiveB, housePrice), [effectiveB, housePrice]);
+  const a = useMemo(() => computePlan(effectiveA, housePrice, productYears), [effectiveA, housePrice, productYears]);
+  const b = useMemo(() => computePlan(effectiveB, housePrice, productYears), [effectiveB, housePrice, productYears]);
 
-  const totalCostDiff = a.totalCost - b.totalCost;
+  const totalCostDiff = a.productCost - b.productCost;
   const monthlyDiff = a.monthly - b.monthly;
   const winner: "A" | "B" | "tie" =
     Math.abs(totalCostDiff) < 1 ? "tie" : totalCostDiff < 0 ? "A" : "B";
@@ -223,9 +272,9 @@ const ComparePage = () => {
     <CalculatorShell
       eyebrow="Compare two mortgage plans"
       title="Compare Mortgages"
-      intro="Put two offers head-to-head. Enter your house price and deposit, then the APR, term and product fee for each plan — we'll show monthly payment, total interest and lifetime cost so you can pick the cheaper deal with confidence."
+      intro="Put two offers head-to-head for the period UK borrowers usually keep a fixed product — 1, 2 or 5 years. Compare monthly payments, fees, interest paid and the remaining balance before you renew or remortgage."
       leadCalculator="compare"
-      leadContext={{ housePrice, sameDeposit, sharedDeposit, planA, planB }}
+      leadContext={{ housePrice, sameDeposit, sharedDeposit, productYears, planA, planB }}
     >
       <div className="grid lg:grid-cols-[1.1fr_1fr] gap-6">
         <div className="space-y-6">
@@ -240,6 +289,28 @@ const ComparePage = () => {
               prefix="£"
               onChange={setHousePrice}
             />
+
+            <div>
+              <p className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+                Compare product period
+              </p>
+              <div className="grid grid-cols-3 gap-2">
+                {([1, 2, 5] as ProductYears[]).map((years) => (
+                  <button
+                    key={years}
+                    type="button"
+                    onClick={() => setProductYears(years)}
+                    className={`rounded-lg border px-3 py-2 text-sm font-semibold transition-colors ${
+                      productYears === years
+                        ? "bg-accent text-accent-foreground border-accent"
+                        : "bg-secondary border-border text-foreground"
+                    }`}
+                  >
+                    {years} year{years > 1 ? "s" : ""}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             {sameDeposit && (
               <DepositField
@@ -312,17 +383,17 @@ const ComparePage = () => {
         <div className="space-y-4">
           <div className="glass-card rounded-2xl p-5">
             <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-2">
-              Verdict
+              Verdict over {productYears} year{productYears > 1 ? "s" : ""}
             </p>
             {winner === "tie" ? (
-              <p className="text-xl font-bold">Both plans cost the same overall.</p>
+              <p className="text-xl font-bold">Both plans cost the same during the product period.</p>
             ) : (
               <p className="text-xl font-bold flex items-start gap-2">
                 <Trophy className="size-5 text-accent-secondary shrink-0 mt-1" />
                 <span>
                   Plan {winner} is cheaper by{" "}
-                  <span className="text-gradient-velocity">{formatGBP(savings)}</span> over the
-                  full term.
+                  <span className="text-gradient-velocity">{formatGBP(savings)}</span> before the
+                  next renewal/remortgage point.
                 </span>
               </p>
             )}
@@ -333,7 +404,7 @@ const ComparePage = () => {
             </p>
           </div>
 
-          <ComparisonTable a={a} b={b} sameDeposit={sameDeposit} />
+          <ComparisonTable a={a} b={b} sameDeposit={sameDeposit} productYears={productYears} />
 
           <ShareCalculation
             title="Mortgage comparison"
@@ -345,7 +416,7 @@ const ComparePage = () => {
             }`}
             summary={[
               {
-                label: "Cheaper plan overall",
+                label: `Cheaper plan over ${productYears} year${productYears > 1 ? "s" : ""}`,
                 value: winner === "tie" ? "Tie" : `Plan ${winner} (saves ${formatGBP(savings)})`,
               },
               { label: "Plan A monthly", value: formatGBP(a.monthly) },
@@ -367,6 +438,9 @@ const ComparePage = () => {
                   { label: "Type", value: planA.interestOnly ? "Interest-only" : "Repayment" },
                   { label: "Effective loan", value: formatGBP(a.effectiveLoan) },
                   { label: "Monthly payment", value: formatGBP(a.monthly) },
+                  { label: `Interest over ${productYears} year${productYears > 1 ? "s" : ""}`, value: formatGBP(a.productInterest) },
+                  { label: `Cost over ${productYears} year${productYears > 1 ? "s" : ""} (interest + fee)`, value: formatGBP(a.productCost) },
+                  { label: `Balance after ${productYears} year${productYears > 1 ? "s" : ""}`, value: formatGBP(a.productBalance) },
                   { label: "Total interest", value: formatGBP(a.totalInterest) },
                   { label: "Total cost (interest + fee)", value: formatGBP(a.totalCost) },
                   { label: "Total paid over term", value: formatGBP(a.totalPaid) },
@@ -387,6 +461,9 @@ const ComparePage = () => {
                   { label: "Type", value: planB.interestOnly ? "Interest-only" : "Repayment" },
                   { label: "Effective loan", value: formatGBP(b.effectiveLoan) },
                   { label: "Monthly payment", value: formatGBP(b.monthly) },
+                  { label: `Interest over ${productYears} year${productYears > 1 ? "s" : ""}`, value: formatGBP(b.productInterest) },
+                  { label: `Cost over ${productYears} year${productYears > 1 ? "s" : ""} (interest + fee)`, value: formatGBP(b.productCost) },
+                  { label: `Balance after ${productYears} year${productYears > 1 ? "s" : ""}`, value: formatGBP(b.productBalance) },
                   { label: "Total interest", value: formatGBP(b.totalInterest) },
                   { label: "Total cost (interest + fee)", value: formatGBP(b.totalCost) },
                   { label: "Total paid over term", value: formatGBP(b.totalPaid) },
@@ -394,7 +471,7 @@ const ComparePage = () => {
               },
             ]}
             notes={[
-              "Total cost = interest paid plus product fee, the true 'extra' you pay above the loan amount.",
+              "Product-period cost = interest paid during the selected 1, 2 or 5 year deal plus the product fee.",
               "Adding the product fee to the loan reduces upfront cash but adds interest over the term.",
               "Different deposits change the loan size — a larger deposit usually unlocks lower lender APRs in real life.",
               "Interest-only plans require you to repay the original loan in full at the end of the term.",
@@ -457,21 +534,23 @@ const ComparisonTable = ({
   a,
   b,
   sameDeposit,
+  productYears,
 }: {
   a: PlanResult;
   b: PlanResult;
   sameDeposit: boolean;
+  productYears: ProductYears;
 }) => {
   const cheaperMonthly: "A" | "B" | "none" =
     Math.abs(a.monthly - b.monthly) < 0.5 ? "none" : a.monthly < b.monthly ? "A" : "B";
   const cheaperInterest: "A" | "B" | "none" =
-    Math.abs(a.totalInterest - b.totalInterest) < 1
+    Math.abs(a.productInterest - b.productInterest) < 1
       ? "none"
-      : a.totalInterest < b.totalInterest
+      : a.productInterest < b.productInterest
         ? "A"
         : "B";
   const cheaperTotal: "A" | "B" | "none" =
-    Math.abs(a.totalCost - b.totalCost) < 1 ? "none" : a.totalCost < b.totalCost ? "A" : "B";
+    Math.abs(a.productCost - b.productCost) < 1 ? "none" : a.productCost < b.productCost ? "A" : "B";
 
   return (
     <div className="glass-card rounded-2xl p-5">
@@ -491,18 +570,19 @@ const ComparisonTable = ({
         highlight={cheaperMonthly}
       />
       <Row
-        label="Total interest"
-        a={formatGBP(a.totalInterest)}
-        b={formatGBP(b.totalInterest)}
+        label={`Interest in ${productYears} yr${productYears > 1 ? "s" : ""}`}
+        a={formatGBP(a.productInterest)}
+        b={formatGBP(b.productInterest)}
         highlight={cheaperInterest}
       />
       <Row
-        label="Total cost (incl. fee)"
-        a={formatGBP(a.totalCost)}
-        b={formatGBP(b.totalCost)}
+        label={`Cost in ${productYears} yr${productYears > 1 ? "s" : ""} (incl. fee)`}
+        a={formatGBP(a.productCost)}
+        b={formatGBP(b.productCost)}
         highlight={cheaperTotal}
       />
-      <Row label="Total paid over term" a={formatGBP(a.totalPaid)} b={formatGBP(b.totalPaid)} />
+      <Row label={`Balance after ${productYears} yr${productYears > 1 ? "s" : ""}`} a={formatGBP(a.productBalance)} b={formatGBP(b.productBalance)} />
+      <Row label="Full-term cost" a={formatGBP(a.totalCost)} b={formatGBP(b.totalCost)} />
     </div>
   );
 };

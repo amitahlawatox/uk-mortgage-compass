@@ -5,6 +5,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/((?!assets/|icons/|favicon.ico|robots.txt|sitemap.xml|ads.txt|site.webmanifest).*)", "destination": "/index.html" }
+  ],
   "git": {
     "deploymentEnabled": true
   },
