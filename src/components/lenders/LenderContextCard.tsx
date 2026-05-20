@@ -4,12 +4,14 @@ import type { LenderData } from "@/lib/uk/lenders";
 
 interface LenderContextCardProps {
   lender: LenderData;
-  title: string;
-  body: string;
+  title?: string;
+  body?: string;
   links?: { to: string; label: string }[];
   eyebrow?: string;
   note?: string;
   className?: string;
+  calculatorType?: string;
+  contextDescription?: string;
 }
 
 export const LenderContextCard = ({
@@ -20,13 +22,19 @@ export const LenderContextCard = ({
   eyebrow = "Lender context",
   note,
   className = "",
+  calculatorType,
+  contextDescription,
 }: LenderContextCardProps) => (
   <section
     className={`rounded-3xl border border-accent/20 bg-gradient-to-br from-accent/10 via-background to-background p-5 sm:p-6 ${className}`.trim()}
   >
     <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-2">{eyebrow}</p>
-    <h2 className="text-xl sm:text-2xl font-bold tracking-tight">{title}</h2>
-    <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-[68ch]">{body}</p>
+    <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+      {title ?? `${lender.name} ${calculatorType ? calculatorType.replace(/-/g, " ") : "mortgage"} context`}
+    </h2>
+    <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-[68ch]">
+      {body ?? contextDescription}
+    </p>
 
     {lender.description && (
       <p className="mt-3 text-sm text-muted-foreground/80 leading-relaxed max-w-[68ch]">{lender.description}</p>
