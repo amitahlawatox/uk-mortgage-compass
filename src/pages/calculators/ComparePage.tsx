@@ -272,9 +272,9 @@ const ComparePage = () => {
     <CalculatorShell
       eyebrow="Compare two mortgage plans"
       title="Compare Mortgages"
-      intro="Put two offers head-to-head. Enter your house price and deposit, then the APR, term and product fee for each plan — we'll show monthly payment, total interest and lifetime cost so you can pick the cheaper deal with confidence."
+      intro="Put two offers head-to-head for the period UK borrowers usually keep a fixed product — 1, 2 or 5 years. Compare monthly payments, fees, interest paid and the remaining balance before you renew or remortgage."
       leadCalculator="compare"
-      leadContext={{ housePrice, sameDeposit, sharedDeposit, planA, planB }}
+      leadContext={{ housePrice, sameDeposit, sharedDeposit, productYears, planA, planB }}
     >
       <div className="grid lg:grid-cols-[1.1fr_1fr] gap-6">
         <div className="space-y-6">
@@ -289,6 +289,28 @@ const ComparePage = () => {
               prefix="£"
               onChange={setHousePrice}
             />
+
+            <div>
+              <p className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+                Compare product period
+              </p>
+              <div className="grid grid-cols-3 gap-2">
+                {([1, 2, 5] as ProductYears[]).map((years) => (
+                  <button
+                    key={years}
+                    type="button"
+                    onClick={() => setProductYears(years)}
+                    className={`rounded-lg border px-3 py-2 text-sm font-semibold transition-colors ${
+                      productYears === years
+                        ? "bg-accent text-accent-foreground border-accent"
+                        : "bg-secondary border-border text-foreground"
+                    }`}
+                  >
+                    {years} year{years > 1 ? "s" : ""}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             {sameDeposit && (
               <DepositField
@@ -361,17 +383,17 @@ const ComparePage = () => {
         <div className="space-y-4">
           <div className="glass-card rounded-2xl p-5">
             <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-2">
-              Verdict
+              Verdict over {productYears} year{productYears > 1 ? "s" : ""}
             </p>
             {winner === "tie" ? (
-              <p className="text-xl font-bold">Both plans cost the same overall.</p>
+              <p className="text-xl font-bold">Both plans cost the same during the product period.</p>
             ) : (
               <p className="text-xl font-bold flex items-start gap-2">
                 <Trophy className="size-5 text-accent-secondary shrink-0 mt-1" />
                 <span>
                   Plan {winner} is cheaper by{" "}
-                  <span className="text-gradient-velocity">{formatGBP(savings)}</span> over the
-                  full term.
+                  <span className="text-gradient-velocity">{formatGBP(savings)}</span> before the
+                  next renewal/remortgage point.
                 </span>
               </p>
             )}
@@ -382,7 +404,7 @@ const ComparePage = () => {
             </p>
           </div>
 
-          <ComparisonTable a={a} b={b} sameDeposit={sameDeposit} />
+          <ComparisonTable a={a} b={b} sameDeposit={sameDeposit} productYears={productYears} />
 
           <ShareCalculation
             title="Mortgage comparison"
@@ -394,7 +416,7 @@ const ComparePage = () => {
             }`}
             summary={[
               {
-                label: "Cheaper plan overall",
+                label: `Cheaper plan over ${productYears} year${productYears > 1 ? "s" : ""}`,
                 value: winner === "tie" ? "Tie" : `Plan ${winner} (saves ${formatGBP(savings)})`,
               },
               { label: "Plan A monthly", value: formatGBP(a.monthly) },
@@ -416,6 +438,9 @@ const ComparePage = () => {
                   { label: "Type", value: planA.interestOnly ? "Interest-only" : "Repayment" },
                   { label: "Effective loan", value: formatGBP(a.effectiveLoan) },
                   { label: "Monthly payment", value: formatGBP(a.monthly) },
+                  { label: `Interest over ${productYears} year${productYears > 1 ? "s" : ""}`, value: formatGBP(a.productInterest) },
+                  { label: `Cost over ${productYears} year${productYears > 1 ? "s" : ""} (interest + fee)`, value: formatGBP(a.productCost) },
+                  { label: `Balance after ${productYears} year${productYears > 1 ? "s" : ""}`, value: formatGBP(a.productBalance) },
                   { label: "Total interest", value: formatGBP(a.totalInterest) },
                   { label: "Total cost (interest + fee)", value: formatGBP(a.totalCost) },
                   { label: "Total paid over term", value: formatGBP(a.totalPaid) },
@@ -436,6 +461,9 @@ const ComparePage = () => {
                   { label: "Type", value: planB.interestOnly ? "Interest-only" : "Repayment" },
                   { label: "Effective loan", value: formatGBP(b.effectiveLoan) },
                   { label: "Monthly payment", value: formatGBP(b.monthly) },
+                  { label: `Interest over ${productYears} year${productYears > 1 ? "s" : ""}`, value: formatGBP(b.productInterest) },
+                  { label: `Cost over ${productYears} year${productYears > 1 ? "s" : ""} (interest + fee)`, value: formatGBP(b.productCost) },
+                  { label: `Balance after ${productYears} year${productYears > 1 ? "s" : ""}`, value: formatGBP(b.productBalance) },
                   { label: "Total interest", value: formatGBP(b.totalInterest) },
                   { label: "Total cost (interest + fee)", value: formatGBP(b.totalCost) },
                   { label: "Total paid over term", value: formatGBP(b.totalPaid) },
@@ -443,7 +471,7 @@ const ComparePage = () => {
               },
             ]}
             notes={[
-              "Total cost = interest paid plus product fee, the true 'extra' you pay above the loan amount.",
+              "Product-period cost = interest paid during the selected 1, 2 or 5 year deal plus the product fee.",
               "Adding the product fee to the loan reduces upfront cash but adds interest over the term.",
               "Different deposits change the loan size — a larger deposit usually unlocks lower lender APRs in real life.",
               "Interest-only plans require you to repay the original loan in full at the end of the term.",
