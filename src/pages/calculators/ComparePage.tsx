@@ -534,21 +534,23 @@ const ComparisonTable = ({
   a,
   b,
   sameDeposit,
+  productYears,
 }: {
   a: PlanResult;
   b: PlanResult;
   sameDeposit: boolean;
+  productYears: ProductYears;
 }) => {
   const cheaperMonthly: "A" | "B" | "none" =
     Math.abs(a.monthly - b.monthly) < 0.5 ? "none" : a.monthly < b.monthly ? "A" : "B";
   const cheaperInterest: "A" | "B" | "none" =
-    Math.abs(a.totalInterest - b.totalInterest) < 1
+    Math.abs(a.productInterest - b.productInterest) < 1
       ? "none"
-      : a.totalInterest < b.totalInterest
+      : a.productInterest < b.productInterest
         ? "A"
         : "B";
   const cheaperTotal: "A" | "B" | "none" =
-    Math.abs(a.totalCost - b.totalCost) < 1 ? "none" : a.totalCost < b.totalCost ? "A" : "B";
+    Math.abs(a.productCost - b.productCost) < 1 ? "none" : a.productCost < b.productCost ? "A" : "B";
 
   return (
     <div className="glass-card rounded-2xl p-5">
@@ -568,18 +570,19 @@ const ComparisonTable = ({
         highlight={cheaperMonthly}
       />
       <Row
-        label="Total interest"
-        a={formatGBP(a.totalInterest)}
-        b={formatGBP(b.totalInterest)}
+        label={`Interest in ${productYears} yr${productYears > 1 ? "s" : ""}`}
+        a={formatGBP(a.productInterest)}
+        b={formatGBP(b.productInterest)}
         highlight={cheaperInterest}
       />
       <Row
-        label="Total cost (incl. fee)"
-        a={formatGBP(a.totalCost)}
-        b={formatGBP(b.totalCost)}
+        label={`Cost in ${productYears} yr${productYears > 1 ? "s" : ""} (incl. fee)`}
+        a={formatGBP(a.productCost)}
+        b={formatGBP(b.productCost)}
         highlight={cheaperTotal}
       />
-      <Row label="Total paid over term" a={formatGBP(a.totalPaid)} b={formatGBP(b.totalPaid)} />
+      <Row label={`Balance after ${productYears} yr${productYears > 1 ? "s" : ""}`} a={formatGBP(a.productBalance)} b={formatGBP(b.productBalance)} />
+      <Row label="Full-term cost" a={formatGBP(a.totalCost)} b={formatGBP(b.totalCost)} />
     </div>
   );
 };
