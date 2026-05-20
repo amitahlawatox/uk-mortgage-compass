@@ -1,10 +1,10 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { GitCompare, Trophy } from "lucide-react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { DepositField } from "@/components/calculators/DepositField";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
 import { SEO } from "@/components/SEO";
-import { calculateRepayment } from "@/lib/finance/repayment";
+import { buildSchedule, calculateRepayment } from "@/lib/finance/repayment";
 import { formatGBP } from "@/lib/finance/decimal";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
@@ -53,36 +53,57 @@ const NumberField = ({
   prefix?: string;
   suffix?: string;
   min?: number;
-}) => (
-  <label className="block">
-    <span className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-      {label}
-    </span>
-    <div className="relative">
-      {prefix && (
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-          {prefix}
-        </span>
-      )}
-      <input
-        type="number"
-        inputMode="decimal"
-        value={Number.isFinite(value) ? value : 0}
-        min={min}
-        step={step}
-        onChange={(e) => onChange(Number(e.target.value) || 0)}
-        className={`w-full bg-secondary border border-border rounded-xl py-2.5 ${
-          prefix ? "pl-7" : "pl-3"
-        } ${suffix ? "pr-10" : "pr-3"} text-sm font-semibold tabular-nums focus:outline-none focus:border-accent`}
-      />
-      {suffix && (
-        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-          {suffix}
-        </span>
-      )}
-    </div>
-  </label>
-);
+}) => {
+  const [draft, setDraft] = useState(Number.isFinite(value) ? String(value) : "");
+  const [focused, setFocused] = useState(false);
+
+  useEffect(() => {
+    if (!focused) setDraft(Number.isFinite(value) ? String(value) : "");
+  }, [focused, value]);
+
+  return (
+    <label className="block">
+      <span className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+        {label}
+      </span>
+      <div className="relative">
+        {prefix && (
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+            {prefix}
+          </span>
+        )}
+        <input
+          type="text"
+          inputMode="decimal"
+          value={draft}
+          onFocus={() => setFocused(true)}
+          onChange={(e) => {
+            const raw = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+            setDraft(raw);
+            if (raw === "" || raw === ".") return;
+            const next = Number(raw);
+            if (Number.isFinite(next)) onChange(Math.max(min, next));
+          }}
+          onBlur={() => {
+            setFocused(false);
+            const next = Number(draft);
+            const clamped = Number.isFinite(next) ? Math.max(min, next) : min;
+            onChange(clamped);
+            setDraft(String(clamped));
+          }}
+          className={`w-full bg-secondary border border-border rounded-xl py-2.5 ${
+            prefix ? "pl-7" : "pl-3"
+          } ${suffix ? "pr-10" : "pr-3"} text-sm font-semibold tabular-nums focus:outline-none focus:border-accent`}
+        />
+        {suffix && (
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+            {suffix}
+          </span>
+        )}
+      </div>
+    </label>
+  );
+};
 
 const PlanForm = ({
   label,
