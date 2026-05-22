@@ -1,4 +1,4 @@
-import { Head } from "vite-react-ssg";
+import { Head } from "@/components/Head";
 
 interface BreadcrumbItem {
   name: string;

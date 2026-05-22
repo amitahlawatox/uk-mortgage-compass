@@ -16,7 +16,7 @@ import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
-import { Head } from "vite-react-ssg";
+import { Head } from "@/components/Head";
 
 const EquityPage = () => {
   const { slug } = useParams<{ slug: string }>();

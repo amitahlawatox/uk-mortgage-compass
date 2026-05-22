@@ -12,7 +12,7 @@ import { calculateAffordability } from "@/lib/finance/affordability";
 import { formatGBP } from "@/lib/finance/decimal";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
-import { Head } from "vite-react-ssg";
+import { Head } from "@/components/Head";
 import { BigStat, SliderField } from "./RepaymentPage";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
