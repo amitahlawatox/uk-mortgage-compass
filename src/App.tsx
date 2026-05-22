@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Outlet, useLocation } from "react-router-dom";
-import type { RouteRecord } from "vite-react-ssg";
+import { Outlet, useLocation, type RouteObject } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { ANALYTICS_CONSENT_EVENT, syncAnalyticsConsent, trackPageView } from "@/lib/analytics";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -10,6 +10,15 @@ import { FCABanner } from "@/components/FCABanner";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { cities } from "@/lib/uk/cities";
 import { lenders } from "@/lib/uk/lenders";
+
+// Extended route shape: vite-react-ssg-specific fields (`entry`, `getStaticPaths`)
+// are accepted but ignored by react-router in SPA mode, so we keep them as
+// optional metadata so the file stays SSG-migration-ready.
+type RouteRecord = RouteObject & {
+  entry?: string;
+  getStaticPaths?: () => string[];
+  children?: RouteRecord[];
+};
 
 const RouteFallback = () => <div className="min-h-screen bg-background" aria-hidden="true" />;
 
