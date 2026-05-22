@@ -68,7 +68,7 @@ export const CalculatorShell = ({ eyebrow, title, intro, children, leadCalculato
       </div>
     </section>
     <section className="px-4 pb-12">
-      <div className="max-w-5xl mx-auto">
+      <div ref={calcAreaRef} className="max-w-5xl mx-auto">
         {children}
         <AdComponent slot="inline" className="mt-6" />
       </div>
