@@ -229,7 +229,10 @@ const computePlan = (plan: PlanInputs, housePrice: number, productYears: Product
     productPrincipal,
     productBalance,
     productPaid,
-    productCost: productInterest + plan.productFee,
+    // Cost over the product period = interest paid + any upfront fee.
+    // When the fee is added to the loan it is already inside `principal`,
+    // so it shows up via interest + balance, not as a separate add-on.
+    productCost: productInterest + upfrontFee,
     effectiveLoan: principal,
     baseLoan,
   };
