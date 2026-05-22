@@ -23,7 +23,7 @@ export const CookieConsent = () => {
       <div className="glass-card rounded-2xl p-5 shadow-soft">
         <h3 className="font-semibold text-sm mb-2">Your privacy</h3>
         <p className="text-xs text-muted-foreground leading-relaxed mb-4">
-          We use essential cookies to run this site and optional analytics cookies (via Google Analytics and PostHog) to
+          We use Google Analytics to
           improve our calculators. Read our cookie notice. UK GDPR applies.
         </p>
         <div className="flex gap-2">

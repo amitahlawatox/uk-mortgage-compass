@@ -31,7 +31,7 @@ export default function PrivacyPolicy() {
 
         <h2>Cookies</h2>
         <p>
-          RepayWise does not use tracking cookies, advertising cookies, or analytics cookies.
+          RepayWise uses Google Analytics 4 (GA4) to understand how visitors use our calculators. This collects anonymised usage data (pages visited, session duration, general location). No personally identifiable information is collected. You can opt out via your browser settings or Google's opt-out tool.
           We may use a single session cookie to remember your preferred colour scheme (light/dark
           mode). This cookie does not identify you personally and is not shared with any third party.
         </p>
@@ -39,7 +39,7 @@ export default function PrivacyPolicy() {
         <h2>Third-party services</h2>
         <p>
           RepayWise does not embed third-party advertising scripts, social media tracking pixels,
-          or analytics services such as Google Analytics. No data is shared with advertisers
+          RepayWise uses Google Analytics 4 for anonymised usage statistics. No data is shared with advertisers
           or data brokers.
         </p>
 
