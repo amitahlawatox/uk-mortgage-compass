@@ -193,7 +193,7 @@ interface PlanResult {
   baseLoan: number;
 }
 
-type ProductYears = 1 | 2 | 5;
+type ProductYears = 1 | 2 | 3 | 4 | 5;
 
 const sumRows = (rows: { interest: number; principal: number; payment: number }[], key: "interest" | "principal" | "payment") =>
   rows.reduce((total, row) => total + row[key], 0);
