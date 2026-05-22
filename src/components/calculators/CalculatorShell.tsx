@@ -1,10 +1,11 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { track } from "@/lib/analytics";
 import { AdComponent } from "@/components/AdComponent";
+import { pulseLogo } from "@/components/Logo";
 
 interface CalculatorShellProps {
   eyebrow: string;
@@ -19,6 +20,30 @@ export const CalculatorShell = ({ eyebrow, title, intro, children, leadCalculato
   useEffect(() => {
     if (leadCalculator) track("calculator_viewed", { calculator: leadCalculator });
   }, [leadCalculator]);
+
+  // Heartbeat: speed up the header logo while the user is tweaking inputs,
+  // then settle back to a resting pulse once they stop.
+  const calcAreaRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const node = calcAreaRef.current;
+    if (!node) return;
+    let settleTimer: number | undefined;
+    const bump = () => {
+      pulseLogo("calculating");
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(() => pulseLogo("settled"), 500);
+    };
+    node.addEventListener("input", bump);
+    node.addEventListener("change", bump);
+    node.addEventListener("click", bump);
+    return () => {
+      node.removeEventListener("input", bump);
+      node.removeEventListener("change", bump);
+      node.removeEventListener("click", bump);
+      window.clearTimeout(settleTimer);
+      pulseLogo("settled");
+    };
+  }, []);
 
   return (
   <SiteShell>
@@ -43,7 +68,7 @@ export const CalculatorShell = ({ eyebrow, title, intro, children, leadCalculato
       </div>
     </section>
     <section className="px-4 pb-12">
-      <div className="max-w-5xl mx-auto">
+      <div ref={calcAreaRef} className="max-w-5xl mx-auto">
         {children}
         <AdComponent slot="inline" className="mt-6" />
       </div>
