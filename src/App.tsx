@@ -67,20 +67,22 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <AnalyticsRouteTracker />
-          <Suspense fallback={<RouteFallback />}>
-            <Outlet />
-          </Suspense>
-          {/* FCA regulatory warning rendered in the initial HTML */}
-          <FCABanner />
-        </TooltipProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <AnalyticsRouteTracker />
+            <Suspense fallback={<RouteFallback />}>
+              <Outlet />
+            </Suspense>
+            {/* FCA regulatory warning rendered in the initial HTML */}
+            <FCABanner />
+          </TooltipProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 };
 
