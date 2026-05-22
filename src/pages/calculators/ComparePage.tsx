@@ -193,7 +193,7 @@ interface PlanResult {
   baseLoan: number;
 }
 
-type ProductYears = 1 | 2 | 5;
+type ProductYears = 1 | 2 | 3 | 4 | 5;
 
 const sumRows = (rows: { interest: number; principal: number; payment: number }[], key: "interest" | "principal" | "payment") =>
   rows.reduce((total, row) => total + row[key], 0);
@@ -294,19 +294,19 @@ const ComparePage = () => {
               <p className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
                 Compare product period
               </p>
-              <div className="grid grid-cols-3 gap-2">
-                {([1, 2, 5] as ProductYears[]).map((years) => (
+              <div className="grid grid-cols-5 gap-2">
+                {([1, 2, 3, 4, 5] as ProductYears[]).map((years) => (
                   <button
                     key={years}
                     type="button"
                     onClick={() => setProductYears(years)}
-                    className={`rounded-lg border px-3 py-2 text-sm font-semibold transition-colors ${
+                    className={`rounded-lg border px-2 py-2 text-sm font-semibold transition-colors ${
                       productYears === years
                         ? "bg-accent text-accent-foreground border-accent"
                         : "bg-secondary border-border text-foreground"
                     }`}
                   >
-                    {years} year{years > 1 ? "s" : ""}
+                    {years}y
                   </button>
                 ))}
               </div>
