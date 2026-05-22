@@ -17,7 +17,7 @@ import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
-import { Head } from "vite-react-ssg";
+import { Head } from "@/components/Head";
 
 const FeeInput = ({ value, onChange, disabled }: { value: number; onChange: (v: number) => void; disabled?: boolean }) => {
   const [draft, setDraft] = useState(String(value));
