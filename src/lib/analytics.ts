@@ -2,19 +2,20 @@
 
 export const ANALYTICS_CONSENT_EVENT = "analytics-consent";
 
-declare function gtag(...args: unknown[]): void;
+type GtagFn = (...args: unknown[]) => void;
 
 function safeGtag(event: string, params?: Record<string, unknown>): void {
   try {
-    if (typeof window !== "undefined" && typeof (window as unknown as Record<string, unknown>).gtag === "function") {
-      (window as unknown as Record<string, unknown & { gtag: typeof gtag }>).gtag("event", event, params ?? {});
+    if (typeof window !== "undefined") {
+      const g = (window as unknown as { gtag?: GtagFn }).gtag;
+      if (typeof g === "function") g("event", event, params ?? {});
     }
   } catch {
     // SSR or gtag not loaded yet — silent fail
   }
 }
 
-export function syncAnalyticsConsent(_granted: boolean): void {}
+export function syncAnalyticsConsent(_granted?: boolean): void {}
 
 export function trackPageView(path?: string): void {
   safeGtag("page_view", { page_path: path ?? (typeof window !== "undefined" ? window.location.pathname : "") });
@@ -28,9 +29,10 @@ export function track(event: string, params?: Record<string, unknown>): void {
   safeGtag(event, params);
 }
 
-export function trackIntentClick(label: string, url?: string): void {
-  safeGtag("intent_calculate_click", { label, url: url ?? "" });
+export function trackIntentClick(label: string, url?: string, title?: string): void {
+  safeGtag("intent_calculate_click", { label, url: url ?? "", title: title ?? "" });
 }
+
 
 export function trackCalculatorUse(type: string, params?: Record<string, unknown>): void {
   safeGtag("calculator_viewed", { calculator_type: type, ...params });

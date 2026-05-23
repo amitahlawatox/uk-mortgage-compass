@@ -3,10 +3,11 @@ export interface LenderData {
   slug: string;
   estimatedSvr: number;
   maxLtv: number;
-  category: string;
+  category?: string;
   trustRating: number;
   description: string;
 }
+
 
 export const lenders: LenderData[] = [
   { name: "Lloyds Bank", slug: "lloyds-bank", estimatedSvr: 7.49, maxLtv: 95, category: "Big Six", trustRating: 5, description: "Lloyds Bank is one of the UK's largest mortgage lenders, offering a wide range of residential and buy-to-let products." },
