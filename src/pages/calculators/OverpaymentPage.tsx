@@ -126,13 +126,13 @@ const OverpaymentPage = () => {
   const pagePath = city ? `calculators/overpayment/${city.slug}` : lender ? `calculators/overpayment/${lender.slug}` : "calculators/overpayment";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = city ? `${city.name} Overpayment Calculator | RepayWise` : lender
-    ? `${lender.name} Mortgage Overpayment Calculator 2026 | RepayWise`
-    : "Mortgage Overpayment Calculator UK | Save Years and Pounds | RepayWise";
+    ? `${lender.name} Overpayment Calculator 2026 — Independent | RepayWise`
+    : "Mortgage Overpayment Calculator UK 2026 | Save Years & Interest | RepayWise";
   const seoDescription = city
     ? `Free mortgage overpayment calculator for ${city.name}. ${city.description} See how overpaying saves years and thousands in interest.`
     : lender
-    ? `See how much interest and time you could save by overpaying a ${lender.name} mortgage. RepayWise models monthly and lump-sum overpayments against an indicative ${lender.estimatedSvr.toFixed(2)}% SVR.`
-    : "See how overpaying your UK mortgage cuts years off your term and saves thousands in interest. Free, FCA-aligned, decimal-precision amortisation. No login needed.";
+    ? `RepayWise independent overpayment tool for ${lender.name} customers. See how monthly or lump-sum overpayments save interest and cut your mortgage term. No login or credit check.`
+    : "See how overpaying your UK mortgage saves years and thousands in interest — RepayWise free independent calculator. No bank login needed. Not affiliated with any lender.";
 
   return (
     <CalculatorShell

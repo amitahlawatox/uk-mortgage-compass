@@ -64,13 +64,13 @@ const MaxBorrowingPage = () => {
   const pagePath = city ? `calculators/max-borrowing/${city.slug}` : lender ? `calculators/max-borrowing/${lender.slug}` : "calculators/max-borrowing";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = city ? `${city.name} Maximum Borrowing Calculator | RepayWise` : lender
-    ? `${lender.name} Mortgage Affordability Calculator 2026 | RepayWise`
-    : "Mortgage Affordability Calculator UK | How Much Can I Borrow?";
+    ? `${lender.name} Max Borrowing Calculator 2026 — Independent | RepayWise`
+    : "How Much Can I Borrow? UK Mortgage Calculator 2026 | RepayWise";
   const seoDescription = city
     ? `Free mortgage affordability calculator for ${city.name}. ${city.description} Find out how much you could borrow based on income and deposit.`
     : lender
-    ? `Estimate how much ${lender.name} could lend using a lender-style borrowing model with an indicative ${lender.estimatedSvr.toFixed(2)}% SVR and ${lender.maxLtv}% maximum LTV context.`
-    : "Find out how much you can borrow for a UK mortgage. Income multiplier, disposable income check and +3% stress test built in.";
+    ? `RepayWise independent borrowing calculator for ${lender.name} customers. Estimate how much you could borrow — no ${lender.name} login or credit check required. Free third-party tool.`
+    : "How much can you borrow for a UK mortgage? RepayWise independent calculator — income multiplier, stress test and deposit check. No login needed. Not affiliated with any lender.";
 
   return (
     <CalculatorShell

@@ -92,15 +92,15 @@ const RepaymentPage = () => {
     : "Three quick questions, one clear answer. We calculate your monthly payment using the standard amortisation formula in 28-digit decimal precision.";
   const pagePath = city ? `calculators/repayment/${city.slug}` : lender ? `calculators/repayment/${lender.slug}` : "calculators/repayment";
   const seoTitle = city
-    ? `${city.name} Mortgage Calculator – Monthly Repayments | RepayWise`
+    ? `${city.name} Mortgage Repayment Calculator 2026 | RepayWise`
     : lender
-    ? `${lender.name} Mortgage Calculator – Free UK Tool | RepayWise`
-    : "Mortgage Repayment Calculator – Free UK Tool | RepayWise";
+    ? `${lender.name} Mortgage Calculator 2026 — Independent Tool | RepayWise`
+    : "Mortgage Repayment Calculator 2026 — Free UK Tool | RepayWise";
   const seoDescription = city
-    ? `Free mortgage repayment calculator for ${city.name}. ${city.description} See monthly payments, total cost and overpayment savings.`
+    ? `RepayWise independent mortgage repayment calculator for ${city.name}. See monthly payments, total interest and how overpayments save you money. No bank login or credit check needed.`
     : lender
-    ? `Free ${lender.name} mortgage repayment calculator. See monthly payments, total interest and how overpayments save you money.`
-    : "Free UK mortgage repayment calculator. Calculate monthly payments, total interest and see how overpayments cut your term.";
+    ? `RepayWise independent repayment tool for ${lender.name} customers. See your monthly payment, total interest and how much overpaying saves. No login, no credit check — 100% free.`
+    : "Free UK mortgage repayment calculator — RepayWise. Monthly payments, total interest and overpayment savings in seconds. No login or credit check. Not affiliated with any lender.";
 
   return (
     <CalculatorShell
