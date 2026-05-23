@@ -29,9 +29,10 @@ export function track(event: string, params?: Record<string, unknown>): void {
   safeGtag(event, params);
 }
 
-export function trackIntentClick(label: string, url?: string, title?: string): void {
-  safeGtag("intent_calculate_click", { label, url: url ?? "", title: title ?? "" });
+export function trackIntentClick(label: string, url?: string, title?: string, params?: Record<string, unknown>): void {
+  safeGtag("intent_calculate_click", { label, url: url ?? "", title: title ?? "", ...(params ?? {}) });
 }
+
 
 
 export function trackCalculatorUse(type: string, params?: Record<string, unknown>): void {
