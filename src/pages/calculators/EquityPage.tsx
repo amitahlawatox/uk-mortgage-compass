@@ -16,7 +16,6 @@ import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
-import { Head } from "@/components/Head";
 
 const EquityPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -101,12 +100,6 @@ const EquityPage = () => {
       leadCalculator="equity"
       leadContext={{ purchasePrice, currentValue, deposit, term, rate, yearsOwned, outstanding, yourEquity }}
     >
-      <Head>
-        <title>{seoTitle}</title>
-        <meta name="description" content={seoDescription} />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:url" content={canonicalUrl} />
-      </Head>
       <SEO
         title={seoTitle}
         description={seoDescription}

@@ -12,11 +12,11 @@ import { calculateAffordability } from "@/lib/finance/affordability";
 import { formatGBP } from "@/lib/finance/decimal";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
-import { Head } from "@/components/Head";
 import { BigStat, SliderField } from "./RepaymentPage";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
+import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
 
 const MaxBorrowingPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -80,12 +80,6 @@ const MaxBorrowingPage = () => {
       leadCalculator="affordability"
       leadContext={{ income, partner, expenditure, deposit, rate, term, maxBorrowing: result.maxBorrowing, lender: lender?.slug }}
     >
-      <Head>
-        <title>{seoTitle}</title>
-        <meta name="description" content={seoDescription} />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:url" content={canonicalUrl} />
-      </Head>
       <SEO
         title={seoTitle}
         description={seoDescription}

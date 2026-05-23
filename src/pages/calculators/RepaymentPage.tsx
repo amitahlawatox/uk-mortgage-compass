@@ -16,6 +16,7 @@ import { getCityBySlug } from "@/lib/uk/cities";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
+import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
 
 type Step = 0 | 1 | 2 | 3;
 

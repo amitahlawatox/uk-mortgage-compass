@@ -16,7 +16,6 @@ import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
-import { Head } from "@/components/Head";
 
 type RepayType = "repayment" | "interest-only";
 
@@ -81,12 +80,6 @@ const BuyToLetPage = () => {
       leadCalculator="repayment"
       leadContext={{ housePrice, deposit, loan, rate, term, region, emi, stampDuty: stamp.total }}
     >
-      <Head>
-        <title>{seoTitle}</title>
-        <meta name="description" content={seoDescription} />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:url" content={canonicalUrl} />
-      </Head>
       <SEO
         title={seoTitle}
         description={seoDescription}
