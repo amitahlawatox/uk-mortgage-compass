@@ -77,10 +77,10 @@ const Index = () => (
 
     <section className="px-4 pt-16 pb-20 sm:pt-24">
       <div className="max-w-4xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary border border-border mb-6 animate-fade-up">
-          <span className="size-1.5 rounded-full bg-accent-secondary animate-pulse" />
-          <span className="text-[11px] font-bold tracking-wider uppercase">
-            Free tools · No sign-up required
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/30 mb-6 animate-fade-up">
+          <span className="size-2 rounded-full bg-accent animate-pulse" />
+          <span className="text-[11px] font-bold tracking-wider uppercase text-accent">
+            Free · No signup · No email · No phone · 100% independent
           </span>
         </div>
         <h1 className="text-5xl sm:text-7xl font-bold tracking-tight leading-[0.95] mb-6 animate-fade-up">
@@ -107,6 +107,30 @@ const Index = () => (
           >
             Total cost to buy
           </Link>
+        </div>
+
+        {/* Trust strip */}
+        <div className="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-3 text-xs text-muted-foreground animate-fade-up">
+          <span className="flex items-center gap-1.5 font-medium">
+            <svg className="size-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+            No account needed
+          </span>
+          <span className="flex items-center gap-1.5 font-medium">
+            <svg className="size-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            No email or phone required
+          </span>
+          <span className="flex items-center gap-1.5 font-medium">
+            <svg className="size-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            Free forever
+          </span>
+          <span className="flex items-center gap-1.5 font-medium">
+            <svg className="size-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
+            Independent — not affiliated with any bank
+          </span>
+          <span className="flex items-center gap-1.5 font-medium">
+            <svg className="size-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            No credit check
+          </span>
         </div>
       </div>
     </section>
