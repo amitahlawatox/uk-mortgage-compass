@@ -17,6 +17,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
+import { LenderInsight } from "@/components/lenders/LenderInsight";
 
 type Step = 0 | 1 | 2 | 3;
 
@@ -118,7 +119,18 @@ const RepaymentPage = () => {
         lender: lender?.slug,
       }}
     >
-      <SEO
+      
+      {/* Unique lender content — defeats duplicate content filter */}
+      {lender && (
+        <LenderInsight
+          slug={lender.slug}
+          name={lender.name}
+          maxLtv={lender.maxLtv}
+          svr={lender.estimatedSvr}
+        />
+      )}
+
+<SEO
         title={seoTitle}
         description={seoDescription}
         path={pagePath}

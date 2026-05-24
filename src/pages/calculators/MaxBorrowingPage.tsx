@@ -17,6 +17,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
+import { LenderInsight } from "@/components/lenders/LenderInsight";
 
 const MaxBorrowingPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -80,7 +81,12 @@ const MaxBorrowingPage = () => {
       leadCalculator="affordability"
       leadContext={{ income, partner, expenditure, deposit, rate, term, maxBorrowing: result.maxBorrowing, lender: lender?.slug }}
     >
-      <SEO
+      
+      {lender && (
+        <LenderInsight slug={lender.slug} name={lender.name} maxLtv={lender.maxLtv} svr={lender.estimatedSvr} />
+      )}
+
+<SEO
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
