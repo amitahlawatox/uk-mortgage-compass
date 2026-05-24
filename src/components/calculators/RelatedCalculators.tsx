@@ -24,18 +24,32 @@ const allCalculators: RelatedItem[] = [
 interface RelatedCalculatorsProps {
   currentPath: string;
   max?: number;
+  lenderSlug?: string;
+  lenderName?: string;
+  citySlug?: string;
+  cityName?: string;
 }
 
-export const RelatedCalculators = ({ currentPath, max = 4 }: RelatedCalculatorsProps) => {
+export const RelatedCalculators = ({ currentPath, max = 4, lenderSlug, lenderName, citySlug, cityName }: RelatedCalculatorsProps) => {
+  // When lender/city is present, link to the SAME lender/city's other calculators
+  // This creates a web of internal links that boosts all pages for that entity
+  const suffix = lenderSlug ? `/${lenderSlug}` : citySlug ? `/${citySlug}` : "";
+  const entityName = lenderName || cityName || "";
+  
   const related = allCalculators
-    .filter((c) => c.to !== currentPath)
+    .filter((c) => c.to !== currentPath && c.to !== "/calculators/compare" && c.to !== "/guides/help-to-buy-repayment")
+    .map((c) => ({
+      ...c,
+      to: c.to + suffix,
+      title: entityName ? `${entityName} ${c.title}` : c.title,
+    }))
     .slice(0, max);
 
   return (
     <section className="mt-12 pt-10 border-t border-border">
-      <h2 className="text-xl font-bold tracking-tight mb-1">Related calculators</h2>
+      <h2 className="text-xl font-bold tracking-tight mb-1">{entityName ? `More ${entityName} Calculators` : "Related calculators"}</h2>
       <p className="text-sm text-muted-foreground mb-6">
-        Explore more free UK mortgage tools
+        {entityName ? `All RepayWise independent tools for ${entityName} customers` : "Explore more free UK mortgage tools"}
       </p>
       <div className="grid sm:grid-cols-2 gap-3">
         {related.map((calc) => {

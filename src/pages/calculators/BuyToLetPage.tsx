@@ -267,7 +267,7 @@ const BuyToLetPage = () => {
       </div>
 
       <LastUpdated date="30 April 2026" />
-      <RelatedCalculators currentPath="/calculators/buy-to-let" />
+      <RelatedCalculators currentPath="/calculators/buy-to-let" lenderSlug={lender?.slug} lenderName={lender?.name} />
     </CalculatorShell>
   );
 };

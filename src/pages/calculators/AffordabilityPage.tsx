@@ -506,7 +506,7 @@ const AffordabilityPage = () => {
       </div>
 
       <LastUpdated date="30 April 2026" />
-      <RelatedCalculators currentPath="/calculators/affordability" />
+      <RelatedCalculators currentPath="/calculators/affordability" lenderSlug={lender?.slug} lenderName={lender?.name} />
     </CalculatorShell>
   );
 };

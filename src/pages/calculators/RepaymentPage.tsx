@@ -585,7 +585,7 @@ const RepaymentPage = () => {
       </div>
 
       <LastUpdated date="30 April 2026" />
-      <RelatedCalculators currentPath={pagePath} />
+      <RelatedCalculators currentPath={pagePath} lenderSlug={lender?.slug} lenderName={lender?.name} citySlug={city?.slug} cityName={city?.name} />
     </CalculatorShell>
   );
 };

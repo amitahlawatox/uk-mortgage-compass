@@ -263,7 +263,7 @@ const EquityPage = () => {
       </div>
 
       <LastUpdated date="30 April 2026" />
-      <RelatedCalculators currentPath="/calculators/equity" />
+      <RelatedCalculators currentPath="/calculators/equity" lenderSlug={lender?.slug} lenderName={lender?.name} />
     </CalculatorShell>
   );
 };
