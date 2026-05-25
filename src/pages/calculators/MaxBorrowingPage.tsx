@@ -18,6 +18,7 @@ import { RelatedCalculators } from "@/components/calculators/RelatedCalculators"
 import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
 import { LenderInsight } from "@/components/lenders/LenderInsight";
+import { shouldNoindexLender } from "@/lib/uk/noindexLenders";
 
 const MaxBorrowingPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -134,6 +135,7 @@ const MaxBorrowingPage = () => {
         }}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Maximum Mortgage Borrowing Calculator"
+        noindex={shouldNoindexLender(slug)}
       />
       {lender && <LenderTrustBadge lenderName={lender.name} />}
       {city && <CityTrustBadge cityName={city.name} />}

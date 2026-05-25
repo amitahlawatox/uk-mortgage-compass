@@ -18,6 +18,7 @@ import { RelatedCalculators } from "@/components/calculators/RelatedCalculators"
 import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
 import { LenderInsight } from "@/components/lenders/LenderInsight";
+import { shouldNoindexLender } from "@/lib/uk/noindexLenders";
 
 const OverpaymentPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -226,6 +227,7 @@ const OverpaymentPage = () => {
         }}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Mortgage Overpayment Calculator"
+        noindex={shouldNoindexLender(slug)}
       />
 
       <BreadcrumbJsonLd

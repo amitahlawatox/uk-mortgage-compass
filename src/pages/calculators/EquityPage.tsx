@@ -106,6 +106,7 @@ const EquityPage = () => {
         path={pagePath}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Home Equity Calculator"
+        noindex={!!slug}
       />
 
       <BreadcrumbJsonLd

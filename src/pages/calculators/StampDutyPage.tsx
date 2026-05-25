@@ -153,6 +153,7 @@ const StampDutyPage = () => {
         path={pagePath}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Stamp Duty Calculator"
+        noindex={!!slug}
       />
 
       <BreadcrumbJsonLd
