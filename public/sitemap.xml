@@ -51,6 +51,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/affordability/bank-of-ireland</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/affordability/barclays</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -127,6 +132,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/affordability/cambridge</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/affordability/cambridge-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -256,6 +266,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/affordability/generation-home</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/affordability/glasgow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -282,6 +297,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/affordability/halifax-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/affordability/hanley-economic</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -322,6 +342,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/affordability/ipswich</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/affordability/ipswich-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -411,6 +436,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/affordability/marsden</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/affordability/masthaven</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -441,6 +471,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/affordability/national-counties</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/affordability/nationwide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -467,6 +502,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/affordability/newcastle</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/affordability/newcastle-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -646,6 +686,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/affordability/stafford-railway</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/affordability/standard-life</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -667,6 +712,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/affordability/swansea</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/affordability/swansea-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -791,6 +841,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/buy-to-let/bank-of-ireland</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/buy-to-let/barclays</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -867,6 +922,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/buy-to-let/cambridge</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/buy-to-let/cambridge-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -996,6 +1056,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/buy-to-let/generation-home</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/buy-to-let/glasgow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1022,6 +1087,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/buy-to-let/halifax-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/buy-to-let/hanley-economic</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1062,6 +1132,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/buy-to-let/ipswich</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/buy-to-let/ipswich-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1151,6 +1226,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/buy-to-let/marsden</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/buy-to-let/masthaven</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1181,6 +1261,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/buy-to-let/national-counties</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/buy-to-let/nationwide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1207,6 +1292,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/buy-to-let/newcastle</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/buy-to-let/newcastle-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1386,6 +1476,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/buy-to-let/stafford-railway</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/buy-to-let/standard-life</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1407,6 +1502,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/buy-to-let/swansea</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/buy-to-let/swansea-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1536,6 +1636,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/equity/bank-of-ireland</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/equity/barclays</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1612,6 +1717,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/equity/cambridge</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/equity/cambridge-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1741,6 +1851,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/equity/generation-home</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/equity/glasgow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1767,6 +1882,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/equity/halifax-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/equity/hanley-economic</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1807,6 +1927,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/equity/ipswich</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/equity/ipswich-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1896,6 +2021,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/equity/marsden</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/equity/masthaven</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1926,6 +2056,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/equity/national-counties</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/equity/nationwide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1952,6 +2087,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/equity/newcastle</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/equity/newcastle-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2131,6 +2271,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/equity/stafford-railway</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/equity/standard-life</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2152,6 +2297,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/equity/swansea</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/equity/swansea-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2241,6 +2391,791 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/aberdeen</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/accord</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/ahli-united</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/al-rayan</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/aldermore</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/april</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/atom-bank</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/bank-of-ireland</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/barclays</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/barclays-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/bath</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/bath-city</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/belfast</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/birmingham</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/bluestone</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/bm-solutions</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/boi</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/bournemouth</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/bradford</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/brighton</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/bristol</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/bucks</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/bucks-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/cambridge</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/cambridge-bs</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/cambridge-city</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/cardiff</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/castle-trust</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/cheltenham</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/chorley</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/clydesdale</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/co-op</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/coventry</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/cumberland</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/danske</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/darlington</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/derby</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/dudley</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/dundee</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/earl-shilton</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/ecology</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/edinburgh</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/exeter</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/family-bs</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/first-direct</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/fleet</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/foundation</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/furness</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/gatehouse</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/gen-h</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/generation-home</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/glasgow</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/godiva</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/guildford</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/habito</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/halifax</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/halifax-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/hanley-economic</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/harpenden</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/hinckley-rugby</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/hodge</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/holmesdale</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/hsbc</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/hsbc-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/interbay</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/ipswich</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/ipswich-bs</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/ipswich-suffolk</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/kensington</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/kent-reliance</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/landbay</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/leeds</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/leeds-city</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/leek-united</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/leicester</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/lendinvest</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/liverpool</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/lloyds-bank</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/london</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/loughborough</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/luton</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/manchester</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/mansfield</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/market-harborough</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/marsden</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/masthaven</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/melton</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/metro-bank</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/milton-keynes</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/mojo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/monmouthshire</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/national-counties</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/nationwide</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/nationwide-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/natwest</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/natwest-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/newbury</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/newcastle</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/newcastle-bs</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/newcastle-city</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/northampton</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/norwich</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/nottingham</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/nottingham-city</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/octane</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/onesavings</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/oxford</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/paragon</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/penrith</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/penrith-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/pepper</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/perenna</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/peterborough</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/platform</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/plymouth</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/portsmouth</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/post-office</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/precise</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/precise-btl</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/principality</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/progressive</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/proportunity</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/quantum</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/reading</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/saffron</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/santander</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/santander-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/scottish-bs</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/scottish-widows</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/shawbrook</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/sheffield</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/skipton</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/southampton</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/spring-finance</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/stafford-railway</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/standard-life</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/stoke</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/suffolk</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/sunderland</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/swansea</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/swansea-bs</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/teachers</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/tembo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/tipton</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/tmw</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/together</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/tsb</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/united-trust</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/vernon</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/vida</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/virgin-money</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/west-brom</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/west-one</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/wolverhampton</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/york</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/yorkshire</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/max-borrowing/zephyr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/overpayment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -2277,6 +3212,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/overpayment/atom-bank</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/overpayment/bank-of-ireland</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2357,6 +3297,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/overpayment/cambridge</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/overpayment/cambridge-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2486,6 +3431,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/overpayment/generation-home</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/overpayment/glasgow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2512,6 +3462,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/overpayment/halifax-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/overpayment/hanley-economic</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2552,6 +3507,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/overpayment/ipswich</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/overpayment/ipswich-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2641,6 +3601,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/overpayment/marsden</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/overpayment/masthaven</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2671,6 +3636,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/overpayment/national-counties</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/overpayment/nationwide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2697,6 +3667,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/overpayment/newcastle</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/overpayment/newcastle-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2876,6 +3851,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/overpayment/stafford-railway</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/overpayment/standard-life</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2897,6 +3877,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/overpayment/swansea</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/overpayment/swansea-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3021,6 +4006,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/repayment/bank-of-ireland</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/repayment/barclays</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -3097,6 +4087,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/repayment/cambridge</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/repayment/cambridge-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3226,6 +4221,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/repayment/generation-home</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/repayment/glasgow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -3252,6 +4252,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/repayment/halifax-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/repayment/hanley-economic</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3292,6 +4297,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/repayment/ipswich</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/repayment/ipswich-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3381,6 +4391,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/repayment/marsden</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/repayment/masthaven</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -3411,6 +4426,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/repayment/national-counties</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/repayment/nationwide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -3437,6 +4457,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/repayment/newcastle</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/repayment/newcastle-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3616,6 +4641,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/repayment/stafford-railway</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/repayment/standard-life</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -3637,6 +4667,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/repayment/swansea</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/repayment/swansea-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3761,6 +4796,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/bank-of-ireland</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/stamp-duty/barclays</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -3837,6 +4877,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/stamp-duty/cambridge</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/cambridge-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3966,6 +5011,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/generation-home</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/stamp-duty/glasgow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -3992,6 +5042,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/stamp-duty/halifax-remortgage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/hanley-economic</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4032,6 +5087,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/stamp-duty/ipswich</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/ipswich-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4121,6 +5181,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/marsden</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/stamp-duty/masthaven</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -4151,6 +5216,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/national-counties</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/stamp-duty/nationwide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -4177,6 +5247,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/stamp-duty/newcastle</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/newcastle-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4356,6 +5431,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/stafford-railway</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/stamp-duty/standard-life</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -4377,6 +5457,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/calculators/stamp-duty/swansea</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/swansea-bs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4511,6 +5596,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/guides/lenders/bank-of-ireland</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/guides/lenders/barclays</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -4552,6 +5642,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/guides/lenders/cambridge</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/guides/lenders/cambridge-bs</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4646,6 +5741,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/guides/lenders/generation-home</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/guides/lenders/godiva</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -4662,6 +5762,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/guides/lenders/halifax-remortgage</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/guides/lenders/hanley-economic</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4702,6 +5807,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/guides/lenders/ipswich</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/guides/lenders/ipswich-bs</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4761,6 +5871,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/guides/lenders/marsden</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/guides/lenders/masthaven</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -4782,6 +5897,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/guides/lenders/monmouthshire</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/guides/lenders/national-counties</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4812,6 +5932,11 @@
   </url>
   <url>
     <loc>https://repaywise.co.uk/guides/lenders/newcastle</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/guides/lenders/newcastle-bs</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4936,12 +6061,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/guides/lenders/stafford-railway</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/guides/lenders/standard-life</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://repaywise.co.uk/guides/lenders/suffolk</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/guides/lenders/swansea-bs</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -5018,6 +6153,11 @@
   <url>
     <loc>https://repaywise.co.uk/guides/mortgage-overpayment-guide</loc>
     <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/methodology</loc>
+    <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>

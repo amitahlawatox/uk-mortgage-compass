@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Head } from "vite-react-ssg";
 
 interface FAQItem { question: string; answer: string; }
 interface LenderMeta { name: string; maxLtv?: number; estimatedSvr?: number | string; description?: string; trustRating?: number; }
@@ -88,7 +88,7 @@ export function SEO({ title, description, path, jsonLd, lender, calculatorType, 
   if (jsonLd) schemas.push(jsonLd);
 
   return (
-    <Helmet>
+    <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
@@ -123,6 +123,6 @@ export function SEO({ title, description, path, jsonLd, lender, calculatorType, 
           {JSON.stringify(schema)}
         </script>
       ))}
-    </Helmet>
+    </Head>
   );
 }

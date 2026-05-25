@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet, useLocation, type RouteObject } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
+
 import { ANALYTICS_CONSENT_EVENT, syncAnalyticsConsent, trackPageView } from "@/lib/analytics";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -67,22 +67,20 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <AnalyticsRouteTracker />
-            <Suspense fallback={<RouteFallback />}>
-              <Outlet />
-            </Suspense>
-            {/* FCA regulatory warning rendered in the initial HTML */}
-            <FCABanner />
-          </TooltipProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <AnalyticsRouteTracker />
+          <Suspense fallback={<RouteFallback />}>
+            <Outlet />
+          </Suspense>
+          {/* FCA regulatory warning rendered in the initial HTML */}
+          <FCABanner />
+        </TooltipProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 

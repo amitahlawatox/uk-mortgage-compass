@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Head } from "vite-react-ssg";
 import type { LenderData } from "@/lib/uk/lenders";
 
 export type CalculatorType =
@@ -70,7 +70,7 @@ export function SEOHead({ calculatorType, lender, canonicalPath, titleOverride, 
   };
 
   return (
-    <Helmet>
+    <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonicalUrl} />
@@ -88,6 +88,6 @@ export function SEOHead({ calculatorType, lender, canonicalPath, titleOverride, 
       <script type="application/ld+json">{JSON.stringify(webAppSchema)}</script>
       {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
       <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-    </Helmet>
+    </Head>
   );
 }

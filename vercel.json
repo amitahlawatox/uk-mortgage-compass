@@ -5,6 +5,16 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/uk/bath", "destination": "/uk/bath-city", "statusCode": 301 },
+    { "source": "/uk/cambridge", "destination": "/uk/cambridge-city", "statusCode": 301 },
+    { "source": "/uk/nottingham", "destination": "/uk/nottingham-city", "statusCode": 301 },
+    { "source": "/uk/newcastle", "destination": "/uk/newcastle-city", "statusCode": 301 },
+    { "source": "/uk/leeds", "destination": "/uk/leeds-city", "statusCode": 301 },
+    { "source": "/calculators/maximum-mortgage-borrowing-calculator", "destination": "/calculators/max-borrowing", "statusCode": 301 },
+    { "source": "/calculators/mortgage-overpayment-calculator", "destination": "/calculators/overpayment", "statusCode": 301 },
+    { "source": "/calculators/mortgage-repayment-calculator", "destination": "/calculators/repayment", "statusCode": 301 }
+  ],
   "rewrites": [
     { "source": "/((?!assets/|icons/|favicon.ico|robots.txt|sitemap.xml|ads.txt|site.webmanifest).*)", "destination": "/index.html" }
   ],
