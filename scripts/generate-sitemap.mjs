@@ -71,6 +71,11 @@ async function countWords(filePath) {
   return text ? text.split(" ").length : 0;
 }
 
+async function hasNoindex(filePath) {
+  const html = await readFile(filePath, "utf8");
+  return /meta[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html);
+}
+
 function buildSitemapXml(urls) {
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
@@ -99,6 +104,10 @@ const candidateUrls = await Promise.all(
 
     const wordCount = await countWords(filePath);
     if (wordCount < 40 && urlPath !== "/") {
+      return null;
+    }
+
+    if (await hasNoindex(filePath)) {
       return null;
     }
 

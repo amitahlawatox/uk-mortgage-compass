@@ -18,6 +18,7 @@ import { RelatedCalculators } from "@/components/calculators/RelatedCalculators"
 import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
 import { LenderInsight } from "@/components/lenders/LenderInsight";
+import { shouldNoindexLender } from "@/lib/uk/noindexLenders";
 
 type Step = 0 | 1 | 2 | 3;
 
@@ -183,6 +184,7 @@ const RepaymentPage = () => {
         }}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Mortgage Repayment Calculator"
+        noindex={shouldNoindexLender(slug)}
       />
 
       <BreadcrumbJsonLd
