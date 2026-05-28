@@ -56,6 +56,41 @@
       "source": "/calculators/mortgage-repayment-calculator",
       "destination": "/calculators/repayment",
       "statusCode": 301
+    },
+    {
+      "source": "/uk/hull",
+      "destination": "/uk/leeds-city",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/ipswich",
+      "destination": "/uk/norwich",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/newport",
+      "destination": "/uk/cardiff",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/gloucester",
+      "destination": "/uk/cheltenham",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/worcester",
+      "destination": "/uk/birmingham",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/inverness",
+      "destination": "/uk/aberdeen",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/wrexham",
+      "destination": "/uk/swansea",
+      "statusCode": 301
     }
   ],
   "rewrites": [],
