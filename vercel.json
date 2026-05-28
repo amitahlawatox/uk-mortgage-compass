@@ -6,18 +6,59 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "redirects": [
-    { "source": "/uk/bath", "destination": "/uk/bath-city", "statusCode": 301 },
-    { "source": "/uk/cambridge", "destination": "/uk/cambridge-city", "statusCode": 301 },
-    { "source": "/uk/nottingham", "destination": "/uk/nottingham-city", "statusCode": 301 },
-    { "source": "/uk/newcastle", "destination": "/uk/newcastle-city", "statusCode": 301 },
-    { "source": "/uk/leeds", "destination": "/uk/leeds-city", "statusCode": 301 },
-    { "source": "/calculators/maximum-mortgage-borrowing-calculator", "destination": "/calculators/max-borrowing", "statusCode": 301 },
-    { "source": "/calculators/mortgage-overpayment-calculator", "destination": "/calculators/overpayment", "statusCode": 301 },
-    { "source": "/calculators/mortgage-repayment-calculator", "destination": "/calculators/repayment", "statusCode": 301 }
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.repaywise.co.uk"
+        }
+      ],
+      "destination": "https://repaywise.co.uk/:path",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/bath",
+      "destination": "/uk/bath-city",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/cambridge",
+      "destination": "/uk/cambridge-city",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/nottingham",
+      "destination": "/uk/nottingham-city",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/newcastle",
+      "destination": "/uk/newcastle-city",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/leeds",
+      "destination": "/uk/leeds-city",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/maximum-mortgage-borrowing-calculator",
+      "destination": "/calculators/max-borrowing",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/mortgage-overpayment-calculator",
+      "destination": "/calculators/overpayment",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/mortgage-repayment-calculator",
+      "destination": "/calculators/repayment",
+      "statusCode": 301
+    }
   ],
-  "rewrites": [
-    { "source": "/((?!assets/|icons/|favicon.ico|robots.txt|sitemap.xml|ads.txt|site.webmanifest).*)", "destination": "/index.html" }
-  ],
+  "rewrites": [],
   "git": {
     "deploymentEnabled": true
   },
@@ -25,45 +66,85 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
       ]
     },
     {
       "source": "/(.*)\\.js",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/(.*)\\.mjs",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/(.*)\\.css",
       "headers": [
-        { "key": "Content-Type", "value": "text/css; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Content-Type",
+          "value": "text/css; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/(.*)\\.html",
       "headers": [
-        { "key": "Content-Type", "value": "text/html; charset=utf-8" }
+        {
+          "key": "Content-Type",
+          "value": "text/html; charset=utf-8"
+        }
       ]
     },
     {
       "source": "/",
       "headers": [
-        { "key": "Content-Type", "value": "text/html; charset=utf-8" }
+        {
+          "key": "Content-Type",
+          "value": "text/html; charset=utf-8"
+        }
       ]
     }
-  ]
+  ],
+  "trailingSlash": false
 }
