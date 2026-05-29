@@ -70,7 +70,7 @@ export const LENDER_CONTENT: Record<string, LenderContent> = {
     bestFor: "First-time buyers wanting a straightforward application process, borrowers who value cashback on completion, and anyone who wants the security of the UK\'s largest mortgage lender.",
     typicalProducts: ["2-year fixed", "5-year fixed", "10-year fixed", "Tracker", "Shared Equity new-build"]
   },
-  "lloyds": {
+  "lloyds-bank": {
     overview: "Lloyds Bank is one of the UK\'s oldest and most established banks, part of Lloyds Banking Group alongside Halifax and Scottish Widows. Lloyds offers a comprehensive mortgage range with competitive rates, particularly for existing banking customers. They are a major force in both residential and buy-to-let lending.",
     keyFeatures: [
       "Existing Lloyds current account holders may access preferential rates",
