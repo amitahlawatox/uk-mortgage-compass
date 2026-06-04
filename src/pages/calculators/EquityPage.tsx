@@ -16,6 +16,7 @@ import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
+import { EquitySEOContent } from "@/components/calculators/SEOContent";
 
 const EquityPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -89,8 +90,8 @@ const EquityPage = () => {
 
   const pagePath = city ? `calculators/equity/${city.slug}` : lender ? `calculators/equity/${lender.slug}` : "calculators/equity";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
-  const seoTitle = lender ? `${lender.name} Home Equity Calculator | RepayWise` : city ? `${city.name} Home Equity Calculator | RepayWise` : "Home Equity Calculator UK — Refinance, Sell or Remortgage";
-  const seoDescription = lender ? `Free ${lender.name} home equity calculator. See your outstanding mortgage balance, current LTV, and equity share. Plan a remortgage or sale with ${lender.name}.` : city ? `Free home equity calculator for ${city.name}. ${city.description} See your outstanding mortgage balance, current LTV, and equity share.` : "Calculate your current UK home equity. See outstanding mortgage, LTV, your equity, the bank's claim, and net proceeds if you sell.";
+  const seoTitle = lender ? `${lender.name} Home Equity Calculator | RepayWise` : city ? `${city.name} Home Equity Calculator | RepayWise` : "Home Equity Calculator UK 2026 — How Much Equity Do I Have? | RepayWise";
+  const seoDescription = lender ? `Free ${lender.name} home equity calculator. See your outstanding mortgage balance, current LTV, and equity share. Plan a remortgage or sale with ${lender.name}.` : city ? `Free home equity calculator for ${city.name}. ${city.description} See your outstanding mortgage balance, current LTV, and equity share.` : "Free UK home equity calculator — find out how much equity you have in your property. See outstanding balance, LTV band, equity %, and net proceeds if you sell. No login needed.";
 
   return (
     <CalculatorShell
@@ -106,6 +107,13 @@ const EquityPage = () => {
         path={pagePath}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Home Equity Calculator"
+        faqItems={!lender ? [
+          { question: "How much equity do I have in my home?", answer: "Your equity is the difference between your property's current market value and outstanding mortgage balance. Enter your figures in the calculator above to see your equity in pounds and as a percentage of property value." },
+          { question: "How do I calculate equity in my house?", answer: "Equity = current property value minus outstanding mortgage. If your home is worth £350,000 and you owe £200,000, you have £150,000 equity (43%). Our calculator accounts for amortisation over time to give you the precise outstanding balance." },
+          { question: "How much equity do I need to remortgage?", answer: "Most lenders require 5-10% equity minimum (90-95% LTV). The best rates are at 60% LTV or below. Higher equity means lower rates and more lender choice." },
+          { question: "How much equity will I have in 5 years?", answer: "This depends on capital repaid through monthly payments plus property appreciation. On a £250,000 mortgage at 4.5% over 25 years, you repay roughly £30,000 capital in 5 years. Add typical appreciation and your equity could grow by £75,000+." },
+          { question: "Can I release equity without selling?", answer: "Yes — remortgage for a higher amount or use a lifetime mortgage (aged 55+). Both let you access cash without selling. The released funds can be used for renovations, debt consolidation, or a deposit on another property." },
+        ] : undefined}
       />
 
       <BreadcrumbJsonLd
@@ -262,7 +270,8 @@ const EquityPage = () => {
         </div>
       </div>
 
-      <LastUpdated date="30 April 2026" />
+      <LastUpdated date="4 June 2026" />
+      {!lender && !city && <EquitySEOContent />}
       <RelatedCalculators currentPath="/calculators/equity" lenderSlug={lender?.slug} lenderName={lender?.name} />
     </CalculatorShell>
   );
