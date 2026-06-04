@@ -18,6 +18,7 @@ import { RelatedCalculators } from "@/components/calculators/RelatedCalculators"
 import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
 import { LenderInsight } from "@/components/lenders/LenderInsight";
+import { RepaymentSEOContent } from "@/components/calculators/SEOContent";
 
 type Step = 0 | 1 | 2 | 3;
 
@@ -97,12 +98,12 @@ const RepaymentPage = () => {
     ? `${city.name} Mortgage Repayment Calculator 2026 | RepayWise`
     : lender
     ? `${lender.name} Mortgage Calculator 2026 — Independent Tool | RepayWise`
-    : "Mortgage Repayment Calculator 2026 — Free UK Tool | RepayWise";
+    : "Mortgage Repayment Calculator UK 2026 — Monthly Payment & Interest | RepayWise";
   const seoDescription = city
     ? `RepayWise independent mortgage repayment calculator for ${city.name}. See monthly payments, total interest and how overpayments save you money. No bank login or credit check needed.`
     : lender
     ? `RepayWise independent repayment tool for ${lender.name} customers. See your monthly payment, total interest and how much overpaying saves. No login, no credit check — 100% free.`
-    : "Free UK mortgage repayment calculator — RepayWise. Monthly payments, total interest and overpayment savings in seconds. No login or credit check. Not affiliated with any lender.";
+    : "Free UK mortgage repayment calculator — calculate your exact monthly payment, total interest cost, and see how overpayments save years off your term. 28-digit precision. No login needed.";
 
   return (
     <CalculatorShell
@@ -584,7 +585,8 @@ const RepaymentPage = () => {
         </aside>
       </div>
 
-      <LastUpdated date="30 April 2026" />
+      <LastUpdated date="4 June 2026" />
+      {!lender && !city && <RepaymentSEOContent />}
       <RelatedCalculators currentPath={pagePath} lenderSlug={lender?.slug} lenderName={lender?.name} citySlug={city?.slug} cityName={city?.name} />
     </CalculatorShell>
   );

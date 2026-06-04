@@ -18,6 +18,7 @@ import { RelatedCalculators } from "@/components/calculators/RelatedCalculators"
 import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
 import { LenderInsight } from "@/components/lenders/LenderInsight";
+import { MaxBorrowingSEOContent } from "@/components/calculators/SEOContent";
 
 const MaxBorrowingPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -66,12 +67,12 @@ const MaxBorrowingPage = () => {
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = city ? `${city.name} Maximum Borrowing Calculator | RepayWise` : lender
     ? `${lender.name} Max Borrowing Calculator 2026 — Independent | RepayWise`
-    : "How Much Can I Borrow? UK Mortgage Calculator 2026 | RepayWise";
+    : "How Much Can I Borrow for a Mortgage? Free UK Calculator 2026 | RepayWise";
   const seoDescription = city
     ? `Free mortgage affordability calculator for ${city.name}. ${city.description} Find out how much you could borrow based on income and deposit.`
     : lender
     ? `RepayWise independent borrowing calculator for ${lender.name} customers. Estimate how much you could borrow — no ${lender.name} login or credit check required. Free third-party tool.`
-    : "How much can you borrow for a UK mortgage? RepayWise independent calculator — income multiplier, stress test and deposit check. No login needed. Not affiliated with any lender.";
+    : "Free UK mortgage borrowing calculator — find out how much you can borrow based on income, deposit and commitments. Lender-style 4.5× multiplier with +3% stress test. No login, no credit check.";
 
   return (
     <CalculatorShell
@@ -117,15 +118,31 @@ const MaxBorrowingPage = () => {
                   name: "How much can I borrow for a mortgage in the UK?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Many lenders start around 4 to 4.5 times gross income, then reduce the loan if monthly outgoings are high or the stress-tested payment looks unaffordable.",
+                    text: "Most UK lenders offer 4 to 4.5 times gross annual income. A single applicant earning £55,000 could borrow £220,000–£247,500. Joint applicants combine incomes. The actual amount also depends on monthly outgoings, deposit size, and passing a +3% stress test.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "Why do lenders use a stress test?",
+                  name: "What is the maximum mortgage I can get?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Lenders typically test affordability at a higher rate than the headline product rate to check whether the borrower could still afford payments if rates rise.",
+                    text: "There is no fixed legal maximum. High-street lenders typically cap at £1–2 million. Your personal maximum is 4–4.5× income minus commitments, subject to passing the lender's affordability stress test at approximately 3% above the product rate.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Can I borrow more than 4.5 times my salary for a mortgage?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Some lenders offer 5–5.5× income for professionals (doctors, solicitors, accountants), higher earners (£75k+), or borrowers with large deposits at 75% LTV or below. Specialist and private banks may go higher with additional security.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How much mortgage can I get for £1,000 a month?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "At 4.75% over 25 years, £1,000 per month supports approximately £178,000 of borrowing. At 5.5% this drops to £165,000. The exact figure depends on your rate and term — use our calculator above for a precise answer.",
                   },
                 },
               ],
@@ -245,7 +262,8 @@ const MaxBorrowingPage = () => {
         </div>
       </div>
 
-      <LastUpdated date="30 April 2026" />
+      <LastUpdated date="4 June 2026" />
+      {!lender && !city && <MaxBorrowingSEOContent />}
       <RelatedCalculators currentPath={pagePath} lenderSlug={lender?.slug} lenderName={lender?.name} citySlug={city?.slug} cityName={city?.name} />
     </CalculatorShell>
   );
