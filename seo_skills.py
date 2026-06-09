@@ -41,10 +41,12 @@ def audit_meta_and_headings(filepath: Path) -> list[str]:
         re.search(rf"<{comp}[\s\n]", content) for comp in H1_WRAPPER_COMPONENTS
     )
 
-    if len(h1_matches) == 0 and not uses_h1_wrapper:
+    effective_h1_count = len(h1_matches) + (1 if uses_h1_wrapper else 0)
+
+    if effective_h1_count == 0:
         issues.append(f"  MISSING <h1>: No h1 tag found (and no H1-providing wrapper component).")
-    elif len(h1_matches) > 1:
-        issues.append(f"  MULTIPLE <h1>: Found {len(h1_matches)} h1 tags (must be exactly 1).")
+    elif effective_h1_count > 1:
+        issues.append(f"  MULTIPLE <h1>: Found {effective_h1_count} h1 sources (must be exactly 1).")
 
     # Check for SEO component usage (provides meta title + description)
     has_seo_component = bool(re.search(r"<SEO[\s\n]", content))
