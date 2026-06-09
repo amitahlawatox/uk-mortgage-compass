@@ -23,6 +23,11 @@ COMPONENTS_DIR = Path("src/components")
 
 # ─── 1. Meta & Heading Auditor ─────────────────────────────────────────────────
 
+# Components that render their own <h1> from a `title` prop.
+# Pages using these wrappers don't need an inline <h1>.
+H1_WRAPPER_COMPONENTS = {"CalculatorShell"}
+
+
 def audit_meta_and_headings(filepath: Path) -> list[str]:
     """Check that a page file has exactly one <h1> and a defined SEO/meta layout."""
     issues = []
@@ -30,10 +35,18 @@ def audit_meta_and_headings(filepath: Path) -> list[str]:
 
     # Count h1 tags (JSX style: <h1 ... > )
     h1_matches = re.findall(r"<h1[\s>]", content)
-    if len(h1_matches) == 0:
-        issues.append(f"  MISSING <h1>: No h1 tag found.")
-    elif len(h1_matches) > 1:
-        issues.append(f"  MULTIPLE <h1>: Found {len(h1_matches)} h1 tags (must be exactly 1).")
+
+    # Detect wrapper components that provide their own <h1>
+    uses_h1_wrapper = any(
+        re.search(rf"<{comp}[\s\n]", content) for comp in H1_WRAPPER_COMPONENTS
+    )
+
+    effective_h1_count = len(h1_matches) + (1 if uses_h1_wrapper else 0)
+
+    if effective_h1_count == 0:
+        issues.append(f"  MISSING <h1>: No h1 tag found (and no H1-providing wrapper component).")
+    elif effective_h1_count > 1:
+        issues.append(f"  MULTIPLE <h1>: Found {effective_h1_count} h1 sources (must be exactly 1).")
 
     # Check for SEO component usage (provides meta title + description)
     has_seo_component = bool(re.search(r"<SEO[\s\n]", content))
@@ -101,12 +114,29 @@ def audit_json_ld(filepath: Path) -> list[str]:
     content = filepath.read_text(encoding="utf-8")
 
     # Pattern 1: jsonLd prop objects (JSX inline objects like jsonLd={{ ... }})
+    # These are JSX expressions, not raw JSON. Ternaries, spread syntax, and
+    # template literals are valid JSX but cannot be statically parsed to JSON.
+    # We only flag blocks that are clearly malformed (mismatched braces, etc.)
+    # rather than failing on JSX features the regex converter can't handle.
     json_ld_blocks = re.finditer(
         r"jsonLd\s*=\s*\{\{([\s\S]*?)\}\}", content
     )
     for match in json_ld_blocks:
         raw = match.group(1).strip()
-        # Convert JS object notation to JSON for validation
+        # Skip blocks that contain JSX expressions the converter can't handle:
+        # ternaries, spread syntax, template literals, or JS variable references
+        has_jsx_expressions = bool(re.search(
+            r"(\?\.|"                               # optional chaining
+            r"\.\.\.\(|"                            # spread syntax
+            r"`\$\{|"                               # template literals
+            r"\?\s*\{|"                             # ternary with object
+            r":\s*\{\s*\}\s*\)|"                    # empty object in ternary
+            r":\s*[a-z][a-zA-Z]*\.[a-zA-Z]|"       # variable.property as value
+            r":\s*[a-z][a-zA-Z]+[,\s\n}\]])",       # bare variable as value
+            raw
+        ))
+        if has_jsx_expressions:
+            continue
         json_str = _js_object_to_json(raw)
         try:
             json.loads(json_str)

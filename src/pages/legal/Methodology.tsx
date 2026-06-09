@@ -1,12 +1,13 @@
-import { Head } from "@/components/Head";
+import { SEO } from "@/components/SEO";
 
 export default function Methodology() {
   return (
     <>
-      <Head>
-        <title>Methodology — How RepayWise Calculators Work | RepayWise</title>
-        <meta name="description" content="RepayWise uses standard UK mortgage amortisation formulas. All calculations are based on publicly available mathematics. We are not affiliated with any bank or lender." />
-      </Head>
+      <SEO
+        title="Methodology — How RepayWise Calculators Work | RepayWise"
+        description="RepayWise uses standard UK mortgage amortisation formulas. All calculations are based on publicly available mathematics. We are not affiliated with any bank or lender."
+        path="methodology"
+      />
       <div className="container max-w-3xl mx-auto px-4 py-12 space-y-8">
         <h1 className="text-3xl font-bold">How Our Calculators Work</h1>
         <p className="text-muted-foreground leading-relaxed">
