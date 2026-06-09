@@ -133,14 +133,24 @@ def audit_json_ld(filepath: Path) -> list[str]:
 def _js_object_to_json(js_str: str) -> str:
     """Best-effort conversion of a JS object literal to JSON for validation."""
     s = js_str
-    # Add quotes around unquoted keys
-    s = re.sub(r'(\w+)\s*:', r'"\1":', s)
+    # Protect quoted strings from key-quoting regex by replacing them temporarily
+    strings: list[str] = []
+
+    def _stash_string(m: re.Match) -> str:
+        strings.append(m.group(0))
+        return f'"__STR{len(strings) - 1}__"'
+
+    s = re.sub(r'"[^"]*"', _stash_string, s)
+    # Add quotes around unquoted keys including @-prefixed (safe now that strings are stashed)
+    s = re.sub(r'(@?\w+)\s*:', r'"\1":', s)
+    # Restore stashed strings
+    for idx, original in enumerate(strings):
+        s = s.replace(f'"__STR{idx}__"', original)
     # Replace single quotes with double quotes
     s = s.replace("'", '"')
-    # Remove trailing commas
-    s = re.sub(r",\s*([}\]])", r"\1", s)
-    # Wrap in braces
+    # Wrap in braces first, then remove trailing commas
     s = "{" + s + "}"
+    s = re.sub(r",\s*([}\]])", r"\1", s)
     return s
 
 
@@ -193,7 +203,7 @@ def run_audit(targets: list[Path]) -> int:
     # Audit 3: JSON-LD Validator (all target files)
     print("\n\n[3/3] JSON-LD SCHEMA VALIDATOR")
     print("-" * 40)
-    all_files = targets if targets != page_files else list(PAGES_DIR.rglob("*.tsx"))
+    all_files = targets if targets else list(PAGES_DIR.rglob("*.tsx"))
     json_issues_total = 0
     for f in sorted(all_files):
         issues = audit_json_ld(f)
