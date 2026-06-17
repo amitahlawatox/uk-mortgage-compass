@@ -26,14 +26,16 @@ export const Footer = () => (
           Calculators
         </p>
         <ul className="space-y-2 text-sm">
-          <li><Link to="/calculators/stamp-duty" onClick={() => trackIntentClick("footer_calculators", "/calculators/stamp-duty", "Stamp Duty")} className="hover:text-accent">Stamp Duty (SDLT/LBTT/LTT)</Link></li>
           <li><Link to="/calculators/repayment" onClick={() => trackIntentClick("footer_calculators", "/calculators/repayment", "Mortgage Repayment")} className="hover:text-accent">Mortgage Repayment</Link></li>
           <li><Link to="/calculators/overpayment" onClick={() => trackIntentClick("footer_calculators", "/calculators/overpayment", "Overpayment Visualiser")} className="hover:text-accent">Overpayment Visualiser</Link></li>
-          <li><Link to="/calculators/affordability" onClick={() => trackIntentClick("footer_calculators", "/calculators/affordability", "Total Cost to Buy")} className="hover:text-accent">Total Cost to Buy</Link></li>
-          <li><Link to="/calculators/max-borrowing" onClick={() => trackIntentClick("footer_calculators", "/calculators/max-borrowing", "Affordability")} className="hover:text-accent">Affordability - How much can I borrow?</Link></li>
+          <li><Link to="/calculators/stamp-duty" onClick={() => trackIntentClick("footer_calculators", "/calculators/stamp-duty", "Stamp Duty")} className="hover:text-accent">Stamp Duty (SDLT/LBTT/LTT)</Link></li>
+          <li><Link to="/calculators/remortgage" onClick={() => trackIntentClick("footer_calculators", "/calculators/remortgage", "Remortgage")} className="hover:text-accent">Should I Remortgage?</Link></li>
+          <li><Link to="/calculators/rate-compare" onClick={() => trackIntentClick("footer_calculators", "/calculators/rate-compare", "Rate Compare")} className="hover:text-accent">Compare Mortgage Rates</Link></li>
+          <li><Link to="/calculators/fix-or-track" onClick={() => trackIntentClick("footer_calculators", "/calculators/fix-or-track", "Fix or Track")} className="hover:text-accent">Fix or Track?</Link></li>
+          <li><Link to="/calculators/salary-to-mortgage" onClick={() => trackIntentClick("footer_calculators", "/calculators/salary-to-mortgage", "Salary to Mortgage")} className="hover:text-accent">Salary to Mortgage</Link></li>
+          <li><Link to="/calculators/home-improvement" onClick={() => trackIntentClick("footer_calculators", "/calculators/home-improvement", "Home Improvement")} className="hover:text-accent">Home Improvement Loan vs Remortgage</Link></li>
+          <li><Link to="/calculators/max-borrowing" onClick={() => trackIntentClick("footer_calculators", "/calculators/max-borrowing", "Affordability")} className="hover:text-accent">Affordability Calculator</Link></li>
           <li><Link to="/calculators/equity" onClick={() => trackIntentClick("footer_calculators", "/calculators/equity", "Home Equity Calculator")} className="hover:text-accent">Home Equity Calculator</Link></li>
-          <li><Link to="/guides/help-to-buy-repayment" onClick={() => trackIntentClick("footer_calculators", "/guides/help-to-buy-repayment", "Help to Buy")} className="hover:text-accent">Help to Buy Repayment</Link></li>
-          <li><Link to="/guides/mortgage-overpayment-guide" onClick={() => trackIntentClick("footer_calculators", "/guides/mortgage-overpayment-guide", "Overpayment Guide")} className="hover:text-accent">Overpayment Guide</Link></li>
           <li><Link to="/guides" onClick={() => trackIntentClick("footer_calculators", "/guides", "Guides")} className="hover:text-accent">Guides</Link></li>
         </ul>
       </div>

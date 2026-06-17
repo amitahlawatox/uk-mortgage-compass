@@ -86,6 +86,11 @@ const STATIC_PAGES = [
   "/guides/help-to-buy-repayment",
   "/guides/mortgage-overpayment",
   "/calculators/compare",
+  "/calculators/remortgage",
+  "/calculators/home-improvement",
+  "/calculators/rate-compare",
+  "/calculators/fix-or-track",
+  "/calculators/salary-to-mortgage",
 ];
 
 // ─── SLUG EXTRACTION ──────────────────────────────────────────────────────────

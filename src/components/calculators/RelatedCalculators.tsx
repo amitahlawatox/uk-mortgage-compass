@@ -17,6 +17,11 @@ const allCalculators: RelatedItem[] = [
   { to: "/calculators/max-borrowing", title: "How Much Can I Borrow?", blurb: "Lender-style income multiplier with stress test", icon: PoundSterling },
   { to: "/calculators/equity", title: "Home Equity", blurb: "Your equity, LTV and net proceeds if you sell", icon: Home },
   { to: "/calculators/buy-to-let", title: "Buy-to-Let", blurb: "BTL modeller with rental yield and ICR", icon: Building2 },
+  { to: "/calculators/remortgage", title: "Should I Remortgage?", blurb: "Compare your current deal vs a new rate", icon: Scale },
+  { to: "/calculators/rate-compare", title: "Compare Rates", blurb: "Put up to 5 mortgage deals side-by-side", icon: Calculator },
+  { to: "/calculators/fix-or-track", title: "Fix or Track?", blurb: "Model BoE rate scenarios for fixed vs tracker", icon: LineChart },
+  { to: "/calculators/salary-to-mortgage", title: "Salary to Mortgage", blurb: "How much can your salary get you?", icon: PoundSterling },
+  { to: "/calculators/home-improvement", title: "Home Improvement", blurb: "Loan vs remortgage — which is cheaper?", icon: Home },
   { to: "/calculators/compare", title: "Compare Mortgages", blurb: "Put two mortgage offers head-to-head", icon: Scale },
   { to: "/guides/help-to-buy-repayment", title: "Help to Buy Repayment", blurb: "Calculate your equity loan repayment schedule", icon: Home },
 ];

@@ -177,6 +177,26 @@ export const routes: RouteRecord[] = [
         lazy: page(() => import("./pages/calculators/ComparePage")),
       },
       {
+        path: "calculators/remortgage",
+        lazy: page(() => import("./pages/calculators/RemortgagePage")),
+      },
+      {
+        path: "calculators/home-improvement",
+        lazy: page(() => import("./pages/calculators/HomeImprovementPage")),
+      },
+      {
+        path: "calculators/rate-compare",
+        lazy: page(() => import("./pages/calculators/RateComparePage")),
+      },
+      {
+        path: "calculators/fix-or-track",
+        lazy: page(() => import("./pages/calculators/FixOrTrackPage")),
+      },
+      {
+        path: "calculators/salary-to-mortgage",
+        lazy: page(() => import("./pages/calculators/SalaryToMortgagePage")),
+      },
+      {
         path: "guides",
         lazy: page(() => import("./pages/GuidesPage")),
       },
