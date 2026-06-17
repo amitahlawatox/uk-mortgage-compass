@@ -8,7 +8,7 @@ import { formatGBP } from "@/lib/finance/decimal";
 import { calculateRepayment } from "@/lib/finance/repayment";
 import { SliderField, BigStat } from "@/pages/calculators/RepaymentPage";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { ArrowRight, TrendingDown, Landmark, PoundSterling } from "lucide-react";
+import { ArrowRight, TrendingDown, Landmark } from "lucide-react";
 
 const RemortgagePage = () => {
   // Current mortgage
@@ -27,16 +27,21 @@ const RemortgagePage = () => {
     [currentBalance, currentRate, currentTerm],
   );
 
+  // Calculate new deal WITHOUT fees in principal — fees are a one-off upfront cost
   const newDeal = useMemo(
-    () => calculateRepayment({ principal: currentBalance + fees + earlyRepaymentCharge, annualRate: newRate, termYears: newTerm }),
-    [currentBalance, fees, earlyRepaymentCharge, newRate, newTerm],
+    () => calculateRepayment({ principal: currentBalance, annualRate: newRate, termYears: newTerm }),
+    [currentBalance, newRate, newTerm],
   );
 
   const monthlySaving = currentDeal.monthlyPayment - newDeal.monthlyPayment;
-  const totalSavingOverTerm = monthlySaving * newTerm * 12;
   const totalCostOfSwitch = fees + earlyRepaymentCharge;
   const breakEvenMonths = monthlySaving > 0 ? Math.ceil(totalCostOfSwitch / monthlySaving) : 0;
-  const netSaving = totalSavingOverTerm - totalCostOfSwitch;
+
+  // Compare total cost over the shorter of the two terms to avoid misleading results
+  const comparisonMonths = Math.min(currentTerm, newTerm) * 12;
+  const currentCostOverPeriod = currentDeal.monthlyPayment * comparisonMonths;
+  const newCostOverPeriod = newDeal.monthlyPayment * comparisonMonths + totalCostOfSwitch;
+  const netSaving = currentCostOverPeriod - newCostOverPeriod;
   const worthSwitching = netSaving > 0;
 
   const chart = useMemo(() => [
@@ -113,7 +118,7 @@ const RemortgagePage = () => {
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               {worthSwitching
-                ? `After paying ${formatGBP(totalCostOfSwitch)} in fees, you'd still save ${formatGBP(netSaving)} over the full ${newTerm}-year term. You break even in ${breakEvenMonths} month${breakEvenMonths === 1 ? "" : "s"}.`
+                ? `After paying ${formatGBP(totalCostOfSwitch)} in fees, you'd still save ${formatGBP(netSaving)} over ${Math.min(currentTerm, newTerm)} years. You break even in ${breakEvenMonths} month${breakEvenMonths === 1 ? "" : "s"}.`
                 : `The fees (${formatGBP(totalCostOfSwitch)}) outweigh the interest saving. Consider waiting until your current deal ends or your ERC drops.`
               }
             </p>

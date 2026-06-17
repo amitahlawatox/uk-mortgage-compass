@@ -8,7 +8,7 @@ import { formatGBP } from "@/lib/finance/decimal";
 import { calculateRepayment } from "@/lib/finance/repayment";
 import { SliderField, BigStat } from "@/pages/calculators/RepaymentPage";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
-import { Briefcase, Home, PoundSterling, Users } from "lucide-react";
+import { Briefcase, Home, PoundSterling } from "lucide-react";
 
 // Simplified UK income tax calculation (2024/25 tax year)
 function calculateNetMonthly(grossAnnual: number): number {
@@ -16,30 +16,28 @@ function calculateNetMonthly(grossAnnual: number): number {
   const basicRateLimit = 50_270;
   const higherRateLimit = 125_140;
 
+  // Calculate adjusted personal allowance (tapered above £100k)
+  const adjustedPA = grossAnnual > 100_000
+    ? Math.max(0, personalAllowance - (grossAnnual - 100_000) / 2)
+    : personalAllowance;
+
+  const taxableIncome = Math.max(0, grossAnnual - adjustedPA);
+
   let tax = 0;
-  let taxableIncome = grossAnnual;
 
-  // Taper personal allowance above £100k
-  if (grossAnnual > 100_000) {
-    const reduction = Math.min(personalAllowance, (grossAnnual - 100_000) / 2);
-    taxableIncome = grossAnnual - (personalAllowance - reduction);
-  } else {
-    taxableIncome = Math.max(0, grossAnnual - personalAllowance);
-  }
-
-  // Basic rate (20%)
-  const basicBand = Math.min(taxableIncome, basicRateLimit - personalAllowance);
+  // Basic rate (20%) — from £0 to (basicRateLimit - adjustedPA)
+  const basicBand = Math.min(taxableIncome, basicRateLimit - adjustedPA);
   tax += basicBand * 0.2;
 
   // Higher rate (40%)
-  if (taxableIncome > basicRateLimit - personalAllowance) {
-    const higherBand = Math.min(taxableIncome - (basicRateLimit - personalAllowance), higherRateLimit - basicRateLimit);
+  if (taxableIncome > basicRateLimit - adjustedPA) {
+    const higherBand = Math.min(taxableIncome - (basicRateLimit - adjustedPA), higherRateLimit - basicRateLimit);
     tax += higherBand * 0.4;
   }
 
   // Additional rate (45%)
-  if (taxableIncome > higherRateLimit - personalAllowance) {
-    const additionalBand = taxableIncome - (higherRateLimit - personalAllowance);
+  if (taxableIncome > higherRateLimit - adjustedPA) {
+    const additionalBand = taxableIncome - (higherRateLimit - adjustedPA);
     tax += additionalBand * 0.45;
   }
 
