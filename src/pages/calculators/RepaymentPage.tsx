@@ -32,11 +32,6 @@ const RepaymentPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const lender = slug ? getLenderBySlug(slug) : undefined;
   const city = slug && !lender ? getCityBySlug(slug) : undefined;
-  // If slug provided but neither lender nor city found — 404
-
-  if (slug && !lender && !city) {
-    return <Navigate to="/calculators/repayment" replace />;
-  }
 
   const [step, setStep] = useState<Step>(0);
   const [propertyPrice, setPropertyPrice] = useState(312_500);
@@ -86,6 +81,15 @@ const RepaymentPage = () => {
   useEffect(() => {
     if (step !== 0) return;
   }, [step]);
+
+  // City calculator variants are thin content — redirect to regional page
+  if (city) {
+    return <Navigate to={`/uk/${city.slug}`} replace />;
+  }
+  // Unknown slug — redirect to base calculator
+  if (slug && !lender && !city) {
+    return <Navigate to="/calculators/repayment" replace />;
+  }
 
   const title = lender
     ? `Calculate monthly payments for ${lender.name} mortgages`

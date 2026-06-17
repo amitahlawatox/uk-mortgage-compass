@@ -20,12 +20,8 @@ import { EquitySEOContent } from "@/components/calculators/SEOContent";
 
 const EquityPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const lender = slug ? getLenderBySlug(slug) : undefined;
-  const city = slug && !lender ? getCityBySlug(slug) : undefined;
-
-  if (slug && !lender && !city) {
-    return <Navigate to="/calculators/equity" replace />;
-  }
+  const lender = undefined;
+  const city = undefined;
 
   const [purchasePrice, setPurchasePrice] = useState(300_000);
   const [currentValue, setCurrentValue] = useState(360_000);
@@ -88,10 +84,15 @@ const EquityPage = () => {
     { name: "Bank's claim", value: banksEquity, color: "hsl(var(--accent))" },
   ], [yourEquity, banksEquity]);
 
-  const pagePath = city ? `calculators/equity/${city.slug}` : lender ? `calculators/equity/${lender.slug}` : "calculators/equity";
+  // Equity calculation is lender-agnostic — redirect all slug variants to base calculator
+  if (slug) {
+    return <Navigate to="/calculators/equity" replace />;
+  }
+
+  const pagePath = "calculators/equity";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
-  const seoTitle = lender ? `${lender.name} Home Equity Calculator | RepayWise` : city ? `${city.name} Home Equity Calculator | RepayWise` : "Home Equity Calculator UK 2026 — How Much Equity Do I Have? | RepayWise";
-  const seoDescription = lender ? `Free ${lender.name} home equity calculator. See your outstanding mortgage balance, current LTV, and equity share. Plan a remortgage or sale with ${lender.name}.` : city ? `Free home equity calculator for ${city.name}. ${city.description} See your outstanding mortgage balance, current LTV, and equity share.` : "Free UK home equity calculator — find out how much equity you have in your property. See outstanding balance, LTV band, equity %, and net proceeds if you sell. No login needed.";
+  const seoTitle = "Home Equity Calculator UK 2026 — How Much Equity Do I Have? | RepayWise";
+  const seoDescription = "Free UK home equity calculator — find out how much equity you have in your property. See outstanding balance, LTV band, equity %, and net proceeds if you sell. No login needed.";
 
   return (
     <CalculatorShell

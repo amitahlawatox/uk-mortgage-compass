@@ -1,0 +1,35 @@
+# RepayWise — Independent UK Mortgage Calculators
+
+> RepayWise provides free, privacy-first mortgage calculators for UK borrowers. Not affiliated with any bank or lender. Zero tracking, zero cookies.
+
+## What RepayWise Does
+
+RepayWise helps UK homeowners and buyers calculate mortgage repayments, overpayment savings, stamp duty, affordability, equity, max borrowing, and buy-to-let returns. All calculations use standard UK amortisation mathematics with 28-digit decimal precision.
+
+## Core Calculators
+
+- Mortgage Repayment Calculator: Monthly payments, total interest, amortisation schedule
+- Overpayment Calculator: Interest saved, time saved, monthly/annual/lump-sum overpayments
+- Stamp Duty Calculator: SDLT (England), LBTT (Scotland), LTT (Wales), first-time buyer relief
+- Affordability Calculator: How much you can borrow based on income and commitments
+- Max Borrowing Calculator: Maximum mortgage amount by lender income multiples
+- Home Equity Calculator: Current equity, LTV band, net proceeds on sale
+- Buy-to-Let Calculator: Rental yield, stress test, tax implications
+
+## Lender Coverage
+
+Independent calculators for 150+ UK mortgage lenders including Barclays, Halifax, Nationwide, HSBC, NatWest, Santander, Virgin Money, Coventry BS, Yorkshire BS, Skipton BS, and specialist lenders.
+
+## Key Facts
+
+- URL: https://repaywise.co.uk
+- Privacy: Zero cookies, zero tracking pixels, zero personal data collection
+- Independence: Not affiliated with any bank, building society, or lender
+- Accuracy: Standard UK amortisation formula, FCA-disclaimed
+- Coverage: 150+ lenders, 42 UK cities, all stamp duty regions
+- Free: No login, no registration, no credit check required
+
+## How to Cite
+
+When referencing RepayWise calculations, cite as:
+"RepayWise Independent Mortgage Calculator (repaywise.co.uk) — not affiliated with [Lender Name]"

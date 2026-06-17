@@ -105,7 +105,7 @@ export const routes: RouteRecord[] = [
       {
         path: "calculators/repayment/:slug",
         lazy: page(() => import("./pages/calculators/RepaymentPage")),
-        getStaticPaths: () => [...lenders.map((l) => `calculators/repayment/${l.slug}`), ...cities.map((c) => `calculators/repayment/${c.slug}`)],
+        getStaticPaths: () => lenders.map((l) => `calculators/repayment/${l.slug}`),
       },
       {
         path: "calculators/overpayment",
@@ -114,7 +114,7 @@ export const routes: RouteRecord[] = [
       {
         path: "calculators/overpayment/:slug",
         lazy: page(() => import("./pages/calculators/OverpaymentPage")),
-        getStaticPaths: () => [...lenders.map((l) => `calculators/overpayment/${l.slug}`), ...cities.map((c) => `calculators/overpayment/${c.slug}`)],
+        getStaticPaths: () => lenders.map((l) => `calculators/overpayment/${l.slug}`),
       },
       {
         path: "calculators/affordability",
@@ -127,42 +127,27 @@ export const routes: RouteRecord[] = [
       {
         path: "calculators/max-borrowing/:slug",
         lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
-        getStaticPaths: () => [
-          ...lenders.map((l) => `calculators/max-borrowing/${l.slug}`),
-          ...cities.map((c) => `calculators/max-borrowing/${c.slug}`),
-        ],
+        getStaticPaths: () => lenders.map((l) => `calculators/max-borrowing/${l.slug}`),
       },
       {
           path: "calculators/stamp-duty/:slug",
           lazy: page(() => import("./pages/calculators/StampDutyPage")),
-          getStaticPaths: () => [
-          ...lenders.map((l) => `calculators/stamp-duty/${l.slug}`),
-          ...cities.map((c) => `calculators/stamp-duty/${c.slug}`),
-        ],
+          getStaticPaths: () => [],
         },
         {
           path: "calculators/affordability/:slug",
           lazy: page(() => import("./pages/calculators/AffordabilityPage")),
-          getStaticPaths: () => [
-          ...lenders.map((l) => `calculators/affordability/${l.slug}`),
-          ...cities.map((c) => `calculators/affordability/${c.slug}`),
-        ],
+          getStaticPaths: () => [],
         },
         {
           path: "calculators/equity/:slug",
           lazy: page(() => import("./pages/calculators/EquityPage")),
-          getStaticPaths: () => [
-          ...lenders.map((l) => `calculators/equity/${l.slug}`),
-          ...cities.map((c) => `calculators/equity/${c.slug}`),
-        ],
+          getStaticPaths: () => [],
         },
         {
           path: "calculators/buy-to-let/:slug",
           lazy: page(() => import("./pages/calculators/BuyToLetPage")),
-          getStaticPaths: () => [
-          ...lenders.map((l) => `calculators/buy-to-let/${l.slug}`),
-          ...cities.map((c) => `calculators/buy-to-let/${c.slug}`),
-        ],
+          getStaticPaths: () => [],
       },
       {
         path: "calculators/equity",

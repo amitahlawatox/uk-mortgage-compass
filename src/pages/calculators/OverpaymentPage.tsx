@@ -24,10 +24,6 @@ const OverpaymentPage = () => {
   const lender = slug ? getLenderBySlug(slug) : undefined;
   const city = slug && !lender ? getCityBySlug(slug) : undefined;
 
-  if (slug && !lender && !city) {
-    return <Navigate to="/calculators/overpayment" replace />;
-  }
-
   const [propertyPrice, setPropertyPrice] = useState(312_500);
   const [deposit, setDeposit] = useState(62_500);
   const [principal, setPrincipal] = useState(250_000);
@@ -118,13 +114,22 @@ const OverpaymentPage = () => {
     return [...map.values()].sort((a, b) => a.year - b.year);
   }, [accelerated, baseline]);
 
+  // City calculator variants are thin content — redirect to regional page
+  if (city) {
+    return <Navigate to={`/uk/${city.slug}`} replace />;
+  }
+  // Unknown slug — redirect to base calculator
+  if (slug && !lender && !city) {
+    return <Navigate to="/calculators/overpayment" replace />;
+  }
+
   const title = lender
     ? `Calculate Interest Savings for ${lender.name} Mortgages`
     : "Overpayment Visualiser";
   const intro = lender
     ? `Model how regular overpayments or a one-off lump sum could reduce interest on a ${lender.name} mortgage. We preload the rate at an indicative ${lender.estimatedSvr.toFixed(2)}% SVR so you can pressure-test the fallback scenario before you decide whether to overpay, remortgage, or keep cash liquid.`
     : "Move the sliders. See exactly how a regular monthly overpayment or a one-off lump sum reshapes your mortgage: interest saved and years shaved off the term.";
-  const pagePath = city ? `calculators/overpayment/${city.slug}` : lender ? `calculators/overpayment/${lender.slug}` : "calculators/overpayment";
+  const pagePath = lender ? `calculators/overpayment/${lender.slug}` : "calculators/overpayment";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = city ? `${city.name} Overpayment Calculator | RepayWise` : lender
     ? `${lender.name} Overpayment Calculator 2026 — Independent | RepayWise`

@@ -9,27 +9,26 @@
  *   3. /calculators/overpayment/{lenderSlug}  — ALL lenders
  *      WHY: Overpayment pages rank #1-3 for nearly every specialist lender.
  *           "[Bank] overpayment mortgage calculator" is a high-intent keyword
- *           with almost zero competition from big sites. This is our proven
- *           traffic driver. Every lender gets one.
- *   4. /calculators/{other-type}/{slug}  — ONLY unique-content lenders + all cities
- *      WHY: These pages only go in the sitemap if they have genuine unique
- *           content (300-500 words written per lender) OR unique regional
- *           data (city pages have real neighbourhood prices, SDLT info etc).
- *           Template-swapped pages with 94% identical content get flagged
- *           as duplicates by Google — we strip those out.
- *   5. /uk/{citySlug}  — all city regional pages (unique regional data)
- *   6. /guides/lenders/{lenderSlug}  — all lender guide pages
+ *           with almost zero competition from big sites.
+ *   4. /calculators/repayment/{lenderSlug}  — ALL lenders
+ *      WHY: "[Bank] mortgage calculator" queries are high-intent. SVR differs
+ *           by lender making each page genuinely distinct.
+ *   5. /calculators/max-borrowing/{lenderSlug}  — ALL lenders
+ *      WHY: Income multiples and max LTV vary by lender. Each page is unique.
+ *   6. /uk/{citySlug}  — all city regional pages (unique regional data)
+ *   7. /guides/lenders/{lenderSlug}  — all lender guide pages
  *
  * WHAT IS EXCLUDED (and why):
- *   /calculators/{non-overpayment}/{non-unique-lender}
- *   These are template pages where only the bank name changes. Google flags
- *   them as "Duplicate without canonical" or "Alternate page with canonical" —
- *   both hurt domain authority. Keeping them out improves index quality.
+ *   /calculators/stamp-duty/{slug} — stamp duty does not vary by lender or city
+ *   /calculators/affordability/{slug} — redirects to base (lender-agnostic)
+ *   /calculators/equity/{slug} — equity calc doesn't vary by lender
+ *   /calculators/buy-to-let/{slug} — redirects to base (lender-agnostic)
+ *   /calculators/{type}/{citySlug} — city calc variants are thin content;
+ *     the regional page (/uk/{city}) already covers city-specific data.
  *
  * HOW TO ADD MORE LENDERS TO FULL COVERAGE:
  *   1. Write unique content in src/lib/uk/lenderContent.ts
- *   2. Add the lender slug to UNIQUE_CONTENT_LENDERS below
- *   3. Run build — their full calc pages auto-enter the sitemap
+ *   2. Run build — content quality improves rankings automatically
  */
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
@@ -43,26 +42,10 @@ const distDir = path.join(projectRoot, "dist");
 const publicDir = path.join(projectRoot, "public");
 const siteUrl = "https://repaywise.co.uk";
 
-// ─── QUALITY GATE ─────────────────────────────────────────────────────────────
-// Only these 10 lenders have 300-500 words of unique editorial content written
-// for them in lenderContent.ts. They get ALL 7 calculator types in the sitemap.
-// All other lenders get ONLY the overpayment calculator (our proven winner).
-//
-// TO EXPAND: write content in lenderContent.ts → add slug here → rebuild.
-const UNIQUE_CONTENT_LENDERS = new Set([
-  "barclays",
-  "nationwide",
-  "hsbc",
-  "halifax",
-  "lloyds-bank",
-  "santander",
-  "danske",
-  "virgin-money",
-  "natwest",
-  "coventry",
-]);
+// Calculator types that have lender-specific content (SVR, LTV, income multiples differ)
+const LENDER_CALC_TYPES = ["repayment", "overpayment", "max-borrowing"];
 
-// All 7 calculator types on the site
+// All 7 calculator types (for base pages)
 const CALC_TYPES = [
   "repayment",
   "overpayment",
@@ -129,31 +112,19 @@ for (const type of CALC_TYPES) {
   urls.push(url(`/calculators/${type}`, "0.9", "weekly"));
 }
 
-// 3. Overpayment pages: ALL lenders
-//    This is our #1 ranking pattern — every specialist lender gets one.
-//    "[Bank] overpayment calculator" keywords have almost zero competition.
-for (const slug of lenderSlugs) {
-  urls.push(url(`/calculators/overpayment/${slug}`, "0.8", "weekly"));
-}
-
-// 4. Non-overpayment calculator pages
-//    Rule: unique-content lenders ONLY (10 lenders) + all cities
-//    All other lenders excluded — their template pages are near-duplicate
-for (const type of CALC_TYPES) {
-  if (type === "overpayment") continue; // handled above
-
-  // Unique-content lenders: full coverage across all calc types
+// 3. Lender-specific calculator pages: repayment + overpayment + max-borrowing
+//    These are our money pages — SVR, LTV, and income multiples genuinely differ
+//    by lender, making each page unique. All lenders get these 3 types.
+for (const type of LENDER_CALC_TYPES) {
   for (const slug of lenderSlugs) {
-    if (UNIQUE_CONTENT_LENDERS.has(slug)) {
-      urls.push(url(`/calculators/${type}/${slug}`, "0.8", "weekly"));
-    }
-  }
-
-  // All cities: each has unique house prices, neighbourhood data, SDLT region
-  for (const slug of citySlugs) {
-    urls.push(url(`/calculators/${type}/${slug}`, "0.7", "monthly"));
+    urls.push(url(`/calculators/${type}/${slug}`, "0.8", "weekly"));
   }
 }
+
+// NOTE: stamp-duty, affordability, equity, buy-to-let slug pages are excluded.
+// These calculators are lender-agnostic (stamp duty is the same regardless of lender,
+// equity is a property-value calculation, etc). City calc variants are also excluded —
+// the regional page (/uk/{city}) is the canonical source for city-specific data.
 
 // 5. City regional pages — all cities
 for (const slug of citySlugs) {
@@ -196,14 +167,10 @@ await writeFile(path.join(distDir, "sitemap.xml"), sitemapXml, "utf8");
 await writeFile(path.join(publicDir, "sitemap.xml"), sitemapXml, "utf8");
 
 // ─── REPORT ───────────────────────────────────────────────────────────────────
-const overpaymentCount = lenderSlugs.length;
-const uniqueLenderFullCount =
-  [...lenderSlugs].filter((s) => UNIQUE_CONTENT_LENDERS.has(s)).length *
-  (CALC_TYPES.length - 1);
-const cityCalcCount = citySlugs.length * (CALC_TYPES.length - 1);
+const lenderCalcCount = lenderSlugs.length * LENDER_CALC_TYPES.length;
 const excludedCount =
-  [...lenderSlugs].filter((s) => !UNIQUE_CONTENT_LENDERS.has(s)).length *
-  (CALC_TYPES.length - 1);
+  lenderSlugs.length * (CALC_TYPES.length - LENDER_CALC_TYPES.length) +
+  citySlugs.length * CALC_TYPES.length;
 
 console.log(`\n✅ RepayWise Quality Sitemap Generated`);
 console.log(`   Total URLs:            ${urls.length}`);
@@ -211,18 +178,12 @@ console.log(`   ─────────────────────�
 console.log(`   Static / hub:          ${STATIC_PAGES.length}`);
 console.log(`   Calculator bases:      ${CALC_TYPES.length}`);
 console.log(
-  `   Overpayment (all ${lenderSlugs.length} lenders): ${overpaymentCount}`,
-);
-console.log(
-  `   Full coverage (${UNIQUE_CONTENT_LENDERS.size} unique lenders × ${CALC_TYPES.length - 1} types): ${uniqueLenderFullCount}`,
-);
-console.log(
-  `   City calc pages (${citySlugs.length} cities × ${CALC_TYPES.length - 1} types): ${cityCalcCount}`,
+  `   Lender calc pages (${lenderSlugs.length} lenders × ${LENDER_CALC_TYPES.length} types): ${lenderCalcCount}`,
 );
 console.log(`   City regional:         ${citySlugs.length}`);
 console.log(`   Lender guides:         ${lenderSlugs.length}`);
 console.log(`   ─────────────────────────────────────`);
-console.log(`   Thin pages excluded:   ${excludedCount} (quality gate applied)`);
+console.log(`   Thin pages excluded:   ${excludedCount} (redirected to base)`);
 console.log(
-  `\n   To expand coverage: write content in lenderContent.ts → add slug to UNIQUE_CONTENT_LENDERS\n`,
-);
+  `\n   Lender-agnostic calcs (stamp-duty, affordability, equity, buy-to-let)`);
+console.log(`   now redirect slug variants to base calculator page.\n`);
