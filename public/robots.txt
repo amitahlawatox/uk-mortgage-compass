@@ -32,10 +32,13 @@ User-agent: Claude-Web
 Disallow: /
 
 User-agent: Google-Extended
-Disallow: /
+Allow: /
 
 User-agent: PerplexityBot
-Disallow: /
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
 
 # ── Commercial scraper/spy tools — blocked ────────────────────────
 User-agent: headless-render-api-bot

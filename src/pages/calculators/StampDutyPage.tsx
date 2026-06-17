@@ -68,12 +68,8 @@ type LookupState =
 
 const StampDutyPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const lender = slug ? getLenderBySlug(slug) : undefined;
-  const city = slug && !lender ? getCityBySlug(slug) : undefined;
-
-  if (slug && !lender && !city) {
-    return <Navigate to="/calculators/stamp-duty" replace />;
-  }
+  const lender = undefined;
+  const city = undefined;
 
   const [price, setPrice] = useState(450_000);
   const [region, setRegion] = useState<Region>("england");
@@ -134,10 +130,15 @@ const StampDutyPage = () => {
     [price, region, ftb, additional],
   );
 
-  const pagePath = city ? `calculators/stamp-duty/${city.slug}` : lender ? `calculators/stamp-duty/${lender.slug}` : "calculators/stamp-duty";
+  // Stamp duty is lender-agnostic — redirect all slug variants to base calculator
+  if (slug) {
+    return <Navigate to="/calculators/stamp-duty" replace />;
+  }
+
+  const pagePath = "calculators/stamp-duty";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
-  const seoTitle = lender ? `${lender.name} Stamp Duty Calculator — SDLT, LBTT, LTT | RepayWise` : city ? `${city.name} Stamp Duty Calculator | RepayWise` : "Stamp Duty Calculator UK — SDLT, LBTT, LTT — RepayWise";
-  const seoDescription = lender ? `Free ${lender.name} stamp duty calculator. Calculate SDLT, LBTT or LTT for your property purchase with ${lender.name}. First-time buyer relief and surcharges included.` : city ? `Free stamp duty calculator for ${city.name}. ${city.description} Calculate SDLT, LBTT or LTT with first-time buyer relief and surcharges.` : "Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown.";
+  const seoTitle = "Stamp Duty Calculator UK — SDLT, LBTT, LTT — RepayWise";
+  const seoDescription = "Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown.";
 
   return (
     <CalculatorShell

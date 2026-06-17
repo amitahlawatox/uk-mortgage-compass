@@ -25,10 +25,6 @@ const MaxBorrowingPage = () => {
   const lender = slug ? getLenderBySlug(slug) : undefined;
   const city = slug && !lender ? getCityBySlug(slug) : undefined;
 
-  if (slug && !lender && !city) {
-    return <Navigate to="/calculators/max-borrowing" replace />;
-  }
-
   const [income, setIncome] = useState(55_000);
   const [partner, setPartner] = useState(0);
   const [expenditure, setExpenditure] = useState(400);
@@ -57,13 +53,23 @@ const MaxBorrowingPage = () => {
 
   const totalIncome = income + partner;
   const lti = totalIncome > 0 ? result.maxBorrowing / totalIncome : 0;
+
+  // City calculator variants are thin content — redirect to regional page
+  if (city) {
+    return <Navigate to={`/uk/${city.slug}`} replace />;
+  }
+  // Unknown slug — redirect to base calculator
+  if (slug && !lender && !city) {
+    return <Navigate to="/calculators/max-borrowing" replace />;
+  }
+
   const title = lender
     ? `How much could ${lender.name} lend you?`
     : "UK Mortgage Affordability";
   const intro = lender
     ? `Sense-check how much you could borrow with ${lender.name}. We model a lender-style income multiple, disposable-income check, and stress test, while using the lender's indicative ${lender.estimatedSvr.toFixed(2)}% SVR and ${lender.maxLtv}% maximum LTV band as planning anchors.`
     : "Lender-style 4.5x income multiplier plus a disposable-income check and a +3% interest rate stress test. See your maximum borrowing and the property price you can target.";
-  const pagePath = city ? `calculators/max-borrowing/${city.slug}` : lender ? `calculators/max-borrowing/${lender.slug}` : "calculators/max-borrowing";
+  const pagePath = lender ? `calculators/max-borrowing/${lender.slug}` : "calculators/max-borrowing";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = city ? `${city.name} Maximum Borrowing Calculator | RepayWise` : lender
     ? `${lender.name} Max Borrowing Calculator 2026 — Independent | RepayWise`

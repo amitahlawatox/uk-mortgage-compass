@@ -21,12 +21,8 @@ type RepayType = "repayment" | "interest-only";
 
 const BuyToLetPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const lender = slug ? getLenderBySlug(slug) : undefined;
-  const city = slug && !lender ? getCityBySlug(slug) : undefined;
-
-  if (slug && !lender && !city) {
-    return <Navigate to="/calculators/buy-to-let" replace />;
-  }
+  const lender = undefined;
+  const city = undefined;
 
   const [housePrice, setHousePrice] = useState(250_000);
   const [deposit, setDeposit] = useState(62_500); // 25% default
@@ -65,12 +61,15 @@ const BuyToLetPage = () => {
   const monthlyInterest = (loan * (rate / 100)) / 12;
   const icr = monthlyInterest > 0 ? (monthlyRent / monthlyInterest) * 100 : 0;
 
-  const pagePath = city ? `calculators/buy-to-let/${city.slug}` : lender ? `calculators/buy-to-let/${lender.slug}` : "calculators/buy-to-let";
+  // Buy-to-let calculation is lender-agnostic — redirect all slug variants to base calculator
+  if (slug) {
+    return <Navigate to="/calculators/buy-to-let" replace />;
+  }
+
+  const pagePath = "calculators/buy-to-let";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
-  const seoTitle = lender
-    ? `RepayWise independent buy-to-let calculator for ${lender.name} customers. Rental yield, mortgage costs and cash return — no ${lender.name} login or credit check. Third-party tool.` : city ? `${city.name} Buy-to-Let Calculator | RepayWise` : "Buy-to-Let Mortgage Calculator UK — Yield, Stamp Duty & EMI";
-  const seoDescription = lender
-    ? `RepayWise independent buy-to-let calculator for ${lender.name} customers. Rental yield, mortgage costs and cash return — no ${lender.name} login or credit check. Third-party tool.` : city ? `Free buy-to-let mortgage calculator for ${city.name}. ${city.description} Model BTL deposit, stamp duty surcharge, rental yield, cash flow, and ICR stress test.` : "UK Buy-to-Let calculator. 25% deposit default, interest-only or repayment, stamp duty surcharge by region, rental yield, net cash flow and ICR.";
+  const seoTitle = "Buy-to-Let Mortgage Calculator UK — Yield, Stamp Duty & EMI";
+  const seoDescription = "UK Buy-to-Let calculator. 25% deposit default, interest-only or repayment, stamp duty surcharge by region, rental yield, net cash flow and ICR.";
 
   return (
     <CalculatorShell
