@@ -162,6 +162,7 @@ const OverpaymentPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
+        noIndex={!!city}
         jsonLd={{
           "@context": "https://schema.org",
           "@graph": [

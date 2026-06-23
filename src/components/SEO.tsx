@@ -11,12 +11,13 @@ interface SEOProps {
   lender?: LenderMeta;
   calculatorType?: string;
   faqItems?: FAQItem[];
+  noIndex?: boolean;
 }
 
 const BASE = "https://repaywise.co.uk";
 const OG_IMAGE = `${BASE}/og-image.jpg`;
 
-export function SEO({ title, description, path, jsonLd, lender, calculatorType, faqItems }: SEOProps) {
+export function SEO({ title, description, path, jsonLd, lender, calculatorType, faqItems, noIndex }: SEOProps) {
   const canonical = path
     ? path.startsWith("http") ? path : `${BASE}/${path.replace(/^\//, "")}`
     : BASE;
@@ -91,6 +92,7 @@ export function SEO({ title, description, path, jsonLd, lender, calculatorType, 
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
+      {noIndex && <meta name="robots" content="noindex, follow" />}
       <link rel="canonical" href={canonical} />
 
       {/* Open Graph */}

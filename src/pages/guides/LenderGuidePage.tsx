@@ -5,6 +5,11 @@ import { SEO } from "@/components/SEO";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 
+const UNIQUE_CONTENT_LENDERS = new Set([
+  "barclays", "nationwide", "hsbc", "halifax", "lloyds-bank",
+  "santander", "danske", "virgin-money", "natwest", "coventry",
+]);
+
 const LenderGuidePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const lender = slug ? getLenderBySlug(slug) : undefined;
@@ -23,6 +28,7 @@ const LenderGuidePage = () => {
         title={`${lender.name} Mortgage Guide 2026 | RepayWise`}
         description={`Planning a ${lender.name} mortgage in 2026? Compare indicative SVR, max LTV, overpayment strategy, repayment modelling, and borrowing power in one place.`}
         path={buildLenderGuidePath(lender.slug)}
+        noIndex={!UNIQUE_CONTENT_LENDERS.has(lender.slug)}
         jsonLd={{
           "@context": "https://schema.org",
           "@graph": [

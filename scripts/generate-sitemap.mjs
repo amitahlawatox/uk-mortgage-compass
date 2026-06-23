@@ -1,35 +1,34 @@
 /**
  * RepayWise Quality Sitemap Generator
  * =====================================
- * SEO STRATEGY: Quality over quantity.
+ * SEO STRATEGY: Aggressive quality gate — fewer pages, stronger signals.
  *
  * WHAT IS INCLUDED (and why):
- *   1. All static / hub pages
- *   2. /calculators/{type}  — 7 base calculator pages (high-value hub pages)
+ *   1. All static / hub pages (homepage, legal, guides, new calculators)
+ *   2. /calculators/{type}  — 12 base calculator pages (high-value hub pages)
  *   3. /calculators/overpayment/{lenderSlug}  — ALL lenders
- *      WHY: Overpayment pages rank #1-3 for nearly every specialist lender.
- *           "[Bank] overpayment mortgage calculator" is a high-intent keyword
- *           with almost zero competition from big sites. This is our proven
- *           traffic driver. Every lender gets one.
- *   4. /calculators/{other-type}/{slug}  — ONLY unique-content lenders + all cities
- *      WHY: These pages only go in the sitemap if they have genuine unique
- *           content (300-500 words written per lender) OR unique regional
- *           data (city pages have real neighbourhood prices, SDLT info etc).
- *           Template-swapped pages with 94% identical content get flagged
- *           as duplicates by Google — we strip those out.
- *   5. /uk/{citySlug}  — all city regional pages (unique regional data)
- *   6. /guides/lenders/{lenderSlug}  — all lender guide pages
+ *      WHY: Overpayment pages rank #1-10 for specialist lender keywords.
+ *           "[Bank] overpayment mortgage calculator" has near-zero competition.
+ *           This is our proven traffic driver. Every lender gets one.
+ *   4. /calculators/{other-type}/{unique-lender}  — ONLY 10 unique-content lenders
+ *      WHY: These lenders have 300-500 words of genuine editorial content.
+ *   5. /uk/{citySlug}  — 40 city regional pages (unique house prices, neighbourhoods, SDLT)
+ *   6. /guides/lenders/{unique-lender}  — ONLY 10 unique-content lender guides
  *
  * WHAT IS EXCLUDED (and why):
+ *   /calculators/{type}/{citySlug}  — city calculator variants
+ *     These are identical calculators with only the city name in the title.
+ *     Google flags them as "Alternate page with proper canonical" — they
+ *     dilute authority across 240 near-duplicate pages. Removed.
  *   /calculators/{non-overpayment}/{non-unique-lender}
- *   These are template pages where only the bank name changes. Google flags
- *   them as "Duplicate without canonical" or "Alternate page with canonical" —
- *   both hurt domain authority. Keeping them out improves index quality.
+ *     Template pages where only the bank name changes. Excluded.
+ *   /guides/lenders/{non-unique-lender}
+ *     Template guide pages with <50 unique words. Excluded.
  *
  * HOW TO ADD MORE LENDERS TO FULL COVERAGE:
  *   1. Write unique content in src/lib/uk/lenderContent.ts
  *   2. Add the lender slug to UNIQUE_CONTENT_LENDERS below
- *   3. Run build — their full calc pages auto-enter the sitemap
+ *   3. Run build — their calc + guide pages auto-enter the sitemap
  */
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
@@ -142,8 +141,9 @@ for (const slug of lenderSlugs) {
 }
 
 // 4. Non-overpayment calculator pages
-//    Rule: unique-content lenders ONLY (10 lenders) + all cities
-//    All other lenders excluded — their template pages are near-duplicate
+//    Rule: unique-content lenders ONLY (10 lenders). No city calc variants.
+//    City calc pages are identical to the base calculator — only the title
+//    changes. Google flagged 240 of these as duplicate/alternate canonical.
 for (const type of CALC_TYPES) {
   if (type === "overpayment") continue; // handled above
 
@@ -154,10 +154,9 @@ for (const type of CALC_TYPES) {
     }
   }
 
-  // All cities: each has unique house prices, neighbourhood data, SDLT region
-  for (const slug of citySlugs) {
-    urls.push(url(`/calculators/${type}/${slug}`, "0.7", "monthly"));
-  }
+  // City calc variants: EXCLUDED — thin content, identical calculator
+  // Users can still navigate to /calculators/{type}/{city} via SPA routing,
+  // but we don't submit these to Google. Authority consolidates on base pages.
 }
 
 // 5. City regional pages — all cities
@@ -165,9 +164,14 @@ for (const slug of citySlugs) {
   urls.push(url(`/uk/${slug}`, "0.7", "monthly"));
 }
 
-// 6. Lender guide pages — all lenders
+// 6. Lender guide pages — ONLY unique-content lenders
+//    Non-unique lender guides are template pages with <50 unique words.
+//    The lender name, SVR, and LTV are plugged into boilerplate.
+//    Keeping 137 thin guide pages dilutes domain authority.
 for (const slug of lenderSlugs) {
-  urls.push(url(`/guides/lenders/${slug}`, "0.7", "monthly"));
+  if (UNIQUE_CONTENT_LENDERS.has(slug)) {
+    urls.push(url(`/guides/lenders/${slug}`, "0.7", "monthly"));
+  }
 }
 
 // ─── XML BUILDER ──────────────────────────────────────────────────────────────
@@ -205,10 +209,13 @@ const overpaymentCount = lenderSlugs.length;
 const uniqueLenderFullCount =
   [...lenderSlugs].filter((s) => UNIQUE_CONTENT_LENDERS.has(s)).length *
   (CALC_TYPES.length - 1);
-const cityCalcCount = citySlugs.length * (CALC_TYPES.length - 1);
-const excludedCount =
+const cityCalcExcluded = citySlugs.length * (CALC_TYPES.length - 1);
+const nonUniqueLenderCalcExcluded =
   [...lenderSlugs].filter((s) => !UNIQUE_CONTENT_LENDERS.has(s)).length *
   (CALC_TYPES.length - 1);
+const nonUniqueLenderGuideExcluded =
+  [...lenderSlugs].filter((s) => !UNIQUE_CONTENT_LENDERS.has(s)).length;
+const totalExcluded = cityCalcExcluded + nonUniqueLenderCalcExcluded + nonUniqueLenderGuideExcluded;
 
 console.log(`\n✅ RepayWise Quality Sitemap Generated`);
 console.log(`   Total URLs:            ${urls.length}`);
@@ -221,13 +228,14 @@ console.log(
 console.log(
   `   Full coverage (${UNIQUE_CONTENT_LENDERS.size} unique lenders × ${CALC_TYPES.length - 1} types): ${uniqueLenderFullCount}`,
 );
-console.log(
-  `   City calc pages (${citySlugs.length} cities × ${CALC_TYPES.length - 1} types): ${cityCalcCount}`,
-);
 console.log(`   City regional:         ${citySlugs.length}`);
-console.log(`   Lender guides:         ${lenderSlugs.length}`);
+console.log(`   Lender guides:         ${UNIQUE_CONTENT_LENDERS.size}`);
 console.log(`   ─────────────────────────────────────`);
-console.log(`   Thin pages excluded:   ${excludedCount} (quality gate applied)`);
+console.log(`   EXCLUDED (thin content):`);
+console.log(`     City calc variants:  ${cityCalcExcluded} (identical calculators)`);
+console.log(`     Non-unique lender:   ${nonUniqueLenderCalcExcluded} (template-swapped)`);
+console.log(`     Non-unique guides:   ${nonUniqueLenderGuideExcluded} (boilerplate)`);
+console.log(`     Total excluded:      ${totalExcluded}`);
 console.log(
   `\n   To expand coverage: write content in lenderContent.ts → add slug to UNIQUE_CONTENT_LENDERS\n`,
 );

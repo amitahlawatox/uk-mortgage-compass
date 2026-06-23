@@ -135,6 +135,7 @@ const RepaymentPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
+        noIndex={!!city}
         jsonLd={lender ? {
           "@context": "https://schema.org",
           "@type": "FinancialProduct",

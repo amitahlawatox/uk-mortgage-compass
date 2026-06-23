@@ -91,6 +91,46 @@
       "source": "/uk/wrexham",
       "destination": "/uk/swansea",
       "statusCode": 301
+    },
+    {
+      "source": "/calculators/home-equity-calculator",
+      "destination": "/calculators/equity",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/mortgage-affordability-calculator",
+      "destination": "/calculators/affordability",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/coventry",
+      "destination": "/uk/birmingham",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/stoke-on-trent",
+      "destination": "/uk/stoke",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/londonderry",
+      "destination": "/uk/belfast",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/middlesbrough",
+      "destination": "/uk/newcastle-city",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/stirling",
+      "destination": "/uk/edinburgh",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/warwick",
+      "destination": "/uk/birmingham",
+      "statusCode": 301
     }
   ],
   "rewrites": [],

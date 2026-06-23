@@ -84,6 +84,7 @@ const BuyToLetPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
+        noIndex={!!city}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Buy-to-Let Mortgage Calculator"
       />
