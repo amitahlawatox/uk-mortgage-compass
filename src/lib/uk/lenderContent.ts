@@ -147,7 +147,7 @@ export const LENDER_CONTENT: Record<string, LenderContent> = {
     whatMakesThemDifferent: "Coventry BS is remarkable for the consistency of their competitive pricing. While other lenders occasionally appear in best-buy tables, Coventry is almost always there. Their low-fee, low-rate model makes them particularly attractive for remortgagers who want a clean, competitive deal without hidden costs.",
     bestFor: "Rate-sensitive borrowers who want the cheapest deal, remortgagers looking for low fees, and anyone who prefers dealing with a mutual rather than a shareholder-owned bank.",
     typicalProducts: ["2-year fixed", "3-year fixed", "5-year fixed", "Tracker", "Buy-to-let fixed"]
-  },,
+  },
 
   "accord": {
     overview: "Accord Mortgages is the intermediary-only lending arm of Yorkshire Building Society, one of the UK's largest building societies. Operating exclusively through mortgage brokers rather than direct to consumers, Accord offers competitive residential and buy-to-let products with underwriting that is often described as pragmatic and borrower-friendly. Their strong broker relationships mean faster processing for eligible cases.",
