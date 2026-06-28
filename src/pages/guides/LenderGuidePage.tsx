@@ -6,8 +6,12 @@ import { LenderContextCard } from "@/components/lenders/LenderContextCard";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 
 const UNIQUE_CONTENT_LENDERS = new Set([
+  // Original 10 — full unique content written
   "barclays", "nationwide", "hsbc", "halifax", "lloyds-bank",
   "santander", "danske", "virgin-money", "natwest", "coventry",
+  // Added June 2026 — near page-1 guide impressions, unique content now written
+  "accord", "leeds", "precise", "cumberland",
+  "metro-bank", "principality", "suffolk", "clydesdale",
 ]);
 
 const LenderGuidePage = () => {

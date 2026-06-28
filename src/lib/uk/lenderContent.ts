@@ -147,7 +147,113 @@ export const LENDER_CONTENT: Record<string, LenderContent> = {
     whatMakesThemDifferent: "Coventry BS is remarkable for the consistency of their competitive pricing. While other lenders occasionally appear in best-buy tables, Coventry is almost always there. Their low-fee, low-rate model makes them particularly attractive for remortgagers who want a clean, competitive deal without hidden costs.",
     bestFor: "Rate-sensitive borrowers who want the cheapest deal, remortgagers looking for low fees, and anyone who prefers dealing with a mutual rather than a shareholder-owned bank.",
     typicalProducts: ["2-year fixed", "3-year fixed", "5-year fixed", "Tracker", "Buy-to-let fixed"]
+  },,
+
+  "accord": {
+    overview: "Accord Mortgages is the intermediary-only lending arm of Yorkshire Building Society, one of the UK's largest building societies. Operating exclusively through mortgage brokers rather than direct to consumers, Accord offers competitive residential and buy-to-let products with underwriting that is often described as pragmatic and borrower-friendly. Their strong broker relationships mean faster processing for eligible cases.",
+    keyFeatures: [
+      "Broker-only lender — only accessible through an FCA-authorised mortgage broker",
+      "Flexible income assessment including complex employment structures",
+      "Buy-to-let products available for individual and portfolio landlords",
+      "Part of Yorkshire Building Society — mutually owned with no shareholder pressure"
+    ],
+    overpaymentPolicy: "Accord Mortgages typically permits overpayments of up to 10% of the outstanding balance per year on fixed-rate products without early repayment charges. On tracker and variable-rate deals, unlimited overpayments are usually allowed. Always confirm current terms with your broker or Accord directly.",
+    whatMakesThemDifferent: "Accord's exclusivity to the broker channel means their products are rarely compared directly against high-street lenders, yet they frequently offer rates competitive with the best in the market. Their underwriting approach tends to be more flexible for borrowers with non-standard income, making them a go-to choice for brokers with complex cases.",
+    bestFor: "Borrowers working through a mortgage broker, those with complex income structures such as contractors or self-employed, and buy-to-let investors.",
+    typicalProducts: ["2-year fixed", "5-year fixed", "Tracker", "Buy-to-let fixed", "Remortgage"]
   },
+  "leeds": {
+    overview: "Leeds Building Society is one of the UK's largest building societies, with over 150 years of history serving members across the UK. As a mutual organisation, Leeds Building Society is owned by its members rather than external shareholders, which allows it to focus on delivering competitive mortgage products and strong service. They offer a comprehensive range of residential mortgages with particular strength in higher LTV lending.",
+    keyFeatures: [
+      "Specialist products for first-time buyers including 95% LTV deals",
+      "Shared ownership mortgages with competitive rates",
+      "Holiday let mortgages — one of few lenders in this specialist niche",
+      "Offset mortgages allowing savings to reduce interest charges"
+    ],
+    overpaymentPolicy: "Leeds Building Society typically allows overpayments of up to 10% of the outstanding mortgage balance per year on fixed-rate products without incurring early repayment charges. Tracker and variable-rate mortgage holders can usually overpay without limit. Check your specific mortgage offer document for your exact terms.",
+    whatMakesThemDifferent: "Leeds Building Society stands out for its willingness to lend in specialist areas that larger banks avoid — most notably holiday let mortgages and shared ownership. Their mutual structure means policy decisions are made with members in mind, which often translates into more sensible underwriting decisions for borrowers in unusual situations.",
+    bestFor: "First-time buyers with smaller deposits, shared ownership purchasers, holiday let investors, and savers interested in offset mortgages.",
+    typicalProducts: ["2-year fixed", "5-year fixed", "Tracker", "Offset", "Holiday let", "Shared ownership"]
+  },
+  "precise": {
+    overview: "Precise Mortgages is a specialist lending brand operated by Charter Court Financial Services, now part of OneSavings Bank Group. Designed for borrowers who fall outside mainstream lender criteria, Precise serves customers with complex credit histories, multiple income sources, or non-standard property types. All applications are processed through FCA-authorised mortgage brokers.",
+    keyFeatures: [
+      "Adverse credit mortgages — serves borrowers with CCJs, defaults or missed payments",
+      "Complex buy-to-let including HMOs and multi-unit freehold blocks",
+      "Self-employed borrowers assessed on flexible income criteria",
+      "Broker-only — not available direct to consumers"
+    ],
+    overpaymentPolicy: "Precise Mortgages allows overpayments on their products, though the specific terms vary by product type and when the mortgage was taken out. Fixed-rate products typically allow up to 10% per year without ERCs. Contact your broker or Precise Mortgages directly to confirm current overpayment terms.",
+    whatMakesThemDifferent: "Precise Mortgages fills a gap in the market for borrowers who have experienced financial difficulties or have complex circumstances. Rather than a straight decline, Precise uses experienced underwriters who assess each case on its merits — making them one of the most important lenders for borrowers who have been turned down elsewhere.",
+    bestFor: "Borrowers with adverse credit history, landlords with complex portfolios or HMOs, self-employed applicants with variable income, and those with non-standard property types.",
+    typicalProducts: ["Adverse credit residential", "Buy-to-let complex", "HMO", "Let-to-buy", "Self-employed"]
+  },
+  "cumberland": {
+    overview: "Cumberland Building Society is a regional mutual serving the North of England and southern Scotland, with over 145 years of history. Based in Carlisle, Cumberland operates through its branch network and intermediaries, offering competitive mortgage products with a strong focus on personal service and local underwriting. As a mutual, Cumberland is owned by its members rather than external shareholders.",
+    keyFeatures: [
+      "Regional focus on Cumbria, North England and Scottish borders",
+      "Personal underwriting — decisions made by local staff who know the area",
+      "Self-build mortgages available for unique projects",
+      "New build mortgage products including Help to Build scheme"
+    ],
+    overpaymentPolicy: "Cumberland Building Society typically permits overpayments of up to 10% of the outstanding balance per year on their fixed-rate mortgage products without early repayment charges. Variable and tracker rate mortgages usually allow unlimited overpayments. Contact Cumberland directly to confirm the terms for your specific product.",
+    whatMakesThemDifferent: "Cumberland's regional focus is both its strength and its differentiator — their underwriters genuinely understand the local property market and are more willing to lend on rural or unusual properties that London-based lenders might decline. Their self-build mortgage offering is also notably competitive for borrowers undertaking complex projects.",
+    bestFor: "Buyers in Cumbria and the North of England, self-build project borrowers, rural property purchasers, and those seeking personal service from a local lender.",
+    typicalProducts: ["2-year fixed", "5-year fixed", "Tracker", "Self-build", "New build", "Help to Build"]
+  },
+  "metro-bank": {
+    overview: "Metro Bank launched in 2010 as the first new high-street bank to open in the UK in over 100 years, known for its store-based model and extended opening hours seven days a week. Metro Bank offers residential mortgages with a distinctive approach to underwriting — using human decision-making rather than fully automated credit scoring, which makes them more accessible for borrowers with complex situations.",
+    keyFeatures: [
+      "Seven-day branch banking with extended opening hours",
+      "Manual underwriting — real people assess complex applications",
+      "Specialist lending for later life borrowers and interest-only",
+      "Retained interest option for certain borrower profiles"
+    ],
+    overpaymentPolicy: "Metro Bank mortgage customers can typically make overpayments on their mortgages, though the specific allowance depends on the product type. Fixed-rate mortgages generally allow up to 10% overpayment per year without early repayment charges. Contact Metro Bank directly to confirm the exact terms for your current product.",
+    whatMakesThemDifferent: "Metro Bank's human underwriting approach is their defining advantage. Where high-street banks and building societies rely heavily on automated systems that struggle with non-standard income or complex situations, Metro Bank involves experienced staff in the decision — resulting in approvals for customers who might otherwise be declined.",
+    bestFor: "Borrowers with complex income or employment history, later life lending, interest-only applicants, and customers who value in-person banking seven days a week.",
+    typicalProducts: ["2-year fixed", "5-year fixed", "Tracker", "Interest-only", "Later life", "Buy-to-let"]
+  },
+  "principality": {
+    overview: "Principality Building Society is Wales' largest building society and one of the UK's top 10 building societies by asset size. With over 165 years of history and headquarters in Cardiff, Principality serves borrowers across Wales and England with a strong mutual ethos. As a member-owned organisation, Principality focuses on long-term value for borrowers rather than short-term profit maximisation.",
+    keyFeatures: [
+      "Wales' largest building society with a strong regional presence",
+      "Competitive rates for Welsh property buyers",
+      "Offset mortgage option available",
+      "Shared ownership and Help to Buy Wales products"
+    ],
+    overpaymentPolicy: "Principality Building Society typically allows overpayments on fixed-rate mortgages without early repayment charges up to a set annual limit, usually 10% of the outstanding balance. Tracker and variable-rate customers can usually overpay without restriction. Confirm the terms for your specific Principality mortgage by contacting them directly.",
+    whatMakesThemDifferent: "Principality's deep roots in Wales give it a genuine advantage for buyers of Welsh property — their underwriters understand the Welsh market, Welsh property types, and Welsh leasehold law in a way that London-based lenders often do not. Their products are also available through Help to Buy Wales, making them a natural first port of call for Welsh first-time buyers.",
+    bestFor: "Welsh property buyers especially first-time buyers, borrowers using Help to Buy Wales, those seeking an offset mortgage, and buyers of shared ownership properties in Wales.",
+    typicalProducts: ["2-year fixed", "5-year fixed", "Tracker", "Offset", "Help to Buy Wales", "Shared ownership"]
+  },
+  "suffolk": {
+    overview: "Suffolk Building Society is a regional mutual lender based in Ipswich, serving borrowers across East Anglia and the UK with bespoke mortgage products. Known for its flexible, manual underwriting approach, Suffolk Building Society specialises in cases that require a more thoughtful assessment than automated systems allow. Maximum LTV is typically 80%, reflecting their cautious and considered lending philosophy.",
+    keyFeatures: [
+      "Manual underwriting for every application — no automated declines",
+      "Specialist lending for self-employed and complex income borrowers",
+      "Lending on non-standard property types including thatched and listed buildings",
+      "Maximum 80% LTV — cautious approach with robust underwriting"
+    ],
+    overpaymentPolicy: "Suffolk Building Society typically permits overpayments on its mortgage products, with fixed-rate mortgages generally allowing up to 10% of the outstanding balance per year without early repayment charges. Contact Suffolk Building Society directly to confirm the specific overpayment allowance on your mortgage product.",
+    whatMakesThemDifferent: "Suffolk Building Society's willingness to lend on properties that mainstream lenders decline — thatched properties, listed buildings, flats above commercial premises — makes them invaluable for buyers of characterful or unusual East Anglian properties. Their manual underwriting means every application gets genuine human attention.",
+    bestFor: "East Anglian property buyers, those purchasing non-standard or listed property, self-employed borrowers with complex income, and buyers needing a lender that takes a considered rather than algorithmic approach.",
+    typicalProducts: ["2-year fixed", "5-year fixed", "Tracker", "Self-employed", "Non-standard property"]
+  },
+  "clydesdale": {
+    overview: "Clydesdale Bank is a Scottish high-street bank that now operates as part of Virgin Money UK following their 2018 merger. Offering mortgages across Scotland and the UK, Clydesdale combines its traditional Scottish banking heritage with Virgin Money's digital capabilities and product range. Clydesdale Bank mortgages are available both directly and through mortgage brokers.",
+    keyFeatures: [
+      "Strong Scottish market presence with nationwide coverage",
+      "Part of Virgin Money UK following 2018 merger",
+      "Green mortgage products available for energy-efficient properties",
+      "Offset mortgage option available through Virgin Money range"
+    ],
+    overpaymentPolicy: "Clydesdale Bank mortgage customers can typically make overpayments on their mortgages. Fixed-rate products generally allow overpayments of up to 10% of the outstanding balance per year without early repayment charges. As part of Virgin Money UK, exact product terms may align with the wider Virgin Money range — contact Clydesdale directly to confirm your specific overpayment allowance.",
+    whatMakesThemDifferent: "Clydesdale Bank's Scottish heritage gives it particular relevance for buyers in Scotland, where property law operates under Scots law rather than English law. Their branch network across Scotland provides local support that London-centric digital lenders cannot match, while the Virgin Money merger has modernised their product range and digital capabilities.",
+    bestFor: "Scottish property buyers and remortgagers, existing Clydesdale customers, those seeking offset mortgages, and buyers of energy-efficient properties looking for green mortgage rates.",
+    typicalProducts: ["2-year fixed", "5-year fixed", "Tracker", "Offset", "Green mortgage", "Buy-to-let"]
+  },
+
 };
 
 // Generic template for lenders without custom content

@@ -49,6 +49,7 @@ const siteUrl = "https://repaywise.co.uk";
 //
 // TO EXPAND: write content in lenderContent.ts → add slug here → rebuild.
 const UNIQUE_CONTENT_LENDERS = new Set([
+  // Original 10 with deep unique content
   "barclays",
   "nationwide",
   "hsbc",
@@ -59,6 +60,15 @@ const UNIQUE_CONTENT_LENDERS = new Set([
   "virgin-money",
   "natwest",
   "coventry",
+  // Added June 2026 — unique content written, near page-1 guide impressions
+  "accord",
+  "leeds",
+  "precise",
+  "cumberland",
+  "metro-bank",
+  "principality",
+  "suffolk",
+  "clydesdale",
 ]);
 
 // All 7 calculator types on the site
@@ -162,6 +172,13 @@ for (const type of CALC_TYPES) {
 // 5. City regional pages — all cities
 for (const slug of citySlugs) {
   urls.push(url(`/uk/${slug}`, "0.7", "monthly"));
+}
+
+// 5b. Stamp duty city pages — UNIQUE per city (SDLT England, LBTT Scotland, LTT Wales)
+//     These are NOT thin pages — the rate structure and thresholds change by country.
+//     Edinburgh → LBTT. Cardiff → LTT. London → SDLT. Genuinely different outputs.
+for (const slug of citySlugs) {
+  urls.push(url(`/calculators/stamp-duty/${slug}`, "0.7", "monthly"));
 }
 
 // 6. Lender guide pages — ONLY unique-content lenders
