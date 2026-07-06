@@ -16,7 +16,7 @@ import { BigStat, SliderField } from "./RepaymentPage";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
-import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
+import { UNIQUE_CONTENT_LENDERS } from "@/lib/uk/uniqueLenders";
 import { LenderInsight } from "@/components/lenders/LenderInsight";
 import { MaxBorrowingSEOContent } from "@/components/calculators/SEOContent";
 
@@ -66,13 +66,13 @@ const MaxBorrowingPage = () => {
   const pagePath = city ? `calculators/max-borrowing/${city.slug}` : lender ? `calculators/max-borrowing/${lender.slug}` : "calculators/max-borrowing";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = city ? `${city.name} Maximum Borrowing Calculator | RepayWise` : lender
-    ? `${lender.name} Max Borrowing Calculator 2026 — Independent | RepayWise`
-    : "How Much Can I Borrow for a Mortgage? Free UK Calculator 2026 | RepayWise";
+    ? `How Much Can I Borrow with ${lender.name}? — Free Calculator`
+    : "How Much Can I Borrow? UK Mortgage Calculator";
   const seoDescription = city
     ? `Free mortgage affordability calculator for ${city.name}. ${city.description} Find out how much you could borrow based on income and deposit.`
     : lender
-    ? `RepayWise independent borrowing calculator for ${lender.name} customers. Estimate how much you could borrow — no ${lender.name} login or credit check required. Free third-party tool.`
-    : "Free UK mortgage borrowing calculator — find out how much you can borrow based on income, deposit and commitments. Lender-style 4.5× multiplier with +3% stress test. No login, no credit check.";
+    ? `Enter your income and see how much ${lender.name} could lend you. 4.5× income multiplier, stress test, and deposit check — free, no login.`
+    : "Enter your income, deposit and outgoings — see the maximum mortgage you could get. UK lender-style 4.5× multiplier with stress test. Free, no login.";
 
   return (
     <CalculatorShell
@@ -91,7 +91,7 @@ const MaxBorrowingPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
-        noIndex={!!city}
+        noIndex={!!city || (!!lender && !UNIQUE_CONTENT_LENDERS.has(lender.slug))}
         jsonLd={{
           "@context": "https://schema.org",
           "@graph": [

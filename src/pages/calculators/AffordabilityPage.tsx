@@ -17,6 +17,7 @@ import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
+import { UNIQUE_CONTENT_LENDERS } from "@/lib/uk/uniqueLenders";
 
 const FeeInput = ({ value, onChange, disabled }: { value: number; onChange: (v: number) => void; disabled?: boolean }) => {
   const [draft, setDraft] = useState(String(value));
@@ -165,8 +166,8 @@ const AffordabilityPage = () => {
 
   const pagePath = city ? `calculators/affordability/${city.slug}` : lender ? `calculators/affordability/${lender.slug}` : "calculators/affordability";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
-  const seoTitle = lender ? `${lender.name} Mortgage Affordability Calculator | RepayWise` : city ? `${city.name} Mortgage Affordability Calculator | RepayWise` : "Total Cost to Buy a House UK — Deposit, Stamp Duty & EMI Calculator";
-  const seoDescription = lender ? `Free ${lender.name} mortgage affordability calculator. Plan the full cost of buying a UK home with a ${lender.name} mortgage including deposit, stamp duty, and monthly repayments.` : city ? `Free mortgage affordability calculator for ${city.name}. ${city.description} Plan deposit, stamp duty, mortgage EMI and optional fees in one calculator.` : "Plan the full cost of buying a UK home: deposit, SDLT/LBTT/LTT stamp duty, mortgage EMI and optional legal/survey fees in one calculator.";
+  const seoTitle = lender ? `Total Cost to Buy with ${lender.name} — Deposit, SDLT & EMI` : city ? `${city.name} Mortgage Affordability Calculator | RepayWise` : "Total Cost to Buy a House UK — Deposit + Stamp Duty + EMI";
+  const seoDescription = lender ? `Plan every cost of buying with a ${lender.name} mortgage: deposit, stamp duty, monthly payments, legal fees. One calculator, no surprises.` : city ? `Free mortgage affordability calculator for ${city.name}. ${city.description} Plan deposit, stamp duty, mortgage EMI and optional fees in one calculator.` : "See the FULL cost of buying a UK home in one view: deposit, stamp duty (SDLT/LBTT/LTT), monthly EMI, legal fees, and survey costs. Free calculator.";
 
   return (
     <CalculatorShell
@@ -180,7 +181,7 @@ const AffordabilityPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
-        noIndex={!!city}
+        noIndex={!!city || (!!lender && !UNIQUE_CONTENT_LENDERS.has(lender.slug))}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Mortgage Affordability Calculator"
       />

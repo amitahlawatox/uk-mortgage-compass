@@ -5,7 +5,7 @@
  *
  * WHAT IS INCLUDED (and why):
  *   1. All static / hub pages (homepage, legal, guides, new calculators)
- *   2. /calculators/{type}  — 12 base calculator pages (high-value hub pages)
+ *   2. /calculators/{type}  — 7 base calculator pages (high-value hub pages)
  *   3. /calculators/overpayment/{lenderSlug}  — ALL lenders
  *      WHY: Overpayment pages rank #1-10 for specialist lender keywords.
  *           "[Bank] overpayment mortgage calculator" has near-zero competition.
@@ -43,32 +43,13 @@ const publicDir = path.join(projectRoot, "public");
 const siteUrl = "https://repaywise.co.uk";
 
 // ─── QUALITY GATE ─────────────────────────────────────────────────────────────
-// Only these 10 lenders have 300-500 words of unique editorial content written
-// for them in lenderContent.ts. They get ALL 7 calculator types in the sitemap.
-// All other lenders get ONLY the overpayment calculator (our proven winner).
-//
-// TO EXPAND: write content in lenderContent.ts → add slug here → rebuild.
+// Mirrors src/lib/uk/uniqueLenders.ts (single source of truth for runtime code).
+// Build scripts can't import .ts directly, so we duplicate the list here.
 const UNIQUE_CONTENT_LENDERS = new Set([
-  // Original 10 with deep unique content
-  "barclays",
-  "nationwide",
-  "hsbc",
-  "halifax",
-  "lloyds-bank",
-  "santander",
-  "danske",
-  "virgin-money",
-  "natwest",
-  "coventry",
-  // Added June 2026 — unique content written, near page-1 guide impressions
-  "accord",
-  "leeds",
-  "precise",
-  "cumberland",
-  "metro-bank",
-  "principality",
-  "suffolk",
-  "clydesdale",
+  "barclays", "nationwide", "hsbc", "halifax", "lloyds-bank",
+  "santander", "danske", "virgin-money", "natwest", "coventry",
+  "accord", "leeds", "precise", "cumberland",
+  "metro-bank", "principality", "suffolk", "clydesdale",
 ]);
 
 // All 7 calculator types on the site
@@ -109,7 +90,8 @@ async function extractSlugs(filePath) {
   const content = await readFile(filePath, "utf8");
   const matches = [...content.matchAll(/slug:\s*["']([^"']+)["']/g)];
   // Filter out TypeScript type definition lines: `slug: string;`
-  return matches.map((m) => m[1]).filter((s) => s !== "string");
+  const slugs = matches.map((m) => m[1]).filter((s) => s !== "string");
+  return [...new Set(slugs)];
 }
 
 // ─── URL BUILDER ──────────────────────────────────────────────────────────────

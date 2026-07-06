@@ -14,8 +14,15 @@ User-agent: Slurp
 Allow: /
 Crawl-delay: 2
 
-# ── Verified AI/training crawlers — blocked ────────────────────────
-# (These consume bandwidth without providing search traffic)
+# ── AI search crawlers — allowed (surface us in AI answers) ───────
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 2
+
+# ── AI training crawlers — blocked (bandwidth, no traffic) ────────
 User-agent: GPTBot
 Disallow: /
 
@@ -31,18 +38,14 @@ Disallow: /
 User-agent: Claude-Web
 Disallow: /
 
-User-agent: Google-Extended
-Disallow: /
-
-User-agent: PerplexityBot
-Disallow: /
-
 # ── Commercial scraper/spy tools — blocked ────────────────────────
 User-agent: headless-render-api-bot
 Disallow: /
 
+# AhrefsBot allowed — we use Ahrefs analytics (tag installed PR #27)
 User-agent: AhrefsBot
-Disallow: /
+Allow: /
+Crawl-delay: 5
 
 User-agent: SemrushBot
 Disallow: /

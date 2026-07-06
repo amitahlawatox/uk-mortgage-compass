@@ -16,6 +16,7 @@ import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
+import { UNIQUE_CONTENT_LENDERS } from "@/lib/uk/uniqueLenders";
 
 type RepayType = "repayment" | "interest-only";
 
@@ -68,9 +69,9 @@ const BuyToLetPage = () => {
   const pagePath = city ? `calculators/buy-to-let/${city.slug}` : lender ? `calculators/buy-to-let/${lender.slug}` : "calculators/buy-to-let";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = lender
-    ? `RepayWise independent buy-to-let calculator for ${lender.name} customers. Rental yield, mortgage costs and cash return — no ${lender.name} login or credit check. Third-party tool.` : city ? `${city.name} Buy-to-Let Calculator | RepayWise` : "Buy-to-Let Mortgage Calculator UK — Yield, Stamp Duty & EMI";
+    ? `${lender.name} Buy-to-Let Calculator — Yield, Cash Flow & ICR` : city ? `${city.name} Buy-to-Let Calculator | RepayWise` : "Buy-to-Let Calculator UK — Rental Yield, Cash Flow & Stress Test";
   const seoDescription = lender
-    ? `RepayWise independent buy-to-let calculator for ${lender.name} customers. Rental yield, mortgage costs and cash return — no ${lender.name} login or credit check. Third-party tool.` : city ? `Free buy-to-let mortgage calculator for ${city.name}. ${city.description} Model BTL deposit, stamp duty surcharge, rental yield, cash flow, and ICR stress test.` : "UK Buy-to-Let calculator. 25% deposit default, interest-only or repayment, stamp duty surcharge by region, rental yield, net cash flow and ICR.";
+    ? `Model a ${lender.name} BTL mortgage: rental yield, net cash flow, stamp duty surcharge, and ICR stress test. Free calculator, no login.` : city ? `Free buy-to-let mortgage calculator for ${city.name}. ${city.description} Model BTL deposit, stamp duty surcharge, rental yield, cash flow, and ICR stress test.` : "Model a UK buy-to-let purchase: deposit, stamp duty surcharge, rental yield, net cash flow, and ICR stress test. Interest-only or repayment. Free calculator.";
 
   return (
     <CalculatorShell
@@ -84,7 +85,7 @@ const BuyToLetPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
-        noIndex={!!city}
+        noIndex={!!city || (!!lender && !UNIQUE_CONTENT_LENDERS.has(lender.slug))}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Buy-to-Let Mortgage Calculator"
       />

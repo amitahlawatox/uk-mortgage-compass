@@ -50,8 +50,8 @@ const RemortgagePage = () => {
   ], [currentDeal.totalPaid, newDeal.totalPaid]);
 
   const pagePath = "calculators/remortgage";
-  const seoTitle = "Remortgage Calculator UK 2026 — Should I Remortgage? | RepayWise";
-  const seoDescription = "Free UK remortgage calculator. Compare your current deal vs a new rate — see monthly savings, break-even point, and whether switching is worth the fees. No login needed.";
+  const seoTitle = "Should I Remortgage? Free UK Calculator — See Your Savings";
+  const seoDescription = "Compare your current mortgage deal vs a new rate. See monthly savings, break-even point, and whether switching is worth the fees. Free remortgage calculator.";
 
   return (
     <CalculatorShell

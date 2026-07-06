@@ -16,7 +16,7 @@ import { BigStat, SliderField } from "./RepaymentPage";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
-import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
+import { UNIQUE_CONTENT_LENDERS } from "@/lib/uk/uniqueLenders";
 import { LenderInsight } from "@/components/lenders/LenderInsight";
 
 const OverpaymentPage = () => {
@@ -127,13 +127,13 @@ const OverpaymentPage = () => {
   const pagePath = city ? `calculators/overpayment/${city.slug}` : lender ? `calculators/overpayment/${lender.slug}` : "calculators/overpayment";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = city ? `${city.name} Overpayment Calculator | RepayWise` : lender
-    ? `${lender.name} Overpayment Calculator 2026 — Independent | RepayWise`
-    : "Mortgage Overpayment Calculator UK 2026 | Save Years & Interest | RepayWise";
+    ? `${lender.name} Overpayment Calculator — Save £14,000+ in Interest`
+    : "Mortgage Overpayment Calculator UK — See How Much You Save";
   const seoDescription = city
     ? `Free mortgage overpayment calculator for ${city.name}. ${city.description} See how overpaying saves years and thousands in interest.`
     : lender
-    ? `RepayWise independent overpayment tool for ${lender.name} customers. See how monthly or lump-sum overpayments save interest and cut your mortgage term. No login or credit check.`
-    : "See how overpaying your UK mortgage saves years and thousands in interest — RepayWise free independent calculator. No bank login needed. Not affiliated with any lender.";
+    ? `How much interest would you save overpaying your ${lender.name} mortgage by £100-500/month? Free calculator — see years saved and total interest cut instantly.`
+    : "Enter your balance and overpayment amount — see exactly how much interest you save and how many years you cut. Free UK mortgage overpayment calculator, no login needed.";
 
   return (
     <CalculatorShell
@@ -162,7 +162,7 @@ const OverpaymentPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
-        noIndex={!!city}
+        noIndex={!!city || (!!lender && !UNIQUE_CONTENT_LENDERS.has(lender.slug))}
         jsonLd={{
           "@context": "https://schema.org",
           "@graph": [

@@ -67,8 +67,8 @@ const FixOrTrackPage = () => {
   const savingAmount = Math.abs(differencePeriod);
 
   const pagePath = "calculators/fix-or-track";
-  const seoTitle = "Should I Fix or Track? Mortgage Rate Calculator UK 2026 | RepayWise";
-  const seoDescription = "Fixed vs tracker mortgage calculator. Model different Bank of England rate scenarios and see which option costs less over 2, 3, or 5 years. Make an informed decision.";
+  const seoTitle = "Fixed vs Tracker Mortgage — Which Costs Less? Free Calculator";
+  const seoDescription = "Model fixed vs tracker mortgage costs over 2, 3 or 5 years with different Bank of England rate scenarios. See which option saves you more money.";
 
   return (
     <CalculatorShell
