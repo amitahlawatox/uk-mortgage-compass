@@ -182,6 +182,27 @@ export const routes: RouteRecord[] = [
         lazy: page(() => import("./pages/calculators/SalaryToMortgagePage")),
       },
       {
+        path: "calculators/interest-only",
+        lazy: page(() => import("./pages/calculators/InterestOnlyPage")),
+      },
+      {
+        path: "calculators/interest-only/:slug",
+        lazy: page(() => import("./pages/calculators/InterestOnlyPage")),
+        getStaticPaths: () => lenders.map((l) => `calculators/interest-only/${l.slug}`),
+      },
+      {
+        path: "calculators/stamp-duty/scotland",
+        lazy: page(() => import("./pages/calculators/StampDutyScotlandPage")),
+      },
+      {
+        path: "calculators/stamp-duty/wales",
+        lazy: page(() => import("./pages/calculators/StampDutyWalesPage")),
+      },
+      {
+        path: "for-brokers",
+        lazy: page(() => import("./pages/ForBrokersPage")),
+      },
+      {
         path: "guides",
         lazy: page(() => import("./pages/GuidesPage")),
       },

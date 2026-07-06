@@ -81,6 +81,10 @@ const STATIC_PAGES = [
   "/calculators/rate-compare",
   "/calculators/fix-or-track",
   "/calculators/salary-to-mortgage",
+  "/calculators/interest-only",
+  "/calculators/stamp-duty/scotland",
+  "/calculators/stamp-duty/wales",
+  "/for-brokers",
 ];
 
 // ─── SLUG EXTRACTION ──────────────────────────────────────────────────────────

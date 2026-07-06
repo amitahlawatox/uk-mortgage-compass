@@ -97,6 +97,30 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/calculators/interest-only</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/scotland</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/calculators/stamp-duty/wales</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/for-brokers</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/repayment</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>weekly</changefreq>
