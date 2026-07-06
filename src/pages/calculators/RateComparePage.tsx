@@ -72,8 +72,8 @@ const RateComparePage = () => {
   };
 
   const pagePath = "calculators/rate-compare";
-  const seoTitle = "Mortgage Rate Comparison Calculator UK 2026 | RepayWise";
-  const seoDescription = "Compare up to 5 mortgage rates side-by-side. See monthly payments, total interest, and true cost including fees. Find the cheapest mortgage deal for your situation.";
+  const seoTitle = "Compare Mortgage Rates Side-by-Side — Free UK Calculator";
+  const seoDescription = "Compare up to 5 mortgage rates side-by-side. See monthly payments, total interest, and true cost including fees. Find the cheapest deal for your mortgage.";
 
   return (
     <CalculatorShell

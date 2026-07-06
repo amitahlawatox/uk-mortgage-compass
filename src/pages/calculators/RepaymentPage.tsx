@@ -16,7 +16,7 @@ import { getCityBySlug } from "@/lib/uk/cities";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
-import { LENDER_CUSTOM_META } from "@/lib/uk/lenderMeta";
+import { UNIQUE_CONTENT_LENDERS } from "@/lib/uk/uniqueLenders";
 import { LenderInsight } from "@/components/lenders/LenderInsight";
 import { RepaymentSEOContent } from "@/components/calculators/SEOContent";
 
@@ -95,15 +95,15 @@ const RepaymentPage = () => {
     : "Three quick questions, one clear answer. We calculate your monthly payment using the standard amortisation formula in 28-digit decimal precision.";
   const pagePath = city ? `calculators/repayment/${city.slug}` : lender ? `calculators/repayment/${lender.slug}` : "calculators/repayment";
   const seoTitle = city
-    ? `${city.name} Mortgage Repayment Calculator 2026 | RepayWise`
+    ? `${city.name} Mortgage Repayment Calculator | RepayWise`
     : lender
-    ? `${lender.name} Mortgage Calculator 2026 — Independent Tool | RepayWise`
-    : "Mortgage Repayment Calculator UK 2026 — Monthly Payment & Interest | RepayWise";
+    ? `${lender.name} Mortgage Calculator — Monthly Payment in Seconds`
+    : "Mortgage Repayment Calculator UK — What’s My Monthly Payment?";
   const seoDescription = city
-    ? `RepayWise independent mortgage repayment calculator for ${city.name}. See monthly payments, total interest and how overpayments save you money. No bank login or credit check needed.`
+    ? `Free mortgage repayment calculator for ${city.name}. See monthly payments, total interest and how overpayments save you money.`
     : lender
-    ? `RepayWise independent repayment tool for ${lender.name} customers. See your monthly payment, total interest and how much overpaying saves. No login, no credit check — 100% free.`
-    : "Free UK mortgage repayment calculator — calculate your exact monthly payment, total interest cost, and see how overpayments save years off your term. 28-digit precision. No login needed.";
+    ? `Enter your ${lender.name} mortgage amount and rate — see your exact monthly payment, total interest, and how much you’d save overpaying. Free, no login.`
+    : "Enter your mortgage amount, rate and term — see your exact monthly payment and total interest cost. Free UK calculator, no login needed.";
 
   return (
     <CalculatorShell
@@ -135,7 +135,7 @@ const RepaymentPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
-        noIndex={!!city}
+        noIndex={!!city || (!!lender && !UNIQUE_CONTENT_LENDERS.has(lender.slug))}
         jsonLd={lender ? {
           "@context": "https://schema.org",
           "@type": "FinancialProduct",

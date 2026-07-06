@@ -13,6 +13,7 @@ import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk/lenders";
 import { getCityBySlug } from "@/lib/uk/cities";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
+import { UNIQUE_CONTENT_LENDERS } from "@/lib/uk/uniqueLenders";
 
 const PriceInput = ({ value, onChange }: { value: number; onChange: (v: number) => void }) => {
   const [draft, setDraft] = useState(String(value));
@@ -136,8 +137,8 @@ const StampDutyPage = () => {
 
   const pagePath = city ? `calculators/stamp-duty/${city.slug}` : lender ? `calculators/stamp-duty/${lender.slug}` : "calculators/stamp-duty";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
-  const seoTitle = lender ? `${lender.name} Stamp Duty Calculator — SDLT, LBTT, LTT | RepayWise` : city ? `${city.name} Stamp Duty Calculator | RepayWise` : "Stamp Duty Calculator UK — SDLT, LBTT, LTT — RepayWise";
-  const seoDescription = lender ? `Free ${lender.name} stamp duty calculator. Calculate SDLT, LBTT or LTT for your property purchase with ${lender.name}. First-time buyer relief and surcharges included.` : city ? `Free stamp duty calculator for ${city.name}. ${city.description} Calculate SDLT, LBTT or LTT with first-time buyer relief and surcharges.` : "Free UK stamp duty calculator covering England (SDLT), Scotland (LBTT) and Wales (LTT). First-time buyer relief, second-home surcharges, and full band-by-band breakdown.";
+  const seoTitle = lender ? `${lender.name} Stamp Duty Calculator — SDLT, LBTT & LTT` : city ? `${city.name} Stamp Duty Calculator — How Much Tax?` : "Stamp Duty Calculator UK — SDLT, LBTT & LTT with Band Breakdown";
+  const seoDescription = lender ? `Calculate stamp duty on a ${lender.name} property purchase. SDLT, LBTT or LTT with first-time buyer relief and surcharges. Free, instant results.` : city ? `How much stamp duty in ${city.name}? Free calculator with first-time buyer relief, second-home surcharge, and band-by-band breakdown.` : "Enter your property price — see exact stamp duty (SDLT, LBTT or LTT) with band-by-band breakdown. First-time buyer relief and second-home surcharges included.";
 
   return (
     <CalculatorShell
@@ -151,7 +152,7 @@ const StampDutyPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
-        noIndex={false}
+        noIndex={!!lender && !UNIQUE_CONTENT_LENDERS.has(lender.slug)}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Stamp Duty Calculator"
       />

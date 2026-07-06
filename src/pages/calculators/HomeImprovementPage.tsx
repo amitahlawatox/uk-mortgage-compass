@@ -70,8 +70,8 @@ const HomeImprovementPage = () => {
   ], [combinedMonthly, remortgageMonthly, personalLoanTotalCost, remortgageTotalCost]);
 
   const pagePath = "calculators/home-improvement";
-  const seoTitle = "Home Improvement Loan vs Remortgage Calculator UK 2026 | RepayWise";
-  const seoDescription = "Should you take a personal loan or remortgage to fund home improvements? Compare monthly payments, total interest cost, and find the cheapest way to fund your project.";
+  const seoTitle = "Home Improvement: Loan vs Remortgage — Which Is Cheaper?";
+  const seoDescription = "Personal loan or remortgage for home improvements? Compare monthly payments and total interest side-by-side. Free UK calculator — see which option saves you money.";
 
   return (
     <CalculatorShell

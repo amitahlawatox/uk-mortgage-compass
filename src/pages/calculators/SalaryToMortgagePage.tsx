@@ -101,8 +101,8 @@ const SalaryToMortgagePage = () => {
   ], [mortgageResult.monthlyPayment, monthlyCommitments, netMonthly]);
 
   const pagePath = "calculators/salary-to-mortgage";
-  const seoTitle = "Salary to Mortgage Calculator UK 2026 — How Much Can I Borrow? | RepayWise";
-  const seoDescription = "Enter your salary and see exactly how much mortgage you could get. UK income multiples (4-5x), affordability check, stress test, and net pay breakdown. Free, no login.";
+  const seoTitle = "Salary to Mortgage Calculator — How Much Can I Get?";
+  const seoDescription = "Enter your salary and see how much mortgage you could get. UK income multiples (4-5x), affordability check, stress test, and net pay breakdown. Free, no login.";
 
   return (
     <CalculatorShell

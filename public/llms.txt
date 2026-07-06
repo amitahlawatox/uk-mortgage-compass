@@ -1,0 +1,32 @@
+# RepayWise
+
+> Free, independent UK mortgage calculators. No login, no credit check, no bank affiliation.
+
+RepayWise is a free UK mortgage calculator suite covering repayment, overpayment, stamp duty, affordability, equity, buy-to-let, remortgage, rate comparison, salary-to-mortgage, fix-or-track, and home improvement calculations. All tools run entirely in the browser with no server-side data collection.
+
+## Calculators
+
+- [Mortgage Repayment Calculator](https://repaywise.co.uk/calculators/repayment): Monthly payment and total interest for any UK mortgage.
+- [Overpayment Calculator](https://repaywise.co.uk/calculators/overpayment): See how overpaying saves interest and cuts your mortgage term.
+- [Stamp Duty Calculator](https://repaywise.co.uk/calculators/stamp-duty): SDLT (England), LBTT (Scotland), LTT (Wales) with FTB relief and surcharges.
+- [Max Borrowing Calculator](https://repaywise.co.uk/calculators/max-borrowing): How much can you borrow based on income, deposit, and stress test.
+- [Home Equity Calculator](https://repaywise.co.uk/calculators/equity): See how much of your home you own vs the bank.
+- [Buy-to-Let Calculator](https://repaywise.co.uk/calculators/buy-to-let): Rental yield, cash flow, ICR stress test, and stamp duty surcharge.
+- [Affordability Calculator](https://repaywise.co.uk/calculators/affordability): Total cost to buy including deposit, stamp duty, EMI, and fees.
+- [Remortgage Calculator](https://repaywise.co.uk/calculators/remortgage): Compare current deal vs new rate with break-even analysis.
+- [Rate Comparison](https://repaywise.co.uk/calculators/rate-compare): Compare up to 5 mortgage rates side-by-side.
+- [Fix or Track Calculator](https://repaywise.co.uk/calculators/fix-or-track): Fixed vs tracker mortgage with Bank of England rate scenarios.
+- [Salary to Mortgage](https://repaywise.co.uk/calculators/salary-to-mortgage): Enter salary, see mortgage amount with UK income multiples.
+- [Home Improvement](https://repaywise.co.uk/calculators/home-improvement): Personal loan vs remortgage comparison for renovation funding.
+
+## Lender-Specific Calculators
+
+RepayWise offers calculator variants pre-loaded with indicative SVR rates for 150+ UK lenders including Barclays, Nationwide, HSBC, Halifax, Lloyds, Santander, NatWest, Coventry Building Society, Virgin Money, and Danske Bank.
+
+## Key Facts
+
+- Domain: repaywise.co.uk
+- Country: United Kingdom
+- Privacy: Zero tracking cookies, no personal data collection
+- Independence: Not affiliated with any bank, building society, or mortgage broker
+- Precision: All calculations use 28-digit decimal arithmetic

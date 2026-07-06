@@ -17,6 +17,7 @@ import { getLenderBySlug, buildLenderPath, buildLenderGuidePath } from "@/lib/uk
 import { getCityBySlug } from "@/lib/uk/cities";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
 import { EquitySEOContent } from "@/components/calculators/SEOContent";
+import { UNIQUE_CONTENT_LENDERS } from "@/lib/uk/uniqueLenders";
 
 const EquityPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -90,8 +91,8 @@ const EquityPage = () => {
 
   const pagePath = city ? `calculators/equity/${city.slug}` : lender ? `calculators/equity/${lender.slug}` : "calculators/equity";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
-  const seoTitle = lender ? `${lender.name} Home Equity Calculator | RepayWise` : city ? `${city.name} Home Equity Calculator | RepayWise` : "Home Equity Calculator UK 2026 — How Much Equity Do I Have? | RepayWise";
-  const seoDescription = lender ? `Free ${lender.name} home equity calculator. See your outstanding mortgage balance, current LTV, and equity share. Plan a remortgage or sale with ${lender.name}.` : city ? `Free home equity calculator for ${city.name}. ${city.description} See your outstanding mortgage balance, current LTV, and equity share.` : "Free UK home equity calculator — find out how much equity you have in your property. See outstanding balance, LTV band, equity %, and net proceeds if you sell. No login needed.";
+  const seoTitle = lender ? `${lender.name} Home Equity Calculator — How Much Do You Own?` : city ? `${city.name} Home Equity Calculator | RepayWise` : "Home Equity Calculator UK — How Much of My Home Do I Own?";
+  const seoDescription = lender ? `See how much equity you have in your ${lender.name} mortgage. Enter your property value and mortgage details — get LTV, equity %, and net sale proceeds instantly.` : city ? `Free home equity calculator for ${city.name}. ${city.description} See your outstanding mortgage balance, current LTV, and equity share.` : "Enter your property value and mortgage details — see how much equity you own, your LTV band, and what you’d walk away with if you sold. Free, no login.";
 
   return (
     <CalculatorShell
@@ -105,7 +106,7 @@ const EquityPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
-        noIndex={!!city}
+        noIndex={!!city || (!!lender && !UNIQUE_CONTENT_LENDERS.has(lender.slug))}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Home Equity Calculator"
         faqItems={!lender ? [
