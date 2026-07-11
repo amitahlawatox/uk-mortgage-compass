@@ -104,12 +104,8 @@ function url(path, priority, changefreq) {
 }
 
 // ─── BUILD URL LIST ───────────────────────────────────────────────────────────
-const lenderSlugs = await extractSlugs(
-  path.join(projectRoot, "src/lib/uk/lenders.ts"),
-);
-const citySlugs = await extractSlugs(
-  path.join(projectRoot, "src/lib/uk/cities.ts"),
-);
+const lenderSlugs = []; // replicas removed — canonical-only sitemap
+const citySlugs = []; // replicas removed — canonical-only sitemap
 
 const urls = [];
 

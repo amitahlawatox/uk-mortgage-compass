@@ -131,6 +131,56 @@
       "source": "/uk/warwick",
       "destination": "/uk/birmingham",
       "statusCode": 301
+    },
+    {
+      "source": "/calculators/stamp-duty/:slug((?!scotland$|wales$).*)",
+      "destination": "/calculators/stamp-duty",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/repayment/:slug*",
+      "destination": "/calculators/repayment",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/overpayment/:slug*",
+      "destination": "/calculators/overpayment",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/max-borrowing/:slug*",
+      "destination": "/calculators/max-borrowing",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/affordability/:slug*",
+      "destination": "/calculators/affordability",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/equity/:slug*",
+      "destination": "/calculators/equity",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/buy-to-let/:slug*",
+      "destination": "/calculators/buy-to-let",
+      "statusCode": 301
+    },
+    {
+      "source": "/calculators/interest-only/:slug*",
+      "destination": "/calculators/interest-only",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/lenders/:slug*",
+      "destination": "/guides",
+      "statusCode": 301
+    },
+    {
+      "source": "/uk/:slug*",
+      "destination": "/",
+      "statusCode": 301
     }
   ],
   "rewrites": [],

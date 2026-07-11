@@ -102,21 +102,11 @@ export const routes: RouteRecord[] = [
         path: "calculators/repayment",
         lazy: page(() => import("./pages/calculators/RepaymentPage")),
       },
-      {
-        path: "calculators/repayment/:slug",
-        lazy: page(() => import("./pages/calculators/RepaymentPage")),
-        getStaticPaths: () => lenders.map((l) => `calculators/repayment/${l.slug}`),
-      },
-      {
+            {
         path: "calculators/overpayment",
         lazy: page(() => import("./pages/calculators/OverpaymentPage")),
       },
-      {
-        path: "calculators/overpayment/:slug",
-        lazy: page(() => import("./pages/calculators/OverpaymentPage")),
-        getStaticPaths: () => lenders.map((l) => `calculators/overpayment/${l.slug}`),
-      },
-      {
+            {
         path: "calculators/affordability",
         lazy: page(() => import("./pages/calculators/AffordabilityPage")),
       },
@@ -124,32 +114,7 @@ export const routes: RouteRecord[] = [
         path: "calculators/max-borrowing",
         lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
       },
-      {
-        path: "calculators/max-borrowing/:slug",
-        lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
-        getStaticPaths: () => lenders.map((l) => `calculators/max-borrowing/${l.slug}`),
-      },
-      {
-          path: "calculators/stamp-duty/:slug",
-          lazy: page(() => import("./pages/calculators/StampDutyPage")),
-          getStaticPaths: () => lenders.map((l) => `calculators/stamp-duty/${l.slug}`),
-        },
-        {
-          path: "calculators/affordability/:slug",
-          lazy: page(() => import("./pages/calculators/AffordabilityPage")),
-          getStaticPaths: () => lenders.map((l) => `calculators/affordability/${l.slug}`),
-        },
-        {
-          path: "calculators/equity/:slug",
-          lazy: page(() => import("./pages/calculators/EquityPage")),
-          getStaticPaths: () => lenders.map((l) => `calculators/equity/${l.slug}`),
-        },
-        {
-          path: "calculators/buy-to-let/:slug",
-          lazy: page(() => import("./pages/calculators/BuyToLetPage")),
-          getStaticPaths: () => lenders.map((l) => `calculators/buy-to-let/${l.slug}`),
-      },
-      {
+                                          {
         path: "calculators/equity",
         lazy: page(() => import("./pages/calculators/EquityPage")),
       },
@@ -185,12 +150,7 @@ export const routes: RouteRecord[] = [
         path: "calculators/interest-only",
         lazy: page(() => import("./pages/calculators/InterestOnlyPage")),
       },
-      {
-        path: "calculators/interest-only/:slug",
-        lazy: page(() => import("./pages/calculators/InterestOnlyPage")),
-        getStaticPaths: () => lenders.map((l) => `calculators/interest-only/${l.slug}`),
-      },
-      {
+            {
         path: "calculators/stamp-duty/scotland",
         lazy: page(() => import("./pages/calculators/StampDutyScotlandPage")),
       },
@@ -214,12 +174,7 @@ export const routes: RouteRecord[] = [
         path: "guides/mortgage-overpayment-guide",
         lazy: page(() => import("./pages/guides/MortgageOverpaymentGuidePage")),
       },
-      {
-        path: "guides/lenders/:slug",
-        lazy: page(() => import("./pages/guides/LenderGuidePage")),
-        getStaticPaths: () => lenders.map((lender) => `guides/lenders/${lender.slug}`),
-      },
-      {
+            {
         path: "about",
         lazy: page(() => import("./pages/AboutPage")),
       },
@@ -243,12 +198,7 @@ export const routes: RouteRecord[] = [
         path: "terms-of-service",
         lazy: page(() => import("./pages/legal/TermsOfService")),
       },
-      {
-        path: "uk/:slug",
-        lazy: page(() => import("./pages/regional/RegionalPage")),
-        getStaticPaths: () => cities.map((city) => `uk/${city.slug}`),
-      },
-      {
+            {
         path: "*",
         lazy: page(() => import("./pages/NotFound.tsx")),
       },
