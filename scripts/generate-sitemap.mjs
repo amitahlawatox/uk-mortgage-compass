@@ -125,6 +125,12 @@ for (const type of CALC_TYPES) {
   urls.push(url(`/calculators/${type}`, "0.9", "weekly"));
 }
 
+// 2b. Kept lender overpayment pages (solid unique content + proven ranking)
+const KEEP_LENDERS = ["barclays","nationwide","hsbc","halifax","lloyds-bank","santander","danske","virgin-money","natwest","coventry","accord","leeds","precise","cumberland","metro-bank","principality","suffolk","clydesdale"];
+for (const slug of KEEP_LENDERS) {
+  urls.push(url(`/calculators/overpayment/${slug}`, "0.8", "weekly"));
+}
+
 // 3. Overpayment pages: ALL lenders
 //    This is our #1 ranking pattern — every specialist lender gets one.
 //    "[Bank] overpayment calculator" keywords have almost zero competition.

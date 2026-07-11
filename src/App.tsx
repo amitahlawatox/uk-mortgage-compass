@@ -84,6 +84,8 @@ const AppLayout = () => {
   );
 };
 
+const KEEP_LENDERS = ["barclays","nationwide","hsbc","halifax","lloyds-bank","santander","danske","virgin-money","natwest","coventry","accord","leeds","precise","cumberland","metro-bank","principality","suffolk","clydesdale"];
+
 export const routes: RouteRecord[] = [
   {
     path: "/",
@@ -105,6 +107,11 @@ export const routes: RouteRecord[] = [
             {
         path: "calculators/overpayment",
         lazy: page(() => import("./pages/calculators/OverpaymentPage")),
+      },
+      {
+        path: "calculators/overpayment/:slug",
+        lazy: page(() => import("./pages/calculators/OverpaymentPage")),
+        getStaticPaths: () => KEEP_LENDERS.map((s) => `calculators/overpayment/${s}`),
       },
             {
         path: "calculators/affordability",
