@@ -74,7 +74,7 @@ const STATIC_PAGES = [
   "/terms-of-service",
   "/guides",
   "/guides/help-to-buy-repayment",
-  "/guides/mortgage-overpayment",
+  "/guides/mortgage-overpayment-guide",
   "/calculators/compare",
   "/calculators/remortgage",
   "/calculators/home-improvement",
