@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { BuyToLetSEOContent } from "@/components/calculators/SEOContent";
 import { Navigate, useParams } from "react-router-dom";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
@@ -270,6 +271,7 @@ const BuyToLetPage = () => {
 
       <LastUpdated date="30 April 2026" />
       <RelatedCalculators currentPath="/calculators/buy-to-let" lenderSlug={lender?.slug} lenderName={lender?.name} />
+          {!lender && !city && <BuyToLetSEOContent />}
     </CalculatorShell>
   );
 };

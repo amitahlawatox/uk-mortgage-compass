@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { CompareSEOContent } from "@/components/calculators/SEOContent";
 import { GitCompare, Trophy } from "lucide-react";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { DepositField } from "@/components/calculators/DepositField";
@@ -499,6 +500,7 @@ const ComparePage = () => {
 
       <LastUpdated date="30 April 2026" />
       <RelatedCalculators currentPath="/calculators/compare" />
+          <CompareSEOContent />
     </CalculatorShell>
   );
 };

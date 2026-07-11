@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { RateCompareSEOContent } from "@/components/calculators/SEOContent";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
@@ -203,6 +204,7 @@ const RateComparePage = () => {
           <LastUpdated date="4 June 2026" />
         </div>
       </div>
+          <RateCompareSEOContent />
     </CalculatorShell>
   );
 };

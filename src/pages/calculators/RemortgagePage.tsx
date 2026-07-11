@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { RemortgageSEOContent } from "@/components/calculators/SEOContent";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
@@ -166,6 +167,7 @@ const RemortgagePage = () => {
           <LastUpdated date="4 June 2026" />
         </div>
       </div>
+          <RemortgageSEOContent />
     </CalculatorShell>
   );
 };

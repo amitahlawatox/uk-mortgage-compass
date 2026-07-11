@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { OverpaymentSEOContent } from "@/components/calculators/SEOContent";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { Navigate, useParams } from "react-router-dom";
 import { Area, AreaChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -386,6 +387,7 @@ const OverpaymentPage = () => {
 
       <LastUpdated date="30 April 2026" />
       <RelatedCalculators currentPath={pagePath} lenderSlug={lender?.slug} lenderName={lender?.name} citySlug={city?.slug} cityName={city?.name} />
+          {!lender && !city && <OverpaymentSEOContent />}
     </CalculatorShell>
   );
 };

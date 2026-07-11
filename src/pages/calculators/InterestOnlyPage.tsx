@@ -6,6 +6,7 @@
  *   "interest only repayment calculator"   — 880/mo,  KD 31
  */
 import { useMemo, useState } from "react";
+import { InterestOnlySEOContent } from "@/components/calculators/SEOContent";
 import { useParams, Navigate, Link } from "react-router-dom";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
@@ -199,7 +200,8 @@ const InterestOnlyPage = () => {
         </div>
 
         <RelatedCalculators currentPath="/calculators/interest-only" lenderSlug={lender?.slug} />
-      </CalculatorShell>
+            {!lender && <InterestOnlySEOContent />}
+    </CalculatorShell>
 
       {/* CONTENT */}
       <article className="max-w-3xl mx-auto px-4 pb-20 mt-4 space-y-10 text-sm sm:text-base leading-relaxed text-muted-foreground">

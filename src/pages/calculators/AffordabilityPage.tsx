@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { AffordabilitySEOContent } from "@/components/calculators/SEOContent";
 import { Navigate, useParams } from "react-router-dom";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
@@ -509,6 +510,7 @@ const AffordabilityPage = () => {
 
       <LastUpdated date="30 April 2026" />
       <RelatedCalculators currentPath="/calculators/affordability" lenderSlug={lender?.slug} lenderName={lender?.name} />
+          {!lender && !city && <AffordabilitySEOContent />}
     </CalculatorShell>
   );
 };

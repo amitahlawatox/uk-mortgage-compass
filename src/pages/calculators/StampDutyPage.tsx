@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { StampDutySEOContent } from "@/components/calculators/SEOContent";
 import { Navigate, useParams } from "react-router-dom";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
@@ -331,6 +332,7 @@ const StampDutyPage = () => {
 
       <LastUpdated date="30 April 2026" />
       <RelatedCalculators currentPath="/calculators/stamp-duty" />
+          {!lender && !city && <StampDutySEOContent />}
     </CalculatorShell>
   );
 };
