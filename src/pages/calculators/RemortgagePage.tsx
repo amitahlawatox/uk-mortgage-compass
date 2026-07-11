@@ -163,7 +163,7 @@ const RemortgagePage = () => {
           </div>
 
           <RelatedCalculators currentPath="/calculators/remortgage" />
-          <LastUpdated />
+          <LastUpdated date="4 June 2026" />
         </div>
       </div>
     </CalculatorShell>

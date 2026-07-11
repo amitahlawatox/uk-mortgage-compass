@@ -189,7 +189,7 @@ const HomeImprovementPage = () => {
           </div>
 
           <RelatedCalculators currentPath="/calculators/home-improvement" />
-          <LastUpdated />
+          <LastUpdated date="4 June 2026" />
         </div>
       </div>
     </CalculatorShell>

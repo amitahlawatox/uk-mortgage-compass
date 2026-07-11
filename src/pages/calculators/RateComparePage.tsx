@@ -200,7 +200,7 @@ const RateComparePage = () => {
           </div>
 
           <RelatedCalculators currentPath="/calculators/rate-compare" />
-          <LastUpdated />
+          <LastUpdated date="4 June 2026" />
         </div>
       </div>
     </CalculatorShell>

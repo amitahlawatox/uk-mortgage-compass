@@ -243,7 +243,7 @@ const SalaryToMortgagePage = () => {
           </div>
 
           <RelatedCalculators currentPath="/calculators/salary-to-mortgage" />
-          <LastUpdated />
+          <LastUpdated date="4 June 2026" />
         </div>
       </div>
     </CalculatorShell>

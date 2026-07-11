@@ -77,9 +77,9 @@ const StampDutyScotlandPage = () => {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: "https://repaywise.co.uk/" },
-          { name: "Calculators", url: "https://repaywise.co.uk/calculators/stamp-duty" },
-          { name: "Scotland LBTT Calculator", url: "https://repaywise.co.uk/calculators/stamp-duty/scotland" },
+          { name: "Home", href: "https://repaywise.co.uk/" },
+          { name: "Calculators", href: "https://repaywise.co.uk/calculators/stamp-duty" },
+          { name: "Scotland LBTT Calculator", href: "https://repaywise.co.uk/calculators/stamp-duty/scotland" },
         ]}
       />
 

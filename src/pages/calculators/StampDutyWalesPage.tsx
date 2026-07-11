@@ -76,9 +76,9 @@ const StampDutyWalesPage = () => {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: "https://repaywise.co.uk/" },
-          { name: "Calculators", url: "https://repaywise.co.uk/calculators/stamp-duty" },
-          { name: "Wales LTT Calculator", url: "https://repaywise.co.uk/calculators/stamp-duty/wales" },
+          { name: "Home", href: "https://repaywise.co.uk/" },
+          { name: "Calculators", href: "https://repaywise.co.uk/calculators/stamp-duty" },
+          { name: "Wales LTT Calculator", href: "https://repaywise.co.uk/calculators/stamp-duty/wales" },
         ]}
       />
 

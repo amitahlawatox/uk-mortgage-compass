@@ -186,7 +186,7 @@ const FixOrTrackPage = () => {
           </div>
 
           <RelatedCalculators currentPath="/calculators/fix-or-track" />
-          <LastUpdated />
+          <LastUpdated date="4 June 2026" />
         </div>
       </div>
     </CalculatorShell>

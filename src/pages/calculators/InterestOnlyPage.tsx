@@ -91,9 +91,9 @@ const InterestOnlyPage = () => {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: "https://repaywise.co.uk/" },
-          { name: "Interest-Only Calculator", url: "https://repaywise.co.uk/calculators/interest-only" },
-          ...(lender ? [{ name: lender.name, url: `https://repaywise.co.uk/calculators/interest-only/${lender.slug}` }] : []),
+          { name: "Home", href: "https://repaywise.co.uk/" },
+          { name: "Interest-Only Calculator", href: "https://repaywise.co.uk/calculators/interest-only" },
+          ...(lender ? [{ name: lender.name, href: `https://repaywise.co.uk/calculators/interest-only/${lender.slug}` }] : []),
         ]}
       />
 
@@ -198,7 +198,7 @@ const InterestOnlyPage = () => {
           </div>
         </div>
 
-        <RelatedCalculators currentType="interest-only" lenderSlug={lender?.slug} />
+        <RelatedCalculators currentPath="/calculators/interest-only" lenderSlug={lender?.slug} />
       </CalculatorShell>
 
       {/* CONTENT */}
