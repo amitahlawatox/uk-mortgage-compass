@@ -229,11 +229,9 @@ console.log(`   Calculator bases:      ${CALC_TYPES.length}`);
 console.log(
   `   Overpayment (all ${lenderSlugs.length} lenders): ${overpaymentCount}`,
 );
-console.log(
-  `   Full coverage (${UNIQUE_CONTENT_LENDERS.size} unique lenders × ${CALC_TYPES.length - 1} types): ${uniqueLenderFullCount}`,
-);
+console.log(`   Lender calc pages:     ${urls.filter(u=>/^\/calculators\/[a-z-]+\/.+/.test(u.path)).length}`);
 console.log(`   City regional:         ${citySlugs.length}`);
-console.log(`   Lender guides:         ${UNIQUE_CONTENT_LENDERS.size}`);
+console.log(`   Lender guides:         ${urls.filter(u=>u.path.startsWith("/guides/lenders/")).length}`);
 console.log(`   ─────────────────────────────────────`);
 console.log(`   EXCLUDED (thin content):`);
 console.log(`     City calc variants:  ${cityCalcExcluded} (identical calculators)`);
