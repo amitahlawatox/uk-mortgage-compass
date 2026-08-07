@@ -111,9 +111,29 @@ export const routes: RouteRecord[] = [
       {
         path: "calculators/overpayment/:slug",
         lazy: page(() => import("./pages/calculators/OverpaymentPage")),
-        getStaticPaths: () => KEEP_LENDERS.map((s) => `calculators/overpayment/${s}`),
+        getStaticPaths: () => lenders.map((l) => `calculators/overpayment/${l.slug}`),
       },
-            {
+      {
+        path: "calculators/repayment/:slug",
+        lazy: page(() => import("./pages/calculators/RepaymentPage")),
+        getStaticPaths: () => lenders.map((l) => `calculators/repayment/${l.slug}`),
+      },
+      {
+        path: "calculators/max-borrowing/:slug",
+        lazy: page(() => import("./pages/calculators/MaxBorrowingPage")),
+        getStaticPaths: () => lenders.map((l) => `calculators/max-borrowing/${l.slug}`),
+      },
+      {
+        path: "guides/lenders/:slug",
+        lazy: page(() => import("./pages/guides/LenderGuidePage")),
+        getStaticPaths: () => lenders.map((l) => `guides/lenders/${l.slug}`),
+      },
+      {
+        path: "uk/:slug",
+        lazy: page(() => import("./pages/regional/RegionalPage")),
+        getStaticPaths: () => cities.map((c) => `uk/${c.slug}`),
+      },
+      {
         path: "calculators/affordability",
         lazy: page(() => import("./pages/calculators/AffordabilityPage")),
       },
