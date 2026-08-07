@@ -63,11 +63,20 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
-      - name: Pull Vercel project settings
-        run: vercel pull --yes --environment=production --token="${{ secrets.VERCEL_TOKEN }}"
+      # `vercel pull` needs the token to resolve the project through the
+      # team scope, which failed on run #1. Writing .vercel/project.json
+      # ourselves does the same job without that lookup — these two IDs
+      # are exactly what pull would have fetched.
+      - name: Link Vercel project
+        run: |
+          mkdir -p .vercel
+          cat > .vercel/project.json <<EOF
+          {"projectId":"$VERCEL_PROJECT_ID","orgId":"$VERCEL_ORG_ID"}
+          EOF
+          echo "Linked project $VERCEL_PROJECT_ID"
 
       - name: Build
-        run: vercel build --prod --token="${{ secrets.VERCEL_TOKEN }}"
+        run: vercel build --prod --token="${{ secrets.VERCEL_TOKEN }}" --yes
 
       # Guard rail. The 11 July regression shipped a 45-page build when
       # the site should have had ~535. If the page count collapses again,
