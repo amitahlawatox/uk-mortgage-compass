@@ -60,50 +60,43 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit
 
+      # Build with the project's own npm script rather than `vercel build`.
+      # This is the same command Vercel runs, but failures surface as normal
+      # npm errors instead of CLI-internal ones, and it lets the page-count
+      # guard run against real output before anything is uploaded.
+      - name: Build
+        run: npm run build
+
+      # Guard rail. The 11 July regression shipped a 45-page build to
+      # production and removed every page that was ranking. If the page
+      # count collapses again, stop here.
+      - name: Verify page count before deploying
+        run: |
+          PAGES=$(find dist -name '*.html' | wc -l)
+          SITEMAP=$(grep -c '<loc>' dist/sitemap.xml || echo 0)
+          echo "Static HTML pages : $PAGES"
+          echo "Sitemap URLs      : $SITEMAP"
+          if [ "$PAGES" -lt 400 ]; then
+            echo "::error::Only $PAGES pages built — expected 400+. Refusing to deploy."
+            exit 1
+          fi
+          if [ "$SITEMAP" -lt 400 ]; then
+            echo "::error::Sitemap has only $SITEMAP URLs — expected 400+. Refusing to deploy."
+            exit 1
+          fi
+          echo "Guard passed."
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
-      # `vercel pull` needs the token to resolve the project through the
-      # team scope, which failed on run #1. Writing .vercel/project.json
-      # ourselves does the same job without that lookup — these two IDs
-      # are exactly what pull would have fetched.
-      - name: Link Vercel project
-        run: |
-          mkdir -p .vercel
-          cat > .vercel/project.json <<EOF
-          {"projectId":"$VERCEL_PROJECT_ID","orgId":"$VERCEL_ORG_ID"}
-          EOF
-          echo "Linked project $VERCEL_PROJECT_ID"
-
-      - name: Build
-        run: vercel build --prod --token="${{ secrets.VERCEL_TOKEN }}" --yes
-
-      # Guard rail. The 11 July regression shipped a 45-page build when
-      # the site should have had ~535. If the page count collapses again,
-      # fail here rather than deploying it to production.
-      - name: Verify page count before deploying
-        run: |
-          PAGES=$(find .vercel/output/static -name '*.html' | wc -l)
-          echo "Static HTML pages built: $PAGES"
-          if [ "$PAGES" -lt 400 ]; then
-            echo "::error::Only $PAGES pages built — expected 400+."
-            echo "::error::This looks like the 11 July regression (routes or"
-            echo "::error::redirects removing programmatic pages). Not deploying."
-            exit 1
-          fi
-          SITEMAP=$(grep -c '<loc>' .vercel/output/static/sitemap.xml || echo 0)
-          echo "Sitemap URLs: $SITEMAP"
-          if [ "$SITEMAP" -lt 400 ]; then
-            echo "::error::Sitemap has only $SITEMAP URLs — expected 400+."
-            exit 1
-          fi
-
       - name: Deploy to production
         run: |
-          URL=$(vercel deploy --prebuilt --prod --token="${{ secrets.VERCEL_TOKEN }}")
+          URL=$(vercel deploy --prod --yes --token="${{ secrets.VERCEL_TOKEN }}")
           echo "Deployed: $URL"
-          echo "### Deployed to production" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- URL: $URL" >> $GITHUB_STEP_SUMMARY
-          echo "- Commit: \`${GITHUB_SHA:0:7}\`" >> $GITHUB_STEP_SUMMARY
-          echo "- Live at: https://repaywise.co.uk" >> $GITHUB_STEP_SUMMARY
+          {
+            echo "### Deployed to production"
+            echo ""
+            echo "- URL: $URL"
+            echo "- Commit: \`${GITHUB_SHA:0:7}\`"
+            echo "- Live at: https://repaywise.co.uk"
+          } >> "$GITHUB_STEP_SUMMARY"
