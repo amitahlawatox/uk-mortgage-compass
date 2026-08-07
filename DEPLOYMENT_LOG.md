@@ -1,5 +1,7 @@
 # Deployment Log
 
+_Last verified: 2026-08-07_
+
 ## 2026-08-07 — Traffic collapse recovery
 
 Restored the programmatic page set after wildcard 301 redirects and
