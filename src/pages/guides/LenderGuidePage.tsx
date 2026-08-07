@@ -24,7 +24,7 @@ const LenderGuidePage = () => {
         title={`${lender.name} Mortgage Guide 2026 | RepayWise`}
         description={`Planning a ${lender.name} mortgage in 2026? Compare indicative SVR, max LTV, overpayment strategy, repayment modelling, and borrowing power in one place.`}
         path={buildLenderGuidePath(lender.slug)}
-        noIndex={!UNIQUE_CONTENT_LENDERS.has(lender.slug)}
+        noIndex={false}
         jsonLd={{
           "@context": "https://schema.org",
           "@graph": [

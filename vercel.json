@@ -181,6 +181,16 @@
       "source": "/uk/:slug*",
       "destination": "/",
       "statusCode": 301
+    },
+    {
+      "source": "/https://repaywise.co.uk/:path*",
+      "destination": "/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/https:/repaywise.co.uk/:path*",
+      "destination": "/:path*",
+      "permanent": true
     }
   ],
   "rewrites": [],

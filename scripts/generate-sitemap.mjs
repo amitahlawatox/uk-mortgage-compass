@@ -104,8 +104,12 @@ function url(path, priority, changefreq) {
 }
 
 // ─── BUILD URL LIST ───────────────────────────────────────────────────────────
-const lenderSlugs = []; // replicas removed — canonical-only sitemap
-const citySlugs = []; // replicas removed — canonical-only sitemap
+const lenderSlugs = await extractSlugs(
+  path.join(projectRoot, "src/lib/uk/lenders.ts"),
+);
+const citySlugs = await extractSlugs(
+  path.join(projectRoot, "src/lib/uk/cities.ts"),
+);
 
 const urls = [];
 
@@ -125,12 +129,6 @@ for (const type of CALC_TYPES) {
   urls.push(url(`/calculators/${type}`, "0.9", "weekly"));
 }
 
-// 2b. Kept lender overpayment pages (solid unique content + proven ranking)
-const KEEP_LENDERS = ["barclays","nationwide","hsbc","halifax","lloyds-bank","santander","danske","virgin-money","natwest","coventry","accord","leeds","precise","cumberland","metro-bank","principality","suffolk","clydesdale"];
-for (const slug of KEEP_LENDERS) {
-  urls.push(url(`/calculators/overpayment/${slug}`, "0.8", "weekly"));
-}
-
 // 3. Overpayment pages: ALL lenders
 //    This is our #1 ranking pattern — every specialist lender gets one.
 //    "[Bank] overpayment calculator" keywords have almost zero competition.
@@ -145,9 +143,12 @@ for (const slug of lenderSlugs) {
 for (const type of CALC_TYPES) {
   if (type === "overpayment") continue; // handled above
 
-  // Unique-content lenders: full coverage across all calc types
+  // repayment + max-borrowing: ALL lenders. GSC proves these rank —
+  // repayment/danske pos 9.76, repayment/accord pos 11,
+  // max-borrowing/castle-trust pos 2.83 @ 83% CTR.
+  const ALL_LENDER_TYPES = ["repayment", "max-borrowing"];
   for (const slug of lenderSlugs) {
-    if (UNIQUE_CONTENT_LENDERS.has(slug)) {
+    if (ALL_LENDER_TYPES.includes(type) || UNIQUE_CONTENT_LENDERS.has(slug)) {
       urls.push(url(`/calculators/${type}/${slug}`, "0.8", "weekly"));
     }
   }
@@ -174,9 +175,7 @@ for (const slug of citySlugs) {
 //    The lender name, SVR, and LTV are plugged into boilerplate.
 //    Keeping 137 thin guide pages dilutes domain authority.
 for (const slug of lenderSlugs) {
-  if (UNIQUE_CONTENT_LENDERS.has(slug)) {
-    urls.push(url(`/guides/lenders/${slug}`, "0.7", "monthly"));
-  }
+  urls.push(url(`/guides/lenders/${slug}`, "0.7", "monthly"));
 }
 
 // ─── XML BUILDER ──────────────────────────────────────────────────────────────

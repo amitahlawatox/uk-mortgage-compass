@@ -135,7 +135,7 @@ const RepaymentPage = () => {
         title={seoTitle}
         description={seoDescription}
         path={pagePath}
-        noIndex={!!city || (!!lender && !UNIQUE_CONTENT_LENDERS.has(lender.slug))}
+        noIndex={!!city}
         jsonLd={lender ? {
           "@context": "https://schema.org",
           "@type": "FinancialProduct",
