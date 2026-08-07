@@ -60,7 +60,7 @@ const StampDutyScotlandPage = () => {
   return (
     <SiteShell>
       <SEO
-        title="LBTT Calculator Scotland 2026 — Land and Buildings Transaction Tax | RepayWise"
+        title="Stamp Duty Calculator Scotland 2026 — LBTT | RepayWise"
         description="Free Scotland stamp duty (LBTT) calculator. Calculate Land and Buildings Transaction Tax for any Scottish property purchase. Includes first-time buyer relief and Additional Dwelling Supplement. No login required."
         path="/calculators/stamp-duty/scotland"
         faqItems={FAQ_ITEMS}

@@ -7,17 +7,6 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/:path(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.repaywise.co.uk"
-        }
-      ],
-      "destination": "https://repaywise.co.uk/:path",
-      "statusCode": 301
-    },
-    {
       "source": "/uk/bath",
       "destination": "/uk/bath-city",
       "statusCode": 301
@@ -130,56 +119,6 @@
     {
       "source": "/uk/warwick",
       "destination": "/uk/birmingham",
-      "statusCode": 301
-    },
-    {
-      "source": "/calculators/stamp-duty/:slug((?!scotland$|wales$).*)",
-      "destination": "/calculators/stamp-duty",
-      "statusCode": 301
-    },
-    {
-      "source": "/calculators/repayment/:slug*",
-      "destination": "/calculators/repayment",
-      "statusCode": 301
-    },
-    {
-      "source": "/calculators/overpayment/:slug((?!barclays$|nationwide$|hsbc$|halifax$|lloyds-bank$|santander$|danske$|virgin-money$|natwest$|coventry$|accord$|leeds$|precise$|cumberland$|metro-bank$|principality$|suffolk$|clydesdale$).+)",
-      "destination": "/calculators/overpayment",
-      "statusCode": 301
-    },
-    {
-      "source": "/calculators/max-borrowing/:slug*",
-      "destination": "/calculators/max-borrowing",
-      "statusCode": 301
-    },
-    {
-      "source": "/calculators/affordability/:slug*",
-      "destination": "/calculators/affordability",
-      "statusCode": 301
-    },
-    {
-      "source": "/calculators/equity/:slug*",
-      "destination": "/calculators/equity",
-      "statusCode": 301
-    },
-    {
-      "source": "/calculators/buy-to-let/:slug*",
-      "destination": "/calculators/buy-to-let",
-      "statusCode": 301
-    },
-    {
-      "source": "/calculators/interest-only/:slug*",
-      "destination": "/calculators/interest-only",
-      "statusCode": 301
-    },
-    {
-      "source": "/guides/lenders/:slug*",
-      "destination": "/guides",
-      "statusCode": 301
-    },
-    {
-      "source": "/uk/:slug*",
-      "destination": "/",
       "statusCode": 301
     },
     {

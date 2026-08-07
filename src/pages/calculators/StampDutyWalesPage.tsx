@@ -59,7 +59,7 @@ const StampDutyWalesPage = () => {
   return (
     <SiteShell>
       <SEO
-        title="LTT Calculator Wales 2026 — Land Transaction Tax | RepayWise"
+        title="Stamp Duty Calculator Wales 2026 — LTT | RepayWise"
         description="Free Wales stamp duty (LTT) calculator. Calculate Land Transaction Tax for any Welsh property purchase. Includes Higher Residential Rates for second homes and buy-to-let. No login required."
         path="/calculators/stamp-duty/wales"
         faqItems={FAQ_ITEMS}

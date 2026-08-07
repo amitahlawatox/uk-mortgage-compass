@@ -127,8 +127,16 @@ const OverpaymentPage = () => {
     : "Move the sliders. See exactly how a regular monthly overpayment or a one-off lump sum reshapes your mortgage: interest saved and years shaved off the term.";
   const pagePath = city ? `calculators/overpayment/${city.slug}` : lender ? `calculators/overpayment/${lender.slug}` : "calculators/overpayment";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
-  const seoTitle = city ? `${city.name} Overpayment Calculator | RepayWise` : lender
-    ? `${lender.name} Overpayment Calculator — Save £14,000+ in Interest`
+  // Titles must stay under ~60 chars or Google truncates them (Ahrefs flagged
+  // 9 pages at 71-80). "Building Society" alone eats 16 characters, so we
+  // abbreviate it in the title only — the H1 and body keep the full name.
+  const titleName = lender
+    ? lender.name.replace(/ Building Society$/, " BS").replace(/ Bank$/, "")
+    : "";
+  const seoTitle = city
+    ? `${city.name} Mortgage Overpayment Calculator | RepayWise`
+    : lender
+    ? `${titleName} Overpayment Calculator 2026 | RepayWise`
     : "Mortgage Overpayment Calculator UK — See How Much You Save";
   const seoDescription = city
     ? `Free mortgage overpayment calculator for ${city.name}. ${city.description} See how overpaying saves years and thousands in interest.`

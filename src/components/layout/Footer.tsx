@@ -36,6 +36,10 @@ export const Footer = () => (
           <li><Link to="/calculators/home-improvement" onClick={() => trackIntentClick("footer_calculators", "/calculators/home-improvement", "Home Improvement")} className="hover:text-accent">Home Improvement Loan vs Remortgage</Link></li>
           <li><Link to="/calculators/max-borrowing" onClick={() => trackIntentClick("footer_calculators", "/calculators/max-borrowing", "Affordability")} className="hover:text-accent">Affordability Calculator</Link></li>
           <li><Link to="/calculators/equity" onClick={() => trackIntentClick("footer_calculators", "/calculators/equity", "Home Equity Calculator")} className="hover:text-accent">Home Equity Calculator</Link></li>
+          <li><Link to="/calculators/interest-only" onClick={() => trackIntentClick("footer_calculators", "/calculators/interest-only", "Interest Only")} className="hover:text-accent">Interest-Only Calculator</Link></li>
+          <li><Link to="/calculators/stamp-duty/scotland" onClick={() => trackIntentClick("footer_calculators", "/calculators/stamp-duty/scotland", "Scotland LBTT")} className="hover:text-accent">Scotland Stamp Duty (LBTT)</Link></li>
+          <li><Link to="/calculators/stamp-duty/wales" onClick={() => trackIntentClick("footer_calculators", "/calculators/stamp-duty/wales", "Wales LTT")} className="hover:text-accent">Wales Stamp Duty (LTT)</Link></li>
+          <li><Link to="/for-brokers" className="hover:text-accent">For Mortgage Brokers</Link></li>
           <li><Link to="/guides" onClick={() => trackIntentClick("footer_calculators", "/guides", "Guides")} className="hover:text-accent">Guides</Link></li>
         </ul>
       </div>
