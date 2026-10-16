@@ -1,0 +1,26 @@
+name: Vercel read-only production audit
+
+on:
+  schedule:
+    - cron: "37 8 * * *"
+      timezone: "Europe/London"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-vercel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VERCEL_TEAM_ID: team_xIr05WKuFuH59g0nOFNm8jAo
+      VERCEL_PROJECT_ID: prj_DIvmuSV7F4C0dWcXWNVPTnmKiz6Z
+      VERCEL_TOKEN: ${{ secrets.VERCEL_MONITOR_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check Vercel project, production deployments, and firewall API
+        run: python scripts/vercel_deployment_audit.py
