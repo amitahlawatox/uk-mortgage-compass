@@ -535,12 +535,7 @@ const RepaymentPage = () => {
               <button
                 onClick={() => {
                   if (step === 2) {
-                    trackIntentClick("repayment_wizard", pagePath, "See my payment", {
-                      principal,
-                      rate,
-                      term,
-                      lender: lender?.slug,
-                    });
+                    trackIntentClick("repayment_wizard", pagePath, "See my payment");
                   }
                   next();
                 }}
