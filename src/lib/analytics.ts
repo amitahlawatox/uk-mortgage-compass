@@ -27,7 +27,11 @@ function loadAnalytics(): void {
   w.gtag = (...args: unknown[]) => { w.dataLayer?.push(args); };
   // Disable the default page_view, as React Router tracks each visit explicitly.
   w.gtag("js", new Date());
-  w.gtag("config", GA4_ID, { send_page_view: false, anonymize_ip: true });
+  w.gtag("config", GA4_ID, {
+    send_page_view: false,
+    anonymize_ip: true,
+    page_location: `${window.location.origin}${window.location.pathname}`,
+  });
 
   const ga = document.createElement("script");
   ga.async = true;
@@ -53,7 +57,11 @@ function safeGtag(event: string, params?: Record<string, unknown>): void {
 }
 
 export function trackPageView(path?: string): void {
-  safeGtag("page_view", { page_path: path ?? (typeof window !== "undefined" ? window.location.pathname : "") });
+  const pathname = (path ?? (typeof window !== "undefined" ? window.location.pathname : "")).split(/[?#]/, 1)[0];
+  safeGtag("page_view", {
+    page_path: pathname,
+    page_location: typeof window !== "undefined" ? `${window.location.origin}${pathname}` : "",
+  });
 }
 
 export function trackEvent(name: string, params?: Record<string, unknown>): void {
@@ -64,8 +72,8 @@ export function track(event: string, params?: Record<string, unknown>): void {
   safeGtag(event, params);
 }
 
-export function trackIntentClick(label: string, url?: string, title?: string, params?: Record<string, unknown>): void {
-  safeGtag("intent_calculate_click", { label, url: url ?? "", title: title ?? "", ...(params ?? {}) });
+export function trackIntentClick(label: string, url?: string, title?: string): void {
+  safeGtag("intent_calculate_click", { label, url: url ?? "", title: title ?? "" });
 }
 
 export function trackCalculatorUse(type: string, params?: Record<string, unknown>): void {
