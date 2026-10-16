@@ -1,21 +1,56 @@
-// RepayWise analytics.ts — GA4 event tracking via G-Y8KJP7Q3MD
-
+// RepayWise privacy-first analytics. No third-party analytics network calls
+// occur before a visitor deliberately accepts optional analytics cookies.
 export const ANALYTICS_CONSENT_EVENT = "analytics-consent";
+const CONSENT_KEY = "velocity-cookie-consent";
+const GA4_ID = "G-Y8KJP7Q3MD";
+const AHREFS_KEY = "TS3mAoZXVtzsliPGFrj9Tg";
 
 type GtagFn = (...args: unknown[]) => void;
+type AnalyticsWindow = Window & { dataLayer?: unknown[][]; gtag?: GtagFn };
+let initialized = false;
 
-function safeGtag(event: string, params?: Record<string, unknown>): void {
+function analyticsAllowed(): boolean {
   try {
-    if (typeof window !== "undefined") {
-      const g = (window as unknown as { gtag?: GtagFn }).gtag;
-      if (typeof g === "function") g("event", event, params ?? {});
-    }
+    return typeof window !== "undefined" &&
+      window.localStorage.getItem(CONSENT_KEY) === "all";
   } catch {
-    // SSR or gtag not loaded yet — silent fail
+    return false;
   }
 }
 
-export function syncAnalyticsConsent(_granted?: boolean): void {}
+function loadAnalytics(): void {
+  if (initialized || !analyticsAllowed()) return;
+  initialized = true;
+
+  const w = window as AnalyticsWindow;
+  w.dataLayer = w.dataLayer ?? [];
+  w.gtag = (...args: unknown[]) => { w.dataLayer?.push(args); };
+  // Disable the default page_view, as React Router tracks each visit explicitly.
+  w.gtag("js", new Date());
+  w.gtag("config", GA4_ID, { send_page_view: false, anonymize_ip: true });
+
+  const ga = document.createElement("script");
+  ga.async = true;
+  ga.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+  document.head.appendChild(ga);
+
+  const ahrefs = document.createElement("script");
+  ahrefs.async = true;
+  ahrefs.src = "https://analytics.ahrefs.com/analytics.js";
+  ahrefs.dataset.key = AHREFS_KEY;
+  document.head.appendChild(ahrefs);
+}
+
+export function syncAnalyticsConsent(_granted?: boolean): void {
+  // Local storage is the source of truth; the event merely triggers resync.
+  if (analyticsAllowed()) loadAnalytics();
+}
+
+function safeGtag(event: string, params?: Record<string, unknown>): void {
+  if (!analyticsAllowed()) return;
+  loadAnalytics();
+  (window as AnalyticsWindow).gtag?.("event", event, params ?? {});
+}
 
 export function trackPageView(path?: string): void {
   safeGtag("page_view", { page_path: path ?? (typeof window !== "undefined" ? window.location.pathname : "") });
@@ -33,8 +68,6 @@ export function trackIntentClick(label: string, url?: string, title?: string, pa
   safeGtag("intent_calculate_click", { label, url: url ?? "", title: title ?? "", ...(params ?? {}) });
 }
 
-
-
 export function trackCalculatorUse(type: string, params?: Record<string, unknown>): void {
   safeGtag("calculator_viewed", { calculator_type: type, ...params });
 }
@@ -51,4 +84,6 @@ export function trackCityView(citySlug: string): void {
   safeGtag("city_page_view", { city: citySlug });
 }
 
-export function initAnalytics(): void {}
+export function initAnalytics(): void {
+  syncAnalyticsConsent();
+}
