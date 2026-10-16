@@ -53,14 +53,16 @@ export function syncAnalyticsConsent(_granted?: boolean): void {
 function safeGtag(event: string, params?: Record<string, unknown>): void {
   if (!analyticsAllowed()) return;
   loadAnalytics();
-  (window as AnalyticsWindow).gtag?.("event", event, params ?? {});
+  // Set a safe location on every event, including events after SPA navigation.
+  // This also prevents callers from supplying a URL containing financial inputs.
+  const pageLocation = `${window.location.origin}${window.location.pathname}`;
+  (window as AnalyticsWindow).gtag?.("event", event, { ...params, page_location: pageLocation });
 }
 
 export function trackPageView(path?: string): void {
   const pathname = (path ?? (typeof window !== "undefined" ? window.location.pathname : "")).split(/[?#]/, 1)[0];
   safeGtag("page_view", {
     page_path: pathname,
-    page_location: typeof window !== "undefined" ? `${window.location.origin}${pathname}` : "",
   });
 }
 

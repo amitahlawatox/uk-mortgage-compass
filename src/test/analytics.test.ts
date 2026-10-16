@@ -7,6 +7,7 @@ describe("analytics privacy", () => {
       configurable: true,
       value: { getItem: (key: string) => key === "velocity-cookie-consent" ? "all" : null },
     });
+    window.history.replaceState({}, "", "/calculators/repayment?principal=250000#rate=4.5");
 
     trackPageView("/calculators/repayment?principal=250000#rate=4.5");
     trackIntentClick("repayment_wizard", "calculators/repayment", "See my payment");
@@ -23,8 +24,17 @@ describe("analytics privacy", () => {
       label: "repayment_wizard",
       url: "calculators/repayment",
       title: "See my payment",
+      page_location: `${window.location.origin}/calculators/repayment`,
     });
     expect(JSON.stringify(events)).not.toContain("250000");
     expect(JSON.stringify(events)).not.toContain("rate=4.5");
+
+    window.history.replaceState({}, "", "/calculators/overpayment?deposit=50000");
+    trackIntentClick("footer_calculators", "/calculators/repayment", "Mortgage Repayment");
+    const latestEvent = events.at(-1);
+    expect(latestEvent?.[2]).toMatchObject({
+      page_location: `${window.location.origin}/calculators/overpayment`,
+    });
+    expect(JSON.stringify(latestEvent)).not.toContain("50000");
   });
 });
