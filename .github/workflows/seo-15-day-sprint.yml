@@ -1,0 +1,56 @@
+name: RepayWise 15-day 5AM SEO sprint
+
+on:
+  schedule:
+    - cron: "0 5 17-31 10 *"
+      timezone: "Europe/London"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: repaywise-0500-sprint
+  cancel-in-progress: false
+
+jobs:
+  morning-operations:
+    name: Daily technical and search reporting
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VERCEL_TEAM_ID: team_xIr05WKuFuH59g0nOFNm8jAo
+      VERCEL_PROJECT_ID: prj_DIvmuSV7F4C0dWcXWNVPTnmKiz6Z
+      VERCEL_TOKEN: ${{ secrets.VERCEL_MONITOR_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - id: sprint
+        name: Set 15-day sprint focus and active date
+        run: python scripts/seo_sprint_day.py
+      - name: Configure keyless Google reporting credentials
+        if: steps.sprint.outputs.active == 'true'
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GOOGLE_SERVICE_ACCOUNT }}
+      - name: Install GA4/GSC API dependencies
+        if: steps.sprint.outputs.active == 'true'
+        run: python -m pip install --disable-pip-version-check "google-auth>=2,<3" "requests>=2,<3"
+      - name: Write private daily GA4 and Search Console metrics
+        if: steps.sprint.outputs.active == 'true'
+        env:
+          GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+          SEO_SHEET_ID: ${{ vars.SEO_SHEET_ID }}
+          SEO_SHEET_TAB: ${{ vars.SEO_SHEET_TAB }}
+        run: python scripts/private_daily_reporting.py
+      - name: Check Vercel deployments and firewall API (read-only)
+        if: always() && steps.sprint.outputs.active == 'true'
+        run: python scripts/vercel_deployment_audit.py
+      - name: Check crawlability of important public pages
+        if: always() && steps.sprint.outputs.active == 'true'
+        run: python scripts/seo_health_check.py
