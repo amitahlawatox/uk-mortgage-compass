@@ -16,7 +16,7 @@ jobs:
     env:
       VERCEL_TEAM_ID: team_xIr05WKuFuH59g0nOFNm8jAo
       VERCEL_PROJECT_ID: prj_DIvmuSV7F4C0dWcXWNVPTnmKiz6Z
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_MONITOR_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

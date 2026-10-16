@@ -5,19 +5,19 @@ REST API runs daily at 08:37 Europe/London, and can be triggered manually.
 
 ## Credentials
 
-The existing deploy workflow already refers to GitHub Actions secret
-`VERCEL_TOKEN`. First check in GitHub > Settings > Secrets and variables >
-Actions that `VERCEL_TOKEN` exists. GitHub does not display existing values,
-and the secret's presence does **not** prove it is valid.
+**Use a dedicated monitoring token, not the token used for deployments.**
+In Vercel > Account Settings > Tokens, create a token named
+`repaywise-github-seo-monitor` with access to the scope that owns the
+`uk-mortgage` project. Give it a finite expiration (e.g. 90 days), and
+plan for rotation. Vercel personal access tokens may be capable of actions
+beyond read-only, even when the workflow only uses GET requests.
 
-If missing/expired, create an appropriately scoped Vercel token in Vercel >
-Account Settings > Tokens, with team access to the existing `uk-mortgage`
-project; choose a sensible expiration and rotate before it expires. **Never**
-paste the value in ChatGPT, GitHub source, or Cloud Shell history. Add the
-token directly as repository Actions secret `VERCEL_TOKEN`. Using the existing
-deploy token for monitoring is operationally simple, but a dedicated scoped
-monitoring token is preferable longer-term where the available token
-permissions allow it.
+In GitHub > Repository > Settings > Secrets and variables > Actions > Secrets,
+create or update the **repository secret** `VERCEL_MONITOR_TOKEN` with the
+token value. Never paste the value into ChatGPT, a GitHub Actions variable,
+a public GitHub file or Cloud Shell. Keep the existing `VERCEL_TOKEN` (used
+for deployment) unchanged. This prevents a monitoring token rotation from
+breaking deployments.
 
 ## What this workflow does
 
