@@ -91,7 +91,7 @@ jobs:
 
       - name: Deploy to production
         run: |
-          URL=$(vercel deploy --prod --yes --token="${{ secrets.VERCEL_TOKEN }}")
+          URL=$(vercel deploy --prod --yes --archive=tgz --token="${{ secrets.VERCEL_TOKEN }}")
           echo "Deployed: $URL"
           {
             echo "### Deployed to production"
