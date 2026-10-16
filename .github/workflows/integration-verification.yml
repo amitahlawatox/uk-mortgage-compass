@@ -1,0 +1,100 @@
+name: RepayWise integration verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/integration-verification.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  verify:
+    name: Verify API access and production crawlability
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out current production source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify OpenAI API key can generate a response
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          from urllib.error import HTTPError, URLError
+          from urllib.request import Request, urlopen
+
+          key = os.getenv("OPENAI_API_KEY", "")
+          if not key:
+              sys.exit("OPENAI_API_KEY is not configured in Actions secrets")
+          model = os.getenv("OPENAI_MODEL") or "gpt-4.1-mini"
+          body = json.dumps({
+              "model": model,
+              "input": "Reply with only READY.",
+              "max_output_tokens": 48,
+              "store": False,
+          }).encode("utf-8")
+          request = Request(
+              "https://api.openai.com/v1/responses",
+              data=body,
+              headers={"Authorization": "Bearer " + key,
+                       "Content-Type": "application/json"},
+              method="POST",
+          )
+          try:
+              with urlopen(request, timeout=45) as response:
+                  result = json.load(response)
+          except HTTPError as exc:
+              # Do not print any provider response body or credentials.
+              sys.exit(f"OpenAI Responses API HTTP {exc.code} "
+                       "(check billing, token and model availability)")
+          except (URLError, TimeoutError, OSError):
+              sys.exit("OpenAI Responses API: network connection failed")
+          if not result.get("id") or result.get("status") != "completed":
+              sys.exit("OpenAI API returned an incomplete or invalid response")
+          print("OpenAI API inference: SUCCESS")
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
+              f.write("### OpenAI inference: PASS\n\nNo model output or keys logged.\n")
+          PY
+      - name: Authenticate to Google with existing keyless identity
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GOOGLE_SERVICE_ACCOUNT }}
+      - name: Install Google auth packages
+        run: python -m pip install --disable-pip-version-check "google-auth>=2,<3" "requests>=2,<3"
+      - name: Exercise real GA4, GSC and private Google Sheet integration
+        env:
+          GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+          SEO_SHEET_ID: ${{ vars.SEO_SHEET_ID }}
+          SEO_SHEET_TAB: ${{ vars.SEO_SHEET_TAB }}
+        run: python scripts/private_daily_reporting.py
+      - name: Exercise real Vercel project, deployment and firewall read APIs
+        env:
+          VERCEL_MONITOR_TOKEN: ${{ secrets.VERCEL_MONITOR_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_MONITOR_TOKEN }}
+          VERCEL_TEAM_ID: team_xIr05WKuFuH59g0nOFNm8jAo
+          VERCEL_PROJECT_ID: prj_DIvmuSV7F4C0dWcXWNVPTnmKiz6Z
+        run: python scripts/vercel_deployment_audit.py
+      - name: Check live public SEO endpoints (diagnostic only)
+        continue-on-error: true
+        run: python scripts/seo_health_check.py
+      - name: Explain verification scope
+        if: always()
+        run: |
+          {
+            echo "### Verification limitations"
+            echo "Passing Vercel API access does not grant ChatGPT direct API access."
+            echo "This workflow never changes firewall rules, DNS, deployments or content."
+            echo "The live SEO probe uses a synthetic UA; a challenge is not proof that Googlebot is blocked."
+          } >> "$GITHUB_STEP_SUMMARY"
