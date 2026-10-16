@@ -120,16 +120,6 @@
       "source": "/uk/warwick",
       "destination": "/uk/birmingham",
       "statusCode": 301
-    },
-    {
-      "source": "/https://repaywise.co.uk/:path*",
-      "destination": "/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/https:/repaywise.co.uk/:path*",
-      "destination": "/:path*",
-      "permanent": true
     }
   ],
   "rewrites": [],
