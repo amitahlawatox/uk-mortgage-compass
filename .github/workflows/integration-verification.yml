@@ -81,7 +81,7 @@ jobs:
           print("OpenAI API inference: SUCCESS")
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
               f.write("### OpenAI inference: PASS\\n\\nNo model output or keys logged.\\n")
-          PYY
+          PY
       - name: Authenticate to Google with existing keyless identity
         if: always()
         uses: google-github-actions/auth@v3
