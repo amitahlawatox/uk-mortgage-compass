@@ -201,6 +201,14 @@ export const routes: RouteRecord[] = [
         path: "guides/mortgage-overpayment-guide",
         lazy: page(() => import("./pages/guides/MortgageOverpaymentGuidePage")),
       },
+      {
+        path: "news/your-first-home-equity-loan-2026",
+        lazy: page(() => import("./pages/YourFirstHomeNewsPage")),
+      },
+      {
+        path: "news/lifetime-isa-withdrawal-charge-2026",
+        lazy: page(() => import("./pages/LifetimeIsaNewsPage")),
+      },
             {
         path: "about",
         lazy: page(() => import("./pages/AboutPage")),
