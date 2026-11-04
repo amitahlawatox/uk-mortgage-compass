@@ -130,8 +130,9 @@ for (const slug of lenderSlugs) {
 }
 
 // ─── XML BUILDER ──────────────────────────────────────────────────────────────
+// Omit lastmod until there is a reliable per-page content change date.
+// A deployment date would falsely mark every URL as updated.
 function buildSitemapXml(urls) {
-  const today = new Date().toISOString().slice(0, 10);
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -141,7 +142,6 @@ function buildSitemapXml(urls) {
     lines.push(
       "  <url>",
       `    <loc>${siteUrl}${u.path}</loc>`,
-      `    <lastmod>${today}</lastmod>`,
       `    <changefreq>${u.changefreq}</changefreq>`,
       `    <priority>${u.priority}</priority>`,
       "  </url>",
