@@ -209,6 +209,10 @@ export const routes: RouteRecord[] = [
         path: "news/lifetime-isa-withdrawal-charge-2026",
         lazy: page(() => import("./pages/LifetimeIsaNewsPage")),
       },
+      {
+        path: "news/property-income-tax-landlords-2027",
+        lazy: page(() => import("./pages/PropertyIncomeTaxNewsPage")),
+      },
             {
         path: "about",
         lazy: page(() => import("./pages/AboutPage")),
