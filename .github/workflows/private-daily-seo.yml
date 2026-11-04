@@ -39,3 +39,8 @@ jobs:
           SEO_SHEET_ID: ${{ vars.SEO_SHEET_ID }}
           SEO_SHEET_TAB: ${{ vars.SEO_SHEET_TAB }}
         run: python scripts/private_daily_reporting.py
+      - name: Save indexed crawl snapshots privately
+        env:
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+          SEO_SHEET_ID: ${{ vars.SEO_SHEET_ID }}
+        run: python scripts/private_index_inspection.py
