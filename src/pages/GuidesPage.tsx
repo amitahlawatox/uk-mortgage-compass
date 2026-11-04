@@ -89,6 +89,34 @@ const GuidesPage = () => (
       </div>
     </section>
 
+    <section className="px-4 pb-12">
+      <div className="max-w-5xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-5">Latest mortgage news</h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <article className="rounded-3xl border glass-card p-6">
+            <p className="text-xs text-muted-foreground">30 October 2026 · England</p>
+            <h3 className="mt-2 text-xl font-semibold">Your First Home equity loan</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              What the new first-time-buyer scheme could cost and when applications are expected to open.
+            </p>
+            <Link className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent" to="/news/your-first-home-equity-loan-2026">
+              Read the update <ArrowRight className="size-4" />
+            </Link>
+          </article>
+          <article className="rounded-3xl border glass-card p-6">
+            <p className="text-xs text-muted-foreground">30 October 2026 · UK</p>
+            <h3 className="mt-2 text-xl font-semibold">Lifetime ISA house-price cap change</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              The new withdrawal charge for above-cap purchases and the planned First Time Buyer ISA.
+            </p>
+            <Link className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent" to="/news/lifetime-isa-withdrawal-charge-2026">
+              Read the update <ArrowRight className="size-4" />
+            </Link>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section className="px-4 pb-16">
       <div className="max-w-5xl mx-auto grid gap-5">
         {guides.map((guide) => {

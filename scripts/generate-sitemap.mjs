@@ -43,6 +43,8 @@ const STATIC_PAGES = [
   "/guides",
   "/guides/help-to-buy-repayment",
   "/guides/mortgage-overpayment-guide",
+  "/news/your-first-home-equity-loan-2026",
+  "/news/lifetime-isa-withdrawal-charge-2026",
   "/calculators/compare",
   "/calculators/remortgage",
   "/calculators/home-improvement",
