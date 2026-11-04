@@ -45,6 +45,7 @@ const STATIC_PAGES = [
   "/guides/mortgage-overpayment-guide",
   "/news/your-first-home-equity-loan-2026",
   "/news/lifetime-isa-withdrawal-charge-2026",
+  "/news/property-income-tax-landlords-2027",
   "/calculators/compare",
   "/calculators/remortgage",
   "/calculators/home-improvement",

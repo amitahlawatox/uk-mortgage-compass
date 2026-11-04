@@ -94,6 +94,16 @@ const GuidesPage = () => (
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-5">Latest mortgage news</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <article className="rounded-3xl border glass-card p-6">
+            <p className="text-xs text-muted-foreground">4 November 2026 · England, Wales and Northern Ireland</p>
+            <h3 className="mt-2 text-xl font-semibold">Property income tax proposal for landlords</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              What the planned April 2027 rate changes could mean for buy-to-let cash flow.
+            </p>
+            <Link className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent" to="/news/property-income-tax-landlords-2027">
+              Read the update <ArrowRight className="size-4" />
+            </Link>
+          </article>
+          <article className="rounded-3xl border glass-card p-6">
             <p className="text-xs text-muted-foreground">30 October 2026 · England</p>
             <h3 className="mt-2 text-xl font-semibold">Your First Home equity loan</h3>
             <p className="mt-2 text-sm text-muted-foreground">
