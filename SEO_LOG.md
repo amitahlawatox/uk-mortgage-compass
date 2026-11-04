@@ -2,7 +2,7 @@
 
 ---
 
-## 2026-06-09 — Strategic Audit: "Chief SEO & Monetization Strategist" Review
+## 2026-06-09 — Strategic Audit: "Chief SEO & Monetisation Strategist" Review
 
 **Auditor:** Automated deep-dive (seo_skills.py + GSC + GA4 + PageSpeed + keyword research)
 **Site:** repaywise.co.uk
@@ -222,3 +222,10 @@ These are not minor issues. These are table-stakes errors that would disqualify 
 **Fix the H1s. Fix the schemas. Fix mobile LCP. Fix the canonicalisation. Then, and only then, does the growth strategy have a chance to work.**
 
 10K daily users in 12 months is not realistic. 18-24 months with perfect execution and multi-channel growth is the honest timeline. £10K/month is achievable but requires the full 4-layer privacy-compliant revenue stack, not just contextual ads.
+
+---
+
+## 2026-06-09 — Initial Setup
+
+- Core Wiki profiles successfully set up (RepayWise Business Profile & Technical SEO Rules).
+- Ready for weekly data inputs.
