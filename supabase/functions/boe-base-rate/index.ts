@@ -1,5 +1,5 @@
 // Fetches the latest Bank of England official Bank Rate from the BoE
-// Interactive Statistical Database (IADB). Series IUDSOIA = Bank Rate.
+// Interactive Statistical Database (IADB). Series IUDBEDR = Bank Rate.
 // Public data, no auth required. Cached in memory for 6 hours.
 import { corsHeaders } from "https://esm.sh/@supabase/supabase-js@2.95.0/cors";
 
