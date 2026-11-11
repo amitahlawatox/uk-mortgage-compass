@@ -65,7 +65,7 @@ export const RateTicker = () => {
           <span className="text-primary-foreground/60">unavailable</span>
         )}
         <a
-          href="https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
+          href="https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp"
           target="_blank"
           rel="noopener noreferrer"
           className="ml-auto shrink-0 underline underline-offset-2 hover:text-success"
