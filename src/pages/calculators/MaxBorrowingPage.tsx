@@ -25,10 +25,6 @@ const MaxBorrowingPage = () => {
   const lender = slug ? getLenderBySlug(slug) : undefined;
   const city = slug && !lender ? getCityBySlug(slug) : undefined;
 
-  if (slug && !lender && !city) {
-    return <Navigate to="/calculators/max-borrowing" replace />;
-  }
-
   const [income, setIncome] = useState(55_000);
   const [partner, setPartner] = useState(0);
   const [expenditure, setExpenditure] = useState(400);
@@ -54,6 +50,10 @@ const MaxBorrowingPage = () => {
       }),
     [deposit, expenditure, income, partner, rate, term],
   );
+
+  if (slug && !lender && !city) {
+    return <Navigate to="/calculators/max-borrowing" replace />;
+  }
 
   const totalIncome = income + partner;
   const lti = totalIncome > 0 ? result.maxBorrowing / totalIncome : 0;

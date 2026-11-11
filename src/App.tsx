@@ -201,6 +201,26 @@ export const routes: RouteRecord[] = [
         path: "guides/mortgage-overpayment-guide",
         lazy: page(() => import("./pages/guides/MortgageOverpaymentGuidePage")),
       },
+      {
+        path: "guides/fixed-rate-ending",
+        lazy: page(() => import("./pages/guides/FixedRateEndingGuidePage")),
+      },
+      {
+        path: "news/your-first-home-equity-loan-2026",
+        lazy: page(() => import("./pages/YourFirstHomeNewsPage")),
+      },
+      {
+        path: "news/lifetime-isa-withdrawal-charge-2026",
+        lazy: page(() => import("./pages/LifetimeIsaNewsPage")),
+      },
+      {
+        path: "news/property-income-tax-landlords-2027",
+        lazy: page(() => import("./pages/PropertyIncomeTaxNewsPage")),
+      },
+      {
+        path: "news/bank-rate-november-2026-mortgages",
+        lazy: page(() => import("./pages/BankRateNovember2026NewsPage")),
+      },
             {
         path: "about",
         lazy: page(() => import("./pages/AboutPage")),
