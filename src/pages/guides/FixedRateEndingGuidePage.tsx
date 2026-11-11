@@ -47,9 +47,10 @@ const FixedRateEndingGuidePage = () => (
           <p>
             Your mortgage offer or lender statement should show the fixed deal&apos;s end date,
             the rate that follows it, any early repayment charge and your remaining term.
-            If you take no action, you will generally move to the lender&apos;s standard
-            variable rate (SVR). That rate is set by the lender and can change. Ask the
-            lender to confirm your actual follow-on rate and the first payment date;
+            If you take no action, you will move to the contractual reversion rate,
+            often the lender&apos;s standard variable rate (SVR), but it can be another
+            type of rate. Ask the lender to confirm your actual follow-on rate and
+            the first payment date;
             neither a national average nor a rate displayed on a comparison site is your
             contractual rate.
           </p>
@@ -83,7 +84,8 @@ const FixedRateEndingGuidePage = () => (
             <li>
               <strong>Before the fix ends:</strong> confirm the offer is still valid,
               the rate, the start date, fees and any early repayment charge. Ask the lender
-              or broker what happens if completion is delayed and you spend time on the SVR.
+              or broker what happens if completion is delayed and you spend time on the
+              contractual reversion rate.
               Keep a budget for the first payment at the new rate.
             </li>
           </ol>
