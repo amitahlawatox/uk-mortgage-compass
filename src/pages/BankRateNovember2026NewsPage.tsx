@@ -94,7 +94,8 @@ const BankRateNovember2026NewsPage = () => (
             <Link className="text-accent underline" to="/calculators/remortgage">
               remortgage calculator
             </Link>{" "}
-            to compare the total cost of options including fees.
+            to explore payment changes and switching fees. Check the lender&apos;s
+            offer for the full cost, including the balance left after the deal period.
           </p>
         </section>
 
