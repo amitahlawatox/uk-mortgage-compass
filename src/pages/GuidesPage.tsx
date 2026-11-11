@@ -94,6 +94,16 @@ const GuidesPage = () => (
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-5">Latest mortgage news</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <article className="rounded-3xl border glass-card p-6">
+            <p className="text-xs text-muted-foreground">10 November 2026 · UK</p>
+            <h3 className="mt-2 text-xl font-semibold">Bank Rate rises to 4%</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              What the November decision could mean for tracker, variable and fixed-rate borrowers.
+            </p>
+            <Link className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent" to="/news/bank-rate-november-2026-mortgages">
+              Read the update <ArrowRight className="size-4" />
+            </Link>
+          </article>
+          <article className="rounded-3xl border glass-card p-6">
             <p className="text-xs text-muted-foreground">4 November 2026 · England, Wales and Northern Ireland</p>
             <h3 className="mt-2 text-xl font-semibold">Property income tax proposal for landlords</h3>
             <p className="mt-2 text-sm text-muted-foreground">

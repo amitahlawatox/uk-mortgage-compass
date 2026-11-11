@@ -217,6 +217,10 @@ export const routes: RouteRecord[] = [
         path: "news/property-income-tax-landlords-2027",
         lazy: page(() => import("./pages/PropertyIncomeTaxNewsPage")),
       },
+      {
+        path: "news/bank-rate-november-2026-mortgages",
+        lazy: page(() => import("./pages/BankRateNovember2026NewsPage")),
+      },
             {
         path: "about",
         lazy: page(() => import("./pages/AboutPage")),
