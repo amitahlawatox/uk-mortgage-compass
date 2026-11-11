@@ -90,11 +90,11 @@ export const Footer = () => (
             Calculations are estimates and may not reflect exact lender terms, fees, or conditions.
             Always consult a qualified, FCA-regulated mortgage adviser before making financial decisions.
           </p>
-          {/* Privacy / no data collection */}
+          {/* Privacy summary */}
           <p>
-            <strong>Privacy:</strong> RepayWise does not collect, store, or transmit any personal data.
-            No cookies are used for tracking. No email addresses, financial details, or usage data are
-            retained. All calculations are performed locally in your browser.
+            <strong>Privacy:</strong> Mortgage calculations run in your browser. We do not send the
+            financial values you enter to analytics. Optional Google Analytics and Ahrefs analytics
+            load only if you accept them in cookie settings. See our privacy and cookie policies.
           </p>
           <p className="text-muted-foreground/60">
             © {new Date().getFullYear()} RepayWise. All rights reserved. RepayWise is not regulated by

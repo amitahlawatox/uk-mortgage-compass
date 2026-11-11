@@ -10,7 +10,7 @@ const CookiePolicy = () => (
     />
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16 prose prose-invert prose-sm sm:prose-base">
       <h1>Cookie Policy</h1>
-      <p className="text-muted-foreground">Last updated: 30 April 2026</p>
+      <p className="text-muted-foreground">Last updated: 11 November 2026</p>
 
       <h2>What are cookies?</h2>
       <p>Cookies are small text files stored by your browser. We use them, plus similar technologies (localStorage,
@@ -26,19 +26,13 @@ const CookiePolicy = () => (
             <td>Strictly necessary</td>
             <td>Site function, consent state</td>
             <td><code>velocity-cookie-consent</code> (stored in localStorage)</td>
-            <td>12 months</td>
+            <td>Until you clear site data</td>
           </tr>
           <tr>
             <td>Analytics</td>
             <td>Aggregate usage, page performance</td>
-            <td>Google Analytics 4, PostHog</td>
-            <td>up to 14 months</td>
-          </tr>
-          <tr>
-            <td>Advertising</td>
-            <td>Advertising or personalisation cookies, if we enable ads in future</td>
-            <td><code>__gads</code>, <code>__gpi</code>, <code>NID</code> (examples only)</td>
-            <td>up to 13 months</td>
+            <td>Google Analytics 4, Ahrefs analytics</td>
+            <td>Varies by provider and your browser settings</td>
           </tr>
         </tbody>
       </table>
@@ -52,7 +46,7 @@ const CookiePolicy = () => (
       </p>
 
       <h2>Managing cookies</h2>
-      <p>You can withdraw consent at any time by clearing site data or by visiting:</p>
+      <p>You can change your choice using the Cookie settings button on any page. You can also clear site data in your browser.</p>
       <ul>
         <li><a href="https://www.google.com/settings/ads" rel="noopener noreferrer" target="_blank">Google Ads Settings</a></li>
         <li><a href="https://www.youronlinechoices.com" rel="noopener noreferrer" target="_blank">YourOnlineChoices.com</a></li>
