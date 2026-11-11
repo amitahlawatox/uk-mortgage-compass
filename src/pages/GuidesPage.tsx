@@ -31,7 +31,7 @@ const guides = [
     title: "What to Do When Your Fixed Mortgage Ends",
     summary:
       "A practical timeline for comparing a product transfer with remortgaging, checking fees, and modelling the next monthly payment before a fixed deal ends.",
-    keyword: "mortgage fixed rate ending 2026",
+    keyword: "mortgage fixed rate ending",
     to: "/guides/fixed-rate-ending",
     cta: "Read guide",
     icon: BookOpen,
