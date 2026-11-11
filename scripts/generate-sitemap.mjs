@@ -47,6 +47,7 @@ const STATIC_PAGES = [
   "/news/your-first-home-equity-loan-2026",
   "/news/lifetime-isa-withdrawal-charge-2026",
   "/news/property-income-tax-landlords-2027",
+  "/news/bank-rate-november-2026-mortgages",
   "/calculators/compare",
   "/calculators/remortgage",
   "/calculators/home-improvement",
