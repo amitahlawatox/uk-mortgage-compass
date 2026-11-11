@@ -5,42 +5,39 @@ export default function PrivacyPolicy() {
     <>
       <SEO
         title="Privacy Policy | RepayWise"
-        description="RepayWise does not collect, store or share any personal data. All mortgage calculations run locally in your browser. No cookies, no tracking, no data retention."
+        description="How RepayWise handles mortgage calculator values and optional site analytics."
         path="privacy-policy"
       />
       <div className="max-w-3xl mx-auto px-4 py-12 prose dark:prose-invert">
         <h1>Privacy Policy</h1>
-        <p className="text-muted-foreground text-sm">Last updated: May 2026</p>
+        <p className="text-muted-foreground text-sm">Last updated: 11 November 2026</p>
 
-        <h2>Our commitment: zero data collection</h2>
+        <h2>Mortgage calculations</h2>
         <p>
-          RepayWise is designed to be a privacy-first tool. <strong>We do not collect, store,
-          process, or transmit any personal data.</strong> All mortgage calculations are performed
-          entirely within your browser — no data is sent to our servers.
+          Our mortgage calculators run in your browser. We do not send the financial values you
+          enter into a calculator to our analytics tools. We do not ask you for an email address
+          to use the calculators.
         </p>
 
-        <h2>What we do NOT collect</h2>
-        <ul>
-          <li>Email addresses or contact information</li>
-          <li>Financial data you enter into calculators</li>
-          <li>IP addresses or device identifiers</li>
-          <li>Browsing history or behavioural analytics</li>
-          <li>Cookies for tracking or advertising purposes</li>
-          <li>Location data</li>
-        </ul>
-
-        <h2>Cookies</h2>
+        <h2>Optional analytics</h2>
         <p>
-          RepayWise uses Google Analytics 4 (GA4) to understand how visitors use our calculators. This collects anonymised usage data (pages visited, session duration, general location). No personally identifiable information is collected. You can opt out via your browser settings or Google's opt-out tool.
-          We may use a single session cookie to remember your preferred colour scheme (light/dark
-          mode). This cookie does not identify you personally and is not shared with any third party.
+          If you choose Accept analytics, we load Google Analytics 4 and Ahrefs analytics to
+          understand visits and page use. These services can receive usage information, such as
+          pages visited and device information. We send calculator event names and page paths,
+          without the financial values entered into calculators. If you choose Essential only,
+          these analytics scripts are not loaded.
+        </p>
+        <p>
+          You can change your choice using the Cookie settings button on any page. See our
+          <a href="/cookie-policy"> cookie policy</a> for more detail about local storage and
+          optional analytics.
         </p>
 
-        <h2>Third-party services</h2>
+        <h2>Site operation</h2>
         <p>
-          RepayWise does not embed third-party advertising scripts, social media tracking pixels,
-          RepayWise uses Google Analytics 4 for anonymised usage statistics. No data is shared with advertisers
-          or data brokers.
+          Your browser connects to our hosting provider to load the site. Like other web hosts,
+          it may process technical request information needed to serve the pages and protect the
+          site. Your theme and cookie choice are stored locally in your browser.
         </p>
 
         <h2>Independence notice</h2>
@@ -52,14 +49,8 @@ export default function PrivacyPolicy() {
 
         <h2>Contact</h2>
         <p>
-          If you have any questions about this privacy policy, please contact us at{" "}
+          If you have questions about this privacy policy, contact us at{" "}
           <a href="mailto:hello@repaywise.co.uk">hello@repaywise.co.uk</a>.
-        </p>
-
-        <h2>Changes to this policy</h2>
-        <p>
-          We may update this policy from time to time. The date at the top of this page
-          reflects the most recent revision.
         </p>
       </div>
     </>

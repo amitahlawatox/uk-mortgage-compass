@@ -48,7 +48,7 @@ const stats = [
   { value: "147", label: "UK lenders covered" },
   { value: "7", label: "calculator types" },
   { value: "40", label: "UK cities" },
-  { value: "0", label: "pieces of data collected" },
+  { value: "On-device", label: "mortgage calculations" },
 ];
 
 const tools = [
@@ -184,7 +184,7 @@ const AboutPage = () => (
               {
                 icon: Lock,
                 title: "Privacy by design",
-                text: "Your numbers never leave your browser. We do not store your mortgage balance, your salary, or your deposit anywhere on our servers. Analytics are anonymised under UK GDPR.",
+                text: "Your mortgage calculations run in your browser. We do not send the financial values you enter to analytics. Optional site analytics load only after you accept them.",
               },
               {
                 icon: MapPin,

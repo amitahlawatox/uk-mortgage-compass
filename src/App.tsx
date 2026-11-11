@@ -35,13 +35,13 @@ const AnalyticsRouteTracker = () => {
     if (typeof window === "undefined") return undefined;
 
     const timer = window.setTimeout(() => {
-      trackPageView(`${location.pathname}${location.search}${location.hash}`);
+      trackPageView(location.pathname);
     }, 0);
 
     return () => {
       window.clearTimeout(timer);
     };
-  }, [location.hash, location.pathname, location.search]);
+  }, [location.pathname]);
 
   return null;
 };
