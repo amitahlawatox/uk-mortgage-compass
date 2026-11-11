@@ -43,6 +43,7 @@ const STATIC_PAGES = [
   "/guides",
   "/guides/help-to-buy-repayment",
   "/guides/mortgage-overpayment-guide",
+  "/guides/fixed-rate-ending",
   "/news/your-first-home-equity-loan-2026",
   "/news/lifetime-isa-withdrawal-charge-2026",
   "/news/property-income-tax-landlords-2027",

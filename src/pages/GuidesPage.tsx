@@ -27,13 +27,13 @@ const guides = [
     icon: PoundSterling,
   },
   {
-    slug: "svr-cliff-strategy-2026",
-    title: "The 2026 SVR Cliff Strategy",
+    slug: "fixed-rate-ending",
+    title: "What to Do When Your Fixed Mortgage Ends",
     summary:
-      "Explain the payment shock facing households leaving cheap fixed deals, when to review remortgage options, and how to model the jump before the fixed rate ends.",
+      "A practical timeline for comparing a product transfer with remortgaging, checking fees, and modelling the next monthly payment before a fixed deal ends.",
     keyword: "mortgage fixed rate ending 2026",
-    to: "/calculators/repayment",
-    cta: "Use repayment calculator",
+    to: "/guides/fixed-rate-ending",
+    cta: "Read guide",
     icon: BookOpen,
   },
   {
