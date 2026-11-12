@@ -25,10 +25,6 @@ const OverpaymentPage = () => {
   const lender = slug ? getLenderBySlug(slug) : undefined;
   const city = slug && !lender ? getCityBySlug(slug) : undefined;
 
-  if (slug && !lender && !city) {
-    return <Navigate to="/calculators/overpayment" replace />;
-  }
-
   const [propertyPrice, setPropertyPrice] = useState(312_500);
   const [deposit, setDeposit] = useState(62_500);
   const [principal, setPrincipal] = useState(250_000);
@@ -118,6 +114,10 @@ const OverpaymentPage = () => {
 
     return [...map.values()].sort((a, b) => a.year - b.year);
   }, [accelerated, baseline]);
+
+  if (slug && !lender && !city) {
+    return <Navigate to="/calculators/overpayment" replace />;
+  }
 
   const title = lender
     ? `Calculate Interest Savings for ${lender.name} Mortgages`

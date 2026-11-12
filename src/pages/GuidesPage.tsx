@@ -27,13 +27,13 @@ const guides = [
     icon: PoundSterling,
   },
   {
-    slug: "svr-cliff-strategy-2026",
-    title: "The 2026 SVR Cliff Strategy",
+    slug: "fixed-rate-ending",
+    title: "What to Do When Your Fixed Mortgage Ends",
     summary:
-      "Explain the payment shock facing households leaving cheap fixed deals, when to review remortgage options, and how to model the jump before the fixed rate ends.",
-    keyword: "mortgage fixed rate ending 2026",
-    to: "/calculators/repayment",
-    cta: "Use repayment calculator",
+      "A practical timeline for comparing a product transfer with remortgaging, checking fees, and modelling the next monthly payment before a fixed deal ends.",
+    keyword: "mortgage fixed rate ending",
+    to: "/guides/fixed-rate-ending",
+    cta: "Read guide",
     icon: BookOpen,
   },
   {
@@ -86,6 +86,54 @@ const GuidesPage = () => (
           to answer a specific UK homeowner or homebuyer question, then connect that advice to a calculator that
           helps the reader act on it immediately.
         </p>
+      </div>
+    </section>
+
+    <section className="px-4 pb-12">
+      <div className="max-w-5xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-5">Latest mortgage news</h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <article className="rounded-3xl border glass-card p-6">
+            <p className="text-xs text-muted-foreground">10 November 2026 · UK</p>
+            <h3 className="mt-2 text-xl font-semibold">Bank Rate rises to 4%</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              What the November decision could mean for tracker, variable and fixed-rate borrowers.
+            </p>
+            <Link className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent" to="/news/bank-rate-november-2026-mortgages">
+              Read the update <ArrowRight className="size-4" />
+            </Link>
+          </article>
+          <article className="rounded-3xl border glass-card p-6">
+            <p className="text-xs text-muted-foreground">4 November 2026 · England, Wales and Northern Ireland</p>
+            <h3 className="mt-2 text-xl font-semibold">Property income tax proposal for landlords</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              What the planned April 2027 rate changes could mean for buy-to-let cash flow.
+            </p>
+            <Link className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent" to="/news/property-income-tax-landlords-2027">
+              Read the update <ArrowRight className="size-4" />
+            </Link>
+          </article>
+          <article className="rounded-3xl border glass-card p-6">
+            <p className="text-xs text-muted-foreground">30 October 2026 · England</p>
+            <h3 className="mt-2 text-xl font-semibold">Your First Home equity loan</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              What the new first-time-buyer scheme could cost and when applications are expected to open.
+            </p>
+            <Link className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent" to="/news/your-first-home-equity-loan-2026">
+              Read the update <ArrowRight className="size-4" />
+            </Link>
+          </article>
+          <article className="rounded-3xl border glass-card p-6">
+            <p className="text-xs text-muted-foreground">30 October 2026 · UK</p>
+            <h3 className="mt-2 text-xl font-semibold">Lifetime ISA house-price cap change</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              The new withdrawal charge for above-cap purchases and the planned First Time Buyer ISA.
+            </p>
+            <Link className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent" to="/news/lifetime-isa-withdrawal-charge-2026">
+              Read the update <ArrowRight className="size-4" />
+            </Link>
+          </article>
+        </div>
       </div>
     </section>
 

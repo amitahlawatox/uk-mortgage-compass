@@ -35,13 +35,13 @@ const AnalyticsRouteTracker = () => {
     if (typeof window === "undefined") return undefined;
 
     const timer = window.setTimeout(() => {
-      trackPageView(`${location.pathname}${location.search}${location.hash}`);
+      trackPageView(location.pathname);
     }, 0);
 
     return () => {
       window.clearTimeout(timer);
     };
-  }, [location.hash, location.pathname, location.search]);
+  }, [location.pathname]);
 
   return null;
 };
@@ -200,6 +200,26 @@ export const routes: RouteRecord[] = [
       {
         path: "guides/mortgage-overpayment-guide",
         lazy: page(() => import("./pages/guides/MortgageOverpaymentGuidePage")),
+      },
+      {
+        path: "guides/fixed-rate-ending",
+        lazy: page(() => import("./pages/guides/FixedRateEndingGuidePage")),
+      },
+      {
+        path: "news/your-first-home-equity-loan-2026",
+        lazy: page(() => import("./pages/YourFirstHomeNewsPage")),
+      },
+      {
+        path: "news/lifetime-isa-withdrawal-charge-2026",
+        lazy: page(() => import("./pages/LifetimeIsaNewsPage")),
+      },
+      {
+        path: "news/property-income-tax-landlords-2027",
+        lazy: page(() => import("./pages/PropertyIncomeTaxNewsPage")),
+      },
+      {
+        path: "news/bank-rate-november-2026-mortgages",
+        lazy: page(() => import("./pages/BankRateNovember2026NewsPage")),
       },
             {
         path: "about",
