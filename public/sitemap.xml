@@ -76,6 +76,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/news/mortgage-arrears-q3-2026-borrower-support</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/compare</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
