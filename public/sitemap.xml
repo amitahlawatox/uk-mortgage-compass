@@ -51,6 +51,31 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/guides/fixed-rate-ending</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/news/your-first-home-equity-loan-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/news/lifetime-isa-withdrawal-charge-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/news/property-income-tax-landlords-2027</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://repaywise.co.uk/news/bank-rate-november-2026-mortgages</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/calculators/compare</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
