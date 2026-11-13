@@ -27,8 +27,9 @@ PATHS = [
     "/guides",
     "/calculators/overpayment/precise",
     "/calculators/overpayment/cumberland",
-    "/news/your-first-home-equity-loan-2026",
-    "/news/lifetime-isa-withdrawal-charge-2026",
+    "/guides/fixed-rate-ending",
+    "/news/bank-rate-november-2026-mortgages",
+    "/news/mortgage-arrears-q3-2026-borrower-support",
 ]
 HEADER = [
     "Inspection date (UK)",
