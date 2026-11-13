@@ -43,8 +43,12 @@ const STATIC_PAGES = [
   "/guides",
   "/guides/help-to-buy-repayment",
   "/guides/mortgage-overpayment-guide",
+  "/guides/fixed-rate-ending",
   "/news/your-first-home-equity-loan-2026",
   "/news/lifetime-isa-withdrawal-charge-2026",
+  "/news/property-income-tax-landlords-2027",
+  "/news/bank-rate-november-2026-mortgages",
+  "/news/mortgage-arrears-q3-2026-borrower-support",
   "/calculators/compare",
   "/calculators/remortgage",
   "/calculators/home-improvement",
@@ -129,8 +133,9 @@ for (const slug of lenderSlugs) {
 }
 
 // ─── XML BUILDER ──────────────────────────────────────────────────────────────
+// Omit lastmod until there is a reliable per-page content change date.
+// A deployment date would falsely mark every URL as updated.
 function buildSitemapXml(urls) {
-  const today = new Date().toISOString().slice(0, 10);
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -140,7 +145,6 @@ function buildSitemapXml(urls) {
     lines.push(
       "  <url>",
       `    <loc>${siteUrl}${u.path}</loc>`,
-      `    <lastmod>${today}</lastmod>`,
       `    <changefreq>${u.changefreq}</changefreq>`,
       `    <priority>${u.priority}</priority>`,
       "  </url>",
