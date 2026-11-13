@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Calculator, Home, PoundSterling, TrendingDown } from "lucide-react";
+import { ArrowRight, BookOpen, Calculator, Home, PoundSterling } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { trackIntentClick } from "@/lib/analytics";
@@ -11,17 +11,15 @@ const guides = [
     title: "Help to Buy Equity Loan Repayment Calculator",
     summary:
       "Calculate what you owe on your Help to Buy equity loan, including the escalating annual fees from year 6 and the repayment amount based on your home's current market value.",
-    keyword: "help to buy repayment calculator",
     to: "/guides/help-to-buy-repayment",
     cta: "Open calculator",
     icon: Home,
   },
   {
     slug: "mortgage-overpayment-guide",
-    title: "Mortgage Overpayment Guide UK 2026",
+    title: "Mortgage Overpayment Guide",
     summary:
-      "Everything you need to know about overpaying your UK mortgage — how it works, how much you can save, lender rules on penalties, and when saving elsewhere makes more sense.",
-    keyword: "mortgage overpayment guide",
+      "Model overpayment savings, check your lender's charges, and compare paying down the mortgage with keeping cash in an ISA.",
     to: "/guides/mortgage-overpayment-guide",
     cta: "Read guide",
     icon: PoundSterling,
@@ -31,27 +29,15 @@ const guides = [
     title: "What to Do When Your Fixed Mortgage Ends",
     summary:
       "A practical timeline for comparing a product transfer with remortgaging, checking fees, and modelling the next monthly payment before a fixed deal ends.",
-    keyword: "mortgage fixed rate ending",
     to: "/guides/fixed-rate-ending",
     cta: "Read guide",
     icon: BookOpen,
-  },
-  {
-    slug: "isa-vs-mortgage-overpayment-2026",
-    title: "ISA vs Mortgage Overpayment (The 2026 Math)",
-    summary:
-      "Compare savings rates, mortgage rates, tax treatment, and liquidity so homeowners can decide whether to keep cash accessible or reduce long-term interest costs.",
-    keyword: "overpay mortgage or ISA 2026",
-    to: "/calculators/overpayment",
-    cta: "Use overpayment calculator",
-    icon: TrendingDown,
   },
   {
     slug: "first-time-buyer-stamp-duty-guide-post-2025",
     title: "First-Time Buyer's Stamp Duty Guide (Post-2025)",
     summary:
       "Cover the post-April 2025 threshold landscape, budgeting for tax with a tight deposit, and how to negotiate seller contributions when every pound matters.",
-    keyword: "stamp duty thresholds 2026",
     to: "/calculators/stamp-duty",
     cta: "Use stamp duty calculator",
     icon: Home,
@@ -82,9 +68,8 @@ const GuidesPage = () => (
           Mortgage guides built around real decisions
         </h1>
         <p className="text-base sm:text-lg text-muted-foreground max-w-[64ch]">
-          This section is where RepayWise turns calculator traffic into long-form trust. Each guide is designed
-          to answer a specific UK homeowner or homebuyer question, then connect that advice to a calculator that
-          helps the reader act on it immediately.
+          Explore practical UK mortgage decisions, with worked examples and calculators to
+          test how the choices could affect your own payments.
         </p>
       </div>
     </section>
@@ -158,9 +143,6 @@ const GuidesPage = () => (
                   <Icon className="size-5 text-accent" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-2">
-                    Target keyword: {guide.keyword}
-                  </p>
                   <h2 className="text-2xl font-bold tracking-tight">{guide.title}</h2>
                   <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-[62ch]">
                     {guide.summary}
