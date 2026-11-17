@@ -1,0 +1,24 @@
+name: Daily SEO health check
+
+on:
+  schedule:
+    - cron: "17 8 * * *"
+      timezone: "Europe/London"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-public-seo:
+    name: Check public crawlability and critical pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run read-only SEO checks
+        run: python scripts/seo_health_check.py
