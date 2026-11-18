@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Calculator, Home, PoundSterling } from "lucide-react";
+import { ArrowRight, BookOpen, Calculator, Home, PoundSterling, Wallet } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { trackIntentClick } from "@/lib/analytics";
@@ -32,6 +32,15 @@ const guides = [
     to: "/guides/fixed-rate-ending",
     cta: "Read guide",
     icon: BookOpen,
+  },
+  {
+    slug: "mortgage-deposit-vs-cash-reserve",
+    title: "How Much Mortgage Deposit Should You Put Down?",
+    summary:
+      "Compare a 5%, 10% or 20% deposit with the mortgage payment and cash left for buying costs and emergencies.",
+    to: "/guides/mortgage-deposit-vs-cash-reserve",
+    cta: "Read guide",
+    icon: Wallet,
   },
   {
     slug: "first-time-buyer-stamp-duty-guide-post-2025",

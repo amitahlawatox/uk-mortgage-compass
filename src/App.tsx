@@ -206,6 +206,10 @@ export const routes: RouteRecord[] = [
         lazy: page(() => import("./pages/guides/FixedRateEndingGuidePage")),
       },
       {
+        path: "guides/mortgage-deposit-vs-cash-reserve",
+        lazy: page(() => import("./pages/guides/MortgageDepositCashReserveGuidePage")),
+      },
+      {
         path: "news/your-first-home-equity-loan-2026",
         lazy: page(() => import("./pages/YourFirstHomeNewsPage")),
       },
