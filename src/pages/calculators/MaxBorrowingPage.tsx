@@ -92,64 +92,6 @@ const MaxBorrowingPage = () => {
         description={seoDescription}
         path={pagePath}
         noIndex={!!city}
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "SoftwareApplication",
-              name: lender ? `${lender.name} Mortgage Affordability Calculator` : "RepayWise Mortgage Affordability Calculator",
-              url: `https://repaywise.co.uk/${pagePath}`,
-              applicationCategory: "FinanceApplication",
-              operatingSystem: "Any",
-              description: seoDescription,
-              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-              provider: {
-                "@type": "Organization",
-                name: "RepayWise",
-                url: "https://repaywise.co.uk",
-                areaServed: "GB",
-              },
-              ...(lender ? { brand: { "@type": "Brand", name: lender.name } } : {}),
-            },
-            {
-              "@type": "FAQPage",
-              mainEntity: [
-                {
-                  "@type": "Question",
-                  name: "How much can I borrow for a mortgage in the UK?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Most UK lenders offer 4 to 4.5 times gross annual income. A single applicant earning £55,000 could borrow £220,000–£247,500. Joint applicants combine incomes. The actual amount also depends on monthly outgoings, deposit size, and passing a +3% stress test.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "What is the maximum mortgage I can get?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "There is no fixed legal maximum. High-street lenders typically cap at £1–2 million. Your personal maximum is 4–4.5× income minus commitments, subject to passing the lender's affordability stress test at approximately 3% above the product rate.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Can I borrow more than 4.5 times my salary for a mortgage?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Some lenders offer 5–5.5× income for professionals (doctors, solicitors, accountants), higher earners (£75k+), or borrowers with large deposits at 75% LTV or below. Specialist and private banks may go higher with additional security.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "How much mortgage can I get for £1,000 a month?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "At 4.75% over 25 years, £1,000 per month supports approximately £178,000 of borrowing. At 5.5% this drops to £165,000. The exact figure depends on your rate and term — use our calculator above for a precise answer.",
-                  },
-                },
-              ],
-            },
-          ],
-        }}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Maximum Mortgage Borrowing Calculator"
       />

@@ -2,6 +2,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowRight, Building2, Calculator, CircleHelp, TrendingDown, Wallet } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 import { UNIQUE_CONTENT_LENDERS } from "@/lib/uk/uniqueLenders";
@@ -27,30 +28,27 @@ const LenderGuidePage = () => {
         noIndex={false}
         jsonLd={{
           "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "CollectionPage",
-              name: `${lender.name} mortgage guide`,
-              url: `https://repaywise.co.uk${buildLenderGuidePath(lender.slug)}`,
-              description: `RepayWise guide to planning a ${lender.name} mortgage with repayment, overpayment, and borrowing calculators.`,
-            },
-            {
-              "@type": "FinancialService",
-              name: lender.name,
-              areaServed: "GB",
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: lender.trustRating.toFixed(1),
-                bestRating: "5",
-                ratingCount: "1",
-              },
-            },
-          ],
+          "@type": "CollectionPage",
+          name: `${lender.name} mortgage guide`,
+          url: `https://repaywise.co.uk${buildLenderGuidePath(lender.slug)}`,
+          description: `RepayWise guide to planning a ${lender.name} mortgage with repayment, overpayment, and borrowing calculators.`,
         }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Guides", href: "/guides" },
+          { name: `${lender.name} mortgage guide`, href: buildLenderGuidePath(lender.slug) },
+        ]}
       />
 
       <article className="px-4 pt-16 pb-24 sm:pt-24">
         <div className="max-w-5xl mx-auto">
+          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-muted-foreground">
+            <Link className="hover:text-foreground" to="/">Home</Link> /{" "}
+            <Link className="hover:text-foreground" to="/guides">Guides</Link> /{" "}
+            <span aria-current="page">{lender.name}</span>
+          </nav>
           <p className="text-[11px] font-bold uppercase tracking-widest text-accent mb-3">Lender Guide</p>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
             {lender.name} mortgage planning, without the guesswork
