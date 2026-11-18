@@ -172,68 +172,6 @@ const OverpaymentPage = () => {
         description={seoDescription}
         path={pagePath}
         noIndex={!!city}
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "SoftwareApplication",
-              name: lender ? `${lender.name} Mortgage Overpayment Calculator` : "RepayWise Mortgage Overpayment Calculator",
-              url: `https://repaywise.co.uk/${pagePath}`,
-              applicationCategory: "FinanceApplication",
-              operatingSystem: "Any",
-              description: seoDescription,
-              offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-              provider: {
-                "@type": "Organization",
-                name: "RepayWise",
-                url: "https://repaywise.co.uk",
-                areaServed: "GB",
-              },
-              ...(lender ? { brand: { "@type": "Brand", name: lender.name } } : {}),
-            },
-            {
-              "@type": "HowTo",
-              name: lender
-                ? `How to calculate ${lender.name} mortgage overpayment savings`
-                : "How to calculate mortgage overpayment savings in the UK",
-              description: "Enter your balance, rate, term, and extra payment pattern to see how much interest and time you save.",
-              step: [
-                { "@type": "HowToStep", name: "Enter your loan details", text: "Set your current loan balance, interest rate, and remaining term." },
-                { "@type": "HowToStep", name: "Add regular or one-off overpayments", text: "Choose a monthly overpayment, a quarterly or annual overpayment, or a one-off lump sum." },
-                { "@type": "HowToStep", name: "Read the savings output", text: "Compare baseline versus accelerated repayment to see interest saved and term reduction." },
-              ],
-            },
-            {
-              "@type": "FAQPage",
-              mainEntity: [
-                {
-                  "@type": "Question",
-                  name: "How much can I save by overpaying my mortgage?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "The savings depend on your outstanding balance, interest rate, and overpayment amount. Use the RepayWise calculator to model your own figures and see the exact interest and time saved.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Is it better to overpay my mortgage or save in an ISA?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "It depends on your mortgage interest rate versus the savings rate available. If your mortgage rate exceeds the best ISA rate, overpaying usually wins mathematically. RepayWise helps you compare both scenarios.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Are there penalties for overpaying a UK mortgage?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Many UK lenders allow some overpayment without charge each year, but early repayment charges can apply if you exceed your product terms. Always check the lender's latest overpayment rules before acting.",
-                  },
-                },
-              ],
-            },
-          ],
-        }}
         lender={lender ? { name: lender.name, maxLtv: lender.maxLtv, estimatedSvr: lender.estimatedSvr, description: lender.description, trustRating: lender.trustRating } : undefined}
         calculatorType="Mortgage Overpayment Calculator"
       />

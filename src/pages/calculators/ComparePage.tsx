@@ -488,6 +488,7 @@ const ComparePage = () => {
         title="Compare Mortgages | Side-by-side UK Plan Comparison — RepayWise"
         description="Compare two UK mortgage offers side by side. Enter house price, deposit, APR, term and product fee — see monthly payment, total interest and lifetime cost."
         path="/calculators/compare"
+        calculatorType="Mortgage Comparison Calculator"
       />
 
       <BreadcrumbJsonLd
