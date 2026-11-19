@@ -353,7 +353,7 @@ export const BuyToLetSEOContent = () => (
         <FAQItem question="How much deposit do I need for a buy-to-let mortgage?" answer="Most buy-to-let lenders require at least 25% of the property value, though the best rates often need 40% or more. A larger deposit improves your interest coverage ratio and widens the deals available." />
         <FAQItem question="What is a good rental yield in the UK?" answer="Gross rental yields of around 5–8% are generally considered healthy, though this varies widely by region. Northern cities often offer higher yields than the South East. Always compare net yield after costs, not just gross." />
         <FAQItem question="What is the interest coverage ratio (ICR)?" answer="ICR is the ratio of expected rent to the mortgage interest, stress-tested by the lender. Many require rent to cover 125–145% of interest at a notional rate. If the rent falls short, you may need a larger deposit or a lower loan." />
-        <FAQItem question="Do I pay extra stamp duty on a buy-to-let?" answer="Yes. Additional properties in England and Northern Ireland carry a stamp duty surcharge on top of standard rates. Scotland and Wales apply their own equivalents. Use a stamp duty calculator with the second-home option to see the exact figure." />
+        <FAQItem question="Do I pay extra stamp duty on a buy-to-let?" answer="Additional-property rules may apply. England and Northern Ireland, Scotland and Wales each have different rules. Check the relevant official property tax calculator for your purchase before relying on an estimate." />
         <FAQItem question="Are buy-to-let mortgages usually interest-only?" answer="Many are. Interest-only keeps monthly payments lower and improves cash flow, but you still owe the full loan at the end of the term and need a plan to repay it — usually by selling or refinancing the property." />
       </div>
     </div>
@@ -367,7 +367,7 @@ export const StampDutySEOContent = () => (
       <div className="text-sm text-muted-foreground space-y-3 leading-relaxed">
         <p>Stamp duty is a tax you pay when you buy a property or land over a certain price. It is charged in bands — you pay a rate only on the portion of the price that falls within each band, not on the whole amount. The tax has different names and thresholds across the UK: Stamp Duty Land Tax (SDLT) in England and Northern Ireland, Land and Buildings Transaction Tax (LBTT) in Scotland, and Land Transaction Tax (LTT) in Wales.</p>
         <p>First-time buyers benefit from higher tax-free thresholds in England, Northern Ireland and Scotland (Wales has no first-time buyer relief). Buyers of additional properties, such as second homes and buy-to-lets, pay a surcharge on top of the standard rates.</p>
-        <p>Because thresholds and rates are set by government and can change at fiscal events, our calculator applies the current bands for each UK nation — always confirm the latest figures on GOV.UK before you complete. Enter your price and buyer type above for an instant breakdown.</p>
+        <p>Property tax thresholds and rates can change. The tax estimates on this site are under review and may be out of date. Check the relevant official calculator and ask your conveyancer to confirm the amount before you commit to a purchase.</p>
       </div>
     </div>
     <div>
@@ -387,9 +387,9 @@ export const StampDutySEOContent = () => (
       <div className="rounded-2xl border border-border p-4">
         <FAQItem question="How is stamp duty calculated in the UK?" answer="Stamp duty is tiered: you pay a rate only on the part of the price within each band, not the full amount. The bands and thresholds differ between England/NI (SDLT), Scotland (LBTT) and Wales (LTT). Our calculator applies the correct bands for the nation you choose." />
         <FAQItem question="Do first-time buyers pay stamp duty?" answer="First-time buyers pay less. England, Northern Ireland and Scotland offer a higher tax-free threshold for eligible first-time buyers, while Wales has no specific first-time buyer relief. The relief usually applies up to a maximum purchase price." />
-        <FAQItem question="How much extra stamp duty do I pay on a second home?" answer="Additional properties carry a surcharge on top of the standard rates across the UK, though the exact percentage varies by nation and can change at fiscal events. Select the additional-property option in the calculator to see the surcharge applied." />
+        <FAQItem question="How much extra stamp duty do I pay on a second home?" answer="The amount depends on the nation, purchase price and your circumstances. Wales uses separate higher residential bands; other nations have their own additional-property rules. Check the relevant official calculator for a transaction-specific amount." />
         <FAQItem question="When do I have to pay stamp duty?" answer="Stamp duty is normally due within 14 days of completion in England and Northern Ireland (30 days in Scotland and Wales). Your solicitor or conveyancer usually files the return and pays it on your behalf from your completion funds." />
-        <FAQItem question="Is stamp duty different in Scotland and Wales?" answer="Yes. Scotland charges Land and Buildings Transaction Tax (LBTT) and Wales charges Land Transaction Tax (LTT), each with their own bands and thresholds that differ from England's SDLT. Use the matching calculator for an accurate figure." />
+        <FAQItem question="Is stamp duty different in Scotland and Wales?" answer="Yes. Scotland charges Land and Buildings Transaction Tax (LBTT) and Wales charges Land Transaction Tax (LTT), each with their own bands and thresholds. Check the official calculator for the nation where the property is located before relying on any estimate." />
       </div>
     </div>
   </section>

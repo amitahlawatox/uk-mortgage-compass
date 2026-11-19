@@ -9,6 +9,7 @@ import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { calculateStampDuty } from "@/lib/finance/stampDuty";
+import { PropertyTaxVerificationNotice } from "@/components/calculators/PropertyTaxVerificationNotice";
 import { formatGBP } from "@/lib/finance/decimal";
 
 const LTT_BANDS = [
@@ -31,9 +32,9 @@ const FAQ_ITEMS = [
       "No. Unlike England and Scotland, Wales does not currently offer a first-time buyer relief for LTT. All buyers pay LTT at the same standard rates, regardless of whether it is their first property purchase.",
   },
   {
-    question: "What surcharge applies to second homes in Wales?",
+    question: "What higher rates apply to second homes in Wales?",
     answer:
-      "In Wales, purchasing a second home or buy-to-let property attracts a 5% Higher Residential Rates (HRR) surcharge on top of standard LTT rates. This applies to the total purchase price and is paid in addition to the standard LTT calculation.",
+      "Wales has a separate set of higher residential LTT bands for many additional property purchases. The rates do not work as a flat 5% surcharge on the standard bands. Check the Welsh Revenue Authority calculator for your circumstances.",
   },
   {
     question: "When do I pay LTT?",
@@ -43,7 +44,7 @@ const FAQ_ITEMS = [
   {
     question: "Is LTT higher or lower than SDLT in England?",
     answer:
-      "It depends on the purchase price. At lower price points (under £225,000), LTT is zero — the same nil-rate threshold as England's standard SDLT. Between £225,000 and £925,000, LTT can be higher than SDLT because Welsh rates start at 6% above the nil-rate band versus 5% in England.",
+      "It depends on the purchase price and buyer circumstances. Wales and England use different bands and reliefs. Check the official LTT and SDLT calculators for a transaction-specific comparison.",
   },
 ];
 
@@ -60,7 +61,7 @@ const StampDutyWalesPage = () => {
     <SiteShell>
       <SEO
         title="Stamp Duty Calculator Wales 2026 — LTT | RepayWise"
-        description="Free Wales stamp duty (LTT) calculator. Calculate Land Transaction Tax for any Welsh property purchase. Includes Higher Residential Rates for second homes and buy-to-let. No login required."
+        description="Explore a Welsh Land Transaction Tax estimate, including higher residential rates. Verify the result with the Welsh Revenue Authority before buying."
         path="/calculators/stamp-duty/wales"
         faqItems={FAQ_ITEMS}
         jsonLd={{
@@ -69,7 +70,7 @@ const StampDutyWalesPage = () => {
           name: "Wales LTT Calculator",
           url: "https://repaywise.co.uk/calculators/stamp-duty/wales",
           applicationCategory: "FinanceApplication",
-          description: "Free LTT calculator for Wales property purchases. Covers Higher Residential Rates surcharge.",
+          description: "Welsh LTT estimator for property purchases, including a higher residential rates option. Verify the result with the Welsh Revenue Authority.",
           offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
           areaServed: { "@type": "AdministrativeArea", name: "Wales" },
         }}
@@ -85,9 +86,11 @@ const StampDutyWalesPage = () => {
       <CalculatorShell
         eyebrow="Wales Property Tax"
         title="Wales Stamp Duty (LTT) Calculator"
-        intro="Calculate Land Transaction Tax for any Welsh property purchase. Covers the Higher Residential Rates surcharge for second homes and buy-to-let. Free, independent, no login."
+        intro="Explore a Welsh Land Transaction Tax estimate, including higher residential rates for some additional properties. Verify the result with the Welsh Revenue Authority before buying."
         leadCalculator="stamp_duty_wales"
       >
+        <PropertyTaxVerificationNotice region="wales" />
+
         <div className="space-y-5">
           <CurrencyInput label="Property price" value={price} onChange={setPrice} min={0} max={10_000_000} />
           <button
@@ -99,7 +102,7 @@ const StampDutyWalesPage = () => {
                 : "border-border bg-card text-muted-foreground hover:border-accent/50"
             }`}
           >
-            {additional ? "✓ " : ""}Additional property / buy-to-let (+5% Higher Residential Rates)
+            {additional ? "✓ " : ""}Additional property / buy-to-let (higher residential rates)
           </button>
         </div>
 
@@ -175,7 +178,7 @@ const StampDutyWalesPage = () => {
         <section>
           <h2 className="text-xl font-bold text-foreground mb-3">No first-time buyer relief in Wales</h2>
           <p>
-            Unlike England (£425,000 nil-rate for FTBs) and Scotland (£175,000 FTB threshold), Wales does not offer any first-time buyer relief on LTT. All buyers in Wales pay LTT at the same standard rates regardless of whether it is their first property purchase.
+            Unlike England and Northern Ireland, Wales does not offer a separate first-time buyer relief on LTT. The standard residential rates may apply to a first purchase, subject to your circumstances. Check the Welsh Revenue Authority calculator before buying.
           </p>
         </section>
 
