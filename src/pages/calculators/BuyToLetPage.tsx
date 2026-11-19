@@ -6,6 +6,7 @@ import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
 import { calculateRepayment } from "@/lib/finance/repayment";
 import { calculateStampDuty, type Region } from "@/lib/finance/stampDuty";
+import { PropertyTaxVerificationNotice } from "@/components/calculators/PropertyTaxVerificationNotice";
 import { formatGBP } from "@/lib/finance/decimal";
 import { SliderField, BigStat } from "./RepaymentPage";
 import { ShareCalculation } from "@/components/calculators/ShareCalculation";
@@ -109,6 +110,8 @@ const BuyToLetPage = () => {
         />
       )}
       
+      <PropertyTaxVerificationNotice region={region} />
+
       <div className="grid lg:grid-cols-5 gap-6">
         {/* Inputs */}
         <div className="lg:col-span-2 space-y-4">

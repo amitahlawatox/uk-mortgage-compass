@@ -19,13 +19,13 @@ const BENEFITS = [
   },
   {
     icon: Lock,
-    title: "No data captured — ever",
-    text: "RepayWise collects zero client data. No email, no phone number, no credit check. Calculations run entirely in the browser. Your clients' information stays private.",
+    title: "Private calculator use",
+    text: "Clients can explore calculator estimates without a credit check. Review our privacy policy for how optional contact forms and consent-based analytics work.",
   },
   {
     icon: Shield,
-    title: "FCA-compliant positioning",
-    text: "Every page carries independence disclaimers, FCA risk warnings, and 'not affiliated with [Lender]' badges. We are a calculator tool, not a financial adviser — clearly stated.",
+    title: "Clear calculator limitations",
+    text: "RepayWise provides general planning estimates, not a lender offer or personal financial advice. Clients should confirm product terms and tax amounts with the relevant provider or professional.",
   },
   {
     icon: Zap,
@@ -34,8 +34,8 @@ const BENEFITS = [
   },
   {
     icon: Globe,
-    title: "Always up to date",
-    text: "Stamp duty rates, LBTT, LTT, lender SVRs — we keep everything current. When rates change, your embedded calculator updates automatically.",
+    title: "Verify changing rates",
+    text: "Property tax rules and mortgage products change. Our tax estimates are under review, so clients should check the official tax calculator and confirm lender terms before relying on an amount.",
   },
   {
     icon: Users,

@@ -3,6 +3,7 @@ import { StampDutySEOContent } from "@/components/calculators/SEOContent";
 import { Navigate, useParams } from "react-router-dom";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
+import { PropertyTaxVerificationNotice } from "@/components/calculators/PropertyTaxVerificationNotice";
 import { SEO } from "@/components/SEO";
 import { calculateStampDuty, type Region } from "@/lib/finance/stampDuty";
 import { formatGBP, formatPercent } from "@/lib/finance/decimal";
@@ -139,13 +140,13 @@ const StampDutyPage = () => {
   const pagePath = city ? `calculators/stamp-duty/${city.slug}` : lender ? `calculators/stamp-duty/${lender.slug}` : "calculators/stamp-duty";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = lender ? `${lender.name} Stamp Duty Calculator — SDLT, LBTT & LTT` : city ? `${city.name} Stamp Duty Calculator — How Much Tax?` : "Stamp Duty Calculator UK — SDLT, LBTT & LTT with Band Breakdown";
-  const seoDescription = lender ? `Calculate stamp duty on a ${lender.name} property purchase. SDLT, LBTT or LTT with first-time buyer relief and surcharges. Free, instant results.` : city ? `How much stamp duty in ${city.name}? Free calculator with first-time buyer relief, second-home surcharge, and band-by-band breakdown.` : "Enter your property price — see exact stamp duty (SDLT, LBTT or LTT) with band-by-band breakdown. First-time buyer relief and second-home surcharges included.";
+  const seoDescription = lender ? `Estimate property tax on a ${lender.name} property purchase, then verify SDLT, LBTT or LTT with the official calculator.` : city ? `Estimate property tax in ${city.name}, then verify the amount with the official calculator before buying.` : "Explore an SDLT, LBTT or LTT estimate and band breakdown. Verify the tax with the official calculator before buying.";
 
   return (
     <CalculatorShell
       eyebrow="Property purchase tax"
       title="UK Stamp Duty Calculator"
-      intro="Calculate exact SDLT (England & NI), LBTT (Scotland) or LTT (Wales) for any UK property. Includes first-time buyer relief and additional-property surcharges. All amounts computed with 28-digit decimal precision."
+      intro="Explore a property tax estimate for England and Northern Ireland, Scotland or Wales. Verify the amount with the official calculator before buying."
       leadCalculator="stamp-duty"
       leadContext={{ price, region, firstTimeBuyer: ftb, additionalProperty: additional, total: result.total, effectiveRate: result.effectiveRate, postcode: postcode || null }}
     >
@@ -176,6 +177,8 @@ const StampDutyPage = () => {
         />
       )}
       
+      <PropertyTaxVerificationNotice region={region} />
+
       <div className="grid lg:grid-cols-5 gap-6">
         {/* Inputs */}
         <div className="lg:col-span-2 space-y-5">

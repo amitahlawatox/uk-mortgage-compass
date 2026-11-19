@@ -9,6 +9,7 @@ import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { calculateStampDuty } from "@/lib/finance/stampDuty";
+import { PropertyTaxVerificationNotice } from "@/components/calculators/PropertyTaxVerificationNotice";
 import { formatGBP } from "@/lib/finance/decimal";
 
 const LBTT_BANDS = [
@@ -28,7 +29,7 @@ const FAQ_ITEMS = [
   {
     question: "Do first-time buyers get LBTT relief in Scotland?",
     answer:
-      "Yes. In Scotland, first-time buyers pay no LBTT on the first £175,000 of a property purchase. Above £175,000, standard LBTT rates apply. This is different from England where the FTB nil-rate threshold is £425,000.",
+      "Eligible first-time buyers in Scotland may receive LBTT relief on the first £175,000. England and Northern Ireland have different SDLT rules; check HMRC for current eligibility and thresholds.",
   },
   {
     question: "What is the Additional Dwelling Supplement (ADS)?",
@@ -89,6 +90,8 @@ const StampDutyScotlandPage = () => {
         intro="Calculate Land and Buildings Transaction Tax for any Scottish property purchase. Covers first-time buyer relief and the Additional Dwelling Supplement. Free, independent, no login."
         leadCalculator="stamp_duty_scotland"
       >
+        <PropertyTaxVerificationNotice region="scotland" />
+
         {/* INPUTS */}
         <div className="space-y-5">
           <CurrencyInput
@@ -205,7 +208,7 @@ const StampDutyScotlandPage = () => {
         <section>
           <h2 className="text-xl font-bold text-foreground mb-3">First-time buyer relief in Scotland</h2>
           <p>
-            First-time buyers in Scotland benefit from an enhanced nil-rate threshold of <strong className="text-foreground">£175,000</strong> — meaning no LBTT is payable on the first £175,000 of the purchase price. Above this threshold, standard LBTT rates apply. This is notably different from England, where the FTB nil-rate threshold is £425,000.
+            Eligible first-time buyers in Scotland benefit from an enhanced nil-rate threshold of <strong className="text-foreground">£175,000</strong>. Above this threshold, standard LBTT rates apply. England and Northern Ireland use different SDLT relief rules; check HMRC for the current thresholds.
           </p>
           <p className="mt-3">
             The first-time buyer relief in Scotland applies to purchases up to £175,000 in value. For purchases above this, the relief still applies to the first £175,000, with standard rates on the remainder.

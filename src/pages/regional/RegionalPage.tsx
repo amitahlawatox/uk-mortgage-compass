@@ -5,6 +5,7 @@ import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { cities, getCityBySlug } from "@/lib/uk/cities";
 import { calculateStampDuty } from "@/lib/finance/stampDuty";
+import { PropertyTaxVerificationNotice } from "@/components/calculators/PropertyTaxVerificationNotice";
 import { calculateRepayment } from "@/lib/finance/repayment";
 import { formatGBP, formatPercent } from "@/lib/finance/decimal";
 
@@ -80,6 +81,8 @@ const RegionalPage = () => {
           <p className="text-base sm:text-lg text-muted-foreground max-w-[62ch] leading-relaxed">
             {city.intro}
           </p>
+
+          <div className="mt-8"><PropertyTaxVerificationNotice region={city.sdltRegion} /></div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-10">
             <StatCard
