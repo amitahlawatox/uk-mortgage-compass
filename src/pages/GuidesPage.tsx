@@ -51,6 +51,15 @@ const guides = [
     cta: "Read guide",
     icon: Home,
   },
+  {
+    slug: "interest-only-vs-repayment-mortgage",
+    title: "Interest-only or repayment mortgage: what will you still owe?",
+    summary:
+      "Compare the monthly payment, the capital left after five years and the plan needed to clear an interest-only loan.",
+    to: "/guides/interest-only-vs-repayment-mortgage",
+    cta: "Read guide",
+    icon: BookOpen,
+  },
 ];
 
 const GuidesPage = () => (
