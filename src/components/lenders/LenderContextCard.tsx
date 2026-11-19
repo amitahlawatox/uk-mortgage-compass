@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, Landmark, Percent, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { LenderData } from "@/lib/uk/lenders";
 
 interface LenderContextCardProps {
@@ -36,16 +36,11 @@ export const LenderContextCard = ({
       {body ?? contextDescription}
     </p>
 
-    {lender.description && (
-      <p className="mt-3 text-sm text-muted-foreground/80 leading-relaxed max-w-[68ch]">{lender.description}</p>
-    )}
-
-    <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-      <Stat icon={Landmark} label="Category" value={lender.category} />
-      <Stat icon={Percent} label="Indicative SVR" value={`${lender.estimatedSvr.toFixed(2)}%`} />
-      <Stat icon={ShieldCheck} label="Max LTV" value={`${lender.maxLtv}%`} />
-      <Stat icon={Star} label="Trust rating" value={`${lender.trustRating.toFixed(1)} / 5`} />
-    </div>
+    <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-[68ch]">
+      Any prefilled rate or lending limit is an example for exploring scenarios. It is not a current{" "}
+      {lender.name} rate, lending limit or product offer. Enter the terms from your own quote and
+      check any early repayment charges before making a decision.
+    </p>
 
     {links.length > 0 && (
       <div className="mt-5 flex flex-wrap gap-3">
@@ -66,20 +61,4 @@ export const LenderContextCard = ({
         "Rates and lending criteria move regularly. Use these pages as planning tools, then confirm product details and overpayment rules with the lender before you act."}
     </p>
   </section>
-);
-
-const Stat = ({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon: typeof Landmark;
-  label: string;
-  value: string;
-}) => (
-  <div className="rounded-2xl border border-border/60 bg-background/80 p-4">
-    <Icon className="size-4 text-accent mb-2" />
-    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{label}</p>
-    <p className="mt-1 text-sm font-semibold leading-tight">{value}</p>
-  </div>
 );

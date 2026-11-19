@@ -189,11 +189,11 @@ const GuidesPage = () => (
             Programmatic lender guides
           </p>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
-            Lender-specific pages built for high-intent search
+            Compare mortgage scenarios by lender
           </h2>
           <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-[62ch] leading-relaxed">
-            These pages turn broad mortgage demand into specific planning journeys. Each lender guide connects
-            into repayment, overpayment, and borrowing calculators with lender-context SEO built in.
+            Each lender guide connects repayment, overpayment and borrowing calculators. Enter the rate and
+            terms from your own quote to compare scenarios before you decide.
           </p>
         </div>
 
@@ -210,7 +210,7 @@ const GuidesPage = () => (
               </p>
               <h3 className="text-lg font-semibold tracking-tight">{lender.name}</h3>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                Indicative SVR {lender.estimatedSvr.toFixed(2)}% · Max LTV {lender.maxLtv}% · Trust {lender.trustRating.toFixed(1)}/5
+                Compare repayments, overpayments and borrowing scenarios using your own quoted terms.
               </p>
               <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold">
                 Open lender guide <ArrowRight className="size-4" />

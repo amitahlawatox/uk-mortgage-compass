@@ -248,7 +248,7 @@ export const RepaymentSEOContent = () => (
     <LenderLinkGrid
       calculatorType="repayment"
       title="Repayment Calculator by Lender"
-      description="See monthly payments calculated with each lender's indicative SVR — useful for stress-testing what happens after your fixed rate ends."
+      description="Explore lender-specific repayment pages, then enter the rate and term from your own mortgage quote."
     />
   </section>
 );
