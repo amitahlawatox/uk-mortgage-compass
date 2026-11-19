@@ -11,8 +11,8 @@ export const Footer = () => (
         </div>
         <p className="text-xs text-muted-foreground leading-relaxed max-w-prose">
           RepayWise provides financial information, not advice. We are not a lender, broker, or
-          FCA-authorised adviser. Calculations follow current UK tax bands and standard amortisation
-          formulas under the Financial Services and Markets Act 2000.
+          FCA-authorised adviser. Calculator results are estimates; property tax rates and lender
+          terms can change. Verify the amounts that matter before making a financial decision.
         </p>
         <div className="rounded-lg border border-border/60 bg-background/40 p-3">
           <p className="text-xs text-foreground leading-relaxed">
@@ -46,13 +46,13 @@ export const Footer = () => (
 
       <div className="md:col-span-4">
         <p className="text-[10px] font-bold uppercase tracking-widest mb-4 text-muted-foreground">
-          Compliance
+          Information
         </p>
         <ul className="space-y-2 text-sm">
-          <li className="flex justify-between"><span>FCA Consumer Duty</span><span className="text-success">Aligned</span></li>
-          <li className="flex justify-between"><span>UK GDPR</span><span className="text-success">Compliant</span></li>
-          <li className="flex justify-between"><span>Data encryption</span><span className="text-muted-foreground">AES-256</span></li>
-          <li className="flex justify-between"><span>PII storage</span><span className="text-muted-foreground">Encrypted at rest</span></li>
+          <li><Link to="/methodology" className="hover:text-accent">How the calculators work</Link></li>
+          <li><Link to="/privacy-policy" className="hover:text-accent">Privacy policy</Link></li>
+          <li><Link to="/cookie-policy" className="hover:text-accent">Cookie choices</Link></li>
+          <li><Link to="/contact" className="hover:text-accent">Contact RepayWise</Link></li>
         </ul>
       </div>
     </div>
