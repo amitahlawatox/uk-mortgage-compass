@@ -43,12 +43,12 @@ const guides = [
     icon: Wallet,
   },
   {
-    slug: "first-time-buyer-stamp-duty-guide-post-2025",
-    title: "First-Time Buyer's Stamp Duty Guide (Post-2025)",
+    slug: "first-time-buyer-stamp-duty",
+    title: "First-time buyer stamp duty: check the tax before setting your budget",
     summary:
-      "Cover the post-April 2025 threshold landscape, budgeting for tax with a tight deposit, and how to negotiate seller contributions when every pound matters.",
-    to: "/calculators/stamp-duty",
-    cta: "Use stamp duty calculator",
+      "Understand the England and Northern Ireland relief, the £500,000 price limit, and cash-budget examples; find the official calculators for Scotland and Wales.",
+    to: "/guides/first-time-buyer-stamp-duty",
+    cta: "Read guide",
     icon: Home,
   },
 ];
