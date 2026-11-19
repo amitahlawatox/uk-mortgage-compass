@@ -61,7 +61,7 @@ const MaxBorrowingPage = () => {
     ? `How much could ${lender.name} lend you?`
     : "UK Mortgage Affordability";
   const intro = lender
-    ? `Explore a borrowing scenario for ${lender.name} using income, outgoings and deposit size. The prefilled rate and loan-to-value limit are model assumptions, not ${lender.name}'s current lending criteria or an eligibility decision.`
+    ? `Explore a borrowing scenario for ${lender.name} using income, outgoings and deposit size. The prefilled rate is an example, not ${lender.name}'s current rate or an eligibility decision. The estimate does not apply this lender's product-specific LTV limits.`
     : "Lender-style 4.5x income multiplier plus a disposable-income check and a +3% interest rate stress test. See your maximum borrowing and the property price you can target.";
   const pagePath = city ? `calculators/max-borrowing/${city.slug}` : lender ? `calculators/max-borrowing/${lender.slug}` : "calculators/max-borrowing";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
@@ -111,7 +111,7 @@ const MaxBorrowingPage = () => {
         <LenderContextCard
           lender={lender}
           title={`${lender.name} borrowing signals`}
-          body={`The interest rate and loan-to-value limit used here are example assumptions, not ${lender.name}'s published rates or lending criteria. Use a current quote and check eligibility with the lender.`}
+          body={`The prefilled interest rate is an example, not ${lender.name}'s published rate. This estimate does not apply product-specific LTV limits, fees or underwriting criteria. Use a current quote and check eligibility with the lender.`}
           links={[
             { to: buildLenderGuidePath(lender.slug), label: `${lender.name} lender guide` },
             { to: buildLenderPath("repayment", lender.slug), label: `${lender.name} repayment view` },
@@ -139,11 +139,6 @@ const MaxBorrowingPage = () => {
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">2. Your deposit</p>
             </div>
             <DepositField value={deposit} onChange={setDeposit} amountMax={500_000} label="Deposit available" />
-            {lender ? (
-              <p className="text-[11px] text-muted-foreground">
-                Planning note: the model assumes a {lender.maxLtv}% LTV limit. This is not a confirmed {lender.name} product limit.
-              </p>
-            ) : null}
           </div>
 
           <div className="glass-card rounded-2xl p-6 space-y-5">

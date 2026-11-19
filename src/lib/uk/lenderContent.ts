@@ -257,11 +257,11 @@ export const LENDER_CONTENT: Record<string, LenderContent> = {
 };
 
 // Generic template for lenders without custom content
-export function getGenericContent(lenderName: string, maxLtv: number, svr: number): LenderContent {
+export function getGenericContent(lenderName: string, _maxLtv: number, svr: number): LenderContent {
   return {
     overview: "Use the RepayWise independent calculator below to estimate monthly repayments, total interest and potential overpayment savings for a " + lenderName + " mortgage. This tool uses standard UK amortisation mathematics and is not affiliated with " + lenderName + ".",
     keyFeatures: [
-      "The calculator uses an illustrative " + maxLtv + "% LTV limit; check current product criteria with " + lenderName,
+      "This estimate does not apply product-specific LTV limits or underwriting criteria",
       "The prefilled " + svr.toFixed(2) + "% rate is an editable example, not a current " + lenderName + " SVR",
       "Always confirm actual rates and terms directly with " + lenderName
     ],
