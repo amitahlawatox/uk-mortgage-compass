@@ -44,6 +44,7 @@ interface RelatedCalculatorsProps {
 }
 
 export const RelatedCalculators = ({ currentPath, max = 4, lenderSlug, lenderName }: RelatedCalculatorsProps) => {
+  const currentTarget = currentPath.startsWith("/") ? currentPath : `/${currentPath}`;
   const related = allCalculators
     .filter((c) => c.to !== "/calculators/compare" && c.to !== "/guides/help-to-buy-repayment")
     .map((c) => {
@@ -54,7 +55,7 @@ export const RelatedCalculators = ({ currentPath, max = 4, lenderSlug, lenderNam
         title: hasLenderRoute && lenderName ? `${lenderName} ${c.title}` : c.title,
       };
     })
-    .filter((c) => c.to !== currentPath)
+    .filter((c) => c.to !== currentTarget)
     .slice(0, max);
 
   return (
