@@ -24,27 +24,27 @@ const FAQ_ITEMS = [
   {
     question: "What is an interest-only mortgage?",
     answer:
-      "With an interest-only mortgage, your monthly payment covers only the interest on the loan. You do not repay any of the original loan amount (the capital) during the mortgage term. At the end of the term, you still owe the full original amount and must repay it — usually by selling the property, using savings, or switching to a repayment mortgage.",
+      "With an interest-only mortgage, your monthly payment covers interest rather than reducing the original loan. Unless you make separate capital payments, the capital remains due at the end. You need a repayment plan accepted by your lender.",
   },
   {
     question: "How much cheaper is an interest-only mortgage per month?",
     answer:
-      "Interest-only payments are significantly lower than repayment mortgages — often 25-40% lower on a 25-year term. However, the total cost over the full term is much higher because you are paying interest on the full balance throughout and still owe the capital at the end.",
+      "At the same loan amount, rate and term, the monthly mortgage payment is lower because it does not include capital repayment. The difference depends on the figures entered. You still need to fund the capital separately, and mortgage interest is higher over an unchanged-rate term.",
   },
   {
     question: "Who offers interest-only mortgages in the UK?",
     answer:
-      "Interest-only mortgages in the UK are typically available from specialist lenders and some high-street banks. They are more common for buy-to-let and are harder to obtain for residential mortgages. Lenders usually require a credible repayment vehicle (savings, investments, or property sale) before approving interest-only.",
+      "Availability and criteria depend on the lender and product. MoneyHelper says relatively few new residential interest-only mortgages are offered. Ask the lender whether it accepts your proposed capital repayment plan.",
   },
   {
     question: "What happens at the end of an interest-only mortgage?",
     answer:
-      "At the end of an interest-only term, you owe the original loan amount in full. Most borrowers repay this by selling the property, switching to a repayment mortgage earlier, using an ISA or investment portfolio, or using a pension lump sum. Lenders will require you to have a credible repayment plan before granting an interest-only mortgage.",
+      "Unless separate capital payments have reduced it, the original loan amount remains due at the end. Review the accepted repayment plan regularly and contact your lender early if it may fall short.",
   },
   {
     question: "Is interest-only cheaper overall?",
     answer:
-      "No. Interest-only mortgages have lower monthly payments but significantly higher total costs. On a repayment mortgage you gradually reduce the balance, which reduces future interest. On interest-only, you pay interest on the full amount every month for the entire term. The total interest paid on an interest-only mortgage is much higher.",
+      "At the same unchanged rate and term, interest-only incurs more mortgage interest because the balance is not being paid down. Whether a separate capital plan changes the overall outcome depends on its returns, charges, tax and risk; do not judge the choice from the mortgage payment alone.",
   },
 ];
 
@@ -105,8 +105,8 @@ const InterestOnlyPage = () => {
         title={lender ? `${lender.name} Interest-Only Calculator` : "Interest-Only Mortgage Calculator"}
         intro={
           lender
-            ? `Calculate monthly interest-only payments for a ${lender.name} mortgage. Compare with repayment to see the true total cost difference.`
-            : "Calculate your interest-only mortgage payments and see exactly how they compare to a repayment mortgage. Understand the real total cost over your full term."
+            ? `Model monthly interest-only payments for a ${lender.name} mortgage and compare them with a repayment estimate. Check the capital plan separately.`
+            : "Model interest-only and repayment mortgage payments at the same assumed rate and term. See the capital still owed and check your repayment plan separately."
         }
         leadCalculator="interest_only"
       >
@@ -160,7 +160,7 @@ const InterestOnlyPage = () => {
                 <span className="font-semibold text-amber-500">{formatGBP(principal)}</span>
               </div>
               <div className="flex justify-between border-t border-border pt-2">
-                <span className="text-muted-foreground">True total cost</span>
+                <span className="text-muted-foreground">Capital + mortgage interest</span>
                 <span className="font-bold">{formatGBP(ioResult.totalInterest + principal)}</span>
               </div>
             </div>
@@ -184,7 +184,7 @@ const InterestOnlyPage = () => {
                 <span className="font-semibold text-green-500">£0</span>
               </div>
               <div className="flex justify-between border-t border-border pt-2">
-                <span className="text-muted-foreground">True total cost</span>
+                <span className="text-muted-foreground">Capital + mortgage interest</span>
                 <span className="font-semibold text-muted-foreground">{formatGBP(repResult.totalPaid)}</span>
               </div>
             </div>
@@ -211,27 +211,29 @@ const InterestOnlyPage = () => {
             An interest-only mortgage is a loan where your monthly payment covers only the interest — not the capital (the original loan amount). Unlike a repayment mortgage where each payment gradually reduces what you owe, an interest-only mortgage leaves the original debt unchanged throughout the term.
           </p>
           <p className="mt-3">
-            At the end of the term — typically 25 years — you must repay the full original amount in one go. This is called the capital balloon. Most borrowers plan to repay it by selling the property, using savings or investments, or switching to a repayment mortgage before the term ends.
+            At the end of an interest-only term, the original capital still has to be repaid. The date and amount depend on your mortgage offer. Ask your lender which repayment plans it accepts and review your plan before the term ends.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-bold text-foreground mb-3">Interest-only vs repayment: the real cost</h2>
           <p>
-            The lower monthly payment of an interest-only mortgage is appealing, but the total cost is significantly higher. With a repayment mortgage, each monthly payment reduces the outstanding balance — which means next month you pay slightly less interest. Over 25 years this compound reduction saves a substantial amount.
+            At the same rate and term, interest-only starts with a lower mortgage payment because no capital is being repaid. On a repayment mortgage, the balance falls as scheduled payments are made, reducing the amount on which future interest is charged. Compare the capital still owed as well as the monthly payment.
           </p>
           <p className="mt-3">
-            With interest-only, you pay interest on the full original loan every single month for the entire term. There is no reduction. On a £250,000 mortgage at 4.5%, a repayment mortgage costs approximately £105,000 in total interest. An interest-only mortgage on the same loan costs approximately £281,000 in interest — nearly three times as much — and you still owe the £250,000 at the end.
+            On a £250,000 loan over 25 years at the same hypothetical 4.5% annual rate throughout, interest-only mortgage interest totals £281,250 and the £250,000 capital remains due. A repayment mortgage incurs about £166,874 in interest and is scheduled to clear the capital. These figures exclude fees, rate changes and any return or cost from a separate capital plan. Read the{" "}
+            <Link className="text-accent underline" to="/guides/interest-only-vs-repayment-mortgage">interest-only versus repayment decision guide</Link>{" "}
+            for the worked comparison and a capital-plan checklist.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-bold text-foreground mb-3">Who can get an interest-only mortgage in the UK?</h2>
           <p>
-            Interest-only residential mortgages became harder to obtain after the 2008 financial crisis following new FCA rules requiring lenders to verify a credible repayment vehicle. Today, lenders offering residential interest-only typically require a minimum income, a maximum LTV (usually 75%), and evidence of a repayment plan such as an investment portfolio, pension, or the property itself.
+            Lender eligibility and acceptable repayment plans vary. <a className="text-accent underline" href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/mortgage-repayment-options" target="_blank" rel="noopener noreferrer">MoneyHelper explains</a> that relatively few new residential interest-only mortgages are offered. Ask a lender or qualified adviser what evidence would be required for your capital repayment plan.
           </p>
           <p className="mt-3">
-            Buy-to-let mortgages are commonly offered on an interest-only basis, as landlords typically plan to repay from rental income savings or a future property sale.
+            Buy-to-let products can have different lending criteria from a residential mortgage. Compare the actual product terms and the way its capital will be repaid rather than assuming a particular plan will be accepted.
           </p>
         </section>
 

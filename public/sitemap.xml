@@ -66,6 +66,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://repaywise.co.uk/guides/interest-only-vs-repayment-mortgage</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://repaywise.co.uk/news/your-first-home-equity-loan-2026</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
