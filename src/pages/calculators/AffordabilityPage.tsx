@@ -202,7 +202,7 @@ const AffordabilityPage = () => {
         <LenderContextCard
           lender={lender}
           calculatorType="affordability"
-          contextDescription={`Use this calculator to plan the total cost of buying with a ${lender.name} mortgage. See how deposit size, stamp duty, and ${lender.name}'s indicative ${lender.estimatedSvr.toFixed(2)}% SVR affect your total outlay.`}
+          contextDescription={`Use this calculator to plan the total cost of buying with a ${lender.name} mortgage. Enter the rate and terms from your own quote; the prefilled rate is an editable example, not ${lender.name}'s current SVR.`}
         />
       )}
       

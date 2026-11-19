@@ -257,15 +257,15 @@ export const LENDER_CONTENT: Record<string, LenderContent> = {
 };
 
 // Generic template for lenders without custom content
-export function getGenericContent(lenderName: string, maxLtv: number, svr: number): LenderContent {
+export function getGenericContent(lenderName: string, _maxLtv: number, svr: number): LenderContent {
   return {
     overview: "Use the RepayWise independent calculator below to estimate monthly repayments, total interest and potential overpayment savings for a " + lenderName + " mortgage. This tool uses standard UK amortisation mathematics and is not affiliated with " + lenderName + ".",
     keyFeatures: [
-      "Maximum LTV of " + maxLtv + "% — minimum deposit required is " + (100 - maxLtv) + "%",
-      "Estimated standard variable rate of " + svr.toFixed(2) + "%",
+      "This estimate does not apply product-specific LTV limits or underwriting criteria",
+      "The prefilled " + svr.toFixed(2) + "% rate is an editable example, not a current " + lenderName + " SVR",
       "Always confirm actual rates and terms directly with " + lenderName
     ],
-    overpaymentPolicy: "Overpayment terms vary by product. Most UK lenders allow overpayments of up to 10% of the outstanding balance per year on fixed-rate products without early repayment charges. Contact " + lenderName + " directly to confirm your specific overpayment allowance.",
+    overpaymentPolicy: "Overpayment terms vary by product. Check your mortgage offer or contact " + lenderName + " to confirm your allowance and any early repayment charge before making an overpayment.",
     whatMakesThemDifferent: "RepayWise provides this calculator as an independent estimation tool. For the most accurate and up-to-date information about " + lenderName + " mortgage products, rates and eligibility criteria, please visit their official website or speak to a qualified mortgage adviser.",
     bestFor: "Borrowers researching " + lenderName + " mortgage options who want a quick, independent estimate before approaching the lender directly.",
     typicalProducts: ["Fixed rate", "Tracker", "Variable rate"]

@@ -123,7 +123,7 @@ const OverpaymentPage = () => {
     ? `Calculate Interest Savings for ${lender.name} Mortgages`
     : "Overpayment Visualiser";
   const intro = lender
-    ? `Model how regular overpayments or a one-off lump sum could reduce interest on a ${lender.name} mortgage. We preload the rate at an indicative ${lender.estimatedSvr.toFixed(2)}% SVR so you can pressure-test the fallback scenario before you decide whether to overpay, remortgage, or keep cash liquid.`
+    ? `Model how regular overpayments or a one-off lump sum could affect a ${lender.name} mortgage. The prefilled rate is an editable example, not ${lender.name}'s current SVR. Use the rate from your own mortgage statement or quote and check your overpayment allowance.`
     : "Move the sliders. See exactly how a regular monthly overpayment or a one-off lump sum reshapes your mortgage: interest saved and years shaved off the term.";
   const pagePath = city ? `calculators/overpayment/${city.slug}` : lender ? `calculators/overpayment/${lender.slug}` : "calculators/overpayment";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
@@ -188,7 +188,7 @@ const OverpaymentPage = () => {
         <LenderContextCard
           lender={lender}
           title={`${lender.name} overpayment planning`}
-          body={`This version of the calculator starts from an indicative ${lender.estimatedSvr.toFixed(2)}% standard variable rate for ${lender.name}. Use it to test what happens if you stay on the lender's fallback rate, then compare the interest saved from overpaying against the value of remortgaging or keeping cash liquid.`}
+          body={`Enter your actual ${lender.name} rate, remaining balance and term to explore overpayment scenarios. Confirm your product's overpayment allowance and any early repayment charge before acting.`}
           links={[
             { to: buildLenderGuidePath(lender.slug), label: `${lender.name} lender guide` },
             { to: buildLenderPath("repayment", lender.slug), label: `${lender.name} repayment view` },

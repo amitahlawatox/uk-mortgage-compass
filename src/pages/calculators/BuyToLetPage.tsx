@@ -106,7 +106,7 @@ const BuyToLetPage = () => {
         <LenderContextCard
           lender={lender}
           calculatorType="buy-to-let"
-          contextDescription={`Model a buy-to-let purchase with a ${lender.name} mortgage. ${lender.name} BTL products typically require a minimum ${100 - lender.maxLtv}% deposit. Use the indicative ${lender.estimatedSvr.toFixed(2)}% SVR to stress-test cash flow scenarios.`}
+          contextDescription={`Model a buy-to-let purchase with a ${lender.name} mortgage. The prefilled rate and deposit assumptions are examples, not current ${lender.name} product criteria. Enter figures from a current quote and check any rental coverage requirements with the lender.`}
         />
       )}
       

@@ -90,7 +90,7 @@ const RepaymentPage = () => {
     ? `Calculate monthly payments for ${lender.name} mortgages`
     : "Mortgage Repayment Calculator";
   const intro = lender
-    ? `Run the repayment math for a ${lender.name} mortgage using an indicative ${lender.estimatedSvr.toFixed(2)}% standard variable rate. This is useful for stress-testing product transfer decisions and understanding what the fallback rate could mean for your monthly payment.`
+    ? `Model monthly payments for a ${lender.name} mortgage. The prefilled interest rate is an editable example, not ${lender.name}'s current standard variable rate. Enter the rate and term from your own quote to compare scenarios.`
     : "Three quick questions, one clear answer. We calculate your monthly payment using the standard amortisation formula in 28-digit decimal precision.";
   const pagePath = city ? `calculators/repayment/${city.slug}` : lender ? `calculators/repayment/${lender.slug}` : "calculators/repayment";
   const seoTitle = city
@@ -151,7 +151,7 @@ const RepaymentPage = () => {
         <LenderContextCard
           lender={lender}
           title={`${lender.name} repayment planning`}
-          body={`We start this page with an indicative ${lender.estimatedSvr.toFixed(2)}% standard variable rate for ${lender.name}. That gives you a realistic stress-test range for monthly payments if you miss a refinance window or roll onto the lender's fallback pricing.`}
+          body={`Use your current deal and a current ${lender.name} quote to compare monthly payments. The prefilled rate is only an example; confirm any follow-on rate and fees with the lender.`}
           links={[
             { to: buildLenderGuidePath(lender.slug), label: `${lender.name} lender guide` },
             { to: buildLenderPath("overpayment", lender.slug), label: `${lender.name} overpayment view` },

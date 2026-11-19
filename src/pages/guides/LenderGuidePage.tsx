@@ -23,7 +23,7 @@ const LenderGuidePage = () => {
     <SiteShell>
       <SEO
         title={`${lender.name} Mortgage Guide 2026 | RepayWise`}
-        description={`Planning a ${lender.name} mortgage in 2026? Compare indicative SVR, max LTV, overpayment strategy, repayment modelling, and borrowing power in one place.`}
+        description={`Planning a ${lender.name} mortgage? Use repayment, overpayment and borrowing calculators with your own quoted rate and product terms.`}
         path={buildLenderGuidePath(lender.slug)}
         noIndex={false}
         jsonLd={{
@@ -54,15 +54,15 @@ const LenderGuidePage = () => {
             {lender.name} mortgage planning, without the guesswork
           </h1>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-[68ch] leading-relaxed">
-            Use this page as a planning layer around our calculators. We pair {lender.name}'s indicative SVR,
-            typical maximum loan-to-value band, and lender category with repayment, overpayment, and borrowing
-            models so you can pressure-test a decision before you speak to an adviser or product team.
+            Use these calculators to compare repayment, overpayment and borrowing scenarios for a {lender.name}
+            mortgage. Replace the example figures with the rate, deposit and terms you have been offered before
+            using the results to inform a decision.
           </p>
 
           <LenderContextCard
             lender={lender}
             title={`What to watch with ${lender.name}`}
-            body={`If you are comparing deals or preparing for a remortgage, ${lender.name}'s indicative standard variable rate of ${lender.estimatedSvr.toFixed(2)}% is a useful stress-test anchor. We also use the published ${lender.maxLtv}% maximum LTV band as a quick sense-check for deposit planning and borrowing conversations.`}
+            body={`If you are comparing deals or preparing for a remortgage, check your current payment, any early repayment charge, the new deal's fees and the rate that would apply when your current deal ends. Confirm those terms directly with ${lender.name}.`}
             links={[
               { to: repaymentPath, label: `${lender.name} repayment calculator` },
               { to: overpaymentPath, label: `${lender.name} overpayment calculator` },
@@ -75,7 +75,7 @@ const LenderGuidePage = () => {
             <Card
               icon={Calculator}
               title="Repayment planning"
-              text={`Model monthly payments at ${lender.name}'s indicative ${lender.estimatedSvr.toFixed(2)}% SVR so you can see the payment range before you commit to a product transfer or remortgage.`}
+              text="Enter your quoted rate and term to compare monthly payments before choosing a product transfer or remortgage."
               to={repaymentPath}
               cta="Open repayment model"
             />
@@ -89,7 +89,7 @@ const LenderGuidePage = () => {
             <Card
               icon={Wallet}
               title="Borrowing power"
-              text={`Use ${lender.name}'s max LTV band and a lender-style stress test to sense-check how much you could target before fees, valuation, or underwriting caveats.`}
+              text="Explore how income, outgoings and deposit size affect an illustrative borrowing estimate; only the lender can assess eligibility."
               to={maxBorrowingPath}
               cta="Open borrowing model"
             />
@@ -104,7 +104,7 @@ const LenderGuidePage = () => {
               <Step
                 number="1"
                 title="Stress-test the payment"
-                body={`Start with the repayment calculator so you can compare today's deal against a fallback around ${lender.estimatedSvr.toFixed(2)}%.`}
+                body="Start with the repayment calculator. Compare your current rate with a rate from a current product quote."
               />
               <Step
                 number="2"
@@ -126,7 +126,7 @@ const LenderGuidePage = () => {
             </div>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-[68ch]">
               RepayWise is not a lender or broker, and these pages are not product recommendations. They are
-              decision-support tools built around indicative public-market assumptions. Final rates, maximum LTV,
+              decision-support tools built around editable example assumptions. Final rates, maximum LTV,
               and overpayment rules depend on product, credit profile, property type, and the lender's current
               underwriting policy.
             </p>

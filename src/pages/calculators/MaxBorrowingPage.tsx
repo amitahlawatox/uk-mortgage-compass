@@ -61,7 +61,7 @@ const MaxBorrowingPage = () => {
     ? `How much could ${lender.name} lend you?`
     : "UK Mortgage Affordability";
   const intro = lender
-    ? `Sense-check how much you could borrow with ${lender.name}. We model a lender-style income multiple, disposable-income check, and stress test, while using the lender's indicative ${lender.estimatedSvr.toFixed(2)}% SVR and ${lender.maxLtv}% maximum LTV band as planning anchors.`
+    ? `Explore a borrowing scenario for ${lender.name} using income, outgoings and deposit size. The prefilled rate is an example, not ${lender.name}'s current rate or an eligibility decision. The estimate does not apply this lender's product-specific LTV limits.`
     : "Lender-style 4.5x income multiplier plus a disposable-income check and a +3% interest rate stress test. See your maximum borrowing and the property price you can target.";
   const pagePath = city ? `calculators/max-borrowing/${city.slug}` : lender ? `calculators/max-borrowing/${lender.slug}` : "calculators/max-borrowing";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
@@ -71,7 +71,7 @@ const MaxBorrowingPage = () => {
   const seoDescription = city
     ? `Free mortgage affordability calculator for ${city.name}. ${city.description} Find out how much you could borrow based on income and deposit.`
     : lender
-    ? `Enter your income and see how much ${lender.name} could lend you. 4.5× income multiplier, stress test, and deposit check — free, no login.`
+    ? `Explore an illustrative borrowing estimate for a ${lender.name} mortgage using income, outgoings and deposit. Confirm eligibility with the lender.`
     : "Enter your income, deposit and outgoings — see the maximum mortgage you could get. UK lender-style 4.5× multiplier with stress test. Free, no login.";
 
   return (
@@ -111,7 +111,7 @@ const MaxBorrowingPage = () => {
         <LenderContextCard
           lender={lender}
           title={`${lender.name} borrowing signals`}
-          body={`This page uses ${lender.name}'s indicative ${lender.estimatedSvr.toFixed(2)}% standard variable rate and ${lender.maxLtv}% maximum LTV band as planning anchors. It is not a product quote, but it gives you a better borrowing conversation starter than a generic national average.`}
+          body={`The prefilled interest rate is an example, not ${lender.name}'s published rate. This estimate does not apply product-specific LTV limits, fees or underwriting criteria. Use a current quote and check eligibility with the lender.`}
           links={[
             { to: buildLenderGuidePath(lender.slug), label: `${lender.name} lender guide` },
             { to: buildLenderPath("repayment", lender.slug), label: `${lender.name} repayment view` },
@@ -139,11 +139,6 @@ const MaxBorrowingPage = () => {
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">2. Your deposit</p>
             </div>
             <DepositField value={deposit} onChange={setDeposit} amountMax={500_000} label="Deposit available" />
-            {lender ? (
-              <p className="text-[11px] text-muted-foreground">
-                Planning note: {lender.name} is currently modelled against a maximum LTV of {lender.maxLtv}%.
-              </p>
-            ) : null}
           </div>
 
           <div className="glass-card rounded-2xl p-6 space-y-5">
