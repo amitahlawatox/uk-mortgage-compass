@@ -27,6 +27,13 @@ const allCalculators: RelatedItem[] = [
   { to: "/guides/help-to-buy-repayment", title: "Help to Buy Repayment", blurb: "Calculate your equity loan repayment schedule", icon: Home, noSlug: true },
 ];
 
+// Only these calculators have lender-specific routes in App.tsx.
+const lenderCalculatorPaths = new Set([
+  "/calculators/repayment",
+  "/calculators/overpayment",
+  "/calculators/max-borrowing",
+]);
+
 interface RelatedCalculatorsProps {
   currentPath: string;
   max?: number;
@@ -36,26 +43,26 @@ interface RelatedCalculatorsProps {
   cityName?: string;
 }
 
-export const RelatedCalculators = ({ currentPath, max = 4, lenderSlug, lenderName, citySlug, cityName }: RelatedCalculatorsProps) => {
-  // When lender/city is present, link to the SAME lender/city's other calculators
-  // This creates a web of internal links that boosts all pages for that entity
-  const suffix = lenderSlug ? `/${lenderSlug}` : citySlug ? `/${citySlug}` : "";
-  const entityName = lenderName || cityName || "";
-  
+export const RelatedCalculators = ({ currentPath, max = 4, lenderSlug, lenderName }: RelatedCalculatorsProps) => {
+  const currentTarget = currentPath.startsWith("/") ? currentPath : `/${currentPath}`;
   const related = allCalculators
-    .filter((c) => c.to !== currentPath && c.to !== "/calculators/compare" && c.to !== "/guides/help-to-buy-repayment")
-    .map((c) => ({
-      ...c,
-      to: c.noSlug ? c.to : c.to + suffix,
-      title: entityName && !c.noSlug ? `${entityName} ${c.title}` : c.title,
-    }))
+    .filter((c) => c.to !== "/calculators/compare" && c.to !== "/guides/help-to-buy-repayment")
+    .map((c) => {
+      const hasLenderRoute = Boolean(lenderSlug) && !c.noSlug && lenderCalculatorPaths.has(c.to);
+      return {
+        ...c,
+        to: hasLenderRoute ? `${c.to}/${lenderSlug}` : c.to,
+        title: hasLenderRoute && lenderName ? `${lenderName} ${c.title}` : c.title,
+      };
+    })
+    .filter((c) => c.to !== currentTarget)
     .slice(0, max);
 
   return (
     <section className="mt-12 pt-10 border-t border-border">
-      <h2 className="text-xl font-bold tracking-tight mb-1">{entityName ? `More ${entityName} Calculators` : "Related calculators"}</h2>
+      <h2 className="text-xl font-bold tracking-tight mb-1">Related calculators</h2>
       <p className="text-sm text-muted-foreground mb-6">
-        {entityName ? `All RepayWise independent tools for ${entityName} customers` : "Explore more free UK mortgage tools"}
+        {lenderName ? `Independent tools to plan a mortgage with ${lenderName}` : "Explore more free UK mortgage tools"}
       </p>
       <div className="grid sm:grid-cols-2 gap-3">
         {related.map((calc) => {
