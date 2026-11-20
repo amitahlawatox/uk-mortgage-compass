@@ -10,7 +10,6 @@ on:
 permissions:
   contents: read
   id-token: write
-  statuses: write
 
 jobs:
   verify:
@@ -24,64 +23,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Verify OpenAI API key can generate a response
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
-          GITHUB_STATUS_TOKEN: ${{ github.token }}
-        run: |
-          python - <<'PY'
-          import json, os, sys
-          from urllib.error import HTTPError, URLError
-          from urllib.request import Request, urlopen
-
-          def record(ok, detail):
-              # Only a non-sensitive diagnostic is written into a public commit status.
-              data = json.dumps({
-                  "state": "success" if ok else "failure",
-                  "context": "repaywise/integration/openai",
-                  "description": detail[:140],
-              }).encode("utf-8")
-              endpoint = "https://api.github.com/repos/" + os.environ["GITHUB_REPOSITORY"] + "/statuses/" + os.environ["GITHUB_SHA"]
-              req = Request(endpoint, data=data, method="POST", headers={
-                  "Authorization": "Bearer " + os.environ["GITHUB_STATUS_TOKEN"],
-                  "Content-Type": "application/json", "Accept": "application/vnd.github+json",
-              })
-              try:
-                  with urlopen(req, timeout=20): pass
-              except Exception:
-                  print("Diagnostic commit status unavailable.")
-
-          key = os.getenv("OPENAI_API_KEY", "")
-          if not key:
-              record(False, "OPENAI_API_KEY repository secret missing or unavailable")
-              sys.exit("OPENAI_API_KEY is not configured in Actions secrets")
-          model = os.getenv("OPENAI_MODEL") or "gpt-4.1-mini"
-          body = json.dumps({
-              "model": model,
-              "input": "Reply with only READY.",
-              "max_output_tokens": 48,
-              "store": False,
-          }).encode("utf-8")
-          req = Request("https://api.openai.com/v1/responses", data=body,
-              headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"}, method="POST")
-          try:
-              with urlopen(req, timeout=45) as response:
-                  result = json.load(response)
-          except HTTPError as exc:
-              record(False, f"OpenAI Responses API HTTP {exc.code}")
-              sys.exit(f"OpenAI Responses API HTTP {exc.code}; check billing, token and model")
-          except (URLError, TimeoutError, OSError):
-              record(False, "OpenAI Responses API network error")
-              sys.exit("OpenAI Responses API network error")
-          if not result.get("id") or result.get("status") != "completed":
-              record(False, "OpenAI response incomplete")
-              sys.exit("OpenAI API returned an incomplete or invalid response")
-          record(True, "OpenAI inference succeeded")
-          print("OpenAI API inference: SUCCESS")
-          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
-              f.write("### OpenAI inference: PASS\\n\\nNo model output or keys logged.\\n")
-          PY
       - name: Authenticate to Google with existing keyless identity
         if: always()
         uses: google-github-actions/auth@v3
@@ -116,6 +57,7 @@ jobs:
         run: |
           {
             echo "### Verification limitations"
+            echo "This workflow checks Google and Vercel integrations without paid AI inference."
             echo "Passing Vercel API access does not grant ChatGPT direct API access."
             echo "This workflow never changes firewall rules, DNS, deployments or content."
             echo "The live SEO probe uses a synthetic UA; a challenge is not proof that Googlebot is blocked."
