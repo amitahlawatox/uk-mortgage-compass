@@ -14,7 +14,15 @@ User-agent: Slurp
 Allow: /
 Crawl-delay: 2
 
-# ── AI search crawlers — allowed (surface us in AI answers) ───────
+# ── AI search and user-requested fetches ─────────────────────────
+User-agent: OAI-SearchBot
+Disallow: /api/
+Allow: /
+
+User-agent: ChatGPT-User
+Disallow: /api/
+Allow: /
+
 User-agent: Google-Extended
 Allow: /
 
@@ -24,9 +32,6 @@ Crawl-delay: 2
 
 # ── AI training crawlers — blocked (bandwidth, no traffic) ────────
 User-agent: GPTBot
-Disallow: /
-
-User-agent: ChatGPT-User
 Disallow: /
 
 User-agent: CCBot
