@@ -51,6 +51,7 @@ const STATIC_PAGES = [
   "/news/lifetime-isa-withdrawal-charge-2026",
   "/news/property-income-tax-landlords-2027",
   "/news/bank-rate-november-2026-mortgages",
+  "/news/ons-rents-house-prices-november-2026",
   "/news/mortgage-arrears-q3-2026-borrower-support",
   "/calculators/compare",
   "/calculators/remortgage",

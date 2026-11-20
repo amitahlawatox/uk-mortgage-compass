@@ -97,6 +97,16 @@ const GuidesPage = () => (
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-5">Latest mortgage news</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <article className="rounded-3xl border glass-card p-6">
+            <p className="text-xs text-muted-foreground">20 November 2026 · UK</p>
+            <h3 className="mt-2 text-xl font-semibold">Rents, house prices and your buying budget</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Use the latest ONS figures to test a deposit and mortgage scenario without treating national averages as a personal budget.
+            </p>
+            <Link className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent" to="/news/ons-rents-house-prices-november-2026">
+              Read the update <ArrowRight className="size-4" />
+            </Link>
+          </article>
+          <article className="rounded-3xl border glass-card p-6">
             <p className="text-xs text-muted-foreground">12 November 2026 · UK</p>
             <h3 className="mt-2 text-xl font-semibold">Mortgage arrears fell in Q3 2026</h3>
             <p className="mt-2 text-sm text-muted-foreground">
