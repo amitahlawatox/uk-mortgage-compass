@@ -398,20 +398,21 @@ export const StampDutySEOContent = () => (
 export const RemortgageSEOContent = () => (
   <section className="mt-12 pt-10 border-t border-border space-y-8">
     <div>
-      <h2 className="text-xl font-bold tracking-tight mb-3">When Does Remortgaging Make Sense?</h2>
+      <h2 className="text-xl font-bold tracking-tight mb-3">Compare a new mortgage with staying</h2>
       <div className="text-sm text-muted-foreground space-y-3 leading-relaxed">
-        <p>Remortgaging means switching your existing mortgage to a new deal, either with your current lender (a product transfer) or a new one. Most people remortgage when a fixed rate is about to end, to avoid slipping onto the lender's standard variable rate (SVR), which is usually far more expensive.</p>
-        <p>The saving from remortgaging depends on the new rate, any arrangement fees, and how long you'll keep the deal. A lower rate can cut hundreds off your monthly payment, but fees and legal costs mean it's the total cost over the deal period — not just the headline rate — that matters. Building equity also helps: a lower loan-to-value can move you into a cheaper rate band.</p>
-        <p>Use the calculator above to compare your current deal against a new rate and see the break-even point once fees are included.</p>
+        <p>A product transfer changes the deal with your current lender. Remortgaging to another lender replaces the mortgage. Check your contract's follow-on rate, deal end date and any early repayment charge before comparing offers.</p>
+        <p>Choose the same comparison period for both options. The calculator adds interest paid during that period and the new deal's upfront switching costs, then shows the balance still owed on each loan. Monthly payments alone can mislead when one term is longer: paying less each month may leave more debt.</p>
+        <p>Enter rates from your own illustrations. This model holds each entered rate constant for the chosen period and assumes the product fee and any early repayment charge are paid upfront. It does not model a fee added to the loan, cashback, future rate changes or other legal and valuation costs. If either product rate ends during the chosen period, use a shorter comparison window or obtain a new illustration.</p>
+        <p>Read our <Link to="/guides/fixed-rate-ending" className="text-accent underline">fixed-rate ending guide</Link> for a decision timeline. <a href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/remortgaging-to-cut-costs.html" target="_blank" rel="noopener noreferrer" className="text-accent underline">MoneyHelper explains remortgaging costs</a>, and the <a href="https://www.fca.org.uk/consumers/financial-impact-rising-costs-living/support-mortgages-interest-rates" target="_blank" rel="noopener noreferrer" className="text-accent underline">FCA explains why extending a term can increase total repayment</a>.</p>
       </div>
     </div>
     <div>
-      <h2 className="text-lg font-bold tracking-tight mb-3">Frequently Asked Questions</h2>
+      <h2 className="text-lg font-bold tracking-tight mb-3">Questions to check before switching</h2>
       <div className="rounded-2xl border border-border p-4">
-        <FAQItem question="When should I start looking to remortgage?" answer="Most lenders let you lock in a new deal up to six months before your current rate ends. Starting early means you can secure a rate and avoid dropping onto the standard variable rate when your fix expires." />
-        <FAQItem question="Does remortgaging cost money?" answer="It can. Watch for arrangement/product fees, valuation and legal costs, and any early repayment charge on your current deal. Many remortgage products include free valuation and legals. Always compare the total cost over the deal period, not just the rate." />
-        <FAQItem question="Is a product transfer the same as remortgaging?" answer="A product transfer is switching to a new deal with your existing lender, which is usually quicker with less paperwork. A full remortgage moves to a new lender and may offer a better rate but involves affordability checks and legal work." />
-        <FAQItem question="Can I remortgage to release equity?" answer="Yes. You can remortgage for a higher amount than you currently owe and take the difference as cash, provided you have enough equity and pass affordability. Common uses include home improvements or consolidating debt — though it increases your borrowing." />
+        <FAQItem question="Why can a lower monthly payment cost more?" answer="A longer term spreads repayment of the capital across more months. The balance can therefore stay higher, attracting more interest. Compare interest and fees over the same period and look at the balance still owed." />
+        <FAQItem question="Which costs should I enter?" answer="Enter a product or arrangement fee and any early repayment charge you would pay to leave the current deal. This calculator treats both as upfront costs. Check the illustration for legal, valuation and other charges that are not included here." />
+        <FAQItem question="What if my fixed rate ends during the comparison period?" answer="The model assumes the entered rate stays constant. Choose a comparison period covered by both quoted rates or ask the lender or adviser for an illustration showing the later rate and payments." />
+        <FAQItem question="Will a new lender approve my application?" answer="The calculation does not assess eligibility or affordability. Ask the lender or an FCA-authorised mortgage adviser to check the terms available to you." />
       </div>
     </div>
   </section>

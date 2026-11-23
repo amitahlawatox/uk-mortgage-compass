@@ -6,10 +6,9 @@ import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { RelatedCalculators } from "@/components/calculators/RelatedCalculators";
 import { LastUpdated } from "@/components/calculators/LastUpdated";
 import { formatGBP } from "@/lib/finance/decimal";
-import { calculateRepayment } from "@/lib/finance/repayment";
+import { calculateRemortgageComparison } from "@/lib/finance/remortgage";
 import { SliderField, BigStat } from "@/pages/calculators/RepaymentPage";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { ArrowRight, TrendingDown, Landmark } from "lucide-react";
+import { TrendingDown, Landmark } from "lucide-react";
 
 const RemortgagePage = () => {
   // Current mortgage
@@ -22,45 +21,32 @@ const RemortgagePage = () => {
   const [newTerm, setNewTerm] = useState(20);
   const [fees, setFees] = useState(1_500);
   const [earlyRepaymentCharge, setEarlyRepaymentCharge] = useState(0);
+  const [selectedYears, setSelectedYears] = useState(2);
+  const comparisonYears = Math.min(selectedYears, currentTerm, newTerm);
 
-  const currentDeal = useMemo(
-    () => calculateRepayment({ principal: currentBalance, annualRate: currentRate, termYears: currentTerm }),
-    [currentBalance, currentRate, currentTerm],
-  );
-
-  // Calculate new deal WITHOUT fees in principal — fees are a one-off upfront cost
-  const newDeal = useMemo(
-    () => calculateRepayment({ principal: currentBalance, annualRate: newRate, termYears: newTerm }),
-    [currentBalance, newRate, newTerm],
-  );
-
-  const monthlySaving = currentDeal.monthlyPayment - newDeal.monthlyPayment;
-  const totalCostOfSwitch = fees + earlyRepaymentCharge;
-  const breakEvenMonths = monthlySaving > 0 ? Math.ceil(totalCostOfSwitch / monthlySaving) : 0;
-
-  // Compare total cost over the shorter of the two terms to avoid misleading results
-  const comparisonMonths = Math.min(currentTerm, newTerm) * 12;
-  const currentCostOverPeriod = currentDeal.monthlyPayment * comparisonMonths;
-  const newCostOverPeriod = newDeal.monthlyPayment * comparisonMonths + totalCostOfSwitch;
-  const netSaving = currentCostOverPeriod - newCostOverPeriod;
-  const worthSwitching = netSaving > 0;
-
-  const chart = useMemo(() => [
-    { name: "Current total cost", value: currentDeal.totalPaid, color: "hsl(var(--accent-secondary))" },
-    { name: "New total cost", value: newDeal.totalPaid, color: "hsl(var(--accent))" },
-  ], [currentDeal.totalPaid, newDeal.totalPaid]);
+  const comparison = useMemo(() => calculateRemortgageComparison({
+    balance: currentBalance,
+    rateIfStaying: currentRate,
+    remainingTermYears: currentTerm,
+    newRate,
+    newTermYears: newTerm,
+    productFee: fees,
+    earlyRepaymentCharge,
+    comparisonYears,
+  }), [currentBalance, currentRate, currentTerm, newRate, newTerm, fees, earlyRepaymentCharge, comparisonYears]);
+  const newDealLower = comparison.costDifference > 1;
+  const stayingLower = comparison.costDifference < -1;
 
   const pagePath = "calculators/remortgage";
-  const seoTitle = "Should I Remortgage? Free UK Calculator — See Your Savings";
-  const seoDescription = "Compare your current mortgage deal vs a new rate. See monthly savings, break-even point, and whether switching is worth the fees. Free remortgage calculator.";
+  const seoTitle = "Remortgage Cost Comparison Calculator | RepayWise";
+  const seoDescription = "Compare mortgage payments, interest, fees and remaining balances over the same period. Test a new rate and term against staying with your current mortgage.";
 
   return (
     <CalculatorShell
       eyebrow="Remortgage"
-      title="Should I Remortgage?"
-      intro="Compare your current mortgage deal against a new rate. See exactly how much you'd save monthly, when you'd break even on fees, and whether switching makes financial sense."
+      title="Compare remortgage costs"
+      intro="Model a new mortgage against staying with your current loan. Compare interest and fees over the same period, alongside monthly payments and the balance still owed."
       leadCalculator="remortgage"
-      leadContext={{ currentBalance, currentRate, newRate, monthlySaving, breakEvenMonths }}
     >
       <SEO
         title={seoTitle}
@@ -80,13 +66,16 @@ const RemortgagePage = () => {
       <div className="grid lg:grid-cols-5 gap-6">
         {/* Inputs */}
         <div className="lg:col-span-2 space-y-4">
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            Prefilled figures are examples, not current mortgage offers. Replace them with the rates, term, fees and balance from your own lender documents.
+          </p>
           <div className="glass-card rounded-2xl p-6 space-y-5">
             <div className="flex items-center gap-2">
               <Landmark className="size-4 text-accent" />
-              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. Current mortgage</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. If you stay</p>
             </div>
             <SliderField label="Outstanding balance" prefix="£" value={currentBalance} min={10_000} max={1_500_000} step={5_000} onChange={setCurrentBalance} />
-            <SliderField label="Current rate" suffix="%" value={currentRate} min={0.5} max={12} step={0.05} decimals={2} onChange={setCurrentRate} />
+            <SliderField label="Assumed rate if staying" suffix="%" value={currentRate} min={0.5} max={12} step={0.05} decimals={2} onChange={setCurrentRate} />
             <SliderField label="Remaining term (years)" value={currentTerm} min={1} max={40} step={1} onChange={setCurrentTerm} />
           </div>
 
@@ -95,76 +84,78 @@ const RemortgagePage = () => {
               <TrendingDown className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">2. New deal</p>
             </div>
-            <SliderField label="New rate" suffix="%" value={newRate} min={0.5} max={12} step={0.05} decimals={2} onChange={setNewRate} />
+            <SliderField label="Assumed new rate" suffix="%" value={newRate} min={0.5} max={12} step={0.05} decimals={2} onChange={setNewRate} />
             <SliderField label="New term (years)" value={newTerm} min={1} max={40} step={1} onChange={setNewTerm} />
             <SliderField label="Arrangement / product fee" prefix="£" value={fees} min={0} max={5_000} step={50} onChange={setFees} />
             <SliderField label="Early repayment charge (ERC)" prefix="£" value={earlyRepaymentCharge} min={0} max={20_000} step={100} onChange={setEarlyRepaymentCharge} />
+          </div>
+
+          <div className="glass-card rounded-2xl p-6 space-y-3">
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">3. Compare the same period</p>
+            <div className="flex flex-wrap gap-2" aria-label="Comparison period">
+              {([1, 2, 3, 4, 5] as const).filter((years) => years <= Math.min(currentTerm, newTerm)).map((years) => (
+                <button
+                  key={years}
+                  type="button"
+                  aria-pressed={comparisonYears === years}
+                  onClick={() => setSelectedYears(years)}
+                  className={`rounded-lg border px-3 py-2 text-sm font-semibold ${comparisonYears === years ? "border-accent bg-accent text-accent-foreground" : "border-border bg-secondary"}`}
+                >
+                  {years} year{years > 1 ? "s" : ""}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-muted-foreground">Choose a period covered by both mortgage terms and check whether each quoted rate lasts that long.</p>
           </div>
         </div>
 
         {/* Results */}
         <div className="lg:col-span-3 space-y-4">
           <div className="grid grid-cols-2 gap-3">
-            <BigStat label="Monthly saving" value={monthlySaving > 0 ? formatGBP(monthlySaving) : "No saving"} highlight={monthlySaving > 0} />
-            <BigStat label="Break-even" value={breakEvenMonths > 0 ? `${breakEvenMonths} months` : "Immediate"} />
-            <BigStat label="Net saving over term" value={formatGBP(Math.abs(netSaving))} highlight={worthSwitching} />
-            <BigStat label="Total switch cost" value={formatGBP(totalCostOfSwitch)} />
+            <BigStat label="Stay: monthly payment" value={formatGBP(comparison.current.monthlyPayment)} />
+            <BigStat label="New: monthly payment" value={formatGBP(comparison.proposed.monthlyPayment)} />
+            <BigStat label={`Cost difference over ${comparison.years} year${comparison.years > 1 ? "s" : ""}`} value={formatGBP(Math.abs(comparison.costDifference), { decimals: 2 })} highlight={newDealLower} />
+            <BigStat label="Upfront switch costs" value={formatGBP(comparison.switchingCosts)} />
           </div>
 
-          {/* Verdict */}
-          <div className={`rounded-2xl p-6 border ${worthSwitching ? "border-green-500/30 bg-green-50/5" : "border-amber-500/30 bg-amber-50/5"}`}>
-            <div className="flex items-center gap-2 mb-2">
-              <ArrowRight className={`size-4 ${worthSwitching ? "text-green-500" : "text-amber-500"}`} />
-              <p className="text-sm font-bold">{worthSwitching ? "Remortgaging saves you money" : "Switching may not be worth it"}</p>
-            </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              {worthSwitching
-                ? `After paying ${formatGBP(totalCostOfSwitch)} in fees, you'd still save ${formatGBP(netSaving)} over ${Math.min(currentTerm, newTerm)} years. You break even in ${breakEvenMonths} month${breakEvenMonths === 1 ? "" : "s"}.`
-                : `The fees (${formatGBP(totalCostOfSwitch)}) outweigh the interest saving. Consider waiting until your current deal ends or your ERC drops.`
-              }
+          <div className="rounded-2xl border glass-card p-6 space-y-3" aria-live="polite">
+            <h2 className="text-lg font-semibold">
+              {newDealLower
+                ? `The new deal has ${formatGBP(comparison.costDifference, { decimals: 2 })} lower modelled borrowing cost over ${comparison.years} year${comparison.years > 1 ? "s" : ""}`
+                : stayingLower
+                  ? `Staying has ${formatGBP(-comparison.costDifference, { decimals: 2 })} lower modelled borrowing cost over ${comparison.years} year${comparison.years > 1 ? "s" : ""}`
+                  : "Modelled borrowing costs are similar over this period"}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Borrowing cost here means interest during the chosen period plus the new deal's upfront fees and early repayment charge. It excludes principal repaid, which reduces the loan balance shown below. Because both options start with the same balance, this is also payments made plus the ending balance, less the starting balance, plus switching costs. A lower monthly payment can leave more to repay later.
             </p>
           </div>
 
-          {/* Comparison */}
           <div className="glass-card rounded-2xl p-6 space-y-4">
-            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Side-by-side comparison</p>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div>
-                <p className="text-xs text-muted-foreground mb-1">Current deal</p>
-                <p className="font-semibold tabular-nums">{formatGBP(currentDeal.monthlyPayment)}<span className="text-xs text-muted-foreground font-normal">/mo</span></p>
-                <p className="text-xs text-muted-foreground mt-1">Total interest: {formatGBP(currentDeal.totalInterest)}</p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground mb-1">New deal</p>
-                <p className="font-semibold tabular-nums">{formatGBP(newDeal.monthlyPayment)}<span className="text-xs text-muted-foreground font-normal">/mo</span></p>
-                <p className="text-xs text-muted-foreground mt-1">Total interest: {formatGBP(newDeal.totalInterest)}</p>
-              </div>
+            <h2 className="text-lg font-semibold">Position after {comparison.years} year{comparison.years > 1 ? "s" : ""}</h2>
+            <div className="grid gap-4 sm:grid-cols-2 text-sm">
+              {([
+                { label: "Stay", option: comparison.current, upfront: 0 },
+                { label: "New deal", option: comparison.proposed, upfront: comparison.switchingCosts },
+              ] as const).map(({ label, option, upfront }) => (
+                <div key={label} className="rounded-xl border border-border p-4 space-y-2">
+                  <h3 className="font-semibold">{label}</h3>
+                  <p>Payments made: <strong className="tabular-nums">{formatGBP(option.paymentsOverPeriod)}</strong></p>
+                  <p>Interest paid: <strong className="tabular-nums">{formatGBP(option.interestOverPeriod)}</strong></p>
+                  <p>Upfront switching costs: <strong className="tabular-nums">{formatGBP(upfront)}</strong></p>
+                  <p>Interest + costs: <strong className="tabular-nums">{formatGBP(option.borrowingCost)}</strong></p>
+                  <p>Balance still owed: <strong className="tabular-nums">{formatGBP(option.balanceAtEnd)}</strong></p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Chart */}
-          <div className="glass-card rounded-2xl p-6">
-            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Total cost comparison</p>
-            <div className="h-48 flex items-center justify-center">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={chart} dataKey="value" innerRadius={50} outerRadius={80} paddingAngle={2}>
-                    {chart.map((entry, i) => (
-                      <Cell key={i} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value: number) => formatGBP(value)} />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="flex justify-center gap-6 mt-2 text-xs">
-              <span className="flex items-center gap-1.5"><span className="size-2.5 rounded-full bg-[hsl(var(--accent-secondary))]" />Current: {formatGBP(currentDeal.totalPaid)}</span>
-              <span className="flex items-center gap-1.5"><span className="size-2.5 rounded-full bg-[hsl(var(--accent))]" />New: {formatGBP(newDeal.totalPaid)}</span>
-            </div>
-          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            Illustration only. Rates are assumed unchanged throughout the chosen period; a real product may end sooner. Fees and any ERC are paid upfront, not added to the loan. The estimate omits cashback, other costs and future rate changes. Check both lender illustrations and your contract before deciding.
+          </p>
 
           <RelatedCalculators currentPath="/calculators/remortgage" />
-          <LastUpdated date="4 June 2026" />
+          <LastUpdated date="23 November 2026" />
         </div>
       </div>
           <RemortgageSEOContent />
