@@ -10,6 +10,19 @@ import { calculateRemortgageComparison } from "@/lib/finance/remortgage";
 import { SliderField, BigStat } from "@/pages/calculators/RepaymentPage";
 import { TrendingDown, Landmark } from "lucide-react";
 
+// SliderField sends temporary drafts (including zero on clear) before blur.
+// Keep the last valid calculation input until the user finishes editing.
+const onValidInput = (
+  setValue: (value: number) => void,
+  min: number,
+  max: number,
+  wholeYears = false,
+) => (value: number) => {
+  if (Number.isFinite(value) && value >= min && value <= max) {
+    setValue(wholeYears ? Math.round(value) : value);
+  }
+};
+
 const RemortgagePage = () => {
   // Current mortgage
   const [currentBalance, setCurrentBalance] = useState(200_000);
@@ -74,9 +87,9 @@ const RemortgagePage = () => {
               <Landmark className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">1. If you stay</p>
             </div>
-            <SliderField label="Outstanding balance" prefix="£" value={currentBalance} min={10_000} max={1_500_000} step={5_000} onChange={setCurrentBalance} />
-            <SliderField label="Assumed rate if staying" suffix="%" value={currentRate} min={0.5} max={12} step={0.05} decimals={2} onChange={setCurrentRate} />
-            <SliderField label="Remaining term (years)" value={currentTerm} min={1} max={40} step={1} onChange={setCurrentTerm} />
+            <SliderField label="Outstanding balance" prefix="£" value={currentBalance} min={10_000} max={1_500_000} step={5_000} onChange={onValidInput(setCurrentBalance, 10_000, 1_500_000)} />
+            <SliderField label="Assumed rate if staying" suffix="%" value={currentRate} min={0.5} max={12} step={0.05} decimals={2} onChange={onValidInput(setCurrentRate, 0.5, 12)} />
+            <SliderField label="Remaining term (years)" value={currentTerm} min={1} max={40} step={1} onChange={onValidInput(setCurrentTerm, 1, 40, true)} />
           </div>
 
           <div className="glass-card rounded-2xl p-6 space-y-5">
@@ -84,10 +97,10 @@ const RemortgagePage = () => {
               <TrendingDown className="size-4 text-accent" />
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">2. New deal</p>
             </div>
-            <SliderField label="Assumed new rate" suffix="%" value={newRate} min={0.5} max={12} step={0.05} decimals={2} onChange={setNewRate} />
-            <SliderField label="New term (years)" value={newTerm} min={1} max={40} step={1} onChange={setNewTerm} />
-            <SliderField label="Arrangement / product fee" prefix="£" value={fees} min={0} max={5_000} step={50} onChange={setFees} />
-            <SliderField label="Early repayment charge (ERC)" prefix="£" value={earlyRepaymentCharge} min={0} max={20_000} step={100} onChange={setEarlyRepaymentCharge} />
+            <SliderField label="Assumed new rate" suffix="%" value={newRate} min={0.5} max={12} step={0.05} decimals={2} onChange={onValidInput(setNewRate, 0.5, 12)} />
+            <SliderField label="New term (years)" value={newTerm} min={1} max={40} step={1} onChange={onValidInput(setNewTerm, 1, 40, true)} />
+            <SliderField label="Arrangement / product fee" prefix="£" value={fees} min={0} max={5_000} step={50} onChange={onValidInput(setFees, 0, 5_000)} />
+            <SliderField label="Early repayment charge (ERC)" prefix="£" value={earlyRepaymentCharge} min={0} max={20_000} step={100} onChange={onValidInput(setEarlyRepaymentCharge, 0, 20_000)} />
           </div>
 
           <div className="glass-card rounded-2xl p-6 space-y-3">
