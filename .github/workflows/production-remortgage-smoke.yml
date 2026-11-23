@@ -1,0 +1,46 @@
+name: Verify production remortgage page
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [Deploy to Vercel]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Check live remortgage HTML
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VERCEL_ORG_ID: team_xIr05WKuFuH59g0nOFNm8jAo
+      VERCEL_PROJECT_ID: prj_DIvmuSV7F4C0dWcXWNVPTnmKiz6Z
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Fetch production page through Vercel
+        run: |
+          set -euo pipefail
+          vercel curl https://repaywise.co.uk/calculators/remortgage \
+            --token="$VERCEL_TOKEN" --silent --show-error --location --fail \
+            --output "$RUNNER_TEMP/remortgage.html"
+
+      - name: Verify current content and canonical
+        run: |
+          set -euo pipefail
+          page="$RUNNER_TEMP/remortgage.html"
+          grep -Fq 'Compare remortgage costs' "$page"
+          grep -Fq '3. Compare the same period' "$page"
+          grep -Fq 'A lower monthly payment can leave more to repay later.' "$page"
+          grep -Fq 'https://repaywise.co.uk/calculators/remortgage' "$page"
+          if grep -Fq 'Break-even point' "$page"; then
+            echo '::error::Outdated remortgage comparison remains live.'
+            exit 1
+          fi
+          echo 'Production remortgage HTML has the corrected comparison and canonical URL.'
+
