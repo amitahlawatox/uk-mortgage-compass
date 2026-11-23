@@ -111,7 +111,7 @@ const RemortgagePage = () => {
 
         {/* Results */}
         <div className="lg:col-span-3 space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <BigStat label="Stay: monthly payment" value={formatGBP(comparison.current.monthlyPayment)} />
             <BigStat label="New: monthly payment" value={formatGBP(comparison.proposed.monthlyPayment)} />
             <BigStat label={`Cost difference over ${comparison.years} year${comparison.years > 1 ? "s" : ""}`} value={formatGBP(Math.abs(comparison.costDifference), { decimals: 2 })} highlight={newDealLower} />
