@@ -72,7 +72,6 @@ const StampDutyWalesPage = () => {
           applicationCategory: "FinanceApplication",
           description: "Welsh LTT estimator for property purchases, including a higher residential rates option. Verify the result with the Welsh Revenue Authority.",
           offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-          areaServed: { "@type": "AdministrativeArea", name: "Wales" },
         }}
       />
       <BreadcrumbJsonLd
