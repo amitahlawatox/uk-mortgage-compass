@@ -68,15 +68,16 @@ const HomeImprovementBorrowingGuidePage = () => (
         <section className="rounded-2xl border glass-card p-6 flex flex-col gap-4 sm:flex-row sm:items-center">
           <Calculator className="size-9 shrink-0 text-accent" />
           <div className="flex-1">
-            <h2 className="font-semibold">Model the extra borrowing first</h2>
+            <h2 className="font-semibold">Model a loan against adding to the mortgage</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Enter the amount, quoted rate and repayment term for each option separately.
-              The repayment calculator models payments and interest; it does not include fees,
-              rate changes, eligibility or the cost of altering an existing mortgage.
+              Enter a personal-loan rate and term alongside the existing mortgage balance,
+              rate and term. The comparison assumes the extra mortgage borrowing has the same
+              rate and term as the existing balance. It excludes fees, rate changes, eligibility
+              and separate further-advance or second-charge terms.
             </p>
           </div>
-          <Link className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground" to="/calculators/repayment">
-            Open calculator <ArrowRight className="size-4" />
+          <Link className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground" to="/calculators/home-improvement">
+            Open comparison <ArrowRight className="size-4" />
           </Link>
         </section>
 
@@ -139,7 +140,8 @@ const HomeImprovementBorrowingGuidePage = () => (
             £11,189 more interest over the full term. It assumes the rate never changes and
             excludes fees, early repayment charges and the effect of changing your existing
             mortgage. Real offers may use different rates and terms. Test the extra borrowing
-            with your actual quotes in the <Link className="text-accent underline" to="/calculators/repayment">repayment calculator</Link>.
+            with your actual quotes in the <Link className="text-accent underline" to="/calculators/home-improvement">home-improvement comparison</Link>,
+            then use the lender&apos;s written illustration for costs the calculator leaves out.
           </p>
         </section>
 
