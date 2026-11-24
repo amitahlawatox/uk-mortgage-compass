@@ -218,6 +218,10 @@ export const routes: RouteRecord[] = [
         lazy: page(() => import("./pages/guides/InterestOnlyVsRepaymentGuidePage")),
       },
       {
+        path: "guides/borrow-for-home-improvements",
+        lazy: page(() => import("./pages/guides/HomeImprovementBorrowingGuidePage")),
+      },
+      {
         path: "news/your-first-home-equity-loan-2026",
         lazy: page(() => import("./pages/YourFirstHomeNewsPage")),
       },

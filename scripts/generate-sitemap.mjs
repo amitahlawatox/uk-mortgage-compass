@@ -47,6 +47,7 @@ const STATIC_PAGES = [
   "/guides/mortgage-deposit-vs-cash-reserve",
   "/guides/first-time-buyer-stamp-duty",
   "/guides/interest-only-vs-repayment-mortgage",
+  "/guides/borrow-for-home-improvements",
   "/news/your-first-home-equity-loan-2026",
   "/news/lifetime-isa-withdrawal-charge-2026",
   "/news/property-income-tax-landlords-2027",

@@ -506,19 +506,19 @@ export const RateCompareSEOContent = () => (
 export const HomeImprovementSEOContent = () => (
   <section className="mt-12 pt-10 border-t border-border space-y-8">
     <div>
-      <h2 className="text-xl font-bold tracking-tight mb-3">Financing Home Improvements: Loan vs Remortgage</h2>
+      <h2 className="text-xl font-bold tracking-tight mb-3">Check the full cost of home-improvement borrowing</h2>
       <div className="text-sm text-muted-foreground space-y-3 leading-relaxed">
-        <p>There are two common ways to fund renovations: an unsecured personal loan, or borrowing more against your home by remortgaging or taking a further advance. A personal loan is quicker and keeps your mortgage untouched, but rates are usually higher and terms shorter. Borrowing against your home typically has a lower rate but spreads the cost over a long term, so the total interest can be higher, and the debt is secured on your property.</p>
-        <p>The right choice depends on the amount, how quickly you can repay, and your current mortgage deal. The calculator above compares the total cost of each route so you can see which is cheaper for your project.</p>
+        <p>An unsecured personal loan, a further advance from your current lender, a full remortgage and a second charge are different routes. Each can have a different rate, term, fee and effect on your existing mortgage. Borrowing secured on your home also puts it at risk if you cannot keep up repayments.</p>
+        <p>This calculator is a simplified illustration of a personal loan versus adding the project amount to your existing mortgage balance. It assumes the entered mortgage rate stays the same on both the old and extra borrowing for the entire entered term. It does not include product or legal fees, early repayment charges, rate changes, a further advance at its own rate, or a second charge. Its lower-cost result is limited to those assumptions, not a recommendation or a complete quote comparison.</p>
+        <p>Read the <Link className="text-accent underline" to="/guides/borrow-for-home-improvements">home-improvement borrowing guide</Link> to compare four routes, check the effect of the repayment term and prepare questions for your lender or adviser.</p>
       </div>
     </div>
     <div>
       <h2 className="text-lg font-bold tracking-tight mb-3">Frequently Asked Questions</h2>
       <div className="rounded-2xl border border-border p-4">
-        <FAQItem question="Is it better to get a loan or remortgage for home improvements?" answer="A personal loan suits smaller amounts repaid quickly, with no risk to your home. Remortgaging or a further advance suits larger sums, usually at a lower rate but over a longer term, secured against your property. Compare the total cost of each." />
-        <FAQItem question="Can I add home improvement costs to my mortgage?" answer="Yes, by remortgaging for a higher amount or taking a further advance from your lender, if you have enough equity and pass affordability. This spreads the cost but adds it to your secured borrowing." />
-        <FAQItem question="Do home improvements add value to my property?" answer="Some do more than others. Kitchens, bathrooms, and extra usable space often add value, while very personal or over-specified work may not. Improvements that add more value than they cost create additional equity." />
-        <FAQItem question="Will borrowing more affect my mortgage rate?" answer="Possibly. Borrowing more raises your loan-to-value, which can move you into a higher rate band. If your home has risen in value, though, your LTV may still be low enough to keep a good rate." />
+        <FAQItem question="Does a lower monthly payment mean a cheaper loan?" answer="No. A longer term can lower the monthly amount while increasing the interest paid over the full term. Compare the total repayable and the balance still owed after the period you expect to keep the loan." />
+        <FAQItem question="Can I use a further advance instead of remortgaging?" answer="You can ask your current lender for a further advance. It is additional borrowing and may have its own rate and term. The lender will decide whether you qualify; this calculator does not model a separate further-advance rate." />
+        <FAQItem question="What is missing from this illustration?" answer="It excludes fees, early repayment charges, rate changes, eligibility and the distinct terms of a second charge. Use personalised written quotes to compare those costs and risks." />
       </div>
     </div>
   </section>

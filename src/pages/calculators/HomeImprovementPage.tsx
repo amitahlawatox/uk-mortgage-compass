@@ -71,16 +71,15 @@ const HomeImprovementPage = () => {
   ], [combinedMonthly, remortgageMonthly, personalLoanTotalCost, remortgageTotalCost]);
 
   const pagePath = "calculators/home-improvement";
-  const seoTitle = "Home Improvement: Loan vs Remortgage — Which Is Cheaper?";
-  const seoDescription = "Personal loan or remortgage for home improvements? Compare monthly payments and total interest side-by-side. Free UK calculator — see which option saves you money.";
+  const seoTitle = "Home Improvement Loan vs Remortgage Illustration | RepayWise";
+  const seoDescription = "Model monthly payments and interest for a personal loan against adding borrowing to a mortgage. Check the rate and term assumptions before comparing actual quotes.";
 
   return (
     <CalculatorShell
       eyebrow="Home Improvement"
-      title="Loan vs Remortgage — Which Is Cheaper?"
-      intro="Funding a home improvement? Compare the true cost of a personal loan against adding to your mortgage. See monthly payments, total interest, and which option saves you more over the full term."
+      title="Loan vs Remortgage: Model the Borrowing Cost"
+      intro="Compare a personal loan with adding your project cost to a mortgage under simplified, constant-rate assumptions. Check fees, charges and your actual lender terms before deciding."
       leadCalculator="home-improvement"
-      leadContext={{ improvementCost, cheaper, saving }}
     >
       <SEO
         title={seoTitle}
@@ -136,15 +135,15 @@ const HomeImprovementPage = () => {
               <Scale className={`size-4 ${cheaper === "remortgage" ? "text-green-500" : "text-blue-500"}`} />
               <p className="text-sm font-bold">
                 {cheaper === "remortgage"
-                  ? `Remortgaging saves ${formatGBP(saving)} overall`
-                  : `Personal loan saves ${formatGBP(saving)} overall`
+                  ? `Mortgage option is ${formatGBP(saving)} lower in this model`
+                  : `Personal loan is ${formatGBP(saving)} lower in this model`
                 }
               </p>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               {cheaper === "remortgage"
-                ? `Adding ${formatGBP(improvementCost)} to your mortgage at ${mortgageRate}% costs less in total interest than a ${loanRate}% personal loan — even spread over ${mortgageTerm} years. But your monthly payment is lower with the remortgage (${formatGBP(remortgageExtraMonthly)} extra/mo vs ${formatGBP(personalLoanMonthly)}/mo for the loan).`
-                : `The personal loan at ${loanRate}% for ${loanTerm} years costs less in total than spreading ${formatGBP(improvementCost)} over ${mortgageTerm} years on your mortgage. You'll pay more per month (${formatGBP(personalLoanMonthly)}/mo vs ${formatGBP(remortgageExtraMonthly)} extra) but clear the debt faster.`
+                ? `With the entered rates held constant and no fees, adding ${formatGBP(improvementCost)} to the mortgage adds ${formatGBP(remortgageExtraMonthly)} per month over ${mortgageTerm} years, compared with ${formatGBP(personalLoanMonthly)} per month for the ${loanTerm}-year loan. Actual remortgage costs may differ.`
+                : `With the entered rates held constant and no fees, the ${loanTerm}-year personal loan adds ${formatGBP(personalLoanMonthly)} per month, compared with ${formatGBP(remortgageExtraMonthly)} per month for extra mortgage borrowing over ${mortgageTerm} years. Actual offers may differ.`
               }
             </p>
           </div>
