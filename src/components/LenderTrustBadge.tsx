@@ -56,7 +56,7 @@ export function LenderTrustBadge({ lenderName, lenderWebsite, calculatorType = "
             <a
               href={officialUrl}
               target="_blank"
-              rel="noopener noreferrer nofollow"
+              rel="noopener noreferrer"
               className="text-primary underline underline-offset-2 hover:no-underline inline-flex items-center gap-1"
             >
               the {lenderName} official website

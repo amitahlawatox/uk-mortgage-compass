@@ -73,7 +73,6 @@ const StampDutyScotlandPage = () => {
           applicationCategory: "FinanceApplication",
           description: "Free LBTT calculator for Scotland property purchases. Covers first-time buyer relief and Additional Dwelling Supplement.",
           offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-          areaServed: { "@type": "AdministrativeArea", name: "Scotland" },
         }}
       />
       <BreadcrumbJsonLd
