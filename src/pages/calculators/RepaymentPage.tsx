@@ -331,7 +331,7 @@ const RepaymentPage = () => {
             <StepPane
               eyebrow="Step 3 of 3"
               question="What interest rate do you expect?"
-              hint="Live UK 5-year fixed sits around 4.5%. We also show you what a 1% rise would mean."
+              hint="Enter the rate from a current lender illustration. We also show what a 1% rise would mean."
             >
               <div className="grid grid-cols-4 gap-2 mb-6">
                 {[3.5, 4.0, 4.5, 5.0, 5.5, 6.0].map((currentRate) => (

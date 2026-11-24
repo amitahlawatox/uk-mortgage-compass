@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Calculator, Home, PoundSterling, Wallet } from "lucide-react";
+import { ArrowRight, BookOpen, Home, PoundSterling, Wallet } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SEO } from "@/components/SEO";
 import { trackIntentClick } from "@/lib/analytics";
@@ -59,6 +59,15 @@ const guides = [
     to: "/guides/interest-only-vs-repayment-mortgage",
     cta: "Read guide",
     icon: BookOpen,
+  },
+  {
+    slug: "borrow-for-home-improvements",
+    title: "Borrowing for home improvements: compare the cost and risk",
+    summary:
+      "Compare a further advance, remortgage, second charge and personal loan. Model the effect of a longer term before deciding how much to borrow.",
+    to: "/guides/borrow-for-home-improvements",
+    cta: "Read guide",
+    icon: Home,
   },
 ];
 
@@ -231,21 +240,6 @@ const GuidesPage = () => (
       </div>
     </section>
 
-    <section className="px-4 pb-24">
-      <div className="max-w-5xl mx-auto rounded-3xl border border-border bg-card-muted p-6 sm:p-8">
-        <div className="flex items-center gap-2 mb-3">
-          <Calculator className="size-4 text-accent" />
-          <p className="text-[11px] font-bold uppercase tracking-widest text-accent">
-            Editorial rule
-          </p>
-        </div>
-        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-[64ch]">
-          Every guide should link directly into a relevant calculator, explain the trade-offs in plain English,
-          and avoid generic filler. The goal is not just traffic. The goal is search traffic that converts into
-          calculator use, repeat visits, and eventually monetisable intent.
-        </p>
-      </div>
-    </section>
   </SiteShell>
 );
 
