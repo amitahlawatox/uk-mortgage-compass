@@ -89,13 +89,13 @@ const Index = () => {
           </span>
         </div>
         <h1 className="text-5xl sm:text-7xl font-bold tracking-tight leading-[0.95] mb-6 animate-fade-up">
-          Mortgages,
+          UK mortgage
           <br />
-          <span className="text-gradient-velocity">Upgraded.</span>
+          <span className="text-gradient-velocity">calculators.</span>
         </h1>
         <p className="text-lg sm:text-xl text-muted-foreground max-w-[52ch] mx-auto animate-fade-up">
-          Real-time intelligence for the UK property market. Calculate stamp duty, repayments,
-          overpayment savings and affordability in one place — with sub-second precision.
+          Explore repayments, overpayments, affordability and property tax estimates in one place.
+          Enter your own figures to compare possible costs before you decide.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3 animate-fade-up">
           <Link

@@ -184,7 +184,10 @@ const StampDutyWalesPage = () => {
         <section>
           <h2 className="text-xl font-bold text-foreground mb-3">Higher Residential Rates in Wales</h2>
           <p>
-            Buying a second home, holiday home, or buy-to-let property in Wales attracts the Higher Residential Rates — a 5% surcharge added to standard LTT rates on the total purchase price. This applies where you already own a residential property anywhere in the world and the new purchase is residential.
+            An additional residential purchase in Wales may attract higher residential LTT rates.
+            Wales uses separate higher-rate bands, not a flat surcharge on its standard bands.
+            Whether those rates apply depends on the transaction, including whether you are replacing
+            your main residence. Check the <a className="text-accent underline" href="https://www.gov.wales/land-transaction-tax-rates-and-bands" target="_blank" rel="noopener noreferrer">Welsh Government rate tables</a> and the official calculator for your circumstances.
           </p>
         </section>
 
@@ -201,7 +204,9 @@ const StampDutyWalesPage = () => {
         </section>
 
         <p className="text-xs text-muted-foreground border-t border-border pt-6">
-          RepayWise is independent and not affiliated with the Welsh Revenue Authority or any lender. LTT rates are correct as of 2026 but may change. Always confirm with a solicitor or the WRA before completing a transaction.
+          RepayWise is independent and not affiliated with the Welsh Revenue Authority or any lender.
+          The higher-rate estimate on this site is under review and may be wrong. Confirm the amount
+          with the Welsh Revenue Authority calculator and your conveyancer before completing a transaction.
         </p>
       </article>
     </SiteShell>
