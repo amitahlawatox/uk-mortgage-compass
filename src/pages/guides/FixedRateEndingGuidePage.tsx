@@ -13,7 +13,7 @@ const FixedRateEndingGuidePage = () => (
   <SiteShell>
     <SEO
       title="Fixed mortgage ending? Plan your next deal and payment | RepayWise"
-      description="A practical UK guide to the end of a fixed mortgage: when to start, how to compare a product transfer with remortgaging, and how to model a payment change."
+      description="Plan before a fixed mortgage ends. Compare a product transfer with remortgaging using payments, fees and the balance after two years, then check your own lender terms."
       path="/guides/fixed-rate-ending"
     />
     <BreadcrumbJsonLd
@@ -39,7 +39,7 @@ const FixedRateEndingGuidePage = () => (
             a deal from another lender, including fees and your remaining balance. The right
             choice depends on your contract and circumstances, not a headline rate alone.
           </p>
-          <p className="mt-4 text-sm text-muted-foreground">Information checked 11 November 2026</p>
+          <p className="mt-4 text-sm text-muted-foreground">Information checked 26 November 2026</p>
         </header>
 
         <section className="space-y-3">
@@ -136,6 +136,54 @@ const FixedRateEndingGuidePage = () => (
             external remortgage will be approved. Ask your current lender what deals and
             support are available, and consider an FCA-authorised mortgage adviser for
             your circumstances.
+          </p>
+        </section>
+
+        <section className="space-y-4" id="compare-two-deals">
+          <h2 className="text-2xl font-semibold">A lower rate can still cost more over the deal</h2>
+          <p>
+            Suppose you have a £180,000 repayment mortgage with 20 years left. Your lender
+            offers a two-year product transfer at an assumed 4.5% with no fee. Another lender
+            offers an assumed 4.3% for two years, but you must pay a £1,500 fee upfront.
+            Both examples start on the same day, keep the same balance and remaining term,
+            and assume the rate stays fixed throughout those two years.
+          </p>
+          <div className="overflow-x-auto rounded-2xl border">
+            <table className="w-full min-w-[32rem] text-left text-sm">
+              <caption className="sr-only">Illustrative two-year comparison of a product transfer and remortgage</caption>
+              <thead className="bg-muted/50">
+                <tr>
+                  <th scope="col" className="px-4 py-3 font-semibold">Two-year illustration</th>
+                  <th scope="col" className="px-4 py-3 font-semibold">Product transfer</th>
+                  <th scope="col" className="px-4 py-3 font-semibold">New lender</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                <tr><th scope="row" className="px-4 py-3 font-medium">Assumed rate</th><td className="px-4 py-3">4.5%</td><td className="px-4 py-3">4.3%</td></tr>
+                <tr><th scope="row" className="px-4 py-3 font-medium">Monthly repayment</th><td className="px-4 py-3">about £1,139</td><td className="px-4 py-3">about £1,119</td></tr>
+                <tr><th scope="row" className="px-4 py-3 font-medium">Balance after 24 payments</th><td className="px-4 py-3">about £168,376</td><td className="px-4 py-3">about £168,132</td></tr>
+                <tr><th scope="row" className="px-4 py-3 font-medium">Interest paid in 24 months</th><td className="px-4 py-3">about £15,707</td><td className="px-4 py-3">about £14,998</td></tr>
+                <tr><th scope="row" className="px-4 py-3 font-medium">Upfront fee</th><td className="px-4 py-3">£0</td><td className="px-4 py-3">£1,500</td></tr>
+                <tr><th scope="row" className="px-4 py-3 font-medium">Interest plus fee</th><td className="px-4 py-3">about £15,707</td><td className="px-4 py-3">about £16,498</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            The new lender&apos;s payment is about £19 lower each month, yet its fee makes
+            the two-year borrowing cost about £792 higher in this illustration. The
+            ending balance is also different, so compare both cash paid and the debt left.
+            These are calculated examples, not available mortgage offers or lender rates.
+            Payments use monthly compounding and are rounded only for display; the
+            interest totals use the unrounded payment.
+          </p>
+          <p>
+            This example assumes no early repayment charge, cashback, valuation, legal or
+            broker cost, and pays the new lender&apos;s fee upfront rather than adding it to
+            the mortgage. Check every charge and incentive in your own illustrations.
+            If a fee is added to your loan, interest on that fee also matters. MoneyHelper
+            <a className="text-accent underline" href={moneyHelperRemortgage} rel="noopener noreferrer" target="_blank">explains the switching costs</a>{" "}
+            to include. Enter your own balance, rates, fees and comparison period in the{" "}
+            <Link className="text-accent underline" to="/calculators/remortgage">remortgage calculator</Link>.
           </p>
         </section>
 
