@@ -27,7 +27,7 @@ export const Footer = () => (
         </p>
         <ul className="space-y-2 text-sm">
           <li><Link to="/calculators/repayment" onClick={() => trackIntentClick("footer_calculators", "/calculators/repayment", "Mortgage Repayment")} className="hover:text-accent">Mortgage Repayment</Link></li>
-          <li><Link to="/calculators/overpayment" onClick={() => trackIntentClick("footer_calculators", "/calculators/overpayment", "Overpayment Visualiser")} className="hover:text-accent">Overpayment Visualiser</Link></li>
+          <li><Link to="/calculators/overpayment" onClick={() => trackIntentClick("footer_calculators", "/calculators/overpayment", "Mortgage Overpayment Calculator")} className="hover:text-accent">Mortgage Overpayment Calculator</Link></li>
           <li><Link to="/calculators/stamp-duty" onClick={() => trackIntentClick("footer_calculators", "/calculators/stamp-duty", "Stamp Duty")} className="hover:text-accent">Stamp Duty (SDLT/LBTT/LTT)</Link></li>
           <li><Link to="/calculators/remortgage" onClick={() => trackIntentClick("footer_calculators", "/calculators/remortgage", "Remortgage")} className="hover:text-accent">Should I Remortgage?</Link></li>
           <li><Link to="/calculators/rate-compare" onClick={() => trackIntentClick("footer_calculators", "/calculators/rate-compare", "Rate Compare")} className="hover:text-accent">Compare Mortgage Rates</Link></li>

@@ -121,10 +121,10 @@ const OverpaymentPage = () => {
 
   const title = lender
     ? `Calculate Interest Savings for ${lender.name} Mortgages`
-    : "Overpayment Visualiser";
+    : "Mortgage Overpayment Calculator";
   const intro = lender
     ? `Model how regular overpayments or a one-off lump sum could affect a ${lender.name} mortgage. The prefilled rate is an editable example, not ${lender.name}'s current SVR. Use the rate from your own mortgage statement or quote and check your overpayment allowance.`
-    : "Move the sliders. See exactly how a regular monthly overpayment or a one-off lump sum reshapes your mortgage: interest saved and years shaved off the term.";
+    : "Enter your balance, rate and overpayment to estimate the interest and time you could save. Check your lender's allowance and charges before paying extra.";
   const pagePath = city ? `calculators/overpayment/${city.slug}` : lender ? `calculators/overpayment/${lender.slug}` : "calculators/overpayment";
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   // Titles must stay under ~60 chars or Google truncates them (Ahrefs flagged
@@ -180,7 +180,7 @@ const OverpaymentPage = () => {
         items={[
           { name: "Home", href: "/" },
           { name: "Calculators", href: "/" },
-          { name: city ? `${city.name} Overpayment Calculator` : lender ? `${lender.name} Overpayment Calculator` : "Overpayment Visualiser", href: pagePath },
+          { name: city ? `${city.name} Overpayment Calculator` : lender ? `${lender.name} Overpayment Calculator` : "Mortgage Overpayment Calculator", href: pagePath },
         ]}
       />
 
