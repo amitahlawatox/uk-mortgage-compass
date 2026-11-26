@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { RemortgageSEOContent } from "@/components/calculators/SEOContent";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
@@ -166,6 +167,15 @@ const RemortgagePage = () => {
           <p className="text-xs text-muted-foreground leading-relaxed">
             Illustration only. Rates are assumed unchanged throughout the chosen period; a real product may end sooner. Fees and any ERC are paid upfront, not added to the loan. The estimate omits cashback, other costs and future rate changes. Check both lender illustrations and your contract before deciding.
           </p>
+
+          <section className="rounded-2xl border border-border p-5 text-sm">
+            <h2 className="text-lg font-semibold">Is your fixed deal ending?</h2>
+            <p className="mt-2 text-muted-foreground">
+              Read the{" "}
+              <Link className="text-accent underline" to="/guides/fixed-rate-ending">fixed-rate ending guide</Link>{" "}
+              for a timeline and a worked comparison of a product transfer with changing lender.
+            </p>
+          </section>
 
           <RelatedCalculators currentPath="/calculators/remortgage" />
           <LastUpdated date="23 November 2026" />
