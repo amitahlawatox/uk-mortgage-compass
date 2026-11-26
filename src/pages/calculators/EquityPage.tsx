@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { SEO } from "@/components/SEO";
@@ -23,10 +23,6 @@ const EquityPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const lender = slug ? getLenderBySlug(slug) : undefined;
   const city = slug && !lender ? getCityBySlug(slug) : undefined;
-
-  if (slug && !lender && !city) {
-    return <Navigate to="/calculators/equity" replace />;
-  }
 
   const [purchasePrice, setPurchasePrice] = useState(300_000);
   const [currentValue, setCurrentValue] = useState(360_000);
@@ -93,6 +89,10 @@ const EquityPage = () => {
   const canonicalUrl = `https://repaywise.co.uk/${pagePath}`;
   const seoTitle = lender ? `${lender.name} Home Equity Calculator — How Much Do You Own?` : city ? `${city.name} Home Equity Calculator | RepayWise` : "Home Equity Calculator UK — How Much of My Home Do I Own?";
   const seoDescription = lender ? `See how much equity you have in your ${lender.name} mortgage. Enter your property value and mortgage details — get LTV, equity %, and net sale proceeds instantly.` : city ? `Free home equity calculator for ${city.name}. ${city.description} See your outstanding mortgage balance, current LTV, and equity share.` : "Enter your property value and mortgage details — see how much equity you own, your LTV band, and what you’d walk away with if you sold. Free, no login.";
+
+  if (slug && !lender && !city) {
+    return <Navigate to="/calculators/equity" replace />;
+  }
 
   return (
     <CalculatorShell
@@ -273,6 +273,16 @@ const EquityPage = () => {
       </div>
 
       <LastUpdated date="4 June 2026" />
+      {!lender && !city && (
+        <section className="mt-8 rounded-2xl border border-border p-5 text-sm">
+          <h2 className="text-lg font-semibold">Do you also have a Help to Buy equity loan?</h2>
+          <p className="mt-2 text-muted-foreground">
+            A Help to Buy equity loan is separate from your mortgage balance. Use our{" "}
+            <Link className="text-accent underline" to="/guides/help-to-buy-repayment">Help to Buy repayment calculator</Link>{" "}
+            to explore what you might owe on the equity loan when you sell or repay it.
+          </p>
+        </section>
+      )}
       {!lender && !city && <EquitySEOContent />}
       <RelatedCalculators currentPath="/calculators/equity" lenderSlug={lender?.slug} lenderName={lender?.name} />
     </CalculatorShell>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { OverpaymentSEOContent } from "@/components/calculators/SEOContent";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
-import { Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { Area, AreaChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { CalculatorShell } from "@/components/calculators/CalculatorShell";
 import { DepositField } from "@/components/calculators/DepositField";
@@ -332,6 +332,15 @@ const OverpaymentPage = () => {
       </div>
 
       <LastUpdated date="30 April 2026" />
+      <section className="mt-8 rounded-2xl border border-border p-5 text-sm">
+        <h2 className="text-lg font-semibold">Check the rules before overpaying</h2>
+        <p className="mt-2 text-muted-foreground">
+          Your mortgage may limit overpayments or charge you for paying extra. Check your
+          product terms, then use our{" "}
+          <Link className="text-accent underline" to="/guides/mortgage-overpayment-guide">mortgage overpayment guide</Link>{" "}
+          to compare the interest saving with keeping cash available.
+        </p>
+      </section>
       <RelatedCalculators currentPath={pagePath} lenderSlug={lender?.slug} lenderName={lender?.name} citySlug={city?.slug} cityName={city?.name} />
           {!lender && !city && <OverpaymentSEOContent />}
     </CalculatorShell>
