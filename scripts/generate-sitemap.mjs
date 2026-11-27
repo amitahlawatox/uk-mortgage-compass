@@ -54,6 +54,7 @@ const STATIC_PAGES = [
   "/news/bank-rate-november-2026-mortgages",
   "/news/ons-rents-house-prices-november-2026",
   "/news/mortgage-arrears-q3-2026-borrower-support",
+  "/news/mortgage-renewals-financial-stability-november-2026",
   "/calculators/compare",
   "/calculators/remortgage",
   "/calculators/home-improvement",
