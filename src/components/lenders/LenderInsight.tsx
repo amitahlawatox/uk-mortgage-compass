@@ -36,6 +36,15 @@ export function LenderInsight({ slug, name, maxLtv, svr }: Props) {
         <div className="rounded-xl border border-border bg-card p-6">
           <h3 className="text-base font-semibold mb-3">{name} Overpayment Rules</h3>
           <p className="text-sm text-muted-foreground leading-relaxed">{content.overpaymentPolicy}</p>
+          {content.overpaymentSource && (
+            <p className="mt-3 text-xs text-muted-foreground">
+              Guidance checked {content.sourceChecked}. Read the{" "}
+              <a className="text-accent underline" href={content.overpaymentSource} target="_blank" rel="noopener noreferrer">
+                lender&apos;s current overpayment terms
+              </a>{" "}
+              and your own mortgage offer before acting.
+            </p>
+          )}
         </div>
         <div className="rounded-xl border border-border bg-card p-6">
           <h3 className="text-base font-semibold mb-3">Best For</h3>

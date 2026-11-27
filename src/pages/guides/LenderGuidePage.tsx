@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { LenderContextCard } from "@/components/lenders/LenderContextCard";
 import { buildLenderGuidePath, buildLenderPath, getLenderBySlug } from "@/lib/uk/lenders";
 import { UNIQUE_CONTENT_LENDERS } from "@/lib/uk/uniqueLenders";
+import { LENDER_CONTENT } from "@/lib/uk/lenderContent";
 
 const LenderGuidePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -18,6 +19,7 @@ const LenderGuidePage = () => {
   const overpaymentPath = buildLenderPath("overpayment", lender.slug);
   const repaymentPath = buildLenderPath("repayment", lender.slug);
   const maxBorrowingPath = buildLenderPath("max-borrowing", lender.slug);
+  const checkedOverpayment = LENDER_CONTENT[lender.slug];
 
   return (
     <SiteShell>
@@ -70,6 +72,16 @@ const LenderGuidePage = () => {
             ]}
             className="mt-8"
           />
+
+          {checkedOverpayment?.overpaymentSource && (
+            <p className="mt-4 text-sm text-muted-foreground">
+              Overpayment guidance checked {checkedOverpayment.sourceChecked}. Confirm your own allowance and charges in
+              your mortgage offer and the{" "}
+              <a className="text-accent underline" href={checkedOverpayment.overpaymentSource} target="_blank" rel="noopener noreferrer">
+                lender&apos;s current guidance
+              </a>.
+            </p>
+          )}
 
           <section className="mt-10 grid gap-4 md:grid-cols-3">
             <Card
